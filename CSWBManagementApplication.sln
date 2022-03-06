@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32210.238
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSWBManagementApplication", "CSWBManagementApplication.csproj", "{D82926F3-998B-4A88-A80D-1512B2BDEAB9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D82926F3-998B-4A88-A80D-1512B2BDEAB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D82926F3-998B-4A88-A80D-1512B2BDEAB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D82926F3-998B-4A88-A80D-1512B2BDEAB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D82926F3-998B-4A88-A80D-1512B2BDEAB9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {479464FB-5091-4A90-9969-01305EF7C200}
+	EndGlobalSection
+EndGlobal
