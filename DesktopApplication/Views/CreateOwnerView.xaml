@@ -1,0 +1,142 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CSWBManagementApplication.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:viewmodels="clr-namespace:CSWBManagementApplication.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:CreateOwnerViewModel}" x:Class="CSWBManagementApplication.Views.CreateOwnerView"
+             mc:Ignorable="d" 
+             d:DesignHeight="1080" d:DesignWidth="1920">
+    
+    <Grid Width="auto" Height="auto">
+
+        <Image Source="{StaticResource LoginBackground}"/>
+
+        <Grid >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="6*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="4*"/>
+            </Grid.RowDefinitions>
+
+            <Image Source="{StaticResource Logo}" Grid.Row="0"/>
+
+            <TextBlock Grid.Row="1"
+                       Text="Create Owner Account"
+                       Foreground="{StaticResource SolidLightGray}"
+                       FontSize="30"
+                       FontWeight="Bold"
+                       HorizontalAlignment="Center"/>
+
+
+            <Grid Grid.Row="2">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="4*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBox Grid.Row="1"
+                         Grid.Column="1"
+                         BorderThickness="2"
+                         FontSize="{DynamicResource MediumFontSize}"
+                         Foreground="White"
+                         materialDesign:HintAssist.Hint="Email"
+                         Text="{Binding Mail}"
+                         Style="{StaticResource MaterialDesignFilledTextBox}"
+                         IsEnabled="{Binding IsEnabled}"
+                />
+
+            </Grid>
+
+            <Grid Grid.Row="3" RenderTransformOrigin="0.5,0.5">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="4*"/>
+                    <RowDefinition Height="2*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <PasswordBox x:Name="PasswordBox"
+                             Grid.Row="1"
+                             Grid.Column="1"
+                             BorderThickness="2"
+                             FontSize="{DynamicResource MediumFontSize}"
+                             Foreground="White"
+                             materialDesign:HintAssist.Hint="Password"    
+                             Style="{StaticResource MaterialDesignFilledPasswordBox}"
+                             IsEnabled="{Binding IsEnabled}"
+                             
+                />
+
+                <Grid Grid.Row="2"
+                      Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                </Grid>
+
+            </Grid>
+
+            <Grid Grid.Row="4">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="2*"/>
+                </Grid.RowDefinitions>
+
+                <Button Grid.Row="0"
+                        Grid.Column="1"
+                        Content="Resend verify mail"
+                        Command="{Binding ResendVerifyMail}"
+                        Foreground="{StaticResource SolidLightGray}"
+                        Style="{StaticResource MaterialDesignFlatLightButton}"
+                        IsEnabled="{Binding Waiting}"
+                        Visibility="{Binding ResendVisibility}"/>
+
+                <Button Grid.Row="1"
+                        Grid.Column="1"
+                        Style="{StaticResource MaterialDesignFloatingActionButton}"
+                        Command="{Binding ButtonCommand}"
+                        CommandParameter="{Binding ElementName=PasswordBox}"
+                        ToolTip="{Binding ButtonToolTip}"
+                        materialDesign:ButtonProgressAssist.IsIndicatorVisible="{Binding Waiting}"
+                        materialDesign:ButtonProgressAssist.Value="0"
+                        materialDesign:ButtonProgressAssist.IsIndeterminate="True"                        
+                        Width="75" Height="75"
+                        >
+                    <materialDesign:PackIcon Kind="{Binding ButtonIcon}" Width="40" Height="40"/>
+                </Button>
+
+                <materialDesign:Snackbar Grid.Column="0"
+                                         Grid.ColumnSpan="3"
+                                         Grid.Row="3"
+                                         MessageQueue="{Binding CreateOwnerViewSnackbarMessageQueue}"
+                                         />
+
+            </Grid>
+
+        </Grid>
+    </Grid>
+</UserControl>

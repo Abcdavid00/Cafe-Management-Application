@@ -1,5 +1,4 @@
-﻿using CSWBManagementApplication.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CSWBManagementApplication.Views
+namespace CSWBManagementApplication.Views.ManagerViews
 {
     /// <summary>
-    /// Interaction logic for LoginView.xaml
+    /// Interaction logic for Red.xaml
     /// </summary>
-    public partial class LoginView : UserControl
+    public partial class Red : UserControl
     {
-        public LoginView()
+        public Red()
         {
             InitializeComponent();
         }

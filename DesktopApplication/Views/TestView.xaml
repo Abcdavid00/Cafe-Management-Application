@@ -1,0 +1,487 @@
+﻿<UserControl x:Class="CSWBManagementApplication.Views.OwnerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CSWBManagementApplication.Views"
+             xmlns:root="clr-namespace:CSWBManagementApplication"
+             mc:Ignorable="d" 
+             d:DesignHeight="950" d:DesignWidth="1800">
+
+    <!--<Window.Resources>
+
+        
+
+        <Storyboard x:Key="ActivateHome">
+
+            <ColorAnimation
+                         Storyboard.TargetName="BtnHome"
+                         Storyboard.TargetProperty="(Button.Foreground).(SolidColorBrush.Color)" 
+                         To="{StaticResource Orange}"
+                         Duration="{StaticResource ButtonColorAnimationDuration}"
+            />
+
+            <ColorAnimation
+                        Storyboard.TargetName="BtnHome"
+                            Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" 
+                            To="{StaticResource Orange}"
+                            Duration="{StaticResource ButtonColorAnimationDuration}"
+            />
+
+            <ColorAnimation
+                        Storyboard.TargetName="BtnCafe"
+                            Storyboard.TargetProperty="(Button.Foreground).(SolidColorBrush.Color)" 
+                            To="{StaticResource LightGray}"
+                            Duration="{StaticResource ButtonColorAnimationDuration}"
+            />
+
+            <ColorAnimation
+                        Storyboard.TargetName="BtnCafe"
+                            Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" 
+                            To="Transparent"
+                            Duration="{StaticResource ButtonColorAnimationDuration}"
+            />
+
+            <ColorAnimation
+                        Storyboard.TargetName="BtnStaff"
+                            Storyboard.TargetProperty="(Button.Foreground).(SolidColorBrush.Color)" 
+                            To="{StaticResource LightGray}"
+                            Duration="{StaticResource ButtonColorAnimationDuration}"
+            />
+
+            <ColorAnimation
+                        Storyboard.TargetName="BtnStaff"
+                            Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" 
+                            To="Transparent"
+                            Duration="{StaticResource ButtonColorAnimationDuration}"
+            />
+
+            <ColorAnimation
+                        Storyboard.TargetName="BtnMenu"
+                            Storyboard.TargetProperty="(Button.Foreground).(SolidColorBrush.Color)" 
+                            To="{StaticResource LightGray}"
+                            Duration="{StaticResource ButtonColorAnimationDuration}"
+            />
+
+            <ColorAnimation
+                        Storyboard.TargetName="BtnMenu"
+                            Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" 
+                            To="Transparent"
+                            Duration="{StaticResource ButtonColorAnimationDuration}"
+            />
+
+            <DoubleAnimation
+                        Storyboard.TargetName="HomeView"
+                        Storyboard.TargetProperty="(Button.Opacity)" 
+                        To="1"
+                        Duration="{StaticResource ButtonColorAnimationDuration}"/>
+
+            <DoubleAnimation
+                        Storyboard.TargetName="CafeView"
+                        Storyboard.TargetProperty="(Button.Opacity)" 
+                        To="0"
+                        Duration="{StaticResource ButtonColorAnimationDuration}"/>
+
+            <DoubleAnimation
+                        Storyboard.TargetName="StaffView"
+                        Storyboard.TargetProperty="(Button.Opacity)" 
+                        To="0"
+                        Duration="{StaticResource ButtonColorAnimationDuration}"/>
+
+            <DoubleAnimation
+                        Storyboard.TargetName="MenuView"
+                        Storyboard.TargetProperty="(Button.Opacity)" 
+                        To="0"
+                        Duration="{StaticResource ButtonColorAnimationDuration}"/>
+
+        </Storyboard>
+
+        <Storyboard x:Key="ActivateCafe">
+
+            <ColorAnimation
+                         Storyboard.TargetName="BtnCafe"
+                         Storyboard.TargetProperty="(Button.Foreground).(SolidColorBrush.Color)" 
+                         To="{StaticResource Orange}"
+                         Duration="{StaticResource ButtonColorAnimationDuration}"
+            />
+
+            <ColorAnimation
+                        Storyboard.TargetName="BtnCafe"
+                            Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" 
+                            To="{StaticResource Orange}"
+                            Duration="{StaticResource ButtonColorAnimationDuration}"
+            />
+
+            <ColorAnimation
+                        Storyboard.TargetName="BtnHome"
+                            Storyboard.TargetProperty="(Button.Foreground).(SolidColorBrush.Color)" 
+                            To="{StaticResource LightGray}"
+                            Duration="{StaticResource ButtonColorAnimationDuration}"
+            />
+
+            <ColorAnimation
+                        Storyboard.TargetName="BtnHome"
+                            Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" 
+                            To="Transparent"
+                            Duration="{StaticResource ButtonColorAnimationDuration}"
+            />
+
+            <ColorAnimation
+                        Storyboard.TargetName="BtnStaff"
+                            Storyboard.TargetProperty="(Button.Foreground).(SolidColorBrush.Color)" 
+                            To="{StaticResource LightGray}"
+                            Duration="{StaticResource ButtonColorAnimationDuration}"
+            />
+
+            <ColorAnimation
+                        Storyboard.TargetName="BtnStaff"
+                            Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" 
+                            To="Transparent"
+                            Duration="{StaticResource ButtonColorAnimationDuration}"
+            />
+
+            <ColorAnimation
+                        Storyboard.TargetName="BtnMenu"
+                            Storyboard.TargetProperty="(Button.Foreground).(SolidColorBrush.Color)" 
+                            To="{StaticResource LightGray}"
+                            Duration="{StaticResource ButtonColorAnimationDuration}"
+            />
+
+            <ColorAnimation
+                        Storyboard.TargetName="BtnMenu"
+                            Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" 
+                            To="Transparent"
+                            Duration="{StaticResource ButtonColorAnimationDuration}"
+            />
+
+            <DoubleAnimation
+                        Storyboard.TargetName="CafeView"
+                        Storyboard.TargetProperty="(Button.Opacity)" 
+                        To="1"
+                        Duration="{StaticResource ButtonColorAnimationDuration}"/>
+
+            <DoubleAnimation
+                        Storyboard.TargetName="HomeView"
+                        Storyboard.TargetProperty="(Button.Opacity)" 
+                        To="0"
+                        Duration="{StaticResource ButtonColorAnimationDuration}"/>
+
+            <DoubleAnimation
+                        Storyboard.TargetName="StaffView"
+                        Storyboard.TargetProperty="(Button.Opacity)" 
+                        To="0"
+                        Duration="{StaticResource ButtonColorAnimationDuration}"/>
+
+            <DoubleAnimation
+                        Storyboard.TargetName="MenuView"
+                        Storyboard.TargetProperty="(Button.Opacity)" 
+                        To="0"
+                        Duration="{StaticResource ButtonColorAnimationDuration}"/>
+
+        </Storyboard>
+
+        <Storyboard x:Key="ActivateStaff">
+
+            <ColorAnimation
+                         Storyboard.TargetName="BtnStaff"
+                         Storyboard.TargetProperty="(Button.Foreground).(SolidColorBrush.Color)" 
+                         To="{StaticResource Orange}"
+                         Duration="{StaticResource ButtonColorAnimationDuration}"
+            />
+
+            <ColorAnimation
+                        Storyboard.TargetName="BtnStaff"
+                            Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" 
+                            To="{StaticResource Orange}"
+                            Duration="{StaticResource ButtonColorAnimationDuration}"
+            />
+
+            <ColorAnimation
+                        Storyboard.TargetName="BtnHome"
+                            Storyboard.TargetProperty="(Button.Foreground).(SolidColorBrush.Color)" 
+                            To="{StaticResource LightGray}"
+                            Duration="{StaticResource ButtonColorAnimationDuration}"
+            />
+
+            <ColorAnimation
+                        Storyboard.TargetName="BtnHome"
+                            Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" 
+                            To="Transparent"
+                            Duration="{StaticResource ButtonColorAnimationDuration}"
+            />
+
+            <ColorAnimation
+                        Storyboard.TargetName="BtnCafe"
+                            Storyboard.TargetProperty="(Button.Foreground).(SolidColorBrush.Color)" 
+                            To="{StaticResource LightGray}"
+                            Duration="{StaticResource ButtonColorAnimationDuration}"
+            />
+
+            <ColorAnimation
+                        Storyboard.TargetName="BtnCafe"
+                            Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" 
+                            To="Transparent"
+                            Duration="{StaticResource ButtonColorAnimationDuration}"
+            />
+
+            <ColorAnimation
+                        Storyboard.TargetName="BtnMenu"
+                            Storyboard.TargetProperty="(Button.Foreground).(SolidColorBrush.Color)" 
+                            To="{StaticResource LightGray}"
+                            Duration="{StaticResource ButtonColorAnimationDuration}"
+            />
+
+            <ColorAnimation
+                        Storyboard.TargetName="BtnMenu"
+                            Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" 
+                            To="Transparent"
+                            Duration="{StaticResource ButtonColorAnimationDuration}"
+            />
+
+            <DoubleAnimation
+                        Storyboard.TargetName="StaffView"
+                        Storyboard.TargetProperty="(Button.Opacity)" 
+                        To="1"
+                        Duration="{StaticResource ButtonColorAnimationDuration}"/>
+
+            <DoubleAnimation
+                        Storyboard.TargetName="HomeView"
+                        Storyboard.TargetProperty="(Button.Opacity)" 
+                        To="0"
+                        Duration="{StaticResource ButtonColorAnimationDuration}"/>
+
+            <DoubleAnimation
+                        Storyboard.TargetName="CafeView"
+                        Storyboard.TargetProperty="(Button.Opacity)" 
+                        To="0"
+                        Duration="{StaticResource ButtonColorAnimationDuration}"/>
+
+            <DoubleAnimation
+                        Storyboard.TargetName="MenuView"
+                        Storyboard.TargetProperty="(Button.Opacity)" 
+                        To="0"
+                        Duration="{StaticResource ButtonColorAnimationDuration}"/>
+
+        </Storyboard>
+
+        <Storyboard x:Key="ActivateMenu">
+
+            <ColorAnimation
+                         Storyboard.TargetName="BtnMenu"
+                         Storyboard.TargetProperty="(Button.Foreground).(SolidColorBrush.Color)" 
+                         To="{StaticResource Orange}"
+                         Duration="{StaticResource ButtonColorAnimationDuration}"
+            />
+
+            <ColorAnimation
+                        Storyboard.TargetName="BtnMenu"
+                            Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" 
+                            To="{StaticResource Orange}"
+                            Duration="{StaticResource ButtonColorAnimationDuration}"
+            />
+
+            <ColorAnimation
+                        Storyboard.TargetName="BtnHome"
+                            Storyboard.TargetProperty="(Button.Foreground).(SolidColorBrush.Color)" 
+                            To="{StaticResource LightGray}"
+                            Duration="{StaticResource ButtonColorAnimationDuration}"
+            />
+
+            <ColorAnimation
+                        Storyboard.TargetName="BtnHome"
+                            Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" 
+                            To="Transparent"
+                            Duration="{StaticResource ButtonColorAnimationDuration}"
+            />
+
+            <ColorAnimation
+                        Storyboard.TargetName="BtnCafe"
+                            Storyboard.TargetProperty="(Button.Foreground).(SolidColorBrush.Color)" 
+                            To="{StaticResource LightGray}"
+                            Duration="{StaticResource ButtonColorAnimationDuration}"
+            />
+
+            <ColorAnimation
+                        Storyboard.TargetName="BtnCafe"
+                            Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" 
+                            To="Transparent"
+                            Duration="{StaticResource ButtonColorAnimationDuration}"
+            />
+
+            <ColorAnimation
+                        Storyboard.TargetName="BtnStaff"
+                            Storyboard.TargetProperty="(Button.Foreground).(SolidColorBrush.Color)" 
+                            To="{StaticResource LightGray}"
+                            Duration="{StaticResource ButtonColorAnimationDuration}"
+            />
+
+            <ColorAnimation
+                        Storyboard.TargetName="BtnStaff"
+                        Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" 
+                        To="Transparent"
+                        Duration="{StaticResource ButtonColorAnimationDuration}"
+            />
+
+            <DoubleAnimation
+                        Storyboard.TargetName="MenuView"
+                        Storyboard.TargetProperty="(Button.Opacity)" 
+                        To="1"
+                        Duration="{StaticResource ButtonColorAnimationDuration}"/>
+
+            <DoubleAnimation
+                        Storyboard.TargetName="HomeView"
+                        Storyboard.TargetProperty="(Button.Opacity)" 
+                        To="0"
+                        Duration="{StaticResource ButtonColorAnimationDuration}"/>
+
+            <DoubleAnimation
+                        Storyboard.TargetName="StaffView"
+                        Storyboard.TargetProperty="(Button.Opacity)" 
+                        To="0"
+                        Duration="{StaticResource ButtonColorAnimationDuration}"/>
+
+            <DoubleAnimation
+                        Storyboard.TargetName="CafeView"
+                        Storyboard.TargetProperty="(Button.Opacity)" 
+                        To="0"
+                        Duration="{StaticResource ButtonColorAnimationDuration}"/>
+
+        </Storyboard>
+
+    </Window.Resources>
+    
+    <ResourceDictionary>
+
+        <Duration x:Key="ButtonColorAnimationDuration">0:0:0.2</Duration>
+
+    </ResourceDictionary>
+    
+    <Grid>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="180"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0"
+                    Background="{StaticResource SolidDarkGray}">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="180"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="*"/>
+
+                </Grid.RowDefinitions>
+
+                <Image Grid.Row="0"
+                           Source="../Assets/Logo.png"
+                           />
+
+                <StackPanel Grid.Row="1"
+                                Orientation="Vertical"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Top"
+                                Margin="0,0,0,0"
+                                >
+
+                    <Button x:Name="BtnHome"
+                                Content="Home"
+                                Style="{StaticResource MenuTab}"
+                                Foreground="{StaticResource SolidOrange}"
+                                Background="{StaticResource SolidOrange}"
+                                >
+
+                        <Button.Triggers>
+
+                            <EventTrigger RoutedEvent="Button.Click">
+
+                                <BeginStoryboard Storyboard="{StaticResource ActivateHome}"/>
+
+                            </EventTrigger>
+
+                        </Button.Triggers>
+
+                    </Button>
+
+                    <Button x:Name="BtnCafe"
+                                Content="Cafe"
+                                Style="{StaticResource MenuTab}"
+                                Foreground="{StaticResource SolidLightGray}"
+                                Background="Transparent"
+                                >
+
+                        <Button.Triggers>
+
+                            <EventTrigger RoutedEvent="Button.Click">
+
+                                <BeginStoryboard Storyboard="{StaticResource ActivateCafe}"/>
+
+                            </EventTrigger>
+
+                        </Button.Triggers>
+
+                    </Button>
+
+                    <Button x:Name="BtnStaff"
+                                Content="Staff"
+                                Style="{StaticResource MenuTab}"
+                                Foreground="{StaticResource SolidLightGray}"
+                                Background="Transparent"
+                                >
+
+                        <Button.Triggers>
+
+                            <EventTrigger RoutedEvent="Button.Click">
+
+                                <BeginStoryboard Storyboard="{StaticResource ActivateStaff}"/>
+
+                            </EventTrigger>
+
+                        </Button.Triggers>
+
+                    </Button>
+
+                    <Button x:Name="BtnMenu"
+                                Content="Menu"
+                                Style="{StaticResource MenuTab}"
+                                Foreground="{StaticResource SolidLightGray}"
+                                Background="Transparent"
+                                >
+
+                        <Button.Triggers>
+
+                            <EventTrigger RoutedEvent="ButtonBase.Click">
+
+                                <BeginStoryboard Storyboard="{StaticResource ActivateMenu}"/>
+
+                            </EventTrigger>
+
+                        </Button.Triggers>
+
+                    </Button>
+
+                </StackPanel>
+
+                <StackPanel Grid.Row="2"
+                                Orientation="Vertical"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Bottom"
+                                Margin="0,0,0,0">
+
+
+
+                </StackPanel>
+
+            </Grid>
+
+        </Border>
+
+        <local:Home x:Name="HomeView" Grid.Column="1" />
+        <local:Cafe x:Name="CafeView" Grid.Column="1" Opacity="0"/>
+        <local:Staff x:Name="StaffView" Grid.Column="1" Opacity="0"/>
+        <local:Menu x:Name="MenuView" Grid.Column="1" Opacity="0"/>
+
+
+    </Grid>-->
+</UserControl>

@@ -23,6 +23,7 @@ namespace CSWBManagementApplication
         public MainWindow()
         {
             InitializeComponent();
+            
         }
     }
 }

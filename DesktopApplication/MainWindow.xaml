@@ -3,10 +3,97 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:CSWBManagementApplication" xmlns:views="clr-namespace:CSWBManagementApplication.Views"
+        xmlns:local="clr-namespace:CSWBManagementApplication"
+        xmlns:views="clr-namespace:CSWBManagementApplication.Views"
+        xmlns:vms="clr-namespace:CSWBManagementApplication.ViewModels"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <views:LoginView/>
-    </Grid>
+        Title="Stack Coffee"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        WindowState="Maximized"
+        d:DesignHeight="1080" d:DesignWidth="1920"
+        Name="StackCoffeeApp">
+
+    <Border Background="{StaticResource LinearDarkGray}">
+
+        <Grid>
+
+            <materialDesign:Transitioner SelectedIndex="{Binding State, Mode=OneWay}">
+
+                <materialDesign:TransitionerSlide>
+
+                    <materialDesign:TransitionerSlide.BackwardWipe>
+                        <materialDesign:SlideWipe Direction="Down"/>
+                    </materialDesign:TransitionerSlide.BackwardWipe>
+
+                    <ContentControl Content="{Binding CurrentLoginViewModel, Mode=OneWay}">
+                        <ContentControl.Resources>
+                            <DataTemplate DataType="{x:Type vms:LoginViewModel}">
+                                <views:LoginView />
+                            </DataTemplate>
+
+                            <DataTemplate DataType="{x:Type vms:CreateOwnerViewModel}">
+                                <views:CreateOwnerView />
+                            </DataTemplate>
+                        </ContentControl.Resources>
+                    </ContentControl>
+
+                    <materialDesign:TransitionerSlide.ForwardWipe>
+                        <materialDesign:SlideWipe Direction="Up"/>
+                    </materialDesign:TransitionerSlide.ForwardWipe>
+                    
+                </materialDesign:TransitionerSlide>
+
+                <materialDesign:TransitionerSlide>
+
+                    <ContentControl Content="{Binding CurrentWorkingViewModel, Mode=OneWay}">
+                        <ContentControl.Resources>
+                            <DataTemplate DataType="{x:Type vms:OwnerViewModel}">
+                                <views:OwnerView />
+                            </DataTemplate>
+
+                            <DataTemplate DataType="{x:Type vms:ManagerViewModel}">
+                                <views:ManagerView />
+                            </DataTemplate>
+
+                            <DataTemplate DataType="{x:Type vms:StaffViewModel}">
+                                <views:StaffView />
+                            </DataTemplate>
+                        </ContentControl.Resources>
+                    </ContentControl>
+                    
+                </materialDesign:TransitionerSlide>
+                
+            </materialDesign:Transitioner>
+            
+            
+            
+            <!--<ContentControl Content="{Binding CurrentViewModel}">
+                <ContentControl.Resources>
+
+                    <DataTemplate DataType="{x:Type vms:LoginViewModel}">
+                        <views:LoginView/>
+                    </DataTemplate>
+
+                    <DataTemplate DataType="{x:Type vms:OwnerViewModel}">
+                        <views:OwnerView/>
+                    </DataTemplate>
+
+                    <DataTemplate DataType="{x:Type vms:ManagerViewModel}">
+                        <views:ManagerView/>
+                    </DataTemplate>
+
+                    <DataTemplate DataType="{x:Type vms:CreateOwnerViewModel}">
+                        <views:CreateOwnerView/>
+                    </DataTemplate>
+
+                </ContentControl.Resources>
+            </ContentControl>-->
+
+            
+
+        </Grid>
+        
+    </Border>
 </Window>

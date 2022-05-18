@@ -3,33 +3,67 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CSWBManagementApplication.Services;
+using Google.Cloud.Firestore;
 
 namespace CSWBManagementApplication.Models
 {
+    [FirestoreData]
     internal abstract class User
     {
-        private string _username;
-        public string UserName
+        public enum Roles
         {
-            get { return _username; }
+            None = 0,
+            Owner = 1,
+            Manager = 2,
+            Staff = 3
         }
 
-        public User(string username, string password)
-        {
-            _username = username;
-            _password = password;
+        protected string uid;
+        [FirestoreDocumentId]
+        public string UID
+        { 
+            get { return uid; } 
+            set { uid = value; } 
         }
 
-        private string _password;
-
-        private void ChangeUsername()
+        protected string email;
+        [FirestoreProperty]
+        public string Email
         {
-            throw new NotImplementedException();
+            get { return email; }
+            set { email = value; }
         }
 
-        private void ChangePassword()
+        protected bool isOwner;
+        [FirestoreProperty]
+        public bool IsOwner
         {
-            throw new NotImplementedException();
+            get { return isOwner; }
+            set { isOwner = value; }
         }
+
+        protected User()
+        {
+            this.uid = "";
+            this.email = "";
+        }
+
+        protected User(string uid, string mail)
+        {
+            this.uid = uid;
+            this.email = mail;
+        }
+
+        public DocumentReference UserReference
+        {
+            get => Database.UserDocument(UID);
+        }
+
+        public Roles Role
+        {
+            get => (isOwner ? Roles.Owner : Database.UserRole(UserReference).Result);
+        }
+
     }
 }

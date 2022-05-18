@@ -1,0 +1,5 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <BitmapImage x:Key="Logo" UriSource="../Assets/Logo.png"/>
+    <BitmapImage x:Key="LoginBackground" UriSource="../Assets/LoginBackground.png"/>
+</ResourceDictionary>

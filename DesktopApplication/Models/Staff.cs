@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Google.Cloud.Firestore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,30 +7,86 @@ using System.Threading.Tasks;
 
 namespace CSWBManagementApplication.Models
 {
+    [FirestoreData]
     internal class Staff : User
     {
-        public readonly ulong StaffID;
+        private string cafeID;
+        [FirestoreProperty]
+        public string CafeID
+        {
+            get { return cafeID; }
+            set { cafeID = value; }
+        }
 
-        private string _name;
+        private string name;
+        [FirestoreProperty]
         public string Name
         {
-            get { return _name; }
+            get { return name; }
+            set { name = value; }
         }
 
-        private string _address;
-        public string Address
+        private string phone;
+        [FirestoreProperty]
+        public string Phone
         {
-            get { return _address; }
+            get { return phone; }
+            set { phone = value; }
         }
 
-        public Staff(string username, string password, ulong staffID, string name, string address) : base(username, password)
+        private bool isMale;
+        [FirestoreProperty]
+        public bool IsMale
         {
-            StaffID = staffID;
-            _name = name;
-            _address = address;
+            get { return isMale; }
+            set { isMale = value; }
         }
 
-        public ulong Salary()
+        private DateTime birthdate;        
+        public DateTime Birthdate
+        {
+            get { return birthdate; }
+        }
+
+        private string profilePicturePath;
+        [FirestoreProperty]
+        public string ProfilePicturePath
+        {
+            get => profilePicturePath;
+            set
+            {
+                profilePicturePath = value;
+            }
+        }
+        
+        [FirestoreProperty]
+        public long BinaryBirthDate
+        {
+            get { return birthdate.ToBinary(); }
+            set { birthdate = DateTime.FromBinary(value); }
+        }
+
+        public Staff()
+        {
+            isOwner = false;
+            cafeID = "";
+            name = "";
+            phone = "";
+            isMale = false;
+            birthdate = new DateTime();
+        }
+
+        public Staff(string uid ,string email, string cafeID, string name, string phone, bool isMale, DateTime birthdate) : base(uid, email)
+        {
+            isOwner = false;
+            this.cafeID = cafeID;
+            this.name = name;
+            this.phone = phone;
+            this.isMale = isMale;
+            this.birthdate = birthdate;
+        }
+
+        public ulong Salary(int month, int year)
         {
             throw new NotImplementedException();
         }

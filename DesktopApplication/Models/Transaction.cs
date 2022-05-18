@@ -10,11 +10,11 @@ namespace CSWBManagementApplication.Models
     {
         public readonly string TransactionID;
         public readonly long TransactionAmount;
-        public readonly ulong StaffID;
+        public readonly int StaffID;
         public readonly DateTime TimeStamp;
         public readonly string Note;
 
-        public Transaction(string transactionID, long transactionAmount, ulong staffID, DateTime timeStamp, string note)
+        public Transaction(string transactionID, long transactionAmount, int staffID, DateTime timeStamp, string note)
         {
             this.TransactionID = transactionID;
             this.TransactionAmount = transactionAmount;

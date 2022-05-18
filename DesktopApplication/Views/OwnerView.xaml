@@ -1,0 +1,200 @@
+﻿<UserControl x:Class="CSWBManagementApplication.Views.OwnerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CSWBManagementApplication.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="1080" d:DesignWidth="1920">
+    <Grid>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="180"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0"
+                    Background="{DynamicResource SolidDark}">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="180"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="*"/>
+
+                </Grid.RowDefinitions>
+
+                <Image Grid.Row="0"
+                           Source="../Assets/Logo.png"
+                />
+
+
+                <ItemsControl Grid.Row="1"
+                              ItemsSource="{Binding NavigationChips}"
+                              >
+                    <ItemsControl.ItemsPanel>
+                        
+                        <ItemsPanelTemplate>
+                                                        
+                            <StackPanel/>
+                            
+                        </ItemsPanelTemplate>
+                        
+                    </ItemsControl.ItemsPanel>
+                    
+                    <ItemsControl.ItemTemplate>
+                        
+                        <DataTemplate>
+                            
+                            <materialDesign:Chip  Content="{Binding Content}"
+                                                  Style="{StaticResource MaterialDesignOutlineChip}"
+                                                  FontSize="{DynamicResource MediumFontSize}"
+                                                  Margin="10, 5, 10, 5"
+                                                  Background="Transparent"
+                                                  Foreground="{Binding Foreground}"
+                                                  IconBackground="Transparent"
+                                                  IconForeground="{Binding Foreground}"
+                                                  Command="{Binding Command}"
+                                                  BorderThickness="2"
+                                                  BorderBrush="{Binding BorderBrush}"
+                                                  Width="150"
+                                                  Height="50"
+                            >
+                                
+                                <materialDesign:Chip.Icon>
+                                    
+                                    <materialDesign:PackIcon Kind="{Binding Icon}"/>
+                                    
+                                </materialDesign:Chip.Icon>
+                                
+                            </materialDesign:Chip>
+                            
+                        </DataTemplate>
+                        
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <StackPanel Grid.Row="2"
+                            Orientation="Vertical"
+                            VerticalAlignment="Bottom"
+                            Margin="0,0,0,0">
+
+                    <Button Content="{materialDesign:PackIcon Logout}"
+                            ToolTip="Log out"
+                            Margin="10, 10, 10, 10"
+                            HorizontalAlignment="Left"
+                            Command="{Binding Path=LogoutCommand, Mode=OneWay}"
+                    />
+
+                </StackPanel>
+
+            </Grid>
+
+        </Border>
+
+        <materialDesign:Transitioner Grid.Column="1"
+                                     SelectedIndex="{Binding SelectedIndex}"
+                                     Background="{DynamicResource LinearDarkBackground}">
+            <materialDesign:TransitionerSlide>
+                
+                <materialDesign:TransitionerSlide.BackwardWipe>
+                    <materialDesign:SlideWipe Direction="Down"/>
+                </materialDesign:TransitionerSlide.BackwardWipe>
+
+                <ContentControl>
+                    <ContentControl.ContentTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="Home View"
+                                       FontSize="70"
+                                       Foreground="{DynamicResource SolidLight}"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"/>
+                        </DataTemplate>
+                    </ContentControl.ContentTemplate>
+                </ContentControl>   
+                
+                <materialDesign:TransitionerSlide.ForwardWipe>
+                    <materialDesign:SlideWipe Direction="Up"/>
+                </materialDesign:TransitionerSlide.ForwardWipe>
+                
+            </materialDesign:TransitionerSlide>
+
+            <materialDesign:TransitionerSlide>
+
+                <materialDesign:TransitionerSlide.BackwardWipe>
+                    <materialDesign:SlideWipe Direction="Down"/>
+                </materialDesign:TransitionerSlide.BackwardWipe>
+
+                <ContentControl>
+                    <ContentControl.ContentTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="Cafes View"
+                                       FontSize="70"
+                                       Foreground="{DynamicResource SolidLight}"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"/>
+                        </DataTemplate>
+                    </ContentControl.ContentTemplate>
+                </ContentControl>
+
+                <materialDesign:TransitionerSlide.ForwardWipe>
+                    <materialDesign:SlideWipe Direction="Up"/>
+                </materialDesign:TransitionerSlide.ForwardWipe>
+
+            </materialDesign:TransitionerSlide>
+
+            <materialDesign:TransitionerSlide>
+
+                <materialDesign:TransitionerSlide.BackwardWipe>
+                    <materialDesign:SlideWipe Direction="Down"/>
+                </materialDesign:TransitionerSlide.BackwardWipe>
+
+                <ContentControl>
+                    <ContentControl.ContentTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="Employee View"
+                                       FontSize="70"
+                                       Foreground="{DynamicResource SolidLight}"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"/>
+                        </DataTemplate>
+                    </ContentControl.ContentTemplate>
+                </ContentControl>
+
+                <materialDesign:TransitionerSlide.ForwardWipe>
+                    <materialDesign:SlideWipe Direction="Up"/>
+                </materialDesign:TransitionerSlide.ForwardWipe>
+
+            </materialDesign:TransitionerSlide>
+
+            <materialDesign:TransitionerSlide>
+
+                <materialDesign:TransitionerSlide.BackwardWipe>
+                    <materialDesign:SlideWipe Direction="Down"/>
+                </materialDesign:TransitionerSlide.BackwardWipe>
+
+                <ContentControl>
+                    <ContentControl.ContentTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="Products View"
+                                       FontSize="70"
+                                       Foreground="{DynamicResource SolidLight}"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"/>
+                        </DataTemplate>
+                    </ContentControl.ContentTemplate>
+                </ContentControl>
+
+                <materialDesign:TransitionerSlide.ForwardWipe>
+                    <materialDesign:SlideWipe Direction="Up"/>
+                </materialDesign:TransitionerSlide.ForwardWipe>
+
+            </materialDesign:TransitionerSlide>
+
+        </materialDesign:Transitioner>
+        
+        
+
+    </Grid>
+</UserControl>

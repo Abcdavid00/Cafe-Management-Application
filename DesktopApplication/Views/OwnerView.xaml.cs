@@ -1,5 +1,4 @@
-﻿using CSWBManagementApplication.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,11 +16,11 @@ using System.Windows.Shapes;
 namespace CSWBManagementApplication.Views
 {
     /// <summary>
-    /// Interaction logic for LoginView.xaml
+    /// Interaction logic for OwnerView.xaml
     /// </summary>
-    public partial class LoginView : UserControl
+    public partial class OwnerView : UserControl
     {
-        public LoginView()
+        public OwnerView()
         {
             InitializeComponent();
         }
