@@ -15,7 +15,7 @@
         d:DesignHeight="1080" d:DesignWidth="1920"
         Name="StackCoffeeApp">
 
-    <Border Background="{StaticResource LinearDarkGray}">
+    <Border Background="{DynamicResource LinearDarkBackground}">
 
         <Grid>
 

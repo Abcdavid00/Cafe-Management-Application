@@ -337,7 +337,7 @@ namespace CSWBManagementApplication.Services
             QuerySnapshot staffsSnapshot = await CafeStaffCollection(cafeID).GetSnapshotAsync();
             foreach (DocumentSnapshot staffSnapshot in staffsSnapshot)
             {
-
+                
             }
             return staffs.AsEnumerable();
         }

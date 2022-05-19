@@ -76,7 +76,7 @@
                             Content="Forgot Password"
                             VerticalAlignment="Top"
                             HorizontalAlignment="Right"
-                            Foreground="{StaticResource SolidLightGray}"                      
+                            Foreground="{DynamicResource SolidLight}"                      
                             Style="{StaticResource MaterialDesignFlatLightButton}"
                             Command="{Binding ForgotPasswordCommand}"
                     />
@@ -110,8 +110,8 @@
                     <materialDesign:Snackbar Grid.Column="0"
                                              Grid.ColumnSpan="3"
                                              Grid.Row="3"
-                                             Foreground="{StaticResource SolidLightGray}"
-                                             Background="{StaticResource LinearOrange}"
+                                             Foreground="{DynamicResource SolidLight}"
+                                             Background="{DynamicResource LinearMain}"
                                              MessageQueue="{Binding LoginViewSnackbarMessageQueue}"
                     />
 
@@ -129,8 +129,8 @@
             <materialDesign:DialogHost.DialogContent>
                 <Grid >
                     <materialDesign:Card
-                      Background="{StaticResource LinearDarkGray}"
-                      Foreground="{StaticResource SolidLightGray}"
+                      Background="{DynamicResource LinearDarkBackground}"
+                      Foreground="{DynamicResource SolidLight}"
                       VerticalAlignment="Center"
                       HorizontalAlignment="Center"
                     >
