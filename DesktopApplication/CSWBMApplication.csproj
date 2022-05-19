@@ -314,6 +314,7 @@
     <Compile Include="Service\Database.cs" />
     <Compile Include="Service\MainNavigation.cs" />
     <Compile Include="Service\MiscFunctions.cs" />
+    <Compile Include="ViewModels\CafeCardViewModel.cs" />
     <Compile Include="ViewModels\CreateOwnerViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
@@ -357,6 +358,9 @@
     </Compile>
     <Compile Include="Views\StaffView.xaml.cs">
       <DependentUpon>StaffView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TestingView.xaml.cs">
+      <DependentUpon>TestingView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -427,6 +431,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\StaffView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TestingView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace CSWBManagementApplication.Views
 {
     /// <summary>
-    /// Interaction logic for CreateOwnerView.xaml
+    /// Interaction logic for TestingView.xaml
     /// </summary>
-    public partial class CreateOwnerView : UserControl
+    public partial class TestingView : UserControl
     {
-        public CreateOwnerView()
+        public TestingView()
         {
             InitializeComponent();
         }

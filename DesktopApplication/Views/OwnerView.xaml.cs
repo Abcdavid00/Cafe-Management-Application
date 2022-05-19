@@ -24,5 +24,10 @@ namespace CSWBManagementApplication.Views
         {
             InitializeComponent();
         }
+
+        private void Transitioner_StylusLeave(object sender, StylusEventArgs e)
+        {
+
+        }
     }
 }

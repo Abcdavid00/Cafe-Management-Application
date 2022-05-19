@@ -25,7 +25,7 @@
 
             <TextBlock Grid.Row="1"
                        Text="Create Owner Account"
-                       Foreground="{StaticResource SolidLightGray}"
+                       Foreground="{DynamicResource SolidLight}"
                        FontSize="30"
                        FontWeight="Bold"
                        HorizontalAlignment="Center"/>
@@ -110,7 +110,7 @@
                         Grid.Column="1"
                         Content="Resend verify mail"
                         Command="{Binding ResendVerifyMail}"
-                        Foreground="{StaticResource SolidLightGray}"
+                        Foreground="{DynamicResource SolidLight}"
                         Style="{StaticResource MaterialDesignFlatLightButton}"
                         IsEnabled="{Binding Waiting}"
                         Visibility="{Binding ResendVisibility}"/>

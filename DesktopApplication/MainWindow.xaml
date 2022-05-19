@@ -66,32 +66,7 @@
                 </materialDesign:TransitionerSlide>
                 
             </materialDesign:Transitioner>
-            
-            
-            
-            <!--<ContentControl Content="{Binding CurrentViewModel}">
-                <ContentControl.Resources>
-
-                    <DataTemplate DataType="{x:Type vms:LoginViewModel}">
-                        <views:LoginView/>
-                    </DataTemplate>
-
-                    <DataTemplate DataType="{x:Type vms:OwnerViewModel}">
-                        <views:OwnerView/>
-                    </DataTemplate>
-
-                    <DataTemplate DataType="{x:Type vms:ManagerViewModel}">
-                        <views:ManagerView/>
-                    </DataTemplate>
-
-                    <DataTemplate DataType="{x:Type vms:CreateOwnerViewModel}">
-                        <views:CreateOwnerView/>
-                    </DataTemplate>
-
-                </ContentControl.Resources>
-            </ContentControl>-->
-
-            
+                     
 
         </Grid>
         

@@ -287,6 +287,17 @@ namespace CSWBManagementApplication.Services
             return result;
         }
 
+        static public async Task<IEnumerable<Cafe>> GetAllCafes() 
+        {
+            QuerySnapshot cafesSnapshot = await CafeCollection.GetSnapshotAsync();
+            List<Cafe> cafes = new List<Cafe>();
+            foreach (DocumentSnapshot cafeSnapshot in cafesSnapshot)
+            {
+                cafes.Add(cafeSnapshot.ConvertTo<Cafe>());
+            }
+            return cafes.AsEnumerable();
+        }
+
         public static async Task AddFloorToCafeAsync(string cafeID, Cafe.Floor floor)
         {
             DocumentReference floorDocument = FloorDocument(cafeID, floor.FloorID);
@@ -318,6 +329,17 @@ namespace CSWBManagementApplication.Services
         {
             DocumentReference floorDocument = FloorDocument(cafeID, floorID);
             await floorDocument.DeleteAsync();
+        }
+
+        public static async Task<IEnumerable<DocumentReference>> GetStaffsReference(string cafeID)
+        {
+            List<DocumentReference> staffs = new List<DocumentReference>();
+            QuerySnapshot staffsSnapshot = await CafeStaffCollection(cafeID).GetSnapshotAsync();
+            foreach (DocumentSnapshot staffSnapshot in staffsSnapshot)
+            {
+
+            }
+            return staffs.AsEnumerable();
         }
 
         #endregion
