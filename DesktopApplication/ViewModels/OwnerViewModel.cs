@@ -8,6 +8,8 @@ using System.Windows.Media;
 using CSWBManagementApplication.Service;
 using System.Windows.Input;
 using CSWBManagementApplication.Commands;
+using CSWBManagementApplication.Models;
+using CSWBManagementApplication.Services;
 
 namespace CSWBManagementApplication.ViewModels
 {
@@ -72,6 +74,54 @@ namespace CSWBManagementApplication.ViewModels
                 new NavigationChipViewModel("Products", PackIconKind.Silverware, new SolidColorBrush(Color.FromArgb(255, 245, 245, 245)),
                                             new Commands.CommandBase(()=>SelectedIndex=3), false),
             };
+            Initialize();
+        }
+
+        private async void Initialize() {
+            List<Cafe> cafes = (await Database.GetAllCafes()).ToList();
+            fullCafesList = new List<CafeCardViewModel>();
+            foreach (Cafe cafe in cafes)
+            {
+                fullCafesList.Add(new CafeCardViewModel(cafe));
+            }
+            SearchText = "";
+        }
+
+        private string searchText;
+        public string SearchText
+        {
+            get => searchText;
+            set
+            {
+                if (searchText == value)
+                {
+                    return;
+                }
+                searchText = value;
+                OnPropertyChanged();
+                if (!string.IsNullOrEmpty(searchText))
+                {
+                    CafesList.Clear();
+                    CafesList = new List<CafeCardViewModel>(fullCafesList.Where(c => c.Address.ToLower().Contains(searchText.ToLower())));
+                } else
+                {
+                    CafesList.Clear();
+                    CafesList = new List<CafeCardViewModel>(fullCafesList);
+                }                
+            }
+        }
+
+        private List<CafeCardViewModel> fullCafesList;
+
+        private List<CafeCardViewModel> cafesList;
+        public List<CafeCardViewModel> CafesList
+        {
+            get => cafesList;
+            set
+            {
+                cafesList = value;
+                OnPropertyChanged();
+            }
         }
     }
 }

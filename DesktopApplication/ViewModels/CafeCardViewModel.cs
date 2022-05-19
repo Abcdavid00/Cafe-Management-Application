@@ -1,4 +1,5 @@
 ﻿using CSWBManagementApplication.Models;
+using CSWBManagementApplication.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace CSWBManagementApplication.ViewModels
         public string ID
         {
             get => id;
-            set 
+            set
             {
                 id = value;
                 OnPropertyChanged();
@@ -71,8 +72,26 @@ namespace CSWBManagementApplication.ViewModels
             set
             {
                 cafe = value;
-                OnPropertyChanged();
+                ResetViewModel();
             }
         }
+        
+        private async void ResetViewModel()
+        {
+            ID = Cafe.CafeID;
+            Staff manager = await Database.GetStaff(await Database.FindManagerReference(cafe.CafeID));
+            ManagerName = manager.Name;
+            Address = Cafe.Address;
+            ThisMonthRevenue = "$0";
+            LastMonthRevenue = "$0";
+        }
+
+
+
+        public CafeCardViewModel(Cafe cafe) 
+        {
+            this.Cafe = cafe;
+        }
+
     }
 }

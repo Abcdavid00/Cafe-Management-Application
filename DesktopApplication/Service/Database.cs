@@ -331,16 +331,28 @@ namespace CSWBManagementApplication.Services
             await floorDocument.DeleteAsync();
         }
 
-        public static async Task<IEnumerable<DocumentReference>> GetStaffsReference(string cafeID)
+        public static async Task<DocumentReference> FindManagerReference(string cafeID)
+        {
+            QuerySnapshot managerSnapshot = await CafeStaffCollection(cafeID).WhereEqualTo("Level", 1).GetSnapshotAsync();
+            if (managerSnapshot.Count!=0)
+            {
+                return UserDocument(managerSnapshot.Documents[0].Id);
+            }
+            return null;           
+        }
+
+        public static async Task<IEnumerable<DocumentReference>> FindStaffReferences(string cafeID)
         {
             List<DocumentReference> staffs = new List<DocumentReference>();
             QuerySnapshot staffsSnapshot = await CafeStaffCollection(cafeID).GetSnapshotAsync();
             foreach (DocumentSnapshot staffSnapshot in staffsSnapshot)
             {
-                
+                staffs.Add(UserDocument(staffSnapshot.Id));
             }
             return staffs.AsEnumerable();
         }
+
+
 
         #endregion
 
@@ -402,6 +414,30 @@ namespace CSWBManagementApplication.Services
             }
 
             return userSnapshot.ConvertTo<Staff>();
+        }
+
+        public static async Task<Models.Staff> GetStaff(DocumentReference staffReference)
+        {
+            Models.User user = await GetUser(staffReference);
+            if (!user.IsOwner)
+            {
+                return user as Staff;
+            }
+            return null;
+        }
+
+        public static async Task<IEnumerable<Staff>> GetStaffs(IEnumerable<DocumentReference> staffReferences)
+        {
+            List<Staff> staffs = new List<Staff>();
+            foreach (DocumentReference staffReference in staffReferences)
+            {
+                DocumentSnapshot staffSnapshot = await staffReference.GetSnapshotAsync();
+                if (staffSnapshot.Exists && (!staffSnapshot.GetValue<bool>("IsOwner")))
+                {
+                    staffs.Add(staffSnapshot.ConvertTo<Staff>());
+                }
+            }
+            return staffs.AsEnumerable();
         }
 
         public static async Task<Models.User.Roles> UserRole(DocumentReference userReference)
