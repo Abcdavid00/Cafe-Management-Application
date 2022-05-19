@@ -7,9 +7,9 @@
              xmlns:local="clr-namespace:CSWBManagementApplication.Views.Components"
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="300">
-    <Grid>
+    <Grid Margin="10, 10, 10, 10">
         <materialDesign:Card Background="{DynamicResource LinearBackground}"
-                                                                                     UniformCornerRadius="10">
+                             UniformCornerRadius="10">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
@@ -19,13 +19,13 @@
                 </Grid.RowDefinitions>
 
                 <TextBlock Grid.Row="0"
-                                                                            Text="{Binding Id}"
-                                                                            FontSize="30"
-                                                                            Foreground="{DynamicResource SolidLight}"
-                                                                            VerticalAlignment="Center"
-                                                                            HorizontalAlignment="Left"
-                                                                            Margin="10,0,0,0"
-                                                                        />
+                    Text="{Binding Id}"
+                    FontSize="30"
+                    Foreground="{DynamicResource SolidLight}"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Left"
+                    Margin="10,0,0,0"
+                />
 
                 <Grid Grid.Row="1">
                     <Grid.RowDefinitions>
@@ -34,38 +34,39 @@
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="7*"/>
+                        <ColumnDefinition Width="4*"/>
                     </Grid.ColumnDefinitions>
 
-                    <materialDesign:PackIcon Kind="Account"
-                                                                                Grid.Row="0"
-                                                                                Grid.Column="0"
-                                                                                Grid.RowSpan="2"
-                                                                                Foreground="{DynamicResource SolidLight}"
-                                                                                Width="100"
-                                                                                Height="100"
-                                                                                Margin="10,0,0,0"                                          
-                                                                                HorizontalAlignment="Center"
-                                                                                VerticalAlignment="Center"
-                                                                            />
+                    <Grid Grid.Row="0"
+                          Grid.Column="0"
+                          Grid.RowSpan="2">
+
+                        <materialDesign:PackIcon Kind="Account"
+                                                 Foreground="{DynamicResource SolidLight}"                                       
+                                                 HorizontalAlignment="Center"
+                                                 VerticalAlignment="Center"
+                        />
+                        
+                    </Grid>
 
                     <TextBlock Grid.Row="0" Grid.Column="1"
-                                                                                Text="Manager"
-                                                                                FontSize="20"
-                                                                                Foreground="{DynamicResource SolidLight}"
-                                                                                VerticalAlignment="Center"
-                                                                                HorizontalAlignment="Left"
-                                                                                Margin="10,0,0,0"
-                                                                            />
+                        Text="Manager"
+                        FontSize="20"
+                        Foreground="{DynamicResource SolidLight}"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Left"
+                        Margin="10,0,0,0"
+                    />
 
                     <TextBlock Grid.Row="1" Grid.Column="1"
-                                                                                Text="{Binding ManagerName}"
-                                                                                FontSize="20"
-                                                                                Foreground="{DynamicResource SolidLight}"
-                                                                                VerticalAlignment="Center"
-                                                                                HorizontalAlignment="Left"
-                                                                                Margin="10,0,0,0"
-                                                                            />
+                        Text="{Binding ManagerName}"
+                        FontSize="20"
+                        Foreground="{DynamicResource SolidLight}"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Left"
+                        Margin="10,0,0,0"
+                    />
+                    
                 </Grid>
 
                 <Grid Grid.Row="2">
@@ -75,21 +76,23 @@
                     </Grid.RowDefinitions>
 
                     <TextBlock Grid.Row="0" 
-                                                                                Text="Address"
-                                                                                FontSize="20"
-                                                                                Foreground="{DynamicResource SolidLight}"
-                                                                                VerticalAlignment="Center"
-                                                                                HorizontalAlignment="Left"
-                                                                                Margin="15,0,0,0"
-                                                                            />
+                        Text="Address"
+                        FontSize="20"
+                        Foreground="{DynamicResource SolidLight}"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Left"
+                        Margin="15,0,0,0"
+                    />
+                    
                     <TextBlock Grid.Row="1" 
-                                                                                Text="{Binding Address}"
-                                                                                FontSize="20"
-                                                                                Foreground="{DynamicResource SolidLight}"
-                                                                                VerticalAlignment="Center"
-                                                                                HorizontalAlignment="Left"
-                                                                                Margin="15,0,0,0"
-                                                                            />
+                        Text="{Binding Address}"
+                        FontSize="20"
+                        Foreground="{DynamicResource SolidLight}"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Left"
+                        Margin="15,0,0,0"
+                    />
+                    
                 </Grid>
 
                 <Grid Grid.Row="3">
@@ -106,58 +109,60 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Grid.Row="0" Grid.Column="0"
-                                                                                Text="Revenue"
-                                                                                FontSize="20"
-                                                                                Foreground="{DynamicResource SolidLight}"
-                                                                                VerticalAlignment="Center"
-                                                                                HorizontalAlignment="Left"
-                                                                                Margin="15,0,0,0"
-                                                                            />
+                        Text="Revenue"
+                        FontSize="20"
+                        Foreground="{DynamicResource SolidLight}"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Left"
+                        Margin="15,0,0,0"
+                    />
 
                     <TextBlock Grid.Row="1" Grid.Column="0"
-                                                                                Text="This month"
-                                                                                FontSize="20"
-                                                                                Foreground="{DynamicResource SolidLight}"
-                                                                                VerticalAlignment="Center"
-                                                                                HorizontalAlignment="Left"
-                                                                                Margin="15,0,0,0"
-                                                                            />
+                        Text="This month"
+                        FontSize="20"
+                        Foreground="{DynamicResource SolidLight}"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Left"
+                        Margin="15,0,0,0"
+                    />
 
                     <TextBlock Grid.Row="1" Grid.Column="1"
-                                                                                Text="Last month"
-                                                                                FontSize="20"
-                                                                                Foreground="{DynamicResource SolidLight}"
-                                                                                VerticalAlignment="Center"
-                                                                                HorizontalAlignment="Left"
-                                                                                Margin="15,0,0,0"
-                                                                            />
+                        Text="Last month"
+                        FontSize="20"
+                        Foreground="{DynamicResource SolidLight}"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Left"
+                        Margin="15,0,0,0"
+                    />
 
                     <TextBlock Grid.Row="2" Grid.Column="0"
-                                                                                Text="{Binding ThisMonthRevenue}"
-                                                                                FontSize="20"
-                                                                                Foreground="{DynamicResource SolidLight}"
-                                                                                VerticalAlignment="Center"
-                                                                                HorizontalAlignment="Left"
-                                                                                Margin="15,0,0,0"
-                                                                            />
+                        Text="{Binding ThisMonthRevenue}"
+                        FontSize="20"
+                        Foreground="{DynamicResource SolidLight}"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Left"
+                        Margin="15,0,0,0"
+                    />
 
                     <TextBlock Grid.Row="2" Grid.Column="1"
-                                                                                Text="{Binding LastMonthRevenue}"
-                                                                                FontSize="20"
-                                                                                Foreground="{DynamicResource SolidLight}"
-                                                                                VerticalAlignment="Center"
-                                                                                HorizontalAlignment="Left"
-                                                                                Margin="15,0,0,0"
-                                                                            />
+                        Text="{Binding LastMonthRevenue}"
+                        FontSize="20"
+                        Foreground="{DynamicResource SolidLight}"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Left"
+                        Margin="15,0,0,0"
+                    />
+                    
                     <TextBlock Grid.Row="3" Grid.Column="0"
-                                                                                Text="{Binding Compare}"
-                                                                                FontSize="20"
-                                                                                Grid.ColumnSpan="2"
-                                                                                Foreground="{DynamicResource SolidLight}"
-                                                                                VerticalAlignment="Center"
-                                                                                HorizontalAlignment="Left"
-                                                                                Margin="15,0,0,0"
-                                                                            />
+                        Text="{Binding Compare}"
+                        FontSize="20"
+                        Grid.ColumnSpan="2"
+                        Foreground="{DynamicResource SolidLight}"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Left"
+                        Margin="15,0,0,0"
+                    />
+                    
                 </Grid>
             </Grid>
         </materialDesign:Card>

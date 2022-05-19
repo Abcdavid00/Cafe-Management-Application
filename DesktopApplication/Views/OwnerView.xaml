@@ -119,19 +119,21 @@
                                 <RowDefinition Height="*"/>
                                 <RowDefinition Height="21*"/>
                             </Grid.RowDefinitions>
+                            
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="24*"/>
                             </Grid.ColumnDefinitions>
+                            
                             <StackPanel Grid.Row="1" Grid.Column="1"
-                                                                Orientation="Horizontal"
-                                                                HorizontalAlignment="Left"
-                                                                 >
+                                        Orientation="Horizontal"
+                                        HorizontalAlignment="Left"
+                                        >
                                 <materialDesign:PackIcon Kind="Search"
-                                                                                 Foreground="White"
-                                                                                 Width="auto"
-                                                                                 Height="auto"
-                                                                                 />
+                                                         Foreground="White"
+                                                         Width="auto"
+                                                         Height="auto"
+                                />
 
                                 <TextBox materialDesign:HintAssist.Hint="Search"
                                                                  FontSize="25"
@@ -140,23 +142,27 @@
                                                                  VerticalAlignment="Center"
                                                                  HorizontalAlignment="Left"
                                                                  Margin="10,0,0,0"
-                                                                   />
+                                />
 
                             </StackPanel>
 
-                            <ItemsControl Grid.Row="2" Grid.Column="1"
-                                                                  ItemsSource="{Binding CafesList}">
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <WrapPanel/>
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <components:CafeCard/>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
+                            <ScrollViewer Grid.Row="2" Grid.Column="1">
+                                <ItemsControl ItemsSource="{Binding CafesList}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel/>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <components:CafeCard/>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+
+                                </ItemsControl>
+                            </ScrollViewer>
+
                         </Grid>
 
                         <materialDesign:TransitionerSlide.ForwardWipe>
@@ -170,6 +176,19 @@
 
                 </materialDesign:Transitioner>
 
+                <materialDesign:TransitionerSlide.ForwardWipe>
+                    <materialDesign:SlideWipe Direction="Up"/>
+                </materialDesign:TransitionerSlide.ForwardWipe>
+
+            </materialDesign:TransitionerSlide>
+
+            <materialDesign:TransitionerSlide>
+
+                <materialDesign:TransitionerSlide.BackwardWipe>
+                    <materialDesign:SlideWipe Direction="Down"/>
+                </materialDesign:TransitionerSlide.BackwardWipe>
+
+
 
                 <materialDesign:TransitionerSlide.ForwardWipe>
                     <materialDesign:SlideWipe Direction="Up"/>
@@ -183,41 +202,7 @@
                     <materialDesign:SlideWipe Direction="Down"/>
                 </materialDesign:TransitionerSlide.BackwardWipe>
 
-                <ContentControl>
-                    <ContentControl.ContentTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="Employee View"
-                                       FontSize="70"
-                                       Foreground="{DynamicResource SolidLight}"
-                                       VerticalAlignment="Center"
-                                       HorizontalAlignment="Center"/>
-                        </DataTemplate>
-                    </ContentControl.ContentTemplate>
-                </ContentControl>
 
-                <materialDesign:TransitionerSlide.ForwardWipe>
-                    <materialDesign:SlideWipe Direction="Up"/>
-                </materialDesign:TransitionerSlide.ForwardWipe>
-
-            </materialDesign:TransitionerSlide>
-
-            <materialDesign:TransitionerSlide>
-
-                <materialDesign:TransitionerSlide.BackwardWipe>
-                    <materialDesign:SlideWipe Direction="Down"/>
-                </materialDesign:TransitionerSlide.BackwardWipe>
-
-                <ContentControl>
-                    <ContentControl.ContentTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="Products View"
-                                       FontSize="70"
-                                       Foreground="{DynamicResource SolidLight}"
-                                       VerticalAlignment="Center"
-                                       HorizontalAlignment="Center"/>
-                        </DataTemplate>
-                    </ContentControl.ContentTemplate>
-                </ContentControl>
 
                 <materialDesign:TransitionerSlide.ForwardWipe>
                     <materialDesign:SlideWipe Direction="Up"/>

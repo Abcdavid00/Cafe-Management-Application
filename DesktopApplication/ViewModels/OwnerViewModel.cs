@@ -85,7 +85,7 @@ namespace CSWBManagementApplication.ViewModels
             {
                 fullCafesList.Add(new CafeCardViewModel(cafe));
             }
-            SearchText = "Hello";
+            SearchText = "";
         }
 
         private string searchText;
@@ -99,7 +99,7 @@ namespace CSWBManagementApplication.ViewModels
                 if (!string.IsNullOrEmpty(searchText))
                 {
                     CafesList.Clear();
-                    CafesList = new List<CafeCardViewModel>(fullCafesList.Where(c => c.Address.ToLower().Contains(searchText.ToLower())));
+                    CafesList = new List<CafeCardViewModel>(fullCafesList.Where(c => c.Address.ToLower().Contains(searchText.ToLower())).OrderBy(c => c.Address));
                 } else
                 {
                     CafesList.Clear();
