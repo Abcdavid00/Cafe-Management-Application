@@ -239,7 +239,7 @@ namespace CSWBManagementApplication.Services
 
         public static async Task<Cafe> CreateCafeAsync(string address)
         {
-            if (FindCafeAsync(address) != null)
+            if (await FindCafeAsync(address) != null)
             {
                 throw new Exception("Cafe already exist!");
             }
@@ -418,6 +418,10 @@ namespace CSWBManagementApplication.Services
 
         public static async Task<Models.Staff> GetStaff(DocumentReference staffReference)
         {
+            if (staffReference == null)
+            {
+                return null;
+            }
             Models.User user = await GetUser(staffReference);
             if (!user.IsOwner)
             {

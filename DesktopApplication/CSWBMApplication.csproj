@@ -323,6 +323,12 @@
     <Compile Include="ViewModels\OwnerViewModel.cs" />
     <Compile Include="ViewModels\StaffViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="Views\Components\CafeCard.xaml.cs">
+      <DependentUpon>CafeCard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Components\NavigationChip.xaml.cs">
+      <DependentUpon>NavigationChip.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CreateOwnerView.xaml.cs">
       <DependentUpon>CreateOwnerView.xaml</DependentUpon>
     </Compile>
@@ -380,6 +386,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\StackCoffeeAssets.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Components\CafeCard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Components\NavigationChip.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

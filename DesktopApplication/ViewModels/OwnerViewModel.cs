@@ -78,13 +78,14 @@ namespace CSWBManagementApplication.ViewModels
         }
 
         private async void Initialize() {
-            List<Cafe> cafes = (await Database.GetAllCafes()).ToList();
+            List<Cafe> cafes = (await Database.GetAllCafes()).ToList();            
             fullCafesList = new List<CafeCardViewModel>();
+            cafesList = new List<CafeCardViewModel>();
             foreach (Cafe cafe in cafes)
             {
                 fullCafesList.Add(new CafeCardViewModel(cafe));
             }
-            SearchText = "";
+            SearchText = "Hello";
         }
 
         private string searchText;
@@ -93,10 +94,6 @@ namespace CSWBManagementApplication.ViewModels
             get => searchText;
             set
             {
-                if (searchText == value)
-                {
-                    return;
-                }
                 searchText = value;
                 OnPropertyChanged();
                 if (!string.IsNullOrEmpty(searchText))

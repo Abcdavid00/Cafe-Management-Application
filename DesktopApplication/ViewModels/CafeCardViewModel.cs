@@ -78,12 +78,22 @@ namespace CSWBManagementApplication.ViewModels
         
         private async void ResetViewModel()
         {
-            ID = Cafe.CafeID;
-            Staff manager = await Database.GetStaff(await Database.FindManagerReference(cafe.CafeID));
-            ManagerName = manager.Name;
-            Address = Cafe.Address;
+            ID = cafe.CafeID;
+
+            
+            Address = cafe.Address;
             ThisMonthRevenue = "$0";
             LastMonthRevenue = "$0";
+
+            Staff manager = await Database.GetStaff(await Database.FindManagerReference(cafe.CafeID));
+            if (manager != null)
+            {
+                ManagerName = manager.Name;
+            }
+            else
+            {
+                ManagerName = "No manager";
+            }
         }
 
 

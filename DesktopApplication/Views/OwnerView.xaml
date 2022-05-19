@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CSWBManagementApplication.Views"
+             xmlns:components="clr-namespace:CSWBManagementApplication.Views.Components"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="1080" d:DesignWidth="1920">
@@ -47,28 +48,7 @@
 
                         <DataTemplate>
 
-                            <materialDesign:Chip  Content="{Binding Content}"
-                                                  Style="{StaticResource MaterialDesignOutlineChip}"
-                                                  FontSize="{DynamicResource MediumFontSize}"
-                                                  Margin="10, 5, 10, 5"
-                                                  Background="Transparent"
-                                                  Foreground="{Binding Foreground}"
-                                                  IconBackground="Transparent"
-                                                  IconForeground="{Binding Foreground}"
-                                                  Command="{Binding Command}"
-                                                  BorderThickness="2"
-                                                  BorderBrush="{Binding BorderBrush}"
-                                                  Width="150"
-                                                  Height="50"
-                            >
-
-                                <materialDesign:Chip.Icon>
-
-                                    <materialDesign:PackIcon Kind="{Binding Icon}"/>
-
-                                </materialDesign:Chip.Icon>
-
-                            </materialDesign:Chip>
+                            <components:NavigationChip/>
 
                         </DataTemplate>
 
@@ -126,232 +106,70 @@
                     <materialDesign:SlideWipe Direction="Down"/>
                 </materialDesign:TransitionerSlide.BackwardWipe>
 
-                <ContentControl>
-                    <ContentControl.ContentTemplate>
-                        <DataTemplate>
+                <materialDesign:Transitioner SelectedIndex="0">
 
-                            <materialDesign:Transitioner SelectedIndex="0">
+                    <materialDesign:TransitionerSlide>
+                        <materialDesign:TransitionerSlide.BackwardWipe>
+                            <materialDesign:SlideWipe Direction="Down"/>
+                        </materialDesign:TransitionerSlide.BackwardWipe>
 
-                                <materialDesign:TransitionerSlide>
-                                    <materialDesign:TransitionerSlide.BackwardWipe>
-                                        <materialDesign:SlideWipe Direction="Down"/>
-                                    </materialDesign:TransitionerSlide.BackwardWipe>
-
-                                    <ContentControl>
-                                        <ContentControl.ContentTemplate>
-                                            <DataTemplate>
-                                                <Grid>
-                                                    <Grid.RowDefinitions>
-                                                        <RowDefinition Height="*"/>
-                                                        <RowDefinition Height="*"/>
-                                                        <RowDefinition Height="21*"/>
-                                                    </Grid.RowDefinitions>
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="*"/>
-                                                        <ColumnDefinition Width="24*"/>
-                                                    </Grid.ColumnDefinitions>
-                                                    <StackPanel Grid.Row="1" Grid.Column="1"
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="21*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="24*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Row="1" Grid.Column="1"
                                                                 Orientation="Horizontal"
                                                                 HorizontalAlignment="Left"
                                                                  >
-                                                        <materialDesign:PackIcon Kind="Search"
+                                <materialDesign:PackIcon Kind="Search"
                                                                                  Foreground="White"
                                                                                  Width="auto"
                                                                                  Height="auto"
                                                                                  />
-                                                        
-                                                        <TextBox materialDesign:HintAssist.Hint="Search"
+
+                                <TextBox materialDesign:HintAssist.Hint="Search"
                                                                  FontSize="25"
+                                                                 Text="{Binding SearchText, Mode=TwoWay}"
                                                                  Foreground="{DynamicResource SolidLight}"
                                                                  VerticalAlignment="Center"
                                                                  HorizontalAlignment="Left"
                                                                  Margin="10,0,0,0"
                                                                    />
 
-                                                    </StackPanel>
-                                                    <ItemsControl Grid.Row="2" Grid.Column="1" ItemsSource="{Binding CafesList}">
-                                                        <ItemsControl.ItemsPanel>
-                                                            <ItemsPanelTemplate>
-                                                                <WrapPanel/>
-                                                            </ItemsPanelTemplate>
-                                                        </ItemsControl.ItemsPanel>
-                                                        <ItemsControl.ItemTemplate>
-                                                            <DataTemplate>
-                                                                <materialDesign:Card Background="{DynamicResource LinearBackground}"
-                                                                                     UniformCornerRadius="10">
-                                                                    <Grid>
-                                                                        <Grid.RowDefinitions>
-                                                                            <RowDefinition Height="*"/>
-                                                                            <RowDefinition Height="2*"/>
-                                                                            <RowDefinition Height="2*"/>
-                                                                            <RowDefinition Height="5*"/>
-                                                                        </Grid.RowDefinitions>
+                            </StackPanel>
 
-                                                                        <TextBlock Grid.Row="0"
-                                                                            Text="{Binding Id}"
-                                                                            FontSize="30"
-                                                                            Foreground="{DynamicResource SolidLight}"
-                                                                            VerticalAlignment="Center"
-                                                                            HorizontalAlignment="Left"
-                                                                            Margin="10,0,0,0"
-                                                                        />
+                            <ItemsControl Grid.Row="2" Grid.Column="1"
+                                                                  ItemsSource="{Binding CafesList}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <components:CafeCard/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </Grid>
 
-                                                                        <Grid Grid.Row="1">
-                                                                            <Grid.RowDefinitions>
-                                                                                <RowDefinition Height="*"/>
-                                                                                <RowDefinition Height="*"/>
-                                                                            </Grid.RowDefinitions>
-                                                                            <Grid.ColumnDefinitions>
-                                                                                <ColumnDefinition Width="*"/>
-                                                                                <ColumnDefinition Width="7*"/>
-                                                                            </Grid.ColumnDefinitions>
+                        <materialDesign:TransitionerSlide.ForwardWipe>
+                            <materialDesign:SlideWipe Direction="Up"/>
+                        </materialDesign:TransitionerSlide.ForwardWipe>
+                    </materialDesign:TransitionerSlide>
 
-                                                                            <materialDesign:PackIcon Kind="Account"
-                                                                                Grid.Row="0"
-                                                                                Grid.Column="0"
-                                                                                Grid.RowSpan="2"
-                                                                                Foreground="{DynamicResource SolidLight}"
-                                                                                Width="100"
-                                                                                Height="100"
-                                                                                Margin="10,0,0,0"                                          
-                                                                                HorizontalAlignment="Center"
-                                                                                VerticalAlignment="Center"
-                                                                            />
+                    <materialDesign:TransitionerSlide>
 
-                                                                            <TextBlock Grid.Row="0" Grid.Column="1"
-                                                                                Text="Manager"
-                                                                                FontSize="20"
-                                                                                Foreground="{DynamicResource SolidLight}"
-                                                                                VerticalAlignment="Center"
-                                                                                HorizontalAlignment="Left"
-                                                                                Margin="10,0,0,0"
-                                                                            />
+                    </materialDesign:TransitionerSlide>
 
-                                                                            <TextBlock Grid.Row="1" Grid.Column="1"
-                                                                                Text="{Binding ManagerName}"
-                                                                                FontSize="20"
-                                                                                Foreground="{DynamicResource SolidLight}"
-                                                                                VerticalAlignment="Center"
-                                                                                HorizontalAlignment="Left"
-                                                                                Margin="10,0,0,0"
-                                                                            />
-                                                                        </Grid>
+                </materialDesign:Transitioner>
 
-                                                                        <Grid Grid.Row="2">
-                                                                            <Grid.RowDefinitions>
-                                                                                <RowDefinition Height="*"/>
-                                                                                <RowDefinition Height="*"/>
-                                                                            </Grid.RowDefinitions>
-
-                                                                            <TextBlock Grid.Row="0" 
-                                                                                Text="Address"
-                                                                                FontSize="20"
-                                                                                Foreground="{DynamicResource SolidLight}"
-                                                                                VerticalAlignment="Center"
-                                                                                HorizontalAlignment="Left"
-                                                                                Margin="15,0,0,0"
-                                                                            />
-                                                                            <TextBlock Grid.Row="1" 
-                                                                                Text="{Binding Address}"
-                                                                                FontSize="20"
-                                                                                Foreground="{DynamicResource SolidLight}"
-                                                                                VerticalAlignment="Center"
-                                                                                HorizontalAlignment="Left"
-                                                                                Margin="15,0,0,0"
-                                                                            />
-                                                                        </Grid>
-
-                                                                        <Grid Grid.Row="3">
-                                                                            <Grid.RowDefinitions>
-                                                                                <RowDefinition Height="*"/>
-                                                                                <RowDefinition Height="*"/>
-                                                                                <RowDefinition Height="*"/>
-                                                                                <RowDefinition Height="*"/>
-                                                                            </Grid.RowDefinitions>
-
-                                                                            <Grid.ColumnDefinitions>
-                                                                                <ColumnDefinition Width="*"/>
-                                                                                <ColumnDefinition Width="*"/>
-                                                                            </Grid.ColumnDefinitions>
-
-                                                                            <TextBlock Grid.Row="0" Grid.Column="0"
-                                                                                Text="Revenue"
-                                                                                FontSize="20"
-                                                                                Foreground="{DynamicResource SolidLight}"
-                                                                                VerticalAlignment="Center"
-                                                                                HorizontalAlignment="Left"
-                                                                                Margin="15,0,0,0"
-                                                                            />
-
-                                                                            <TextBlock Grid.Row="1" Grid.Column="0"
-                                                                                Text="This month"
-                                                                                FontSize="20"
-                                                                                Foreground="{DynamicResource SolidLight}"
-                                                                                VerticalAlignment="Center"
-                                                                                HorizontalAlignment="Left"
-                                                                                Margin="15,0,0,0"
-                                                                            />
-
-                                                                            <TextBlock Grid.Row="1" Grid.Column="1"
-                                                                                Text="Last month"
-                                                                                FontSize="20"
-                                                                                Foreground="{DynamicResource SolidLight}"
-                                                                                VerticalAlignment="Center"
-                                                                                HorizontalAlignment="Left"
-                                                                                Margin="15,0,0,0"
-                                                                            />
-
-                                                                            <TextBlock Grid.Row="2" Grid.Column="0"
-                                                                                Text="{Binding ThisMonthRevenue}"
-                                                                                FontSize="20"
-                                                                                Foreground="{DynamicResource SolidLight}"
-                                                                                VerticalAlignment="Center"
-                                                                                HorizontalAlignment="Left"
-                                                                                Margin="15,0,0,0"
-                                                                            />
-
-                                                                            <TextBlock Grid.Row="2" Grid.Column="1"
-                                                                                Text="{Binding LastMonthRevenue}"
-                                                                                FontSize="20"
-                                                                                Foreground="{DynamicResource SolidLight}"
-                                                                                VerticalAlignment="Center"
-                                                                                HorizontalAlignment="Left"
-                                                                                Margin="15,0,0,0"
-                                                                            />
-                                                                            <TextBlock Grid.Row="3" Grid.Column="0"
-                                                                                Text="{Binding Compare}"
-                                                                                FontSize="20"
-                                                                                Grid.ColumnSpan="2"
-                                                                                Foreground="{DynamicResource SolidLight}"
-                                                                                VerticalAlignment="Center"
-                                                                                HorizontalAlignment="Left"
-                                                                                Margin="15,0,0,0"
-                                                                            />
-                                                                        </Grid>
-                                                                    </Grid>
-                                                                </materialDesign:Card>
-                                                            </DataTemplate>
-                                                        </ItemsControl.ItemTemplate>
-                                                    </ItemsControl>
-                                                </Grid>
-                                            </DataTemplate>
-                                        </ContentControl.ContentTemplate>
-                                    </ContentControl>
-
-                                    <materialDesign:TransitionerSlide.ForwardWipe>
-                                        <materialDesign:SlideWipe Direction="Up"/>
-                                    </materialDesign:TransitionerSlide.ForwardWipe>
-                                </materialDesign:TransitionerSlide>
-
-                                <materialDesign:TransitionerSlide>
-
-                                </materialDesign:TransitionerSlide>
-
-                            </materialDesign:Transitioner>
-
-                        </DataTemplate>
-                    </ContentControl.ContentTemplate>
-                </ContentControl>
 
                 <materialDesign:TransitionerSlide.ForwardWipe>
                     <materialDesign:SlideWipe Direction="Up"/>
