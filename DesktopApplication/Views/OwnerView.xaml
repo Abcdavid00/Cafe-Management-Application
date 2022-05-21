@@ -74,7 +74,7 @@
         </Border>
 
         <materialDesign:Transitioner Grid.Column="1"
-                                     SelectedIndex="1"
+                                     SelectedIndex="{Binding SelectedIndex}"
                                      Background="{DynamicResource LinearDarkBackground}">
             <materialDesign:TransitionerSlide>
 

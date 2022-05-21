@@ -13,11 +13,11 @@ namespace CSWBManagementApplication.Resources
         public static readonly Brush LinearMain = new LinearGradientBrush(Color.FromRgb(255, 161, 19),
                                                                           Color.FromRgb(255, 0, 0), 0);
 
-        public static readonly Brush LinearBackground = new LinearGradientBrush(Color.FromRgb(33, 36, 41),
-                                                                                Color.FromRgb(108, 112, 118), 90);
+        public static readonly Brush LinearBackground = new LinearGradientBrush(Color.FromRgb(108, 112, 118),
+                                                                                Color.FromRgb(33, 36, 41), 90);
         
-        public static readonly Brush LinearDarkBackground = new LinearGradientBrush(Color.FromRgb(19, 23, 26),
-                                                                                    Color.FromRgb(49, 54, 58), 90);
+        public static readonly Brush LinearDarkBackground = new LinearGradientBrush(Color.FromRgb(49, 54, 58), 
+                                                                                    Color.FromRgb(19, 23, 26), 90);
 
         public static readonly Brush SolidLight = new SolidColorBrush(Color.FromRgb(245, 245, 245));
 
