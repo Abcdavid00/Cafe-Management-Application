@@ -10,6 +10,7 @@ using System.Windows.Input;
 using CSWBManagementApplication.Commands;
 using CSWBManagementApplication.Models;
 using CSWBManagementApplication.Services;
+using static CSWBManagementApplication.Service.MiscFunctions;
 
 namespace CSWBManagementApplication.ViewModels
 {
@@ -55,7 +56,20 @@ namespace CSWBManagementApplication.ViewModels
         }
 
         private MainViewModel mainViewModel;
-        
+
+        private SolidColorBrush pulsingColor;
+        public SolidColorBrush PulsingColor
+        {
+            get => pulsingColor;
+            set
+            {
+                pulsingColor = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private SolidColorPulsar solidColorPulsar;
+
         public OwnerViewModel(MainViewModel mainViewModel)
         {
             this.mainViewModel = mainViewModel;
@@ -74,8 +88,18 @@ namespace CSWBManagementApplication.ViewModels
                 new NavigationChipViewModel("Products", PackIconKind.Silverware, new SolidColorBrush(Color.FromArgb(255, 245, 245, 245)),
                                             new Commands.CommandBase(()=>SelectedIndex=3), false),
             };
+            solidColorPulsar = new SolidColorPulsar(Color.FromRgb(0, 0, 0), Color.FromRgb(245, 245, 245), 120, 1000);
+            solidColorPulsar.OnColorChanged += (sender, e) =>
+            {
+                PulsingColor = e;
+            };
+            solidColorPulsar.StartPulsing();
             Initialize();
         }
+
+        
+
+
 
         private async void Initialize() {
             List<Cafe> cafes = (await Database.GetAllCafes()).ToList();            

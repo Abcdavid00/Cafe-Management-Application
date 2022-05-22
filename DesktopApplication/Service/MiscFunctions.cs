@@ -38,39 +38,104 @@ namespace CSWBManagementApplication.Service
             public int RefreshRate
             {
                 get { return refreshRate; }
-                set { refreshRate = value; }
+                set 
+                {
+                    if (refreshRate == value || value < 1)
+                    {
+                        return;
+                    }
+                    refreshRate = value;
+                    Initialize();
+                }
+            }   
+
+            private int duration;
+            public int Duration
+            {
+                get { return duration; }
+                set
+                {
+                    if (duration == value || value < 1)
+                    {
+                        return;
+                    }
+                    duration = value;
+                    Initialize();
+                }
+                    
             }
-            
-            private int Interval;
-            
-            private SolidColorBrush color1;
-            public SolidColorBrush Color1
+
+            private int interval;
+
+            private int stepsCount;
+
+            private double rStep;
+            private double gStep;
+            private double bStep;           
+
+            private Color color1;
+            public Color Color1
             {
                 get { return color1; }
-                set { color1 = value; }
+                set
+                {
+                    if (color1 == value)
+                    {
+                        return;
+                    }
+                    color1 = value;
+                    Initialize();
+                }
             }
 
-            private SolidColorBrush color2;
-            public SolidColorBrush Color2
+            private Color color2;
+            public Color Color2
             {
                 get { return color2; }
-                set { color2 = value; }
+                set
+                {
+                    if (color2 == value)
+                    {
+                        return;
+                    }
+                    color2 = value;
+                    Initialize();              
+                }
             }
 
-            private List<SolidColorBrush> colorsList;
+            private SolidColorBrush currentColor;
+            public SolidColorBrush CurrentColor
+            {
+                get => currentColor;
+                private set
+                {
+                    currentColor = value;
+                    OnColorChanged?.Invoke(this, currentColor);
+                }
+            }
 
             private bool isPulsing;
 
             public event EventHandler<SolidColorBrush> OnColorChanged;
 
+            public SolidColorPulsar(Color color1, Color color2, int refreshRate, int duration)
+            {
+                this.color1 = color1;
+                this.color2 = color2;
+                this.refreshRate = refreshRate;
+                this.duration = duration;
+                Initialize();
+            }
+            
             private void Initialize()
             {
-                Interval = 1000/refreshRate;
-                colorsList.Clear();
-                
-                colorsList = new List<SolidColorBrush>();
-                colorsList.Add(color1);
-                colorsList.Add(color2);
+                isPulsing = false;
+                interval = 1000 / refreshRate;
+                stepsCount = duration / interval;
+                rStep = (color2.R - color1.R) / stepsCount;
+                gStep = (color2.G - color1.G) / stepsCount;
+                bStep = (color2.B - color1.B) / stepsCount;
+                CurrentColor = new SolidColorBrush(color1);
             }
 
             public void StartPulsing()
@@ -78,25 +143,52 @@ namespace CSWBManagementApplication.Service
                 if (!isPulsing)
                 {
                     isPulsing = true;
-                    Task.Run(() =>
-                    {
-                        while (isPulsing)
-                        {
-                            if (OnColorChanged != null)
-                            {
-                                OnColorChanged(this, colorBrush1);
-                            }
-                            System.Threading.Thread.Sleep(RefreshRate);
-                            if (OnColorChanged != null)
-                            {
-                                OnColorChanged(this, colorBrush2);
-                            }
-                            System.Threading.Thread.Sleep(RefreshRate);
-                        }
-                    });
+                    Pulse();
                 }
             }
 
+            public void StopPulsing()
+            {
+                isPulsing = false;
+            }
+
+            public async Task Pulse()
+            {
+                while (isPulsing)
+                {
+                    for (int i = 0; i < stepsCount; i++)
+                    {
+                        if (!isPulsing)
+                        {
+                            break;
+                        }
+                        await Task.Delay(interval);
+                        CurrentColor = new SolidColorBrush(new Color()
+                        {
+                            A = color1.A,
+                            R = (byte)(color1.R + rStep * i),
+                            G = (byte)(color1.G + gStep * i),
+                            B = (byte)(color1.B + bStep * i)
+                        });
+                    }
+
+                    for (int i = 0; i < stepsCount; i++)
+                    {
+                        if (!isPulsing)
+                        {
+                            break;
+                        }
+                        await Task.Delay(interval);
+                        CurrentColor = new SolidColorBrush(new Color()
+                        {
+                            A = color2.A,
+                            R = (byte)(color2.R - rStep * i),
+                            G = (byte)(color2.G - gStep * i),
+                            B = (byte)(color2.B - bStep * i)
+                        });
+                    }
+                }
+            }
         }
     }
 }

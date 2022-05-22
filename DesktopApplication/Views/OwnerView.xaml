@@ -16,7 +16,7 @@
         </Grid.ColumnDefinitions>
 
         <Border Grid.Column="0"
-                    Background="{DynamicResource SolidDark}">
+                    Background="{Binding PulsingColor}">
 
             <Grid>
                 <Grid.RowDefinitions>
@@ -63,7 +63,7 @@
                     <Button Content="{materialDesign:PackIcon Logout}"
                             ToolTip="Log out"
                             Margin="10, 10, 10, 10"
-                            HorizontalAlignment="Left"
+                            HorizontalAlignment="Left"                            
                             Command="{Binding Path=LogoutCommand, Mode=OneWay}"
                     />
 
