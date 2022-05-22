@@ -1,29 +1,37 @@
 ﻿<UserControl x:Class="CSWBManagementApplication.Views.Components.FloorTile"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:CSWBManagementApplication.Views.Components"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              d:DesignHeight="500" d:DesignWidth="500">
-    <Grid >
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="8*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="8*"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+    <Border Background="{Binding OuterColor}"
+            BorderThickness="1"
+            BorderBrush="{Binding OuterBorder}">
+        <Grid x:Name="Grid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="8*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="8*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
 
-        <materialDesign:Card Grid.Row="1"
+            <materialDesign:Card Grid.Row="1"
                              Grid.Column="1"
-                             UniformCornerRadius="6">
-            
-        </materialDesign:Card>
-        
-    </Grid>
+                             UniformCornerRadius="6"
+                             Background="{Binding InnerColor}">
+            </materialDesign:Card>
+
+            <Button Grid.ColumnSpan="3"
+                    Grid.RowSpan="3"
+                    Height="{Binding Path=Height, ElementName=Grid}"
+                    Width="{Binding Path=Width, ElementName=Grid}" />
+        </Grid>
+    </Border>
 </UserControl>

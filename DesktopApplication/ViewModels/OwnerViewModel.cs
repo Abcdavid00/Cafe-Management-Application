@@ -1,22 +1,20 @@
-﻿using MaterialDesignThemes.Wpf;
-using System;
+﻿using CSWBManagementApplication.Commands;
+using CSWBManagementApplication.Models;
+using CSWBManagementApplication.Service;
+using CSWBManagementApplication.Services;
+using MaterialDesignThemes.Wpf;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media;
-using CSWBManagementApplication.Service;
 using System.Windows.Input;
-using CSWBManagementApplication.Commands;
-using CSWBManagementApplication.Models;
-using CSWBManagementApplication.Services;
+using System.Windows.Media;
 using static CSWBManagementApplication.Service.MiscFunctions;
 
 namespace CSWBManagementApplication.ViewModels
 {
     internal class OwnerViewModel : ViewModelBase
-    {       
+    {
         private int selectedIndex;
+
         public int SelectedIndex
         {
             get { return selectedIndex; }
@@ -34,6 +32,7 @@ namespace CSWBManagementApplication.ViewModels
         }
 
         private List<NavigationChipViewModel> navigationChips;
+
         public List<NavigationChipViewModel> NavigationChips
         {
             get => navigationChips;
@@ -45,6 +44,7 @@ namespace CSWBManagementApplication.ViewModels
         }
 
         private ICommand logoutCommand;
+
         public ICommand LogoutCommand
         {
             get => logoutCommand;
@@ -58,6 +58,7 @@ namespace CSWBManagementApplication.ViewModels
         private MainViewModel mainViewModel;
 
         private SolidColorBrush pulsingColor;
+
         public SolidColorBrush PulsingColor
         {
             get => pulsingColor;
@@ -88,21 +89,12 @@ namespace CSWBManagementApplication.ViewModels
                 new NavigationChipViewModel("Products", PackIconKind.Silverware, new SolidColorBrush(Color.FromArgb(255, 245, 245, 245)),
                                             new Commands.CommandBase(()=>SelectedIndex=3), false),
             };
-            solidColorPulsar = new SolidColorPulsar(Color.FromRgb(0, 0, 0), Color.FromRgb(245, 245, 245), 120, 1000);
-            solidColorPulsar.OnColorChanged += (sender, e) =>
-            {
-                PulsingColor = e;
-            };
-            solidColorPulsar.StartPulsing();
             Initialize();
         }
 
-        
-
-
-
-        private async void Initialize() {
-            List<Cafe> cafes = (await Database.GetAllCafes()).ToList();            
+        private async void Initialize()
+        {
+            List<Cafe> cafes = (await Database.GetAllCafes()).ToList();
             fullCafesList = new List<CafeCardViewModel>();
             cafesList = new List<CafeCardViewModel>();
             foreach (Cafe cafe in cafes)
@@ -113,6 +105,7 @@ namespace CSWBManagementApplication.ViewModels
         }
 
         private string searchText;
+
         public string SearchText
         {
             get => searchText;
@@ -124,17 +117,19 @@ namespace CSWBManagementApplication.ViewModels
                 {
                     CafesList.Clear();
                     CafesList = new List<CafeCardViewModel>(fullCafesList.Where(c => c.Address.ToLower().Contains(searchText.ToLower())).OrderBy(c => c.Address));
-                } else
+                }
+                else
                 {
                     CafesList.Clear();
                     CafesList = new List<CafeCardViewModel>(fullCafesList);
-                }                
+                }
             }
         }
 
         private List<CafeCardViewModel> fullCafesList;
 
         private List<CafeCardViewModel> cafesList;
+
         public List<CafeCardViewModel> CafesList
         {
             get => cafesList;

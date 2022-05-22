@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 
@@ -35,10 +32,11 @@ namespace CSWBManagementApplication.Service
         public class SolidColorPulsar
         {
             private int refreshRate;
+
             public int RefreshRate
             {
                 get { return refreshRate; }
-                set 
+                set
                 {
                     if (refreshRate == value || value < 1)
                     {
@@ -47,9 +45,10 @@ namespace CSWBManagementApplication.Service
                     refreshRate = value;
                     Initialize();
                 }
-            }   
+            }
 
             private int duration;
+
             public int Duration
             {
                 get { return duration; }
@@ -62,7 +61,6 @@ namespace CSWBManagementApplication.Service
                     duration = value;
                     Initialize();
                 }
-                    
             }
 
             private int interval;
@@ -71,9 +69,10 @@ namespace CSWBManagementApplication.Service
 
             private double rStep;
             private double gStep;
-            private double bStep;           
+            private double bStep;
 
             private Color color1;
+
             public Color Color1
             {
                 get { return color1; }
@@ -89,6 +88,7 @@ namespace CSWBManagementApplication.Service
             }
 
             private Color color2;
+
             public Color Color2
             {
                 get { return color2; }
@@ -99,11 +99,12 @@ namespace CSWBManagementApplication.Service
                         return;
                     }
                     color2 = value;
-                    Initialize();              
+                    Initialize();
                 }
             }
 
             private SolidColorBrush currentColor;
+
             public SolidColorBrush CurrentColor
             {
                 get => currentColor;
@@ -126,15 +127,15 @@ namespace CSWBManagementApplication.Service
                 this.duration = duration;
                 Initialize();
             }
-            
+
             private void Initialize()
             {
                 isPulsing = false;
                 interval = 1000 / refreshRate;
                 stepsCount = duration / interval;
-                rStep = (color2.R - color1.R) / stepsCount;
-                gStep = (color2.G - color1.G) / stepsCount;
-                bStep = (color2.B - color1.B) / stepsCount;
+                rStep = ((double)(color2.R - color1.R)) / (double)stepsCount;
+                gStep = ((double)(color2.G - color1.G)) / (double)stepsCount;
+                bStep = ((double)(color2.B - color1.B)) / (double)stepsCount;
                 CurrentColor = new SolidColorBrush(color1);
             }
 

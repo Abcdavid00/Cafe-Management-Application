@@ -1,57 +1,49 @@
 ﻿<UserControl x:Class="CSWBManagementApplication.Views.OwnerView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:CSWBManagementApplication.Views"
              xmlns:components="clr-namespace:CSWBManagementApplication.Views.Components"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              d:DesignHeight="1080" d:DesignWidth="1920">
     <Grid>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="7*"/>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="7*" />
         </Grid.ColumnDefinitions>
 
         <Border Grid.Column="0"
-                    Background="{Binding PulsingColor}">
+                    Background="{DynamicResource SolidDark}">
 
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="180"/>
-                    <RowDefinition Height="2*"/>
-                    <RowDefinition Height="*"/>
-
+                    <RowDefinition Height="180" />
+                    <RowDefinition Height="2*" />
+                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
                 <Image Grid.Row="0"
-                           Source="../Assets/Logo.png"
-                />
-
+                           Source="../Assets/Logo.png" />
 
                 <ItemsControl Grid.Row="1"
-                              ItemsSource="{Binding NavigationChips}"
-                              >
+                              ItemsSource="{Binding NavigationChips}">
                     <ItemsControl.ItemsPanel>
 
                         <ItemsPanelTemplate>
 
-                            <StackPanel/>
-
+                            <StackPanel />
                         </ItemsPanelTemplate>
-
                     </ItemsControl.ItemsPanel>
 
                     <ItemsControl.ItemTemplate>
 
                         <DataTemplate>
 
-                            <components:NavigationChip/>
-
+                            <components:NavigationChip />
                         </DataTemplate>
-
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
 
@@ -63,14 +55,10 @@
                     <Button Content="{materialDesign:PackIcon Logout}"
                             ToolTip="Log out"
                             Margin="10, 10, 10, 10"
-                            HorizontalAlignment="Left"                            
-                            Command="{Binding Path=LogoutCommand, Mode=OneWay}"
-                    />
-
+                            HorizontalAlignment="Left"
+                            Command="{Binding Path=LogoutCommand, Mode=OneWay}" />
                 </StackPanel>
-
             </Grid>
-
         </Border>
 
         <materialDesign:Transitioner Grid.Column="1"
@@ -79,7 +67,7 @@
             <materialDesign:TransitionerSlide>
 
                 <materialDesign:TransitionerSlide.BackwardWipe>
-                    <materialDesign:SlideWipe Direction="Down"/>
+                    <materialDesign:SlideWipe Direction="Down" />
                 </materialDesign:TransitionerSlide.BackwardWipe>
 
                 <ContentControl>
@@ -89,51 +77,48 @@
                                        FontSize="70"
                                        Foreground="{DynamicResource SolidLight}"
                                        VerticalAlignment="Center"
-                                       HorizontalAlignment="Center"/>
+                                       HorizontalAlignment="Center" />
                         </DataTemplate>
                     </ContentControl.ContentTemplate>
                 </ContentControl>
 
                 <materialDesign:TransitionerSlide.ForwardWipe>
-                    <materialDesign:SlideWipe Direction="Up"/>
+                    <materialDesign:SlideWipe Direction="Up" />
                 </materialDesign:TransitionerSlide.ForwardWipe>
-
             </materialDesign:TransitionerSlide>
 
             <materialDesign:TransitionerSlide>
 
                 <materialDesign:TransitionerSlide.BackwardWipe>
-                    <materialDesign:SlideWipe Direction="Down"/>
+                    <materialDesign:SlideWipe Direction="Down" />
                 </materialDesign:TransitionerSlide.BackwardWipe>
 
                 <materialDesign:Transitioner SelectedIndex="0">
 
                     <materialDesign:TransitionerSlide>
                         <materialDesign:TransitionerSlide.BackwardWipe>
-                            <materialDesign:SlideWipe Direction="Down"/>
+                            <materialDesign:SlideWipe Direction="Down" />
                         </materialDesign:TransitionerSlide.BackwardWipe>
 
                         <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="21*"/>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="21*" />
                             </Grid.RowDefinitions>
-                            
+
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="24*"/>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="24*" />
                             </Grid.ColumnDefinitions>
-                            
+
                             <StackPanel Grid.Row="1" Grid.Column="1"
                                         Orientation="Horizontal"
-                                        HorizontalAlignment="Left"
-                                        >
+                                        HorizontalAlignment="Left">
                                 <materialDesign:PackIcon Kind="Search"
                                                          Foreground="White"
                                                          Width="auto"
-                                                         Height="auto"
-                                />
+                                                         Height="auto" />
 
                                 <TextBox materialDesign:HintAssist.Hint="Search"
                                                                  FontSize="25"
@@ -141,78 +126,61 @@
                                                                  Foreground="{DynamicResource SolidLight}"
                                                                  VerticalAlignment="Center"
                                                                  HorizontalAlignment="Left"
-                                                                 Margin="10,0,0,0"
-                                />
-
+                                                                 Margin="10,0,0,0" />
                             </StackPanel>
 
                             <ScrollViewer Grid.Row="2" Grid.Column="1">
                                 <ItemsControl ItemsSource="{Binding CafesList}">
                                     <ItemsControl.ItemsPanel>
                                         <ItemsPanelTemplate>
-                                            <WrapPanel/>
+                                            <WrapPanel />
                                         </ItemsPanelTemplate>
                                     </ItemsControl.ItemsPanel>
 
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
-                                            <components:CafeCard/>
+                                            <components:CafeCard />
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
-
                                 </ItemsControl>
                             </ScrollViewer>
-
                         </Grid>
 
                         <materialDesign:TransitionerSlide.ForwardWipe>
-                            <materialDesign:SlideWipe Direction="Up"/>
+                            <materialDesign:SlideWipe Direction="Up" />
                         </materialDesign:TransitionerSlide.ForwardWipe>
                     </materialDesign:TransitionerSlide>
 
                     <materialDesign:TransitionerSlide>
-
                     </materialDesign:TransitionerSlide>
-
                 </materialDesign:Transitioner>
 
                 <materialDesign:TransitionerSlide.ForwardWipe>
-                    <materialDesign:SlideWipe Direction="Up"/>
+                    <materialDesign:SlideWipe Direction="Up" />
                 </materialDesign:TransitionerSlide.ForwardWipe>
-
             </materialDesign:TransitionerSlide>
 
             <materialDesign:TransitionerSlide>
 
                 <materialDesign:TransitionerSlide.BackwardWipe>
-                    <materialDesign:SlideWipe Direction="Down"/>
+                    <materialDesign:SlideWipe Direction="Down" />
                 </materialDesign:TransitionerSlide.BackwardWipe>
 
-
-
                 <materialDesign:TransitionerSlide.ForwardWipe>
-                    <materialDesign:SlideWipe Direction="Up"/>
+                    <materialDesign:SlideWipe Direction="Up" />
                 </materialDesign:TransitionerSlide.ForwardWipe>
-
             </materialDesign:TransitionerSlide>
 
             <materialDesign:TransitionerSlide>
 
                 <materialDesign:TransitionerSlide.BackwardWipe>
-                    <materialDesign:SlideWipe Direction="Down"/>
+                    <materialDesign:SlideWipe Direction="Down" />
                 </materialDesign:TransitionerSlide.BackwardWipe>
 
-
-
                 <materialDesign:TransitionerSlide.ForwardWipe>
-                    <materialDesign:SlideWipe Direction="Up"/>
+                    <materialDesign:SlideWipe Direction="Up" />
                 </materialDesign:TransitionerSlide.ForwardWipe>
-
             </materialDesign:TransitionerSlide>
-
         </materialDesign:Transitioner>
-
-
-
     </Grid>
 </UserControl>
