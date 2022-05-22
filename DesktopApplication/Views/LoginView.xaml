@@ -1,39 +1,38 @@
 ﻿<UserControl x:Class="CSWBManagementApplication.Views.LoginView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:local="clr-namespace:CSWBManagementApplication.Views"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              d:DesignHeight="1080" d:DesignWidth="1920"
 >
     <Grid>
 
         <Grid>
-            <Image Source="{StaticResource LoginBackground}"/>
+            <Image Source="{StaticResource LoginBackground}" />
 
-            <Grid >
+            <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="3*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="3*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="2*" />
                 </Grid.RowDefinitions>
 
-                <Image Source="{StaticResource Logo}" Grid.Row="0"/>
+                <Image Source="{StaticResource Logo}" Grid.Row="0" />
 
                 <Grid Grid.Row="1">
 
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="2*"/>
-                        <RowDefinition Height="4*"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="2*" />
+                        <RowDefinition Height="4*" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
                     <TextBox Grid.Row="1"
@@ -43,22 +42,20 @@
                              BorderThickness="2"
                              Foreground="White"
                              materialDesign:HintAssist.Hint="Email"
-                             Style="{StaticResource MaterialDesignFilledTextBox}"
-                    />
-
+                             Style="{StaticResource MaterialDesignFilledTextBox}" />
                 </Grid>
 
                 <Grid Grid.Row="2">
 
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="4*"/>
-                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="4*" />
+                        <RowDefinition Height="2*" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
                     <PasswordBox x:Name="PasswordBox"
@@ -68,87 +65,76 @@
                                  BorderThickness="2"
                                  Foreground="White"
                                  materialDesign:HintAssist.Hint="Password"
-                                 Style="{StaticResource MaterialDesignFilledPasswordBox}"
-                    />
+                                 Style="{StaticResource MaterialDesignFilledPasswordBox}" />
 
                     <Button Grid.Column="1"
                             Grid.Row="2"
                             Content="Forgot Password"
                             VerticalAlignment="Top"
                             HorizontalAlignment="Right"
-                            Foreground="{DynamicResource SolidLight}"                      
+                            Foreground="{DynamicResource SolidLight}"
                             Style="{StaticResource MaterialDesignFlatLightButton}"
-                            Command="{Binding ForgotPasswordCommand}"
-                    />
-
+                            Command="{Binding ForgotPasswordCommand}" />
                 </Grid>
 
                 <Grid Grid.Row="3">
 
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="2*" />
                     </Grid.ColumnDefinitions>
 
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="2*"/>
-                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="2*" />
+                        <RowDefinition Height="3*" />
                     </Grid.RowDefinitions>
 
                     <Button Grid.Row="1"
-                        Grid.Column="1"                       
+                        Grid.Column="1"
                         Content="Login"
                         FontSize="{DynamicResource MediumFontSize}"
                         Height="70"
                         materialDesign:ButtonAssist.CornerRadius="5"
                         Command="{Binding LoginCommand}"
-                        CommandParameter="{Binding ElementName=PasswordBox}"
-                    />
+                        CommandParameter="{Binding ElementName=PasswordBox}" />
 
                     <materialDesign:Snackbar Grid.Column="0"
                                              Grid.ColumnSpan="3"
                                              Grid.Row="3"
                                              Foreground="{DynamicResource SolidLight}"
                                              Background="{DynamicResource LinearMain}"
-                                             MessageQueue="{Binding LoginViewSnackbarMessageQueue}"
-                    />
-
+                                             MessageQueue="{Binding LoginViewSnackbarMessageQueue}" />
                 </Grid>
-
             </Grid>
         </Grid>
-        
+
         <materialDesign:DialogHost
                     IsOpen="{Binding IsForgotPasswordDialogOpen}"
                     CloseOnClickAway="True"
-                    OverlayBackground="{DynamicResource PrimaryHueDarkBrush}"
-                    >
+                    OverlayBackground="{DynamicResource PrimaryHueDarkBrush}">
 
             <materialDesign:DialogHost.DialogContent>
-                <Grid >
+                <Grid>
                     <materialDesign:Card
                       Background="{DynamicResource LinearDarkBackground}"
                       Foreground="{DynamicResource SolidLight}"
                       VerticalAlignment="Center"
-                      HorizontalAlignment="Center"
-                    >
+                      HorizontalAlignment="Center">
                         <Grid Margin="50, 50, 50, 50"
-                              MinWidth="1024"
-                        >
+                              MinWidth="1024">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="2*"/>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="2*" />
                             </Grid.RowDefinitions>
 
                             <TextBlock Grid.Row="0"
                                        Text="Enter your email address"
                                        FontSize="25"
                                        HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                            />
+                                       VerticalAlignment="Center" />
 
                             <TextBox Grid.Row="1"
                                      Margin="0 50 0 50"
@@ -156,8 +142,7 @@
                                      Foreground="White"
                                      materialDesign:HintAssist.Hint="Email"
                                      Text="{Binding ForgotPasswordEmail}"
-                                     Style="{StaticResource MaterialDesignFilledTextBox}"
-                            />
+                                     Style="{StaticResource MaterialDesignFilledTextBox}" />
 
                             <Button Grid.Row="2"
                                     Grid.Column="1"
@@ -165,19 +150,11 @@
                                     FontSize="25"
                                     Height="70"
                                     materialDesign:ButtonAssist.CornerRadius="5"
-                                    Command="{Binding SendResetPasswordMailCommand}"
-                            />
-
+                                    Command="{Binding SendResetPasswordMailCommand}" />
                         </Grid>
                     </materialDesign:Card>
                 </Grid>
             </materialDesign:DialogHost.DialogContent>
-
-
-
         </materialDesign:DialogHost>
-
     </Grid>
-
-
 </UserControl>

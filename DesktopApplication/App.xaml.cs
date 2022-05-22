@@ -1,11 +1,5 @@
 ﻿using CSWBManagementApplication.Resources;
 using CSWBManagementApplication.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace CSWBManagementApplication
@@ -25,9 +19,9 @@ namespace CSWBManagementApplication
             {
                 DataContext = new MainViewModel()
             };
-            
+
             MainWindow.Show();
-            
+
             base.OnStartup(e);
         }
     }

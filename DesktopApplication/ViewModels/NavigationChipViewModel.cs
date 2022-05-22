@@ -1,10 +1,5 @@
 ﻿using CSWBManagementApplication.Resources;
 using MaterialDesignThemes.Wpf;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -13,6 +8,7 @@ namespace CSWBManagementApplication.ViewModels
     internal class NavigationChipViewModel : ViewModelBase
     {
         private bool activated;
+
         public bool Activated
         {
             get { return activated; }
@@ -23,7 +19,8 @@ namespace CSWBManagementApplication.ViewModels
                 {
                     Foreground = DarkTheme.LinearMain;
                     BorderBrush = Foreground;
-                } else
+                }
+                else
                 {
                     Foreground = DarkTheme.SolidLight;
                     BorderBrush = new SolidColorBrush(Color.FromArgb(0, 0, 0, 0));
@@ -33,6 +30,7 @@ namespace CSWBManagementApplication.ViewModels
         }
 
         private string content;
+
         public string Content
         {
             get { return content; }
@@ -44,6 +42,7 @@ namespace CSWBManagementApplication.ViewModels
         }
 
         private PackIconKind icon;
+
         public PackIconKind Icon
         {
             get { return icon; }
@@ -55,6 +54,7 @@ namespace CSWBManagementApplication.ViewModels
         }
 
         private Brush foreground;
+
         public Brush Foreground
         {
             get { return foreground; }
@@ -66,6 +66,7 @@ namespace CSWBManagementApplication.ViewModels
         }
 
         private Brush borderBrush;
+
         public Brush BorderBrush
         {
             get { return borderBrush; }
@@ -77,6 +78,7 @@ namespace CSWBManagementApplication.ViewModels
         }
 
         private ICommand command;
+
         public ICommand Command
         {
             get { return command; }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CSWBManagementApplication.Services;
+﻿using CSWBManagementApplication.Services;
 using Google.Cloud.Firestore;
 
 namespace CSWBManagementApplication.Models
@@ -20,14 +15,16 @@ namespace CSWBManagementApplication.Models
         }
 
         protected string uid;
+
         [FirestoreDocumentId]
         public string UID
-        { 
-            get { return uid; } 
-            set { uid = value; } 
+        {
+            get { return uid; }
+            set { uid = value; }
         }
 
         protected string email;
+
         [FirestoreProperty]
         public string Email
         {
@@ -36,6 +33,7 @@ namespace CSWBManagementApplication.Models
         }
 
         protected bool isOwner;
+
         [FirestoreProperty]
         public bool IsOwner
         {
@@ -64,6 +62,5 @@ namespace CSWBManagementApplication.Models
         {
             get => (isOwner ? Roles.Owner : Database.UserRole(UserReference).Result);
         }
-
     }
 }

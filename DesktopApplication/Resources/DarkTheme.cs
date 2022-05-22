@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Media;
 
 namespace CSWBManagementApplication.Resources
@@ -15,8 +10,8 @@ namespace CSWBManagementApplication.Resources
 
         public static readonly Brush LinearBackground = new LinearGradientBrush(Color.FromRgb(108, 112, 118),
                                                                                 Color.FromRgb(33, 36, 41), 90);
-        
-        public static readonly Brush LinearDarkBackground = new LinearGradientBrush(Color.FromRgb(49, 54, 58), 
+
+        public static readonly Brush LinearDarkBackground = new LinearGradientBrush(Color.FromRgb(49, 54, 58),
                                                                                     Color.FromRgb(19, 23, 26), 90);
 
         public static readonly Brush SolidLight = new SolidColorBrush(Color.FromRgb(245, 245, 245));

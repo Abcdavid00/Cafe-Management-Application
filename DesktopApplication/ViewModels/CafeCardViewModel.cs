@@ -1,16 +1,12 @@
 ﻿using CSWBManagementApplication.Models;
 using CSWBManagementApplication.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CSWBManagementApplication.ViewModels
 {
     internal class CafeCardViewModel : ViewModelBase
     {
         private string id;
+
         public string ID
         {
             get => id;
@@ -22,6 +18,7 @@ namespace CSWBManagementApplication.ViewModels
         }
 
         private string managerName;
+
         public string ManagerName
         {
             get => managerName;
@@ -33,6 +30,7 @@ namespace CSWBManagementApplication.ViewModels
         }
 
         private string address;
+
         public string Address
         {
             get => address;
@@ -44,6 +42,7 @@ namespace CSWBManagementApplication.ViewModels
         }
 
         private string thisMonthRevenue;
+
         public string ThisMonthRevenue
         {
             get => thisMonthRevenue;
@@ -55,6 +54,7 @@ namespace CSWBManagementApplication.ViewModels
         }
 
         private string lastMonthRevenue;
+
         public string LastMonthRevenue
         {
             get => lastMonthRevenue;
@@ -66,6 +66,7 @@ namespace CSWBManagementApplication.ViewModels
         }
 
         private Cafe cafe;
+
         public Cafe Cafe
         {
             get => cafe;
@@ -75,12 +76,11 @@ namespace CSWBManagementApplication.ViewModels
                 ResetViewModel();
             }
         }
-        
+
         private async void ResetViewModel()
         {
             ID = cafe.CafeID;
 
-            
             Address = cafe.Address;
             ThisMonthRevenue = "$0";
             LastMonthRevenue = "$0";
@@ -96,12 +96,9 @@ namespace CSWBManagementApplication.ViewModels
             }
         }
 
-
-
-        public CafeCardViewModel(Cafe cafe) 
+        public CafeCardViewModel(Cafe cafe)
         {
             this.Cafe = cafe;
         }
-
     }
 }

@@ -1,9 +1,5 @@
 ﻿using Google.Cloud.Firestore;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CSWBManagementApplication.Models
 {
@@ -11,6 +7,7 @@ namespace CSWBManagementApplication.Models
     internal class Staff : User
     {
         private string cafeID;
+
         [FirestoreProperty]
         public string CafeID
         {
@@ -19,6 +16,7 @@ namespace CSWBManagementApplication.Models
         }
 
         private string name;
+
         [FirestoreProperty]
         public string Name
         {
@@ -27,6 +25,7 @@ namespace CSWBManagementApplication.Models
         }
 
         private string phone;
+
         [FirestoreProperty]
         public string Phone
         {
@@ -35,6 +34,7 @@ namespace CSWBManagementApplication.Models
         }
 
         private bool isMale;
+
         [FirestoreProperty]
         public bool IsMale
         {
@@ -42,13 +42,15 @@ namespace CSWBManagementApplication.Models
             set { isMale = value; }
         }
 
-        private DateTime birthdate;        
+        private DateTime birthdate;
+
         public DateTime Birthdate
         {
             get { return birthdate; }
         }
 
         private string profilePicturePath;
+
         [FirestoreProperty]
         public string ProfilePicturePath
         {
@@ -58,7 +60,7 @@ namespace CSWBManagementApplication.Models
                 profilePicturePath = value;
             }
         }
-        
+
         [FirestoreProperty]
         public long BinaryBirthDate
         {
@@ -76,7 +78,7 @@ namespace CSWBManagementApplication.Models
             birthdate = new DateTime();
         }
 
-        public Staff(string uid ,string email, string cafeID, string name, string phone, bool isMale, DateTime birthdate) : base(uid, email)
+        public Staff(string uid, string email, string cafeID, string name, string phone, bool isMale, DateTime birthdate) : base(uid, email)
         {
             isOwner = false;
             this.cafeID = cafeID;

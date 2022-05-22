@@ -1,9 +1,4 @@
 ﻿using CSWBManagementApplication.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Firebase.Auth;
 
 namespace CSWBManagementApplication.ViewModels
@@ -11,6 +6,7 @@ namespace CSWBManagementApplication.ViewModels
     internal class MainViewModel : ViewModelBase
     {
         private Models.User currentUser;
+
         public Models.User CurrentUser
         {
             get => currentUser;
@@ -24,39 +20,45 @@ namespace CSWBManagementApplication.ViewModels
                         case Models.User.Roles.Owner:
                             CurrentWorkingViewModel = new OwnerViewModel(this);
                             break;
+
                         case Models.User.Roles.Manager:
                             CurrentWorkingViewModel = new ManagerViewModel(this);
                             break;
+
                         case Models.User.Roles.Staff:
                             CurrentWorkingViewModel = new StaffViewModel(this);
                             break;
+
                         case Models.User.Roles.None:
                             CurrentWorkingViewModel = null;
                             break;
                     }
-                } else
+                }
+                else
                 {
                     CurrentWorkingViewModel = null;
                 }
                 OnPropertyChanged();
             }
         }
-        
+
         private FirebaseAuthLink userLink;
+
         public FirebaseAuthLink UserLink
         {
             get { return userLink; }
             set
             {
-                userLink = value;                
+                userLink = value;
                 if (userLink != null)
                 {
                     UpdateUser();
-                } else
+                }
+                else
                 {
                     State = 0;
                     CurrentUser = null;
-                }                
+                }
                 OnPropertyChanged();
             }
         }
@@ -71,18 +73,19 @@ namespace CSWBManagementApplication.ViewModels
         }
 
         private int state;
+
         public int State
         {
             get => state;
-            private set 
+            private set
             {
                 state = value;
                 OnPropertyChanged();
             }
-
         }
 
         private ViewModelBase currentLoginViewModel;
+
         public ViewModelBase CurrentLoginViewModel
         {
             get => currentLoginViewModel;
@@ -94,6 +97,7 @@ namespace CSWBManagementApplication.ViewModels
         }
 
         private ViewModelBase currentWorkingViewModel;
+
         public ViewModelBase CurrentWorkingViewModel
         {
             get => currentWorkingViewModel;
@@ -104,18 +108,15 @@ namespace CSWBManagementApplication.ViewModels
             }
         }
 
-
-
         public MainViewModel()
         {
             Initialize();
-
         }
 
         public async void Initialize()
         {
             //await Database.ResetDatabaseAsync();
-            
+
             if ((await Database.GetUserCount()) == 0)
             {
                 CurrentLoginViewModel = new CreateOwnerViewModel(this);

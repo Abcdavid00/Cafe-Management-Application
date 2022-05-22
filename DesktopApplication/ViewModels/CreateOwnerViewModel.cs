@@ -3,10 +3,6 @@ using CSWBManagementApplication.Services;
 using Firebase.Auth;
 using MaterialDesignThemes.Wpf;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -16,6 +12,7 @@ namespace CSWBManagementApplication.ViewModels
     internal class CreateOwnerViewModel : ViewModelBase
     {
         private string mail;
+
         public string Mail
         {
             get { return mail; }
@@ -32,6 +29,7 @@ namespace CSWBManagementApplication.ViewModels
         }
 
         private bool waiting;
+
         public bool Waiting
         {
             get { return waiting; }
@@ -42,7 +40,9 @@ namespace CSWBManagementApplication.ViewModels
                 OnPropertyChanged("IsEnabled");
             }
         }
+
         private string buttonToolTip;
+
         public string ButtonToolTip
         {
             get { return buttonToolTip; }
@@ -54,6 +54,7 @@ namespace CSWBManagementApplication.ViewModels
         }
 
         private PackIconKind buttonIcon;
+
         public PackIconKind ButtonIcon
         {
             get { return buttonIcon; }
@@ -65,6 +66,7 @@ namespace CSWBManagementApplication.ViewModels
         }
 
         private ICommand buttonCommand;
+
         public ICommand ButtonCommand
         {
             get { return buttonCommand; }
@@ -76,6 +78,7 @@ namespace CSWBManagementApplication.ViewModels
         }
 
         private ICommand resendVerifyMail;
+
         public ICommand ResendVerifyMail
         {
             get { return resendVerifyMail; }
@@ -87,6 +90,7 @@ namespace CSWBManagementApplication.ViewModels
         }
 
         private Visibility resendVisibility;
+
         public Visibility ResendVisibility
         {
             get { return resendVisibility; }
@@ -100,6 +104,7 @@ namespace CSWBManagementApplication.ViewModels
         private FirebaseAuthLink AuthLink;
 
         private int state;
+
         public int State
         {
             get { return state; }
@@ -120,7 +125,8 @@ namespace CSWBManagementApplication.ViewModels
                     ButtonIcon = PackIconKind.AccountClock;
                     ResendVisibility = Visibility.Visible;
                     Waiting = true;
-                } else
+                }
+                else
                 {
                     state = 2;
                     ButtonToolTip = "Verified";

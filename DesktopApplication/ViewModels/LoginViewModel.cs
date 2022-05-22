@@ -1,13 +1,7 @@
 ﻿using CSWBManagementApplication.Commands;
 using CSWBManagementApplication.Services;
-using Firebase.Auth;
 using MaterialDesignThemes.Wpf;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -16,6 +10,7 @@ namespace CSWBManagementApplication.ViewModels
     internal class LoginViewModel : ViewModelBase
     {
         private string email;
+
         public string Email
         {
             get { return email; }
@@ -23,17 +18,19 @@ namespace CSWBManagementApplication.ViewModels
         }
 
         private string forgotPasswordEmail;
+
         public string ForgotPasswordEmail
         {
             get => forgotPasswordEmail;
             set
-            { 
+            {
                 forgotPasswordEmail = value;
                 OnPropertyChanged("ForgotPasswordEmailTxtBox");
             }
         }
 
         private ICommand loginCommand;
+
         public ICommand LoginCommand
         {
             get => loginCommand;
@@ -45,6 +42,7 @@ namespace CSWBManagementApplication.ViewModels
         }
 
         private ICommand forgotPasswordCommand;
+
         public ICommand ForgotPasswordCommand
         {
             get => forgotPasswordCommand;
@@ -56,6 +54,7 @@ namespace CSWBManagementApplication.ViewModels
         }
 
         private ICommand sendResetPasswordMailCommand;
+
         public ICommand SendResetPasswordMailCommand
         {
             get => sendResetPasswordMailCommand;
@@ -73,6 +72,7 @@ namespace CSWBManagementApplication.ViewModels
         }
 
         private bool isForgotPasswordDialogOpen;
+
         public bool IsForgotPasswordDialogOpen
         {
             get => isForgotPasswordDialogOpen;
@@ -81,7 +81,7 @@ namespace CSWBManagementApplication.ViewModels
                 isForgotPasswordDialogOpen = value;
                 OnPropertyChanged("IsForgotPasswordDialogOpen");
             }
-        }     
+        }
 
         private MainViewModel mainViewModel;
 
@@ -98,9 +98,8 @@ namespace CSWBManagementApplication.ViewModels
             SendResetPasswordMailCommand = new CommandBase(SendResetPasswordMail);
             LoginCommand = new RelayCommand<PasswordBox>(Login);
             userLink = null;
-
         }
-        
+
         public async void SendResetPasswordMail()
         {
             await Database.SendResetPasswordMail(ForgotPasswordEmail);
@@ -115,7 +114,6 @@ namespace CSWBManagementApplication.ViewModels
                 try
                 {
                     userLink = await Database.SignIn(Email, passwordBox.Password);
-
                 }
                 catch (Exception e)
                 {

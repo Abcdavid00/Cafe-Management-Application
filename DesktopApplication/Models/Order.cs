@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CSWBManagementApplication.Models
+﻿namespace CSWBManagementApplication.Models
 {
     internal class Order
     {
         private int orderId;
+
         public int OrderId
         {
             get { return orderId; }
@@ -16,6 +11,7 @@ namespace CSWBManagementApplication.Models
         }
 
         private int customerId;
+
         public int CustomerId
         {
             get { return customerId; }
@@ -23,6 +19,7 @@ namespace CSWBManagementApplication.Models
         }
 
         private int productId;
+
         public int ProductId
         {
             get { return productId; }

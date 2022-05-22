@@ -1,11 +1,7 @@
-﻿
+﻿using CSWBManagementApplication.Services;
+using Google.Cloud.Firestore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Google.Cloud.Firestore;
-using CSWBManagementApplication.Services;
 
 namespace CSWBManagementApplication.Models
 {
@@ -15,7 +11,6 @@ namespace CSWBManagementApplication.Models
         [FirestoreData]
         public class Position
         {
-
             [FirestoreProperty]
             public int x
             {
@@ -43,7 +38,6 @@ namespace CSWBManagementApplication.Models
                     long sum = (degree + 1) * degree / 2;
                     this.y = (int)(value - sum);
                     this.x = degree - this.y;
-
                 }
             }
 
@@ -73,12 +67,14 @@ namespace CSWBManagementApplication.Models
                 get;
                 set;
             }
+
             [FirestoreProperty]
             public int Width
             {
                 get;
                 set;
             }
+
             [FirestoreProperty]
             public int Length
             {
@@ -106,7 +102,7 @@ namespace CSWBManagementApplication.Models
                        position.y >= Position.y && position.y <= Position.y + Length;
             }
         }
-        
+
         [FirestoreData]
         public class Floor
         {
@@ -118,7 +114,7 @@ namespace CSWBManagementApplication.Models
 
             [FirestoreProperty]
             public List<Position> Tables { get; set; }
-            
+
             public Floor()
             {
                 this.FloorAreas = new List<FloorArea>();
@@ -154,16 +150,18 @@ namespace CSWBManagementApplication.Models
                 this.Tables.Remove(position);
             }
         }
-        
+
         private string cafeID;
+
         [FirestoreDocumentId]
         public string CafeID
         {
             get { return cafeID; }
             set { cafeID = value; }
         }
-        
+
         private string address;
+
         [FirestoreProperty]
         public string Address
         {
@@ -172,6 +170,7 @@ namespace CSWBManagementApplication.Models
         }
 
         private Dictionary<string, Floor> floors;
+
         public Dictionary<string, Floor> Floors
         {
             get { return floors; }
@@ -179,8 +178,9 @@ namespace CSWBManagementApplication.Models
         }
 
         private Dictionary<string, int> staffs;
+
         public Dictionary<string, int> Staffs
-        {        
+        {
             get { return staffs; }
             set { staffs = value; }
         }
@@ -189,7 +189,7 @@ namespace CSWBManagementApplication.Models
         {
             get => Database.CafeDocument(CafeID);
         }
-        
+
         public Cafe()
         {
             this.CafeID = "";
@@ -197,13 +197,13 @@ namespace CSWBManagementApplication.Models
             this.floors = new Dictionary<string, Floor>();
             this.staffs = new Dictionary<string, int>();
         }
-        
+
         public Cafe(string cafeID, string address)
         {
             this.cafeID = cafeID;
             this.address = address;
             this.floors = new Dictionary<string, Floor>();
-            this.staffs = new Dictionary<string, int>();            
+            this.staffs = new Dictionary<string, int>();
         }
 
         public void AddFloor(string floorID, Floor floor)

@@ -26,98 +26,81 @@
         <GradientStop Color="#FF13171A" Offset="1.0" />
     </LinearGradientBrush>
 
-    <SolidColorBrush x:Key="SolidLight" Color="#FFF5F5F5"/>
+    <SolidColorBrush x:Key="SolidLight" Color="#FFF5F5F5" />
 
-    <SolidColorBrush x:Key="SolidDark" Color="#FF212429"/>
+    <SolidColorBrush x:Key="SolidDark" Color="#FF212429" />
 
-    <SolidColorBrush x:Key="SolidMain" Color="#FFFF4500"/>
+    <SolidColorBrush x:Key="SolidMain" Color="#FFFF4500" />
 
-    <Color x:Key="Orange" A="225" R="255" G="69" B="00"/>
-    <Color x:Key="LightGray" A="225" R="245" G="245" B="245"/>
+    <Color x:Key="Orange" A="225" R="255" G="69" B="00" />
+    <Color x:Key="LightGray" A="225" R="245" G="245" B="245" />
 
     <Style x:Key="MenuTab" TargetType="Button">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border Background="Transparent"  
-                            Padding="10" 
-                            Margin="10" >
+                    <Border Background="Transparent"
+                            Padding="10"
+                            Margin="10">
 
                         <TextBlock Text="{TemplateBinding Content}"
-                                   FontSize="20" 
-                                   Foreground="{TemplateBinding Foreground}" 
+                                   FontSize="20"
+                                   Foreground="{TemplateBinding Foreground}"
                                    Margin="20,0,0,0"
-                                   VerticalAlignment="Center"
-                                   
-                        />
+                                   VerticalAlignment="Center" />
                     </Border>
-                    
-                    
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
 
-        <Setter Property="Height" Value="75"/>
-        <Setter Property="Width" Value="175"/>
+        <Setter Property="Height" Value="75" />
+        <Setter Property="Width" Value="175" />
 
-        <Style.Triggers >
-            
-            
+        <Style.Triggers>
+
             <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Template">
+                <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="Button">
-                            <Border Background="Transparent" 
+                            <Border Background="Transparent"
                                     BorderBrush="{TemplateBinding Background}"
-                                    BorderThickness="1" 
-                                    CornerRadius="15" 
-                                    Padding="10" 
-                                    Margin="10" >
+                                    BorderThickness="1"
+                                    CornerRadius="15"
+                                    Padding="10"
+                                    Margin="10">
 
                                 <TextBlock Text="{TemplateBinding Content}"
-                                           FontSize="20" 
-                                           Foreground="{TemplateBinding Foreground}" 
+                                           FontSize="20"
+                                           Foreground="{TemplateBinding Foreground}"
                                            Margin="30,0,0,0"
-                                           VerticalAlignment="Center"
-                                   
-                                   />
+                                           VerticalAlignment="Center" />
                             </Border>
-
-
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
-
             </Trigger>
 
             <Trigger Property="IsMouseOver" Value="False">
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="Button">
-                            <Border Background="Transparent" 
-                                    BorderBrush="{TemplateBinding Background}" 
-                                    BorderThickness="1" 
-                                    CornerRadius="15" 
-                                    Padding="10" 
-                                    Margin="10" >   
+                            <Border Background="Transparent"
+                                    BorderBrush="{TemplateBinding Background}"
+                                    BorderThickness="1"
+                                    CornerRadius="15"
+                                    Padding="10"
+                                    Margin="10">
 
                                 <TextBlock Text="{TemplateBinding Content}"
-                                           FontSize="20" 
-                                           Foreground="{TemplateBinding Foreground}" 
+                                           FontSize="20"
+                                           Foreground="{TemplateBinding Foreground}"
                                            Margin="20,0,0,0"
-                                           VerticalAlignment="Center"
-                                   
-                                   />
+                                           VerticalAlignment="Center" />
                             </Border>
-
-
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
-
             </Trigger>
-
         </Style.Triggers>
-        
     </Style>
 </ResourceDictionary>

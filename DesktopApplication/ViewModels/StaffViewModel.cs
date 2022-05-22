@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CSWBManagementApplication.ViewModels
+﻿namespace CSWBManagementApplication.ViewModels
 {
     internal class StaffViewModel : ViewModelBase
     {
@@ -12,7 +6,7 @@ namespace CSWBManagementApplication.ViewModels
         {
             get => "StaffView";
         }
-        
+
         private MainViewModel mainViewModel;
 
         public StaffViewModel(MainViewModel mainViewModel)

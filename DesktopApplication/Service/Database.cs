@@ -1,16 +1,15 @@
 ﻿using CSWBManagementApplication.Models;
+using Firebase.Auth;
+using Firebase.Storage;
+using FirebaseAdmin.Auth;
 using FireSharp;
-using FireSharp.Config;
 using Google.Cloud.Firestore;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Firebase.Auth;
-using Firebase.Storage;
-using System.IO;
 using FirebaseConfig = FireSharp.Config.FirebaseConfig;
-using FirebaseAdmin.Auth;
 
 namespace CSWBManagementApplication.Services
 {
@@ -28,6 +27,7 @@ namespace CSWBManagementApplication.Services
         #region RealtimeDatabase
 
         private static FirebaseClient firebaseClient;
+
         public static FirebaseClient RealtimeDatabase
         {
             get
@@ -44,20 +44,21 @@ namespace CSWBManagementApplication.Services
             }
         }
 
-        #endregion
+        #endregion RealtimeDatabase
 
         #region Firestore
 
-        const int BATCH_SIZE = 10;
+        private const int BATCH_SIZE = 10;
 
-        const string CAFE_COLLECTION = "Cafes";
-        const string CAFE_STAFF_COLLECTION = "Staffs";
-        const string CAFE_FLOOR_COLLECTION = "Floors";
+        private const string CAFE_COLLECTION = "Cafes";
+        private const string CAFE_STAFF_COLLECTION = "Staffs";
+        private const string CAFE_FLOOR_COLLECTION = "Floors";
 
-        const string USER_COLLECTION = "Users";
+        private const string USER_COLLECTION = "Users";
 
-        static private FirestoreDb db;
-        static public FirestoreDb FirestoreDatabase
+        private static FirestoreDb db;
+
+        public static FirestoreDb FirestoreDatabase
         {
             get
             {
@@ -69,17 +70,19 @@ namespace CSWBManagementApplication.Services
                 return db;
             }
         }
-        static public CollectionReference CafeCollection = FirestoreDatabase.Collection(CAFE_COLLECTION);
-        static public CollectionReference UserCollection = FirestoreDatabase.Collection(USER_COLLECTION);
 
-        #endregion
+        public static CollectionReference CafeCollection = FirestoreDatabase.Collection(CAFE_COLLECTION);
+        public static CollectionReference UserCollection = FirestoreDatabase.Collection(USER_COLLECTION);
+
+        #endregion Firestore
 
         #region Storage
 
         private const string STORAGE_BUCKET = "cafe-shop-kkk.appspot.com";
 
-        static private FirebaseStorage storage;
-        static public FirebaseStorage Storage
+        private static FirebaseStorage storage;
+
+        public static FirebaseStorage Storage
         {
             get
             {
@@ -91,13 +94,12 @@ namespace CSWBManagementApplication.Services
             }
         }
 
+        #endregion Storage
 
-
-        #endregion
-
-        #region Authentication 
+        #region Authentication
 
         private static FirebaseAuthProvider authProvider;
+
         public static FirebaseAuthProvider AuthProvider
         {
             get
@@ -111,6 +113,7 @@ namespace CSWBManagementApplication.Services
         }
 
         private static FirebaseAdmin.FirebaseApp fbAdmin;
+
         public static FirebaseAdmin.FirebaseApp FBAdmin
         {
             get
@@ -129,9 +132,9 @@ namespace CSWBManagementApplication.Services
             get => FirebaseAdmin.Auth.FirebaseAuth.GetAuth(FBAdmin);
         }
 
-        #endregion
+        #endregion Authentication
 
-        #endregion
+        #endregion Initialize
 
         /// <summary>
         /// Clear database and reinitialize it asynchronously.
@@ -167,37 +170,37 @@ namespace CSWBManagementApplication.Services
 
         #region Misc
 
-        static public DocumentReference CafeDocument(string cafeID)
+        public static DocumentReference CafeDocument(string cafeID)
         {
             return CafeCollection.Document(cafeID);
         }
 
-        static public CollectionReference CafeStaffCollection(string cafeID)
+        public static CollectionReference CafeStaffCollection(string cafeID)
         {
             return CafeDocument(cafeID).Collection(CAFE_STAFF_COLLECTION);
         }
 
-        static public DocumentReference StaffDocument(string cafeID, string staffUserID)
+        public static DocumentReference StaffDocument(string cafeID, string staffUserID)
         {
             return CafeStaffCollection(cafeID).Document(staffUserID);
         }
 
-        static public CollectionReference CafeFloorCollection(string cafeID)
+        public static CollectionReference CafeFloorCollection(string cafeID)
         {
             return CafeDocument(cafeID).Collection(CAFE_FLOOR_COLLECTION);
         }
 
-        static public DocumentReference FloorDocument(string cafeID, string floorID)
+        public static DocumentReference FloorDocument(string cafeID, string floorID)
         {
             return CafeFloorCollection(cafeID).Document(floorID);
         }
 
-        static public DocumentReference UserDocument(string userID)
+        public static DocumentReference UserDocument(string userID)
         {
             return UserCollection.Document(userID);
         }
 
-        #endregion
+        #endregion Misc
 
         #region Delete
 
@@ -230,10 +233,9 @@ namespace CSWBManagementApplication.Services
                 documents.Clear();
                 documents.AddRange(snapshot.Documents);
             }
-
         }
 
-        #endregion
+        #endregion Delete
 
         #region Cafe
 
@@ -251,9 +253,8 @@ namespace CSWBManagementApplication.Services
             return (await cafeReference.GetSnapshotAsync()).ConvertTo<Cafe>();
         }
 
-        static public async Task<DocumentReference> FindCafeAsync(string address)
+        public static async Task<DocumentReference> FindCafeAsync(string address)
         {
-
             QuerySnapshot cafeSnapshot = await CafeCollection.WhereEqualTo("Address", address).Limit(1).GetSnapshotAsync();
             if (cafeSnapshot.Count == 0)
             {
@@ -262,7 +263,7 @@ namespace CSWBManagementApplication.Services
             return CafeDocument(cafeSnapshot.Documents[0].Id);
         }
 
-        static public async Task<Cafe> GetCafe(DocumentReference cafeReference)
+        public static async Task<Cafe> GetCafe(DocumentReference cafeReference)
         {
             DocumentSnapshot cafeSnapshot = await cafeReference.GetSnapshotAsync();
             if (!cafeSnapshot.Exists)
@@ -287,7 +288,7 @@ namespace CSWBManagementApplication.Services
             return result;
         }
 
-        static public async Task<IEnumerable<Cafe>> GetAllCafes() 
+        public static async Task<IEnumerable<Cafe>> GetAllCafes()
         {
             QuerySnapshot cafesSnapshot = await CafeCollection.GetSnapshotAsync();
             List<Cafe> cafes = new List<Cafe>();
@@ -334,11 +335,11 @@ namespace CSWBManagementApplication.Services
         public static async Task<DocumentReference> FindManagerReference(string cafeID)
         {
             QuerySnapshot managerSnapshot = await CafeStaffCollection(cafeID).WhereEqualTo("Level", 1).GetSnapshotAsync();
-            if (managerSnapshot.Count!=0)
+            if (managerSnapshot.Count != 0)
             {
                 return UserDocument(managerSnapshot.Documents[0].Id);
             }
-            return null;           
+            return null;
         }
 
         public static async Task<IEnumerable<DocumentReference>> FindStaffReferences(string cafeID)
@@ -352,9 +353,7 @@ namespace CSWBManagementApplication.Services
             return staffs.AsEnumerable();
         }
 
-
-
-        #endregion
+        #endregion Cafe
 
         #region User
 
@@ -364,7 +363,6 @@ namespace CSWBManagementApplication.Services
             Owner user = new Owner(userLink.User.LocalId, userLink.User.Email);
             await userReference.SetAsync(user);
             return user;
-
         }
 
         public static async Task<Models.User> CreateUserAsync(FirebaseAuthLink userLink, string cafeID, string name, string phone, bool isMale, DateTime birthdate, bool isManager = false)
@@ -521,9 +519,9 @@ namespace CSWBManagementApplication.Services
             await staffReference.SetAsync(new Dictionary<string, object> { { "Level", (isManager ? 1 : 0) } });
         }
 
-        #endregion    
+        #endregion User
 
-        #endregion
+        #endregion Firestore
 
         #region Authentication
 
@@ -558,7 +556,6 @@ namespace CSWBManagementApplication.Services
                 return await SignIn(mail, password);
             }
             return await AuthProvider.CreateUserWithEmailAndPasswordAsync(mail, password);
-
         }
 
         public static async Task SendVerifyMail(FirebaseAuthLink authLink)
@@ -611,7 +608,7 @@ namespace CSWBManagementApplication.Services
             return count;
         }
 
-        #endregion
+        #endregion Authentication
 
         #region FirebaseStorage
 
@@ -619,6 +616,7 @@ namespace CSWBManagementApplication.Services
         public class StorageItem
         {
             private string name;
+
             [FirestoreProperty]
             public string Name
             {
@@ -630,6 +628,7 @@ namespace CSWBManagementApplication.Services
             }
 
             private string folder;
+
             [FirestoreProperty]
             public string Folder
             {
@@ -705,7 +704,7 @@ namespace CSWBManagementApplication.Services
 
         public const string PRODUCT_PICTURE_FOLDER = "ProductPicture";
 
-        const string STORAGE_ITEM_COLLECTION = "StorageItem";
+        private const string STORAGE_ITEM_COLLECTION = "StorageItem";
 
         public static CollectionReference StorageItemCollection = FirestoreDatabase.Collection(STORAGE_ITEM_COLLECTION);
 
@@ -747,7 +746,6 @@ namespace CSWBManagementApplication.Services
             }
             catch (Exception e)
             {
-
             }
 
             try
@@ -756,7 +754,6 @@ namespace CSWBManagementApplication.Services
             }
             catch (Exception e)
             {
-
             }
         }
 
@@ -780,6 +777,6 @@ namespace CSWBManagementApplication.Services
             }
         }
 
-        #endregion
+        #endregion FirebaseStorage
     }
 }
