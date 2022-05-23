@@ -1,4 +1,5 @@
-﻿using CSWBManagementApplication.Models;
+﻿using CSWBManagementApplication.Commands;
+using CSWBManagementApplication.Models;
 using CSWBManagementApplication.Services;
 
 namespace CSWBManagementApplication.ViewModels
@@ -65,6 +66,28 @@ namespace CSWBManagementApplication.ViewModels
             }
         }
 
+        private string compare;
+        public string Compare
+        {
+            get => compare;
+            set
+            {
+                compare = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private CommandBase pressCommand;
+        public CommandBase PressCommand
+        {
+            get => pressCommand;
+            set
+            {
+                pressCommand = value;
+                OnPropertyChanged();
+            }
+        }
+
         private Cafe cafe;
 
         public Cafe Cafe
@@ -84,6 +107,7 @@ namespace CSWBManagementApplication.ViewModels
             Address = cafe.Address;
             ThisMonthRevenue = "$0";
             LastMonthRevenue = "$0";
+            Compare = "0%";
 
             Staff manager = await Database.GetStaff(await Database.FindManagerReference(cafe.CafeID));
             if (manager != null)

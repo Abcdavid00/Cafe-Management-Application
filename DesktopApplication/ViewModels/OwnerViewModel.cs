@@ -57,20 +57,6 @@ namespace CSWBManagementApplication.ViewModels
 
         private MainViewModel mainViewModel;
 
-        private SolidColorBrush pulsingColor;
-
-        public SolidColorBrush PulsingColor
-        {
-            get => pulsingColor;
-            set
-            {
-                pulsingColor = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private SolidColorPulsar solidColorPulsar;
-
         public OwnerViewModel(MainViewModel mainViewModel)
         {
             this.mainViewModel = mainViewModel;
@@ -99,7 +85,12 @@ namespace CSWBManagementApplication.ViewModels
             cafesList = new List<CafeCardViewModel>();
             foreach (Cafe cafe in cafes)
             {
-                fullCafesList.Add(new CafeCardViewModel(cafe));
+                CafeCardViewModel cafeCardViewModel = new CafeCardViewModel(cafe);
+                cafeCardViewModel.PressCommand = new CommandBase(() =>
+                {
+                    this.CafeDetailsViewModel = new CafeDetailsViewModel(cafe);
+                });
+                fullCafesList.Add(cafeCardViewModel);
             }
             SearchText = "";
         }
@@ -139,5 +130,40 @@ namespace CSWBManagementApplication.ViewModels
                 OnPropertyChanged();
             }
         }
+
+        #region CafeView
+
+        private int cafeViewIndex;
+
+        public int CafeViewIndex
+        {
+            get => cafeViewIndex;
+            set
+            {
+                cafeViewIndex = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private CafeDetailsViewModel cafeDetailsViewModel;
+        public CafeDetailsViewModel CafeDetailsViewModel
+        {
+            get => cafeDetailsViewModel;
+            set
+            {
+                cafeDetailsViewModel = value;
+                OnPropertyChanged();
+                if (cafeDetailsViewModel != null)
+                {
+                    CafeViewIndex = 1;
+                }
+                else
+                {
+                    CafeViewIndex = 0;
+                }
+            }
+        }
+
+        #endregion CafeView
     }
 }
