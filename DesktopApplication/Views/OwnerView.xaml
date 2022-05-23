@@ -92,11 +92,11 @@
                     <materialDesign:SlideWipe Direction="Down" />
                 </materialDesign:TransitionerSlide.BackwardWipe>
 
-                <materialDesign:Transitioner SelectedIndex="0">
+                <materialDesign:Transitioner SelectedIndex="{Binding CafeViewIndex}">
 
                     <materialDesign:TransitionerSlide>
                         <materialDesign:TransitionerSlide.BackwardWipe>
-                            <materialDesign:SlideWipe Direction="Down" />
+                            <materialDesign:SlideWipe Direction="Left" />
                         </materialDesign:TransitionerSlide.BackwardWipe>
 
                         <Grid>
@@ -146,11 +146,20 @@
                         </Grid>
 
                         <materialDesign:TransitionerSlide.ForwardWipe>
-                            <materialDesign:SlideWipe Direction="Up" />
+                            <materialDesign:SlideWipe Direction="Right" />
                         </materialDesign:TransitionerSlide.ForwardWipe>
                     </materialDesign:TransitionerSlide>
 
                     <materialDesign:TransitionerSlide>
+
+                        <ContentControl Content="{Binding CafeDetailsViewModel}">
+                            <ContentControl.ContentTemplate>
+                                <DataTemplate>
+                                    <components:CafeDetails/>
+                                </DataTemplate>
+                            </ContentControl.ContentTemplate>
+                        </ContentControl>
+                        
                     </materialDesign:TransitionerSlide>
                 </materialDesign:Transitioner>
 

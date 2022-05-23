@@ -315,6 +315,7 @@
     <Compile Include="Service\MainNavigation.cs" />
     <Compile Include="Service\MiscFunctions.cs" />
     <Compile Include="ViewModels\CafeCardViewModel.cs" />
+    <Compile Include="ViewModels\CafeDetailsViewModel.cs" />
     <Compile Include="ViewModels\CreateOwnerViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
@@ -344,32 +345,11 @@
     <Compile Include="Views\ManagerView.xaml.cs">
       <DependentUpon>ManagerView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ManagerViews\Blue.xaml.cs">
-      <DependentUpon>Blue.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ManagerViews\Green.xaml.cs">
-      <DependentUpon>Green.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ManagerViews\Red.xaml.cs">
-      <DependentUpon>Red.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\OwnerView.xaml.cs">
       <DependentUpon>OwnerView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\OwnerViews\Cafe.xaml.cs">
-      <DependentUpon>Cafe.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\OwnerViews\Home.xaml.cs">
-      <DependentUpon>Home.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\OwnerViews\Menu.xaml.cs">
-      <DependentUpon>Menu.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\OwnerViews\Staff.xaml.cs">
-      <DependentUpon>Staff.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\StaffView.xaml.cs">
       <DependentUpon>StaffView.xaml</DependentUpon>
@@ -426,39 +406,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ManagerViews\Blue.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ManagerViews\Green.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ManagerViews\Red.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\OwnerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\OwnerViews\Cafe.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\OwnerViews\Home.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\LoginView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\OwnerViews\Menu.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\OwnerViews\Staff.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

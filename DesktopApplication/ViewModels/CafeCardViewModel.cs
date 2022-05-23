@@ -1,4 +1,5 @@
-﻿using CSWBManagementApplication.Models;
+﻿using CSWBManagementApplication.Commands;
+using CSWBManagementApplication.Models;
 using CSWBManagementApplication.Services;
 
 namespace CSWBManagementApplication.ViewModels
@@ -61,6 +62,17 @@ namespace CSWBManagementApplication.ViewModels
             set
             {
                 lastMonthRevenue = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private CommandBase pressCommand;
+        public CommandBase PressCommand
+        {
+            get => pressCommand;
+            set
+            {
+                pressCommand = value;
                 OnPropertyChanged();
             }
         }
