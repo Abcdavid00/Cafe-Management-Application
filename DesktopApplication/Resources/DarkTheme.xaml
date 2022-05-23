@@ -20,6 +20,11 @@
         <GradientStop Color="#FF4C9AFE" Offset="0.0" />
         <GradientStop Color="#FF0D5FFF" Offset="1.0" />
     </LinearGradientBrush>
+    
+    <LinearGradientBrush x:Key="LinearLightBackground" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="#FF383D46" Offset="0.0" />
+        <GradientStop Color="#336C7076" Offset="1.0" />
+    </LinearGradientBrush>
 
     <LinearGradientBrush x:Key="LinearDarkBackground" StartPoint="0,0" EndPoint="0,1">
         <GradientStop Color="#FF31363A" Offset="0.0" />

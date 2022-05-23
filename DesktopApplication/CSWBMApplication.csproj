@@ -332,6 +332,9 @@
     <Compile Include="Views\Components\CafeLayout.xaml.cs">
       <DependentUpon>CafeLayout.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Components\CafeStatistics.xaml.cs">
+      <DependentUpon>CafeStatistics.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Components\FloorTile.xaml.cs">
       <DependentUpon>FloorTile.xaml</DependentUpon>
     </Compile>
@@ -407,6 +410,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Components\CafeLayout.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Components\CafeStatistics.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
