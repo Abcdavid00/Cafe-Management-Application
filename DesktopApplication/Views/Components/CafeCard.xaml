@@ -5,16 +5,22 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="390"
+    d:DesignWidth="300"
     mc:Ignorable="d">
-    <Grid Margin="10,10,10,10">
+    <Grid Margin="10,10,10,10"
+          Width="{DynamicResource CafeCardWidth}"
+          Height="{DynamicResource CafeCardHeight}">
         <Button
             x:Name="Button"
             Background="Transparent"
             BorderBrush="Transparent"
+            HorizontalContentAlignment="Stretch"
+            VerticalContentAlignment="Stretch"
             Command="{Binding PressCommand}"
             Style="{StaticResource DefaultButton}">
             <Button.Content>
-                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <Grid>
                     <materialDesign:Card Background="{DynamicResource LinearBackground}" UniformCornerRadius="10">
                         <Grid>
                             <Grid.RowDefinitions>
@@ -23,15 +29,6 @@
                                 <RowDefinition Height="2*" />
                                 <RowDefinition Height="5*" />
                             </Grid.RowDefinitions>
-
-                            <TextBlock
-                                Grid.Row="0"
-                                Margin="10,0,0,0"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center"
-                                FontSize="30"
-                                Foreground="{DynamicResource SolidLight}"
-                                Text="{Binding Id}" />
 
                             <Grid Grid.Row="1">
                                 <Grid.RowDefinitions>

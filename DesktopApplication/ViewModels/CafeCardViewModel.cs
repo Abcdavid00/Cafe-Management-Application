@@ -66,6 +66,17 @@ namespace CSWBManagementApplication.ViewModels
             }
         }
 
+        private string compare;
+        public string Compare
+        {
+            get => compare;
+            set
+            {
+                compare = value;
+                OnPropertyChanged();
+            }
+        }
+
         private CommandBase pressCommand;
         public CommandBase PressCommand
         {
@@ -96,6 +107,7 @@ namespace CSWBManagementApplication.ViewModels
             Address = cafe.Address;
             ThisMonthRevenue = "$0";
             LastMonthRevenue = "$0";
+            Compare = "0%";
 
             Staff manager = await Database.GetStaff(await Database.FindManagerReference(cafe.CafeID));
             if (manager != null)
