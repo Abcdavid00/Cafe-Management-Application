@@ -303,6 +303,7 @@
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Models\Cafe.cs" />
+    <Compile Include="Models\CafeLayoutUpdate.cs" />
     <Compile Include="Models\Menu.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Owner.cs" />
@@ -316,7 +317,10 @@
     <Compile Include="Service\MiscFunctions.cs" />
     <Compile Include="ViewModels\CafeCardViewModel.cs" />
     <Compile Include="ViewModels\CafeDetailsViewModel.cs" />
+    <Compile Include="ViewModels\CafeLayoutViewModel.cs" />
     <Compile Include="ViewModels\CreateOwnerViewModel.cs" />
+    <Compile Include="ViewModels\EditableFloorLayoutViewModel.cs" />
+    <Compile Include="ViewModels\FloorTileViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ManagerViewModel.cs" />
@@ -335,6 +339,9 @@
     </Compile>
     <Compile Include="Views\Components\CafeStatistics.xaml.cs">
       <DependentUpon>CafeStatistics.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Components\EditableFloorLayout.xaml.cs">
+      <DependentUpon>EditableFloorLayout.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Components\FloorTile.xaml.cs">
       <DependentUpon>FloorTile.xaml</DependentUpon>
@@ -381,6 +388,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Resources\Styles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Components\CafeCard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -394,6 +405,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Components\CafeStatistics.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Components\EditableFloorLayout.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

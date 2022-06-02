@@ -2,41 +2,68 @@
     x:Class="CSWBManagementApplication.Views.Components.CafeDetails"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:components="clr-namespace:CSWBManagementApplication.Views.Components"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
-    <Grid   Background="{DynamicResource LinearDarkBackground}">
+    <Grid Background="{DynamicResource LinearDarkBackground}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="100*"/>
-            <RowDefinition Height="900*"/>
+            <RowDefinition Height="100*" />
+            <RowDefinition Height="900*" />
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0"
-                    Orientation="Horizontal"              
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Top">
+        <StackPanel
+            Grid.Row="0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            Orientation="Horizontal">
             <RadioButton
-                    Style="{StaticResource MaterialDesignTabRadioButton}"
-                    Margin="0"
-                    IsChecked="True"
-                    Content="Statistics"/>
+                Margin="0"
+                Command="{Binding StatisticsButtonPressed, Mode=OneWay}"
+                Content="Statistics"
+                IsChecked="{Binding IsStatisticSelected, Mode=OneWay}"
+                Style="{StaticResource MaterialDesignTabRadioButton}" />
             <RadioButton
-                    Style="{StaticResource MaterialDesignTabRadioButton}"
-                    Margin="0"
-                    IsChecked="False"
-                    Content="Set up"/>
+                Margin="0"
+                Command="{Binding LayoutButtonPressed, Mode=OneWay}"
+                Content="Layout"
+                IsChecked="{Binding IsLayoutSelected, Mode=OneWay}"
+                Style="{StaticResource MaterialDesignTabRadioButton}" />
         </StackPanel>
 
-        <materialDesign:Transitioner Grid.Row="1"
-                                     SelectedIndex="{Binding SelectedIndex}">
+        <materialDesign:Transitioner Grid.Row="1" SelectedIndex="{Binding SelectedIndex}">
+            <materialDesign:TransitionerSlide>
+
+                <materialDesign:TransitionerSlide.ForwardWipe>
+                    <materialDesign:SlideWipe Direction="Left" />
+                </materialDesign:TransitionerSlide.ForwardWipe>
+
+                <ContentControl>
+                    <ContentControl.ContentTemplate>
+                        <DataTemplate>
+                            <Grid Background="Beige" />
+                        </DataTemplate>
+                    </ContentControl.ContentTemplate>
+                </ContentControl>
+            </materialDesign:TransitionerSlide>
+
             <materialDesign:TransitionerSlide>
 
                 <materialDesign:TransitionerSlide.BackwardWipe>
-                    <materialDesign:SlideWipe Direction="Down"/>
+                    <materialDesign:SlideWipe Direction="Right" />
                 </materialDesign:TransitionerSlide.BackwardWipe>
+
+                <ContentControl Content="{Binding CafeLayoutViewModel}">
+                    <ContentControl.ContentTemplate>
+                        <DataTemplate>
+                            <components:CafeLayout />
+                        </DataTemplate>
+                    </ContentControl.ContentTemplate>
+                </ContentControl>
+
             </materialDesign:TransitionerSlide>
         </materialDesign:Transitioner>
     </Grid>

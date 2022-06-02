@@ -153,7 +153,7 @@ namespace CSWBManagementApplication.Service
                 isPulsing = false;
             }
 
-            public async Task Pulse()
+            private async Task Pulse()
             {
                 while (isPulsing)
                 {

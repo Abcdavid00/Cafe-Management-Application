@@ -6,8 +6,6 @@ using MaterialDesignThemes.Wpf;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
-using System.Windows.Media;
-using static CSWBManagementApplication.Service.MiscFunctions;
 
 namespace CSWBManagementApplication.ViewModels
 {
@@ -66,14 +64,10 @@ namespace CSWBManagementApplication.ViewModels
             });
             NavigationChips = new List<NavigationChipViewModel>
             {
-                new NavigationChipViewModel("Home", PackIconKind.Home, new SolidColorBrush(Color.FromArgb(255,255,69,0)),
-                                            new Commands.CommandBase(()=>SelectedIndex=0), true),
-                new NavigationChipViewModel("Cafes", PackIconKind.Coffee, new SolidColorBrush(Color.FromArgb(255, 245, 245, 245)),
-                                            new Commands.CommandBase(()=>SelectedIndex=1), false),
-                new NavigationChipViewModel("Staff", PackIconKind.Person, new SolidColorBrush(Color.FromArgb(255, 245, 245, 245)),
-                                            new Commands.CommandBase(()=>SelectedIndex=2), false),
-                new NavigationChipViewModel("Products", PackIconKind.Silverware, new SolidColorBrush(Color.FromArgb(255, 245, 245, 245)),
-                                            new Commands.CommandBase(()=>SelectedIndex=3), false),
+                new NavigationChipViewModel("Home", PackIconKind.Home, new Commands.CommandBase(()=>SelectedIndex=0), true),
+                new NavigationChipViewModel("Cafes", PackIconKind.Coffee, new Commands.CommandBase(()=>SelectedIndex=1), false),
+                new NavigationChipViewModel("Staff", PackIconKind.Person, new Commands.CommandBase(()=>SelectedIndex=2), false),
+                new NavigationChipViewModel("Products", PackIconKind.Silverware, new Commands.CommandBase(()=>SelectedIndex=3), false),
             };
             Initialize();
         }
@@ -146,6 +140,7 @@ namespace CSWBManagementApplication.ViewModels
         }
 
         private CafeDetailsViewModel cafeDetailsViewModel;
+
         public CafeDetailsViewModel CafeDetailsViewModel
         {
             get => cafeDetailsViewModel;

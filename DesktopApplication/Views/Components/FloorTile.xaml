@@ -6,31 +6,34 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              d:DesignHeight="500" d:DesignWidth="500">
-    <Border Background="{Binding OuterColor}"
-            BorderThickness="1"
-            BorderBrush="{Binding OuterBorder}">
-        <Grid x:Name="Grid">
+    <Button Style="{StaticResource DefaultButton}"
+            Background="Transparent"
+            BorderBrush="{Binding OuterBorder, Mode=OneWay}"
+            HorizontalContentAlignment="Stretch"
+            VerticalContentAlignment="Stretch"
+            Command="{Binding Command, Mode=OneWay}">
+
+        <Grid Background="{Binding OuterBackground, Mode=OneWay}">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="8*" />
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="15*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="8*" />
-                <RowDefinition Height="*" />
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="15*"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <materialDesign:Card Grid.Row="1"
-                             Grid.Column="1"
-                             UniformCornerRadius="6"
-                             Background="{Binding InnerColor}">
-            </materialDesign:Card>
+            <materialDesign:Card
+                Grid.Column="1"
+                Grid.Row="1"
+                UniformCornerRadius="10"
+                Background="{Binding InnerBackground, Mode=OneWay}"                
+                />
 
-            <Button Grid.ColumnSpan="3"
-                    Grid.RowSpan="3"
-                    Height="{Binding Path=Height, ElementName=Grid}"
-                    Width="{Binding Path=Width, ElementName=Grid}" />
         </Grid>
-    </Border>
+        
+
+    </Button>
 </UserControl>

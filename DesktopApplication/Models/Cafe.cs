@@ -12,14 +12,14 @@ namespace CSWBManagementApplication.Models
         public class Position
         {
             [FirestoreProperty]
-            public int x
+            public int X
             {
                 get;
                 set;
             }
 
             [FirestoreProperty]
-            public int y
+            public int Y
             {
                 get;
                 set;
@@ -30,14 +30,14 @@ namespace CSWBManagementApplication.Models
             {
                 get
                 {
-                    return y + (x + y + 1) * (x + y) / 2;
+                    return Y + (X + Y + 1) * (X + Y) / 2;
                 }
                 set
                 {
                     int degree = (int)Math.Floor((Math.Sqrt(value * 8 + 1) - 1) / 2);
                     long sum = (degree + 1) * degree / 2;
-                    this.y = (int)(value - sum);
-                    this.x = degree - this.y;
+                    this.Y = (int)(value - sum);
+                    this.X = degree - this.Y;
                 }
             }
 
@@ -53,8 +53,8 @@ namespace CSWBManagementApplication.Models
 
             public Position(int x, int y)
             {
-                this.x = x;
-                this.y = y;
+                this.X = x;
+                this.Y = y;
             }
         }
 
@@ -76,7 +76,7 @@ namespace CSWBManagementApplication.Models
             }
 
             [FirestoreProperty]
-            public int Length
+            public int Height
             {
                 get;
                 set;
@@ -86,20 +86,20 @@ namespace CSWBManagementApplication.Models
             {
                 Position = new Position();
                 Width = 0;
-                Length = 0;
+                Height = 0;
             }
 
-            public FloorArea(Position position, int width, int length)
+            public FloorArea(Position position, int width, int height)
             {
                 Position = position;
                 Width = width;
-                Length = length;
+                Height = height;
             }
 
             public bool Contain(Position position)
             {
-                return position.x >= Position.x && position.x <= Position.x + Width &&
-                       position.y >= Position.y && position.y <= Position.y + Length;
+                return position.X >= Position.X && position.X <= Position.X + Width &&
+                       position.Y >= Position.Y && position.Y <= Position.Y + Height;
             }
         }
 
@@ -108,6 +108,12 @@ namespace CSWBManagementApplication.Models
         {
             [FirestoreDocumentId]
             public string FloorID { get; set; }
+
+            [FirestoreProperty]
+            public int FloorNumber { get; set; }
+
+            [FirestoreProperty]
+            public string FloorName { get; set; }
 
             [FirestoreProperty]
             public List<FloorArea> FloorAreas { get; set; }
@@ -121,11 +127,24 @@ namespace CSWBManagementApplication.Models
                 this.Tables = new List<Position>();
             }
 
-            public Floor(string floorID, List<FloorArea> FloorAreas, List<Position> Table)
+            public Floor(int floorNumber, string floorName)
             {
-                this.FloorID = floorID;
-                this.FloorAreas = FloorAreas;
-                this.Tables = Table;
+                this.FloorID = "";
+                this.FloorNumber = floorNumber;
+                this.FloorName = FloorName;
+                this.FloorAreas = new List<FloorArea>();
+                this.Tables = new List<Position>();
+            }
+
+            public Dictionary<string, object> ToDictionary()
+            {
+                Dictionary<string, object> dict = new Dictionary<string, object>();
+                dict.Add("FloorID", this.FloorID);
+                dict.Add("FloorNumber", this.FloorNumber);
+                dict.Add("FloorName", this.FloorName);
+                dict.Add("FloorAreas", this.FloorAreas);
+                dict.Add("Tables", this.Tables);
+                return dict;
             }
 
             public bool Contain(Position position)
@@ -160,6 +179,14 @@ namespace CSWBManagementApplication.Models
             set { cafeID = value; }
         }
 
+        public DateTime LastUpdateTime { get; private set; }
+        [FirestoreProperty]
+        public long BinaryLastUpdateTime
+        {
+            get => LastUpdateTime.ToBinary();
+            set => LastUpdateTime = DateTime.FromBinary(value);
+        }
+
         private string address;
 
         [FirestoreProperty]
@@ -169,12 +196,13 @@ namespace CSWBManagementApplication.Models
             set { address = value; }
         }
 
-        private Dictionary<string, Floor> floors;
-
-        public Dictionary<string, Floor> Floors
-        {
-            get { return floors; }
-            set { floors = value; }
+        private List<Floor> floors;
+        public List<Floor> Floors {
+            get => floors;
+            set
+            {
+                floors = value;
+            }
         }
 
         private Dictionary<string, int> staffs;
@@ -194,7 +222,7 @@ namespace CSWBManagementApplication.Models
         {
             this.CafeID = "";
             this.address = "";
-            this.floors = new Dictionary<string, Floor>();
+            this.floors = new List<Floor>();
             this.staffs = new Dictionary<string, int>();
         }
 
@@ -202,13 +230,15 @@ namespace CSWBManagementApplication.Models
         {
             this.cafeID = cafeID;
             this.address = address;
-            this.floors = new Dictionary<string, Floor>();
+            this.floors = new List<Floor>();
             this.staffs = new Dictionary<string, int>();
         }
-
-        public void AddFloor(string floorID, Floor floor)
+        public async void ChangeAddress(string address)
         {
-            this.floors.Add(floorID, floor);
+            this.Address = address;          
+            await Database.UpdateCafeAddressAsync(CafeID, Address);
         }
+        
+
     }
 }

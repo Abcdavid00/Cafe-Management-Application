@@ -9,7 +9,7 @@
         mc:Ignorable="d"
         Title="Stack Coffee"
         WindowStartupLocation="CenterScreen"
-        WindowStyle="None"
+        WindowStyle="SingleBorderWindow"
         WindowState="Maximized"
         d:DesignHeight="1080" d:DesignWidth="1920"
         Name="StackCoffeeApp">

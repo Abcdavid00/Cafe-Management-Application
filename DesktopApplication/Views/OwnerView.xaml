@@ -116,7 +116,7 @@
                             </Grid.RowDefinitions>
 
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="0.5*" />
                                 <ColumnDefinition Width="24*" />
                             </Grid.ColumnDefinitions>
 
@@ -141,11 +141,14 @@
                                     Text="{Binding SearchText, Mode=TwoWay}" />
                             </StackPanel>
 
-                            <ScrollViewer Grid.Row="2" Grid.Column="1" VerticalScrollBarVisibility="Hidden">
+                            <ScrollViewer
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                VerticalScrollBarVisibility="Hidden">
                                 <ItemsControl ItemsSource="{Binding CafesList}">
                                     <ItemsControl.ItemsPanel>
                                         <ItemsPanelTemplate>
-                                            <WrapPanel Orientation="Horizontal"/>
+                                            <WrapPanel Orientation="Horizontal" />
                                         </ItemsPanelTemplate>
                                     </ItemsControl.ItemsPanel>
 
