@@ -10,7 +10,7 @@ namespace CSWBManagementApplication
     public partial class App : Application
     {
         public const int CAFE_CARD_PER_ROW = 5;
-        public const int FLOOR_TILES_PER_FLOOR_LINE = 15;
+        public const int FLOOR_TILES_PER_FLOOR_LINE = 3;
 
         protected override void OnStartup(StartupEventArgs e)
         {

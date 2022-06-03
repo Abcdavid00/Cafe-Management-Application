@@ -50,11 +50,21 @@ namespace CSWBManagementApplication.Models
             {
                 this.SingleValue = singleValue;
             }
-
+            
             public Position(int x, int y)
             {
                 this.X = x;
                 this.Y = y;
+            }
+            
+            public static bool operator==(Position a, Position b)
+            {
+                return a.X == b.X && a.Y == b.Y;
+            }
+
+            public static bool operator !=(Position a, Position b)
+            {
+                return a.X != b.X || a.Y != b.Y;
             }
         }
 
@@ -233,6 +243,8 @@ namespace CSWBManagementApplication.Models
             this.floors = new List<Floor>();
             this.staffs = new Dictionary<string, int>();
         }
+        
+        
         public async void ChangeAddress(string address)
         {
             this.Address = address;          

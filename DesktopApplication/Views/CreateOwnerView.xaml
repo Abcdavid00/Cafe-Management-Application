@@ -10,7 +10,7 @@
 
     <Grid Width="auto" Height="auto">
 
-        <Image Source="{StaticResource LoginBackground}" />
+        <Image Source="{StaticResource LoginBackground}" Stretch="Fill"/>
 
         <Grid>
             <Grid.RowDefinitions>

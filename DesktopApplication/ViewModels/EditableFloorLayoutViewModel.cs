@@ -11,6 +11,8 @@ namespace CSWBManagementApplication.ViewModels
 {
     internal class EditableFloorLayoutViewModel : ViewModelBase
     {
+        
+
         private List<FloorTileViewModel> floorTiles;
         public List<FloorTileViewModel> FloorTiles
         {
@@ -23,6 +25,11 @@ namespace CSWBManagementApplication.ViewModels
         }
 
         public event EventHandler<Cafe.Position> TileClicked;
+        
+        private void OnFloorTileClicked(Cafe.Position pos)
+        {
+            TileClicked?.Invoke(this, pos);
+        }
 
         private Cafe.Position IndexToPostion(int index)
         {
@@ -43,20 +50,46 @@ namespace CSWBManagementApplication.ViewModels
             return y * count + x;
         }
 
+        private Cafe.Floor floor;
+        
         public EditableFloorLayoutViewModel(Cafe.Floor floor)
         {
+            this.floor = floor;
             int count = App.FLOOR_TILES_PER_FLOOR_LINE * App.FLOOR_TILES_PER_FLOOR_LINE;
             FloorTiles = new List<FloorTileViewModel>();
             for (int i = 0; i < count; i++)
             {
+                Cafe.Position pos = IndexToPostion(i);
                 FloorTiles.Add(new FloorTileViewModel(new CommandBase(() =>
-                {
-                    TileClicked?.Invoke(this, IndexToPostion(i));
+                {                    
+                    OnFloorTileClicked(pos);
                 })));
             }
             foreach (Cafe.Position table in floor.Tables)
             {
                 FloorTiles[PositionToIndex(table)].HasTable = true;
+            }
+        }
+
+        public void ToggleTable(Cafe.Position position)
+        {
+            if (!floor.Tables.Where<Cafe.Position>(p => p == position).Any())
+            {
+                floor.Tables.Add(position);
+                FloorTiles[PositionToIndex(position)].HasTable = true;
+            } else
+            {
+                floor.Tables.Remove(floor.Tables.Where<Cafe.Position>(p => p == position).Single());
+                FloorTiles[PositionToIndex(position)].HasTable = false;
+            }
+        }
+
+        public void ClearTables()
+        {
+            floor.Tables.Clear();
+            foreach (FloorTileViewModel tile in FloorTiles.Where<FloorTileViewModel>(f => f.HasTable))
+            {
+                tile.HasTable = false;
             }
         }
     }

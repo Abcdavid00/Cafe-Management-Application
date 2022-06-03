@@ -70,7 +70,7 @@
                     UniformCornerRadius="10">
 
                     <ScrollViewer VerticalScrollBarVisibility="Hidden">
-                        <ItemsControl ItemsSource="{Binding Floors}">
+                        <ItemsControl ItemsSource="{Binding FloorButtons}">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <StackPanel VerticalAlignment="Bottom" Orientation="Vertical" />

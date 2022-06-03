@@ -164,8 +164,8 @@ namespace CSWBManagementApplication.ViewModels
 
         public FloorTileViewModel(ICommand command)
         {
-            HasTile = true;
-            HasTable = true;
+            HasTile = false;
+            HasTable = false;
             HasBorder = true;
             Command = command;
         }
