@@ -328,6 +328,8 @@
     <Compile Include="ViewModels\OwnerViewModel.cs" />
     <Compile Include="ViewModels\StaffViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="ViewModels\ViewOnlyFloorLayoutViewModel.cs" />
+    <Compile Include="ViewModels\ViewOnlyFloorTileViewModel.cs" />
     <Compile Include="Views\Components\CafeCard.xaml.cs">
       <DependentUpon>CafeCard.xaml</DependentUpon>
     </Compile>
@@ -343,11 +345,20 @@
     <Compile Include="Views\Components\EditableFloorLayout.xaml.cs">
       <DependentUpon>EditableFloorLayout.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Components\FloorLayout.xaml.cs">
+      <DependentUpon>FloorLayout.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Components\FloorTile.xaml.cs">
       <DependentUpon>FloorTile.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Components\NavigationChip.xaml.cs">
       <DependentUpon>NavigationChip.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Components\ViewOnlyFloorLayout.xaml.cs">
+      <DependentUpon>ViewOnlyFloorLayout.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Components\ViewOnlyFloorTile.xaml.cs">
+      <DependentUpon>ViewOnlyFloorTile.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CreateOwnerView.xaml.cs">
       <DependentUpon>CreateOwnerView.xaml</DependentUpon>
@@ -412,11 +423,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Components\FloorLayout.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Components\FloorTile.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Components\NavigationChip.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Components\ViewOnlyFloorLayout.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Components\ViewOnlyFloorTile.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

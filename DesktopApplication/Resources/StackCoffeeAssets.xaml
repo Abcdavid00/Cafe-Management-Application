@@ -3,5 +3,4 @@
     <BitmapImage x:Key="Logo" UriSource="../Assets/Logo.png" />
 
     <BitmapImage x:Key="LoginBackground" UriSource="../Assets/LoginBackground.png" />
-
 </ResourceDictionary>

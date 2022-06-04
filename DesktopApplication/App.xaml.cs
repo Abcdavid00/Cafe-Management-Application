@@ -1,5 +1,6 @@
 ﻿using CSWBManagementApplication.Resources;
 using CSWBManagementApplication.ViewModels;
+using System.Collections.ObjectModel;
 using System.Windows;
 
 namespace CSWBManagementApplication
@@ -10,7 +11,20 @@ namespace CSWBManagementApplication
     public partial class App : Application
     {
         public const int CAFE_CARD_PER_ROW = 5;
-        public const int FLOOR_TILES_PER_FLOOR_LINE = 3;
+        public const int FLOOR_TILES_PER_FLOOR_LINE = 11;
+        private static ObservableCollection<ViewOnlyFloorLayoutViewModel> floorsClipboard;
+
+        internal static ObservableCollection<ViewOnlyFloorLayoutViewModel> FloorsClipboard
+        {
+            get
+            {
+                if (floorsClipboard == null)
+                {
+                    floorsClipboard = new ObservableCollection<ViewOnlyFloorLayoutViewModel>();
+                }
+                return floorsClipboard;
+            }
+        }
 
         protected override void OnStartup(StartupEventArgs e)
         {

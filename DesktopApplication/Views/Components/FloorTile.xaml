@@ -1,39 +1,38 @@
-﻿<UserControl x:Class="CSWBManagementApplication.Views.Components.FloorTile"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d"
-             d:DesignHeight="500" d:DesignWidth="500">
-    <Button Style="{StaticResource DefaultButton}"
-            Background="Transparent"
-            BorderBrush="{Binding OuterBorder, Mode=OneWay}"
-            HorizontalContentAlignment="Stretch"
-            VerticalContentAlignment="Stretch"
-            Command="{Binding Command, Mode=OneWay}">
+﻿<UserControl
+    x:Class="CSWBManagementApplication.Views.Components.FloorTile"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="500"
+    d:DesignWidth="500"
+    mc:Ignorable="d">
+    <Button
+        HorizontalContentAlignment="Stretch"
+        VerticalContentAlignment="Stretch"
+        Background="Transparent"
+        BorderBrush="{Binding OuterBorder, Mode=OneWay}"
+        Command="{Binding Command, Mode=OneWay}"
+        Style="{StaticResource DefaultButton}">
 
         <Grid Background="{Binding OuterBackground, Mode=OneWay}">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="15*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="8*" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="15*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="8*" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
             <materialDesign:Card
-                Grid.Column="1"
                 Grid.Row="1"
-                UniformCornerRadius="10"
-                Background="{Binding InnerBackground, Mode=OneWay}"                
-                />
-
+                Grid.Column="1"
+                Background="{Binding InnerBackground, Mode=OneWay}"
+                UniformCornerRadius="10" />
         </Grid>
-        
-
     </Button>
 </UserControl>

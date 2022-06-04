@@ -48,6 +48,7 @@ namespace CSWBManagementApplication.ViewModels
         }
 
         private bool hasTable;
+
         public bool HasTable
         {
             get => hasTable;

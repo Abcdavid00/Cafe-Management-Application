@@ -3,11 +3,11 @@
 namespace CSWBManagementApplication.Views.Components
 {
     /// <summary>
-    /// Interaction logic for CafeStatistics.xaml
+    /// Interaction logic for FloorLayout.xaml
     /// </summary>
-    public partial class CafeStatistics : UserControl
+    public partial class FloorLayout : UserControl
     {
-        public CafeStatistics()
+        public FloorLayout()
         {
             InitializeComponent();
         }

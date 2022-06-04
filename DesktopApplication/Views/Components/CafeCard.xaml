@@ -8,15 +8,16 @@
     d:DesignHeight="390"
     d:DesignWidth="300"
     mc:Ignorable="d">
-    <Grid Margin="10,10,10,10"
-          Width="{DynamicResource CafeCardWidth}"
-          Height="{DynamicResource CafeCardHeight}">
+    <Grid
+        Width="{DynamicResource CafeCardWidth}"
+        Height="{DynamicResource CafeCardHeight}"
+        Margin="10,10,10,10">
         <Button
             x:Name="Button"
-            Background="Transparent"
-            BorderBrush="Transparent"
             HorizontalContentAlignment="Stretch"
             VerticalContentAlignment="Stretch"
+            Background="Transparent"
+            BorderBrush="Transparent"
             Command="{Binding PressCommand}"
             Style="{StaticResource DefaultButton}">
             <Button.Content>
@@ -175,7 +176,6 @@
                         </Grid>
                     </materialDesign:Card>
                 </Grid>
-
             </Button.Content>
         </Button>
     </Grid>

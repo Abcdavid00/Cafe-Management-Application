@@ -1,10 +1,5 @@
 ﻿using CSWBManagementApplication.Commands;
 using CSWBManagementApplication.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace CSWBManagementApplication.ViewModels
@@ -30,8 +25,9 @@ namespace CSWBManagementApplication.ViewModels
         {
             get => new CommandBase(() => SelectedIndex = 1);
         }
-        
+
         private int selectedIndex;
+
         public int SelectedIndex
         {
             get => selectedIndex;
@@ -43,8 +39,9 @@ namespace CSWBManagementApplication.ViewModels
                 OnPropertyChanged(nameof(IsLayoutSelected));
             }
         }
-        
+
         private CafeLayoutViewModel cafeLayoutViewModel;
+
         public CafeLayoutViewModel CafeLayoutViewModel
         {
             get => cafeLayoutViewModel;
@@ -56,6 +53,7 @@ namespace CSWBManagementApplication.ViewModels
         }
 
         private Cafe cafe;
+
         public Cafe Cafe
         {
             get { return cafe; }

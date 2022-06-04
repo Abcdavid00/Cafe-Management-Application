@@ -1,13 +1,11 @@
-﻿using CSWBManagementApplication.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media;
+﻿using CSWBManagementApplication.Commands;
+using CSWBManagementApplication.Models;
 using CSWBManagementApplication.Resources;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
-using CSWBManagementApplication.Commands;
+using System.Windows.Media;
 
 namespace CSWBManagementApplication.ViewModels
 {
@@ -16,6 +14,7 @@ namespace CSWBManagementApplication.ViewModels
         internal class FloorButtonViewModel : ViewModelBase
         {
             private bool isActive;
+
             public bool IsActive
             {
                 get => isActive;
@@ -39,6 +38,7 @@ namespace CSWBManagementApplication.ViewModels
             }
 
             private ICommand command;
+
             public ICommand Command
             {
                 get => command;
@@ -50,6 +50,7 @@ namespace CSWBManagementApplication.ViewModels
             }
 
             private string content;
+
             public string Content
             {
                 get => content;
@@ -61,6 +62,7 @@ namespace CSWBManagementApplication.ViewModels
             }
 
             private string toolTip;
+
             public string ToolTip
             {
                 get => toolTip;
@@ -80,7 +82,10 @@ namespace CSWBManagementApplication.ViewModels
             }
         }
 
+        private bool changed;
+
         private Cafe cafe;
+
         public Cafe Cafe
         {
             get => cafe;
@@ -88,22 +93,29 @@ namespace CSWBManagementApplication.ViewModels
             {
                 cafe = value;
             }
-
         }
 
-        private List<Cafe.Floor> floors;
-        public List<Cafe.Floor> Floors
+        public ObservableCollection<ViewOnlyFloorLayoutViewModel> FloorsClipboard
+        {
+            get => App.FloorsClipboard;
+        }
+
+        private List<Floor> floors;
+
+        public List<Floor> Floors
         {
             get => floors;
             private set
             {
                 floors = value;
+                UpdateFloorLayoutsList();
                 OnPropertyChanged();
             }
         }
 
-        private List<EditableFloorLayoutViewModel> editableFloorLayoutViewModels;
-        public List<EditableFloorLayoutViewModel> EditableFloorLayoutViewModels
+        private ObservableCollection<EditableFloorLayoutViewModel> editableFloorLayoutViewModels;
+
+        public ObservableCollection<EditableFloorLayoutViewModel> EditableFloorLayoutViewModels
         {
             get => editableFloorLayoutViewModels;
             private set
@@ -113,8 +125,9 @@ namespace CSWBManagementApplication.ViewModels
             }
         }
 
-        private List<FloorButtonViewModel> floorButtons;
-        public List<FloorButtonViewModel> FloorButtons
+        private ObservableCollection<FloorButtonViewModel> floorButtons;
+
+        public ObservableCollection<FloorButtonViewModel> FloorButtons
         {
             get => floorButtons;
             private set
@@ -124,34 +137,51 @@ namespace CSWBManagementApplication.ViewModels
             }
         }
 
-        private void UpdateFloorList()
+        private void UpdateFloorLayoutsList()
         {
             FloorButtons?.Clear();
+            CurrentFloor = 0;
             EditableFloorLayoutViewModels?.Clear();
-            //List<FloorButtonViewModel> temp = new List<FloorButtonViewModel>();        
-            //foreach (Cafe.Floor floor in Cafe.Floors)
-            //{
-            //    temp.Add(new FloorButtonViewModel(floor.FloorNumber.ToString(), floor.FloorName, new CommandBase(() =>
-            //    {
-            //        CurrentFloor = floor.FloorNumber;
-            //    })));
-            //}            
-            FloorButtons = Floors.Select(floor => new FloorButtonViewModel(floor.FloorNumber.ToString(), floor.FloorName, new CommandBase(() =>
+            FloorButtons = new ObservableCollection<FloorButtonViewModel>(Floors.Select(floor => new FloorButtonViewModel(floor.FloorNumber.ToString(), floor.FloorName, new CommandBase(() =>
             {
                 CurrentFloor = floor.FloorNumber;
-            }))).ToList();
-            EditableFloorLayoutViewModels = Floors.Select(floor => new EditableFloorLayoutViewModel(floor)).ToList();
+            }))));
+            EditableFloorLayoutViewModels = new ObservableCollection<EditableFloorLayoutViewModel>(Floors.Select(floor => new EditableFloorLayoutViewModel(floor)));
             foreach (EditableFloorLayoutViewModel floor in EditableFloorLayoutViewModels)
             {
-                floor.TileClicked += (object sender, Cafe.Position position) =>
+                floor.TileClicked += (object sender, Position position) =>
                 {
                     floor.ToggleTable(position);
+                    changed = true;
                 };
             }
-
+            if (Floors.Any())
+            {
+                CurrentFloor = Floors.First().FloorNumber;
+            }
+            else
+            {
+                CurrentFloor = 0;
+            }
+            OnPropertyChanged(nameof(CurrentEditableFloorLayoutViewModel));
         }
-        
+
+        private void UpdateFloorsList()
+        {
+            Floors?.Clear();
+            Floors = (
+                from floor in Cafe.Floors
+                select new Floor(floor)
+            ).ToList();
+            foreach (ViewOnlyFloorLayoutViewModel floor in FloorsClipboard)
+            {
+                floor.OnClick += ClipboardFloor_OnClick;
+            }
+            UpdateFloorLayoutsList();
+        }
+
         private int currentFloor;
+
         public int CurrentFloor
         {
             get => currentFloor;
@@ -162,40 +192,41 @@ namespace CSWBManagementApplication.ViewModels
                     return;
                 }
 
-                if (currentFloor > 0 && currentFloor <= Floors.Count)
+                if (currentFloor > 0 && currentFloor <= FloorButtons.Count)
                 {
                     FloorButtons[CurrentFloorIndex].IsActive = false;
                 }
-               
+
                 currentFloor = value;
 
-                if (currentFloor > 0 && currentFloor <= Floors.Count)
+                if (currentFloor > 0 && currentFloor <= FloorButtons.Count)
                 {
                     FloorButtons[CurrentFloorIndex].IsActive = true;
                     OnPropertyChanged(nameof(CurrentFloorText));
                     CurrentEditableFloorLayoutViewModel = EditableFloorLayoutViewModels[CurrentFloorIndex];
-                } else
+                }
+                else
                 {
                     CurrentEditableFloorLayoutViewModel = null;
                 }
-                
-                
-                
+                OnPropertyChanged(nameof(CurrentFloorIndex));
+                OnPropertyChanged(nameof(CurrentFloorText));
                 OnPropertyChanged();
-                
             }
         }
+
         public int CurrentFloorIndex
         {
             get => FloorButtons.Count - currentFloor;
         }
-        
+
         public string CurrentFloorText
         {
             get => currentFloor.ToString();
         }
 
         private EditableFloorLayoutViewModel currentEditableFloorLayoutViewModel;
+
         public EditableFloorLayoutViewModel CurrentEditableFloorLayoutViewModel
         {
             get => currentEditableFloorLayoutViewModel;
@@ -209,28 +240,33 @@ namespace CSWBManagementApplication.ViewModels
         public CafeLayoutViewModel(Cafe cafe)
         {
             this.Cafe = cafe;
-            Floors = new List<Cafe.Floor>(cafe.Floors);
-            if (Floors.Any())
-            {
-                CurrentFloor = Floors.First().FloorNumber;
-            } else
-            {
-                CurrentFloor = 0;
-            }
-        }      
+            Initialize();
+        }
+
+        private async void Initialize()
+        {
+            await cafe.GetCafeFloorsInfo();
+            UpdateFloorsList();
+
+            changed = false;
+        }
+
+        private void ClipboardFloor_OnClick(object sender, List<Position> e)
+        {
+            Paste(e);
+        }
 
         #region Command
-        
+
         public ICommand AddFloorCommand
         {
             get => new CommandBase(() =>
             {
-                Floors.Add(new Cafe.Floor(Floors.Count + 1,""));
+                Floors.Add(new Floor(Floors.Count + 1, ""));
+                changed = true;
                 Floors.Sort((f1, f2) => (f2.FloorNumber.CompareTo(f1.FloorNumber)));
-                UpdateFloorList();
-                CurrentFloor = Floors.First().FloorNumber;
-            });      
-            
+                UpdateFloorLayoutsList();
+            });
         }
 
         public ICommand RemoveFloorCommand
@@ -238,22 +274,15 @@ namespace CSWBManagementApplication.ViewModels
             get => new CommandBase(() =>
             {
                 if (CurrentFloor > 0 && CurrentFloor <= Floors.Count)
-                {                    
-                    int index = Floors.Count - CurrentFloor;                   
+                {
+                    int index = Floors.Count - CurrentFloor;
                     Floors.RemoveAt(index);
-                    for (int i = index-1; i >=0; i--)
+                    for (int i = index - 1; i >= 0; i--)
                     {
                         Floors[i].FloorNumber--;
                     }
-                    UpdateFloorList();
-                    if (Floors.Any())
-                    {
-                        CurrentFloor = Floors.First().FloorNumber;
-                    }
-                    else
-                    {
-                        CurrentFloor = 0;
-                    }
+                    changed = true;
+                    UpdateFloorLayoutsList();
                 }
             });
         }
@@ -263,10 +292,74 @@ namespace CSWBManagementApplication.ViewModels
             get => new CommandBase(() =>
             {
                 CurrentEditableFloorLayoutViewModel.ClearTables();
+                changed = true;
             });
         }
 
-        #endregion
-    }
+        public ICommand CopyCommand
+        {
+            get => new CommandBase(() =>
+            {
+                if (CurrentFloor > 0 && CurrentFloor <= Floors.Count)
+                {
+                    FloorsClipboard.Add(new ViewOnlyFloorLayoutViewModel(Floors[CurrentFloorIndex].Tables));
+                    FloorsClipboard.Last().OnClick += ClipboardFloor_OnClick;
+                    OnPropertyChanged(nameof(FloorsClipboard));
+                }
+            });
+        }
 
+        public ICommand ClearClipboardCommand
+        {
+            get => new CommandBase(() =>
+            {
+                FloorsClipboard.Clear();
+            });
+        }
+
+        public void Paste(List<Position> tables)
+        {
+            if (CurrentFloor > 0 && CurrentFloor <= Floors.Count)
+            {
+                Floors[CurrentFloorIndex].Tables = tables;
+                EditableFloorLayoutViewModels[CurrentFloorIndex] = new EditableFloorLayoutViewModel(Floors[CurrentFloorIndex]);
+                CurrentEditableFloorLayoutViewModel = EditableFloorLayoutViewModels[CurrentFloorIndex];
+                CurrentEditableFloorLayoutViewModel.TileClicked += (object sender, Position position) =>
+                {
+                    CurrentEditableFloorLayoutViewModel.ToggleTable(position);
+                };
+                changed = true;
+            }
+        }
+
+        public ICommand SaveCommand
+        {
+            get => new CommandBase(() =>
+            {
+                Save();
+            });
+        }
+
+        public void Save()
+        {
+            if (!changed)
+            {
+                return;
+            }
+            this.Cafe.Floors = new List<Floor>(Floors);
+            this.Cafe.UploadFloors();
+            changed = false;
+        }
+
+        public ICommand DiscardCommand
+        {
+            get => new CommandBase(() =>
+            {
+                UpdateFloorsList();
+                changed = false;
+            });
+        }
+
+        #endregion Command
+    }
 }

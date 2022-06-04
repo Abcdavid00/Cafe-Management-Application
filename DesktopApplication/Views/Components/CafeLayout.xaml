@@ -31,10 +31,10 @@
             Background="{DynamicResource SolidDark}"
             UniformCornerRadius="10">
 
-            <ContentControl Content="{Binding CurrentEditableFloorLayoutViewModel, Mode=OneWay}"
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch"
-                            >
+            <ContentControl
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Content="{Binding CurrentEditableFloorLayoutViewModel, Mode=OneWay}">
                 <ContentControl.ContentTemplate>
                     <DataTemplate>
                         <component:EditableFloorLayout />
@@ -70,7 +70,10 @@
                     UniformCornerRadius="10">
 
                     <ScrollViewer VerticalScrollBarVisibility="Hidden">
-                        <ItemsControl ItemsSource="{Binding FloorButtons}">
+                        <ItemsControl
+                            ItemsSource="{Binding FloorButtons}"
+                            VirtualizingPanel.IsVirtualizing="True"
+                            VirtualizingPanel.VirtualizationMode="Recycling">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <StackPanel VerticalAlignment="Bottom" Orientation="Vertical" />
@@ -80,47 +83,47 @@
                                 <DataTemplate>
                                     <Button
                                         Height="{Binding Path=ActualWidth, RelativeSource={RelativeSource Self}}"
-                                        HorizontalAlignment="Stretch"
                                         Padding="0"
-                                        Foreground="{Binding Foreground, Mode=OneWay}"
+                                        HorizontalAlignment="Stretch"
                                         Background="{Binding Background, Mode=OneWay}"
                                         Command="{Binding Command, Mode=OneWay}"
                                         Content="{Binding Content, Mode=OneWay}"
+                                        Foreground="{Binding Foreground, Mode=OneWay}"
                                         Style="{StaticResource MaterialDesignIconButton}"
                                         ToolTip="{Binding ToolTip, Mode=OneWay}" />
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
                     </ScrollViewer>
-
                 </materialDesign:Card>
 
                 <Grid Grid.Row="1" Grid.Column="3">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
+                        <RowDefinition Height="0.8*" />
+                        <RowDefinition Height="0.25*" />
                         <RowDefinition Height="9*" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="0.25*" />
                         <ColumnDefinition Width="5*" />
                     </Grid.ColumnDefinitions>
 
                     <materialDesign:Card
-                        Margin="1,1,1,1"
-                        Background="{DynamicResource SolidDark}"
-                        VerticalAlignment="Top"
                         Height="{Binding Path=ActualWidth, RelativeSource={RelativeSource Self}}"
+                        Margin="1,1,1,1"
+                        VerticalAlignment="Top"
+                        Background="{DynamicResource SolidDark}"
                         UniformCornerRadius="10">
                         <TextBlock
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
-                            Text="{Binding CurrentFloorText, Mode=OneWay}"
-                            Foreground="{DynamicResource SolidMain}"/>
+                            Foreground="{DynamicResource SolidMain}"
+                            Text="{Binding CurrentFloorText, Mode=OneWay}" />
                     </materialDesign:Card>
 
-
                     <materialDesign:Card
-                        Grid.Row="1"
+                        Grid.Row="2"
                         Margin="1,1,1,1"
                         Background="{DynamicResource SolidDark}"
                         UniformCornerRadius="10">
@@ -228,6 +231,15 @@
                                 Height="{Binding Path=ActualWidth, RelativeSource={RelativeSource Self}}"
                                 Padding="0"
                                 HorizontalAlignment="Stretch"
+                                Command="{Binding ClearClipboardCommand, Mode=OneWay}"
+                                Style="{StaticResource MaterialDesignIconButton}"
+                                ToolTip="ClearClipboard">
+                                <materialDesign:PackIcon Kind="ClipboardRemoveOutline" />
+                            </Button>
+                            <Button
+                                Height="{Binding Path=ActualWidth, RelativeSource={RelativeSource Self}}"
+                                Padding="0"
+                                HorizontalAlignment="Stretch"
                                 Command="{Binding SaveCommand, Mode=OneWay}"
                                 Style="{StaticResource MaterialDesignIconButton}"
                                 ToolTip="Save">
@@ -243,6 +255,33 @@
                                 <materialDesign:PackIcon Kind="Cancel" />
                             </Button>
                         </StackPanel>
+                    </materialDesign:Card>
+
+                    <materialDesign:Card
+                        Grid.Row="0"
+                        Grid.RowSpan="3"
+                        Grid.Column="2"
+                        Margin="1,1,1,1"
+                        Background="{DynamicResource SolidDark}"
+                        UniformCornerRadius="10">
+
+                        <ScrollViewer VerticalScrollBarVisibility="Visible">
+                            <ItemsControl
+                                ItemsSource="{Binding FloorsClipboard, Mode=OneWay}"
+                                VirtualizingPanel.IsVirtualizing="True"
+                                VirtualizingPanel.VirtualizationMode="Recycling">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel VerticalAlignment="Bottom" Orientation="Vertical" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <component:ViewOnlyFloorLayout />
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
                     </materialDesign:Card>
                 </Grid>
             </Grid>

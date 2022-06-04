@@ -92,7 +92,7 @@ namespace CSWBManagementApplication.ViewModels
         public NavigationChipViewModel(string content, PackIconKind icon, ICommand command, bool activated = false)
         {
             Content = content;
-            Icon = icon;           
+            Icon = icon;
             Command = command;
             Activated = activated;
         }
