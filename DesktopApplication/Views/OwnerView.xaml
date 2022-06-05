@@ -1,11 +1,11 @@
 ﻿<UserControl
     x:Class="CSWBManagementApplication.Views.OwnerView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:components="clr-namespace:CSWBManagementApplication.Views.Components"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="1080"
     d:DesignWidth="1920"
     mc:Ignorable="d">
@@ -61,15 +61,11 @@
             </Grid>
         </Border>
 
+
         <materialDesign:Transitioner
             Grid.Column="1"
             Background="{DynamicResource LinearDarkBackground}"
             SelectedIndex="{Binding SelectedIndex}">
-
-            <materialDesign:Transitioner.InputBindings>
-                <KeyBinding Key="Up" Command="{x:Static materialDesign:Transitioner.MovePreviousCommand}" />
-                <KeyBinding Key="Down" Command="{x:Static materialDesign:Transitioner.MoveNextCommand}" />
-            </materialDesign:Transitioner.InputBindings>
 
             <materialDesign:TransitionerSlide>
 
@@ -159,6 +155,7 @@
                                     </ItemsControl.ItemTemplate>
                                 </ItemsControl>
                             </ScrollViewer>
+                            
                         </Grid>
 
                         <materialDesign:TransitionerSlide.ForwardWipe>
@@ -168,13 +165,25 @@
 
                     <materialDesign:TransitionerSlide>
 
-                        <ContentControl Content="{Binding CafeDetailsViewModel}">
-                            <ContentControl.ContentTemplate>
-                                <DataTemplate>
-                                    <components:CafeDetails />
-                                </DataTemplate>
-                            </ContentControl.ContentTemplate>
-                        </ContentControl>
+                        <Grid>
+                            <ContentControl Content="{Binding CafeDetailsViewModel}">
+                                <ContentControl.ContentTemplate>
+                                    <DataTemplate>
+                                        <components:CafeDetails />
+                                    </DataTemplate>
+                                </ContentControl.ContentTemplate>
+                            </ContentControl>
+
+                            <Button
+                                Margin="15,15"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                Command="{Binding CafeViewBackCommand, Mode=OneWay}"
+                                Content="Back"
+                                IsEnabled="{Binding IsCafeViewBackable, Mode=OneWay}"
+                                Visibility="{Binding CafeViewBackButtonVisibility, Mode=OneWay}" />
+                        </Grid>                      
+                        
                     </materialDesign:TransitionerSlide>
                 </materialDesign:Transitioner>
 

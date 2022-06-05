@@ -5,6 +5,7 @@ using CSWBManagementApplication.Services;
 using MaterialDesignThemes.Wpf;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 
 namespace CSWBManagementApplication.ViewModels
@@ -82,11 +83,67 @@ namespace CSWBManagementApplication.ViewModels
                 CafeCardViewModel cafeCardViewModel = new CafeCardViewModel(cafe);
                 cafeCardViewModel.PressCommand = new CommandBase(() =>
                 {
-                    this.CafeDetailsViewModel = new CafeDetailsViewModel(cafe);
+                    ChooseCafe(cafe);
                 });
                 fullCafesList.Add(cafeCardViewModel);
             }
             SearchText = "";
+        }
+
+
+
+        #region CafeView
+
+        public ICommand CafeViewBackCommand
+        {
+            get => new CommandBase(CafeViewBack);
+        }
+
+        private void CafeViewBack()
+        {
+            if (CafeDetailsViewModel != null && IsCafeViewBackable)
+            {
+                CafeDetailsViewModel = null;
+            }
+        }
+
+        public bool IsCafeViewBackable
+        {
+            get => !CafeLayoutEditted;
+        }
+
+        public Visibility CafeViewBackButtonVisibility
+        {
+            get => (CafeViewIndex == 1 ? Visibility.Visible : Visibility.Collapsed);
+        }
+
+        private void ChooseCafe(Cafe cafe)
+        {
+            if (CafeDetailsViewModel != null)
+            {
+                CafeDetailsViewModel = null;
+            }
+            CafeDetailsViewModel = new CafeDetailsViewModel(cafe);
+            CafeDetailsViewModel.CafeLayoutViewModel.OnEdittedChange += CafeLayoutViewModel_OnEdittedChange;
+        }
+
+        private bool cafeLayoutEditted;
+        public bool CafeLayoutEditted
+        {
+            get => cafeLayoutEditted;
+            set
+            {
+                if (value!=cafeLayoutEditted)
+                {
+                    cafeLayoutEditted = value;
+                    OnPropertyChanged(nameof(IsCafeViewBackable));
+                }
+            }
+        }
+
+        private void CafeLayoutViewModel_OnEdittedChange(object sender, bool e)
+        {
+            CafeLayoutEditted = e;
         }
 
         private string searchText;
@@ -125,8 +182,6 @@ namespace CSWBManagementApplication.ViewModels
             }
         }
 
-        #region CafeView
-
         private int cafeViewIndex;
 
         public int CafeViewIndex
@@ -151,11 +206,13 @@ namespace CSWBManagementApplication.ViewModels
                 if (cafeDetailsViewModel != null)
                 {
                     CafeViewIndex = 1;
+                    cafeLayoutEditted = false;
                 }
                 else
                 {
                     CafeViewIndex = 0;
                 }
+                OnPropertyChanged(nameof(CafeViewBackButtonVisibility));
             }
         }
 

@@ -197,6 +197,9 @@ namespace CSWBManagementApplication.Models
             set { address = value; }
         }
 
+        private bool hasStaffsInfo;
+        private bool hasFloorsInfo;
+        
         private List<Floor> floors;
 
         public List<Floor> Floors
@@ -227,6 +230,8 @@ namespace CSWBManagementApplication.Models
             this.address = "";
             this.floors = new List<Floor>();
             this.staffs = new Dictionary<string, int>();
+            hasStaffsInfo = false;
+            hasFloorsInfo = false;
         }
 
         public Cafe(string cafeID, string address)
@@ -235,6 +240,8 @@ namespace CSWBManagementApplication.Models
             this.address = address;
             this.floors = new List<Floor>();
             this.staffs = new Dictionary<string, int>();
+            hasStaffsInfo = false;
+            hasFloorsInfo = false;
         }
 
         public async void ChangeAddress(string address)
@@ -250,12 +257,20 @@ namespace CSWBManagementApplication.Models
 
         public async Task GetCafeStaffsInfo()
         {
-            await Database.GetCafeStaffsInfoAsyncs(this);
+            if (!hasStaffsInfo)
+            {
+                await Database.GetCafeStaffsInfoAsyncs(this);
+                hasStaffsInfo = true;
+            }                     
         }
 
         public async Task GetCafeFloorsInfo()
         {
-            await Database.GetCafeFloorsInfoAsync(this);
+            if (!hasFloorsInfo)
+            {
+                await Database.GetCafeFloorsInfoAsync(this);
+                hasFloorsInfo = true;
+            }
         }
     }
 }

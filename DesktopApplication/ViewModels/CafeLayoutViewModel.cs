@@ -1,6 +1,7 @@
 ﻿using CSWBManagementApplication.Commands;
 using CSWBManagementApplication.Models;
 using CSWBManagementApplication.Resources;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -82,7 +83,22 @@ namespace CSWBManagementApplication.ViewModels
             }
         }
 
-        private bool changed;
+        private bool editted;
+
+        public event EventHandler<bool> OnEdittedChange;
+
+        public bool Editted
+        {
+            get => editted;
+            set
+            {
+                if (editted != value)
+                {
+                    editted = value;
+                    OnEdittedChange?.Invoke(this, editted);
+                }
+            }
+        }
 
         private Cafe cafe;
 
@@ -152,7 +168,7 @@ namespace CSWBManagementApplication.ViewModels
                 floor.TileClicked += (object sender, Position position) =>
                 {
                     floor.ToggleTable(position);
-                    changed = true;
+                    Editted = true;
                 };
             }
             if (Floors.Any())
@@ -236,7 +252,7 @@ namespace CSWBManagementApplication.ViewModels
                 OnPropertyChanged();
             }
         }
-
+        
         public CafeLayoutViewModel(Cafe cafe)
         {
             this.Cafe = cafe;
@@ -248,7 +264,7 @@ namespace CSWBManagementApplication.ViewModels
             await cafe.GetCafeFloorsInfo();
             UpdateFloorsList();
 
-            changed = false;
+            Editted = false;
         }
 
         private void ClipboardFloor_OnClick(object sender, List<Position> e)
@@ -263,7 +279,7 @@ namespace CSWBManagementApplication.ViewModels
             get => new CommandBase(() =>
             {
                 Floors.Add(new Floor(Floors.Count + 1, ""));
-                changed = true;
+                Editted = true;
                 Floors.Sort((f1, f2) => (f2.FloorNumber.CompareTo(f1.FloorNumber)));
                 UpdateFloorLayoutsList();
             });
@@ -281,7 +297,7 @@ namespace CSWBManagementApplication.ViewModels
                     {
                         Floors[i].FloorNumber--;
                     }
-                    changed = true;
+                    Editted = true;
                     UpdateFloorLayoutsList();
                 }
             });
@@ -292,7 +308,7 @@ namespace CSWBManagementApplication.ViewModels
             get => new CommandBase(() =>
             {
                 CurrentEditableFloorLayoutViewModel.ClearTables();
-                changed = true;
+                Editted = true;
             });
         }
 
@@ -328,7 +344,7 @@ namespace CSWBManagementApplication.ViewModels
                 {
                     CurrentEditableFloorLayoutViewModel.ToggleTable(position);
                 };
-                changed = true;
+                Editted = true;
             }
         }
 
@@ -342,13 +358,13 @@ namespace CSWBManagementApplication.ViewModels
 
         public void Save()
         {
-            if (!changed)
+            if (!Editted)
             {
                 return;
             }
             this.Cafe.Floors = new List<Floor>(Floors);
             this.Cafe.UploadFloors();
-            changed = false;
+            Editted = false;
         }
 
         public ICommand DiscardCommand
@@ -356,7 +372,7 @@ namespace CSWBManagementApplication.ViewModels
             get => new CommandBase(() =>
             {
                 UpdateFloorsList();
-                changed = false;
+                Editted = false;
             });
         }
 
