@@ -56,6 +56,8 @@ namespace CSWBManagementApplication.Services
 
         private const string USER_COLLECTION = "Users";
 
+        private const string CAFE_LAYOUT_UPDATE_COLLECTION = "CafeLayoutUpdates";
+
         private static FirestoreDb db;
 
         public static FirestoreDb FirestoreDatabase
@@ -73,6 +75,8 @@ namespace CSWBManagementApplication.Services
 
         public static CollectionReference CafeCollection = FirestoreDatabase.Collection(CAFE_COLLECTION);
         public static CollectionReference UserCollection = FirestoreDatabase.Collection(USER_COLLECTION);
+
+        public static CollectionReference CafeLayoutUpdateCollection = FirestoreDatabase.Collection(CAFE_LAYOUT_UPDATE_COLLECTION);
 
         #endregion Firestore
 
@@ -200,6 +204,11 @@ namespace CSWBManagementApplication.Services
             return UserCollection.Document(userID);
         }
 
+        public static DocumentReference CafeLayoutUpdateDocuments(string updateID)
+        {
+            return CafeLayoutUpdateCollection.Document(updateID);
+        }
+
         #endregion Misc
 
         #region Delete
@@ -243,14 +252,33 @@ namespace CSWBManagementApplication.Services
         {
             if (await FindCafeAsync(address) != null)
             {
-                throw new Exception("Cafe already exist!");
+                throw new Exception("Address already exist!");
+            }
+            Dictionary<string, object> data = new Dictionary<string, object>()
+            {
+                { "Address", address },
+                {"BinaryLastUpdateTime", DateTime.Now.ToBinary() }
+            };
+            DocumentReference cafeReference = await CafeCollection.AddAsync(data);
+            return (await cafeReference.GetSnapshotAsync()).ConvertTo<Cafe>();
+        }
+
+        public static async Task UpdateCafeAddressAsync(string cafeID, string address)
+        {
+            Cafe cafe = await GetCafe(CafeDocument(cafeID));
+            if (await FindCafeAsync(address) != null)
+            {
+                throw new Exception("Address already exist!");
+            }
+            if (cafe == null)
+            {
+                throw new Exception("Cafe not found!");
             }
             Dictionary<string, object> data = new Dictionary<string, object>()
             {
                 { "Address", address }
             };
-            DocumentReference cafeReference = await CafeCollection.AddAsync(data);
-            return (await cafeReference.GetSnapshotAsync()).ConvertTo<Cafe>();
+            await CafeCollection.Document(cafeID).UpdateAsync(data);
         }
 
         public static async Task<DocumentReference> FindCafeAsync(string address)
@@ -282,9 +310,9 @@ namespace CSWBManagementApplication.Services
 
             foreach (DocumentSnapshot floorSnapshot in floorSnapshots)
             {
-                result.Floors.Add(floorSnapshot.Id, floorSnapshot.ConvertTo<Cafe.Floor>());
+                result.Floors.Add(floorSnapshot.ConvertTo<Floor>());
             }
-
+            result.Floors.Sort((f1, f2) => f1.FloorNumber.CompareTo(f2.FloorNumber));
             return result;
         }
 
@@ -296,23 +324,35 @@ namespace CSWBManagementApplication.Services
             {
                 cafes.Add(cafeSnapshot.ConvertTo<Cafe>());
             }
+            cafes.Sort((c1, c2) => c1.Address.CompareTo(c2.Address));
             return cafes.AsEnumerable();
         }
 
-        public static async Task AddFloorToCafeAsync(string cafeID, Cafe.Floor floor)
+        public static async Task GetCafeStaffsInfoAsyncs(Cafe cafe)
         {
-            DocumentReference floorDocument = FloorDocument(cafeID, floor.FloorID);
-#if DEBUG
-            DocumentSnapshot floorSnapshot = await floorDocument.GetSnapshotAsync();
-            if (floorSnapshot.Exists)
+            QuerySnapshot staffSnapshots = await cafe.CafeReference.Collection(CAFE_STAFF_COLLECTION).GetSnapshotAsync();
+            foreach (DocumentSnapshot staffSnapshot in staffSnapshots)
             {
-                throw new Exception("Floor already exists");
+                cafe.Staffs.Add(staffSnapshot.Id, staffSnapshot.GetValue<int>("Level"));
             }
-#endif
-            await floorDocument.SetAsync(floor);
         }
 
-        public static async Task UpdateFloorAsync(string cafeID, Cafe.Floor floor)
+        public static async Task GetCafeFloorsInfoAsync(Cafe cafe)
+        {
+            QuerySnapshot floorSnapshots = await cafe.CafeReference.Collection(CAFE_FLOOR_COLLECTION).GetSnapshotAsync();
+            foreach (DocumentSnapshot floorSnapshot in floorSnapshots)
+            {
+                cafe.Floors.Add(floorSnapshot.ConvertTo<Floor>());
+            }
+            cafe.Floors.Sort((f2, f1) => f1.FloorNumber.CompareTo(f2.FloorNumber));
+        }
+
+        public static async Task AddFloorToCafeAsync(string cafeID, Floor floor)
+        {
+            DocumentReference floorReference = await CafeFloorCollection(cafeID).AddAsync(floor);
+        }
+
+        public static async Task UpdateFloorAsync(string cafeID, Floor floor)
         {
             DocumentReference floorDocument = FloorDocument(cafeID, floor.FloorID);
 
@@ -324,6 +364,14 @@ namespace CSWBManagementApplication.Services
             }
 
             await floorDocument.SetAsync(floor);
+        }
+
+        public static async Task UpdateFloorsAsync(string cafeID, List<Floor> floors)
+        {
+            await DeleteCollection(CafeFloorCollection(cafeID), 10);
+            List<Task> tasks = (from floor in floors
+                                select (AddFloorToCafeAsync(cafeID, floor))).ToList();
+            await Task.WhenAll(tasks);
         }
 
         public static async Task RemoveFloorFromCafeAsync(string cafeID, string floorID)
@@ -520,6 +568,33 @@ namespace CSWBManagementApplication.Services
         }
 
         #endregion User
+
+        #region Updates
+
+        public static async Task CreateCafeLayoutUpdate(CafeLayoutUpdate update)
+        {
+            update.Time = DateTime.Now;
+            DocumentReference updateReference = await CafeLayoutUpdateCollection.AddAsync(update);
+        }
+
+        public static async Task<List<DocumentReference>> FindNewUpdateReferences(string cafeID, DateTime time)
+        {
+            QuerySnapshot UpdatesSnapshot = await CafeLayoutUpdateCollection.WhereGreaterThan("Time", time.ToBinary()).WhereEqualTo("CafeID", cafeID).GetSnapshotAsync();
+            List<DocumentReference> updates = new List<DocumentReference>();
+            foreach (DocumentSnapshot updateSnapshot in UpdatesSnapshot.Documents)
+            {
+                updates.Add(updateSnapshot.Reference);
+            }
+            return updates;
+        }
+
+        public static async Task<CafeLayoutUpdate> GetCafeLayoutUpdate(DocumentReference updateReference)
+        {
+            DocumentSnapshot updateSnapshot = await updateReference.GetSnapshotAsync();
+            return updateSnapshot.ConvertTo<CafeLayoutUpdate>();
+        }
+
+        #endregion Updates
 
         #endregion Firestore
 

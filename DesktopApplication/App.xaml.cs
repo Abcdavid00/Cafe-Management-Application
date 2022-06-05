@@ -1,5 +1,6 @@
 ﻿using CSWBManagementApplication.Resources;
 using CSWBManagementApplication.ViewModels;
+using System.Collections.ObjectModel;
 using System.Windows;
 
 namespace CSWBManagementApplication
@@ -9,6 +10,22 @@ namespace CSWBManagementApplication
     /// </summary>
     public partial class App : Application
     {
+        public const int CAFE_CARD_PER_ROW = 5;
+        public const int FLOOR_TILES_PER_FLOOR_LINE = 11;
+        private static ObservableCollection<ViewOnlyFloorLayoutViewModel> floorsClipboard;
+
+        internal static ObservableCollection<ViewOnlyFloorLayoutViewModel> FloorsClipboard
+        {
+            get
+            {
+                if (floorsClipboard == null)
+                {
+                    floorsClipboard = new ObservableCollection<ViewOnlyFloorLayoutViewModel>();
+                }
+                return floorsClipboard;
+            }
+        }
+
         protected override void OnStartup(StartupEventArgs e)
         {
             SetDynamicResources();
@@ -32,10 +49,11 @@ namespace CSWBManagementApplication
             DarkTheme.SetTheme(this);
             this.Resources["MediumFontSize"] = screenWidth * 0.01 + 1.12;
 
-            int cafeCardPerRow = 5;
-            double cafeCardWidth = ((ownerViewMainAreaWidth * 23 / 25) - (double)cafeCardPerRow * 10) / (double)cafeCardPerRow;
+            double cafeCardWidth = ((ownerViewMainAreaWidth * 23 / 25) - (double)CAFE_CARD_PER_ROW * 10) / (double)CAFE_CARD_PER_ROW;
             this.Resources["CafeCardWidth"] = cafeCardWidth;
             this.Resources["CafeCardHeight"] = cafeCardWidth * 1.3;
+
+            this.Resources["FloorTilesPerFloorLine"] = FLOOR_TILES_PER_FLOOR_LINE;
         }
     }
 }

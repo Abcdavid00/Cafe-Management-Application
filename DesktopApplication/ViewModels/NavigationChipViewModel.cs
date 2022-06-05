@@ -89,11 +89,10 @@ namespace CSWBManagementApplication.ViewModels
             }
         }
 
-        public NavigationChipViewModel(string content, PackIconKind icon, Brush foreground, ICommand command, bool activated = false)
+        public NavigationChipViewModel(string content, PackIconKind icon, ICommand command, bool activated = false)
         {
             Content = content;
             Icon = icon;
-            Foreground = foreground;
             Command = command;
             Activated = activated;
         }

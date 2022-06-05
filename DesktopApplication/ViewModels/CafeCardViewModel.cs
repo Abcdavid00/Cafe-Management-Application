@@ -67,6 +67,7 @@ namespace CSWBManagementApplication.ViewModels
         }
 
         private string compare;
+
         public string Compare
         {
             get => compare;
@@ -78,6 +79,7 @@ namespace CSWBManagementApplication.ViewModels
         }
 
         private CommandBase pressCommand;
+
         public CommandBase PressCommand
         {
             get => pressCommand;

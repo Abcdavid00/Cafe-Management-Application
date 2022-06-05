@@ -1,0 +1,54 @@
+﻿<UserControl
+    x:Class="CSWBManagementApplication.Views.Components.ViewOnlyFloorLayout"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:component="clr-namespace:CSWBManagementApplication.Views.Components"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:CSWBManagementApplication.Views.Components"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="1080"
+    d:DesignWidth="1920"
+    mc:Ignorable="d">
+    <Grid>
+        <Button
+            Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
+            Padding="0"
+            HorizontalContentAlignment="Stretch"
+            Background="Transparent"
+            BorderBrush="{DynamicResource SolidLight}"
+            Command="{Binding Command, Mode=OneWay}"
+            Style="{StaticResource DefaultButton}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="30*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="20*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <ItemsControl
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
+                    ItemsSource="{Binding FloorTiles, Mode=OneWay}"
+                    VirtualizingPanel.IsVirtualizing="True"
+                    VirtualizingPanel.VirtualizationMode="Recycling">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="{DynamicResource FloorTilesPerFloorLine}" Rows="{DynamicResource FloorTilesPerFloorLine}" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <component:ViewOnlyFloorTile />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Grid>
+        </Button>
+    </Grid>
+</UserControl>

@@ -2,155 +2,174 @@
 using Google.Cloud.Firestore;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CSWBManagementApplication.Models
 {
     [FirestoreData]
+    public class Position
+    {
+        [FirestoreProperty]
+        public int X
+        {
+            get;
+            set;
+        }
+
+        [FirestoreProperty]
+        public int Y
+        {
+            get;
+            set;
+        }
+
+        public Position()
+        {
+            X = 0;
+            Y = 0;
+        }
+
+        public Position(int x, int y)
+        {
+            this.X = x;
+            this.Y = y;
+        }
+
+        public static bool operator ==(Position a, Position b)
+        {
+            return a.X == b.X && a.Y == b.Y;
+        }
+
+        public static bool operator !=(Position a, Position b)
+        {
+            return a.X != b.X || a.Y != b.Y;
+        }
+    }
+
+    [FirestoreData]
+    public class FloorArea
+    {
+        [FirestoreProperty]
+        public Position Position
+        {
+            get;
+            set;
+        }
+
+        [FirestoreProperty]
+        public int Width
+        {
+            get;
+            set;
+        }
+
+        [FirestoreProperty]
+        public int Height
+        {
+            get;
+            set;
+        }
+
+        public FloorArea()
+        {
+            Position = new Position();
+            Width = 0;
+            Height = 0;
+        }
+
+        public FloorArea(Position position, int width, int height)
+        {
+            Position = position;
+            Width = width;
+            Height = height;
+        }
+
+        public bool Contain(Position position)
+        {
+            return position.X >= Position.X && position.X <= Position.X + Width &&
+                   position.Y >= Position.Y && position.Y <= Position.Y + Height;
+        }
+    }
+
+    [FirestoreData]
+    public class Floor
+    {
+        [FirestoreDocumentId]
+        public string FloorID { get; set; }
+
+        [FirestoreProperty]
+        public int FloorNumber { get; set; }
+
+        [FirestoreProperty]
+        public string FloorName { get; set; }
+
+        [FirestoreProperty]
+        public List<FloorArea> FloorAreas { get; set; }
+
+        [FirestoreProperty]
+        public List<Position> Tables { get; set; }
+
+        public Floor()
+        {
+            this.FloorAreas = new List<FloorArea>();
+            this.Tables = new List<Position>();
+        }
+
+        public Floor(int floorNumber, string floorName)
+        {
+            this.FloorID = "";
+            this.FloorNumber = floorNumber;
+            this.FloorName = FloorName;
+            this.FloorAreas = new List<FloorArea>();
+            this.Tables = new List<Position>();
+        }
+
+        public Floor(Floor floor)
+        {
+            this.FloorID = floor.FloorID;
+            this.FloorNumber = floor.FloorNumber;
+            this.FloorName = floor.FloorName;
+            this.FloorAreas = new List<FloorArea>(floor.FloorAreas);
+            this.Tables = new List<Position>(floor.Tables);
+        }
+
+        public Dictionary<string, object> ToDictionary()
+        {
+            Dictionary<string, object> dict = new Dictionary<string, object>();
+            dict.Add("FloorID", this.FloorID);
+            dict.Add("FloorNumber", this.FloorNumber);
+            dict.Add("FloorName", this.FloorName);
+            dict.Add("FloorAreas", this.FloorAreas);
+            dict.Add("Tables", this.Tables);
+            return dict;
+        }
+
+        public bool Contain(Position position)
+        {
+            foreach (FloorArea floorArea in this.FloorAreas)
+            {
+                if (floorArea.Contain(position))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public void AddTable(Position position)
+        {
+            this.Tables.Add(position);
+        }
+
+        public void RemoveTable(Position position)
+        {
+            this.Tables.Remove(position);
+        }
+    }
+
+    [FirestoreData]
     internal class Cafe
     {
-        [FirestoreData]
-        public class Position
-        {
-            [FirestoreProperty]
-            public int x
-            {
-                get;
-                set;
-            }
-
-            [FirestoreProperty]
-            public int y
-            {
-                get;
-                set;
-            }
-
-            [FirestoreProperty]
-            public long SingleValue
-            {
-                get
-                {
-                    return y + (x + y + 1) * (x + y) / 2;
-                }
-                set
-                {
-                    int degree = (int)Math.Floor((Math.Sqrt(value * 8 + 1) - 1) / 2);
-                    long sum = (degree + 1) * degree / 2;
-                    this.y = (int)(value - sum);
-                    this.x = degree - this.y;
-                }
-            }
-
-            public Position()
-            {
-                SingleValue = 0;
-            }
-
-            public Position(long singleValue)
-            {
-                this.SingleValue = singleValue;
-            }
-
-            public Position(int x, int y)
-            {
-                this.x = x;
-                this.y = y;
-            }
-        }
-
-        [FirestoreData]
-        public class FloorArea
-        {
-            [FirestoreProperty]
-            public Position Position
-            {
-                get;
-                set;
-            }
-
-            [FirestoreProperty]
-            public int Width
-            {
-                get;
-                set;
-            }
-
-            [FirestoreProperty]
-            public int Length
-            {
-                get;
-                set;
-            }
-
-            public FloorArea()
-            {
-                Position = new Position();
-                Width = 0;
-                Length = 0;
-            }
-
-            public FloorArea(Position position, int width, int length)
-            {
-                Position = position;
-                Width = width;
-                Length = length;
-            }
-
-            public bool Contain(Position position)
-            {
-                return position.x >= Position.x && position.x <= Position.x + Width &&
-                       position.y >= Position.y && position.y <= Position.y + Length;
-            }
-        }
-
-        [FirestoreData]
-        public class Floor
-        {
-            [FirestoreDocumentId]
-            public string FloorID { get; set; }
-
-            [FirestoreProperty]
-            public List<FloorArea> FloorAreas { get; set; }
-
-            [FirestoreProperty]
-            public List<Position> Tables { get; set; }
-
-            public Floor()
-            {
-                this.FloorAreas = new List<FloorArea>();
-                this.Tables = new List<Position>();
-            }
-
-            public Floor(string floorID, List<FloorArea> FloorAreas, List<Position> Table)
-            {
-                this.FloorID = floorID;
-                this.FloorAreas = FloorAreas;
-                this.Tables = Table;
-            }
-
-            public bool Contain(Position position)
-            {
-                foreach (FloorArea floorArea in this.FloorAreas)
-                {
-                    if (floorArea.Contain(position))
-                    {
-                        return true;
-                    }
-                }
-                return false;
-            }
-
-            public void AddTable(Position position)
-            {
-                this.Tables.Add(position);
-            }
-
-            public void RemoveTable(Position position)
-            {
-                this.Tables.Remove(position);
-            }
-        }
-
         private string cafeID;
 
         [FirestoreDocumentId]
@@ -158,6 +177,15 @@ namespace CSWBManagementApplication.Models
         {
             get { return cafeID; }
             set { cafeID = value; }
+        }
+
+        public DateTime LastUpdateTime { get; private set; }
+
+        [FirestoreProperty]
+        public long BinaryLastUpdateTime
+        {
+            get => LastUpdateTime.ToBinary();
+            set => LastUpdateTime = DateTime.FromBinary(value);
         }
 
         private string address;
@@ -169,12 +197,15 @@ namespace CSWBManagementApplication.Models
             set { address = value; }
         }
 
-        private Dictionary<string, Floor> floors;
+        private List<Floor> floors;
 
-        public Dictionary<string, Floor> Floors
+        public List<Floor> Floors
         {
-            get { return floors; }
-            set { floors = value; }
+            get => floors;
+            set
+            {
+                floors = value;
+            }
         }
 
         private Dictionary<string, int> staffs;
@@ -194,7 +225,7 @@ namespace CSWBManagementApplication.Models
         {
             this.CafeID = "";
             this.address = "";
-            this.floors = new Dictionary<string, Floor>();
+            this.floors = new List<Floor>();
             this.staffs = new Dictionary<string, int>();
         }
 
@@ -202,13 +233,29 @@ namespace CSWBManagementApplication.Models
         {
             this.cafeID = cafeID;
             this.address = address;
-            this.floors = new Dictionary<string, Floor>();
+            this.floors = new List<Floor>();
             this.staffs = new Dictionary<string, int>();
         }
 
-        public void AddFloor(string floorID, Floor floor)
+        public async void ChangeAddress(string address)
         {
-            this.floors.Add(floorID, floor);
+            this.Address = address;
+            await Database.UpdateCafeAddressAsync(CafeID, Address);
+        }
+
+        public async void UploadFloors()
+        {
+            await Database.UpdateFloorsAsync(CafeID, Floors);
+        }
+
+        public async Task GetCafeStaffsInfo()
+        {
+            await Database.GetCafeStaffsInfoAsyncs(this);
+        }
+
+        public async Task GetCafeFloorsInfo()
+        {
+            await Database.GetCafeFloorsInfoAsync(this);
         }
     }
 }
