@@ -25,9 +25,9 @@
             Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
+            ItemsSource="{Binding FloorTiles}"
             VirtualizingPanel.IsVirtualizing="True"
-            VirtualizingPanel.VirtualizationMode="Recycling"
-            ItemsSource="{Binding FloorTiles}">
+            VirtualizingPanel.VirtualizationMode="Recycling">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <UniformGrid Columns="{DynamicResource FloorTilesPerFloorLine}" Rows="{DynamicResource FloorTilesPerFloorLine}" />

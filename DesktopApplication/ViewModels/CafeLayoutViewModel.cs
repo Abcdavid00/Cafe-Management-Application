@@ -252,7 +252,7 @@ namespace CSWBManagementApplication.ViewModels
                 OnPropertyChanged();
             }
         }
-        
+
         public CafeLayoutViewModel(Cafe cafe)
         {
             this.Cafe = cafe;

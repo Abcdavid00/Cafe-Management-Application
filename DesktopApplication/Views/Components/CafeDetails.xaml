@@ -26,11 +26,19 @@
                 Content="Statistics"
                 IsChecked="{Binding IsStatisticSelected, Mode=OneWay}"
                 Style="{StaticResource MaterialDesignTabRadioButton}" />
+            
             <RadioButton
                 Margin="0"
                 Command="{Binding LayoutButtonPressed, Mode=OneWay}"
                 Content="Layout"
                 IsChecked="{Binding IsLayoutSelected, Mode=OneWay}"
+                Style="{StaticResource MaterialDesignTabRadioButton}" />
+
+            <RadioButton
+                Margin="0"
+                Command="{Binding StaffsButtonPressed, Mode=OneWay}"
+                Content="Staffs"
+                IsChecked="{Binding IsStaffsSelected, Mode=OneWay}"
                 Style="{StaticResource MaterialDesignTabRadioButton}" />
         </StackPanel>
 
@@ -44,7 +52,7 @@
                 <ContentControl>
                     <ContentControl.ContentTemplate>
                         <DataTemplate>
-                            <Grid Background="Beige" />
+                            <Grid Background="LightBlue" />
                         </DataTemplate>
                     </ContentControl.ContentTemplate>
                 </ContentControl>
@@ -63,6 +71,22 @@
                         </DataTemplate>
                     </ContentControl.ContentTemplate>
                 </ContentControl>
+            </materialDesign:TransitionerSlide>
+
+            <materialDesign:TransitionerSlide>
+
+                <materialDesign:TransitionerSlide.BackwardWipe>
+                    <materialDesign:SlideWipe Direction="Right" />
+                </materialDesign:TransitionerSlide.BackwardWipe>
+
+                <ContentControl Content="{Binding CafeStaffViewModel}">
+                    <ContentControl.ContentTemplate>
+                        <DataTemplate>
+                            <components:CafeStaff/>
+                        </DataTemplate>
+                    </ContentControl.ContentTemplate>
+                </ContentControl>
+
             </materialDesign:TransitionerSlide>
         </materialDesign:Transitioner>
     </Grid>

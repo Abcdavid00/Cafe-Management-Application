@@ -56,7 +56,7 @@ namespace CSWBManagementApplication.Services
 
         private const string USER_COLLECTION = "Users";
 
-        private const string CAFE_LAYOUT_UPDATE_COLLECTION = "CafeLayoutUpdates";
+        private const string STAFF_PLACEHOLDER_COLLECTION = "StaffPlaceholders";
 
         private static FirestoreDb db;
 
@@ -76,7 +76,7 @@ namespace CSWBManagementApplication.Services
         public static CollectionReference CafeCollection = FirestoreDatabase.Collection(CAFE_COLLECTION);
         public static CollectionReference UserCollection = FirestoreDatabase.Collection(USER_COLLECTION);
 
-        public static CollectionReference CafeLayoutUpdateCollection = FirestoreDatabase.Collection(CAFE_LAYOUT_UPDATE_COLLECTION);
+        public static CollectionReference StaffPlaceholderCollection = FirestoreDatabase.Collection(STAFF_PLACEHOLDER_COLLECTION);
 
         #endregion Firestore
 
@@ -204,9 +204,9 @@ namespace CSWBManagementApplication.Services
             return UserCollection.Document(userID);
         }
 
-        public static DocumentReference CafeLayoutUpdateDocuments(string updateID)
+        public static DocumentReference StaffPlaceholder(string placeholderID)
         {
-            return CafeLayoutUpdateCollection.Document(updateID);
+            return StaffPlaceholderCollection.Document(placeholderID);
         }
 
         #endregion Misc
@@ -305,7 +305,7 @@ namespace CSWBManagementApplication.Services
 
             foreach (DocumentSnapshot staffSnapshot in staffSnapshots)
             {
-                result.Staffs.Add(staffSnapshot.Id, staffSnapshot.GetValue<int>("Level"));
+                result.Staffs.Add(staffSnapshot.Id, staffSnapshot.ConvertTo<Staff>());
             }
 
             foreach (DocumentSnapshot floorSnapshot in floorSnapshots)
@@ -330,11 +330,25 @@ namespace CSWBManagementApplication.Services
 
         public static async Task GetCafeStaffsInfoAsyncs(Cafe cafe)
         {
-            QuerySnapshot staffSnapshots = await cafe.CafeReference.Collection(CAFE_STAFF_COLLECTION).GetSnapshotAsync();
+            QuerySnapshot staffSnapshots = await cafe.CafeReference.Collection(CAFE_STAFF_COLLECTION).WhereEqualTo("Level", 0).GetSnapshotAsync();
             foreach (DocumentSnapshot staffSnapshot in staffSnapshots)
             {
-                cafe.Staffs.Add(staffSnapshot.Id, staffSnapshot.GetValue<int>("Level"));
+                cafe.Staffs.Add(staffSnapshot.Id, staffSnapshot.ConvertTo<Staff>());
             }
+        }
+
+        public static async Task UpdateStaffsAsync(Cafe cafe)
+        {
+            await DeleteCollection(CafeStaffCollection(cafe.CafeID), 10);
+            List<Task> tasks = new List<Task>();
+            if (cafe.Manager != null)
+            {
+                tasks.Add(AddStaffToCafeAsync(cafe.CafeID, cafe.Manager.UID, true));
+            }
+            tasks.AddRange(
+                from staff in cafe.Staffs.Values
+                select AddStaffToCafeAsync(cafe.CafeID, staff.UID, false));
+            await Task.WhenAll(tasks);
         }
 
         public static async Task GetCafeFloorsInfoAsync(Cafe cafe)
@@ -380,7 +394,7 @@ namespace CSWBManagementApplication.Services
             await floorDocument.DeleteAsync();
         }
 
-        public static async Task<DocumentReference> FindManagerReference(string cafeID)
+        public static async Task<DocumentReference> FindManagerAsync(string cafeID)
         {
             QuerySnapshot managerSnapshot = await CafeStaffCollection(cafeID).WhereEqualTo("Level", 1).GetSnapshotAsync();
             if (managerSnapshot.Count != 0)
@@ -390,7 +404,7 @@ namespace CSWBManagementApplication.Services
             return null;
         }
 
-        public static async Task<IEnumerable<DocumentReference>> FindStaffReferences(string cafeID)
+        public static async Task<IEnumerable<DocumentReference>> FindStaffsAsync(string cafeID)
         {
             List<DocumentReference> staffs = new List<DocumentReference>();
             QuerySnapshot staffsSnapshot = await CafeStaffCollection(cafeID).GetSnapshotAsync();
@@ -490,6 +504,20 @@ namespace CSWBManagementApplication.Services
             return staffs.AsEnumerable();
         }
 
+        public static async Task<IEnumerable<Staff>> GetUnemployedStaffs()
+        {
+            List<Staff> staffs = new List<Staff>();
+            QuerySnapshot staffSnapshots = await UserCollection.WhereEqualTo("CafeID", "").GetSnapshotAsync();
+            foreach (DocumentSnapshot staffSnapshot in staffSnapshots)
+            {
+                if (!staffSnapshot.GetValue<bool>("IsOwner"))
+                {
+                    staffs.Add(staffSnapshot.ConvertTo<Staff>());
+                }
+            }
+            return staffs.AsEnumerable();
+        }
+
         public static async Task<Models.User.Roles> UserRole(DocumentReference userReference)
         {
             DocumentSnapshot userSnapshot = await userReference.GetSnapshotAsync();
@@ -567,34 +595,59 @@ namespace CSWBManagementApplication.Services
             await staffReference.SetAsync(new Dictionary<string, object> { { "Level", (isManager ? 1 : 0) } });
         }
 
-        #endregion User
-
-        #region Updates
-
-        public static async Task CreateCafeLayoutUpdate(CafeLayoutUpdate update)
+        public static async Task SetStaffLevelAsync(string cafeID, string staffID, bool isManager)
         {
-            update.Time = DateTime.Now;
-            DocumentReference updateReference = await CafeLayoutUpdateCollection.AddAsync(update);
+            await StaffDocument(cafeID, staffID).UpdateAsync("Level", (isManager ? 1 : 0));
         }
 
-        public static async Task<List<DocumentReference>> FindNewUpdateReferences(string cafeID, DateTime time)
+        public static async Task<StaffPlaceholder> CreateStaffPlaceholder(string email, string cafeID)
         {
-            QuerySnapshot UpdatesSnapshot = await CafeLayoutUpdateCollection.WhereGreaterThan("Time", time.ToBinary()).WhereEqualTo("CafeID", cafeID).GetSnapshotAsync();
-            List<DocumentReference> updates = new List<DocumentReference>();
-            foreach (DocumentSnapshot updateSnapshot in UpdatesSnapshot.Documents)
+            StaffPlaceholder staffPlaceholder = new StaffPlaceholder()
             {
-                updates.Add(updateSnapshot.Reference);
-            }
-            return updates;
+                Email = email,
+                CafeID = cafeID
+            };
+            staffPlaceholder.PlaceHolderID = (await StaffPlaceholderCollection.AddAsync(staffPlaceholder)).Id;
+            return staffPlaceholder;
         }
 
-        public static async Task<CafeLayoutUpdate> GetCafeLayoutUpdate(DocumentReference updateReference)
+        public static async Task<DocumentReference> FindStaffPlaceholder(string email)
         {
-            DocumentSnapshot updateSnapshot = await updateReference.GetSnapshotAsync();
-            return updateSnapshot.ConvertTo<CafeLayoutUpdate>();
+            QuerySnapshot staffPlaceholderSnapshot = await StaffPlaceholderCollection.WhereEqualTo("Email", email).Limit(1).GetSnapshotAsync();
+            if (staffPlaceholderSnapshot.Count == 0)
+            {
+                return null;
+            }
+            return staffPlaceholderSnapshot.Documents[0].Reference;
         }
 
-        #endregion Updates
+        public static async Task RemoveStaffPlaceholder(DocumentReference staffPlaceholderReference)
+        {
+            await staffPlaceholderReference.DeleteAsync();
+        }
+
+        public static async Task RemoveStaffPlaceholder(string email)
+        {
+            DocumentReference staffPlaceholderReference = await FindStaffPlaceholder(email);
+            while (staffPlaceholderReference != null)
+            {
+                await RemoveStaffPlaceholder(staffPlaceholderReference);
+                staffPlaceholderReference = await FindStaffPlaceholder(email);
+            }
+        }
+
+        public static async Task<IEnumerable<StaffPlaceholder>> GetStaffPlaceholders(string cafeID)
+        {
+            List<StaffPlaceholder> staffPlaceholders = new List<StaffPlaceholder>();
+            QuerySnapshot staffPlaceholdersSnapshot = await StaffPlaceholderCollection.WhereEqualTo("CafeID", cafeID).GetSnapshotAsync();
+            staffPlaceholders.AddRange(
+                from staffPlaceholderSnapshot in staffPlaceholdersSnapshot.Documents
+                select staffPlaceholderSnapshot.ConvertTo<StaffPlaceholder>()
+                );
+            return staffPlaceholders.AsEnumerable();
+        }
+
+        #endregion User
 
         #endregion Firestore
 

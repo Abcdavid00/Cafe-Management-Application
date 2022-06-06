@@ -309,6 +309,7 @@
     <Compile Include="Models\Owner.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\Staff.cs" />
+    <Compile Include="Models\StaffPlaceHolder.cs" />
     <Compile Include="Models\Transaction.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Resources\DarkTheme.cs" />
@@ -318,14 +319,17 @@
     <Compile Include="ViewModels\CafeCardViewModel.cs" />
     <Compile Include="ViewModels\CafeDetailsViewModel.cs" />
     <Compile Include="ViewModels\CafeLayoutViewModel.cs" />
+    <Compile Include="ViewModels\CafeStaffViewModel.cs" />
     <Compile Include="ViewModels\CreateOwnerViewModel.cs" />
     <Compile Include="ViewModels\EditableFloorLayoutViewModel.cs" />
+    <Compile Include="ViewModels\FindStaffViewModel.cs" />
     <Compile Include="ViewModels\FloorTileViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ManagerViewModel.cs" />
     <Compile Include="ViewModels\NavigationChipViewModel.cs" />
     <Compile Include="ViewModels\OwnerViewModel.cs" />
+    <Compile Include="ViewModels\StaffDetailsViewModel.cs" />
     <Compile Include="ViewModels\StaffViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="ViewModels\ViewOnlyFloorLayoutViewModel.cs" />
@@ -338,6 +342,9 @@
     </Compile>
     <Compile Include="Views\Components\CafeLayout.xaml.cs">
       <DependentUpon>CafeLayout.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Components\CafeStaff.xaml.cs">
+      <DependentUpon>CafeStaff.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Components\CafeStatistics.xaml.cs">
       <DependentUpon>CafeStatistics.xaml</DependentUpon>
@@ -412,6 +419,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Components\CafeLayout.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Components\CafeStaff.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

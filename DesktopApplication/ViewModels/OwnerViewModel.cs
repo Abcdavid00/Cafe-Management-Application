@@ -90,8 +90,6 @@ namespace CSWBManagementApplication.ViewModels
             SearchText = "";
         }
 
-
-
         #region CafeView
 
         public ICommand CafeViewBackCommand
@@ -128,12 +126,13 @@ namespace CSWBManagementApplication.ViewModels
         }
 
         private bool cafeLayoutEditted;
+
         public bool CafeLayoutEditted
         {
             get => cafeLayoutEditted;
             set
             {
-                if (value!=cafeLayoutEditted)
+                if (value != cafeLayoutEditted)
                 {
                     cafeLayoutEditted = value;
                     OnPropertyChanged(nameof(IsCafeViewBackable));

@@ -19,7 +19,7 @@ namespace CSWBManagementApplication.ViewModels
                 {
                     return DarkTheme.LinearLightBackground;
                 }
-                return new SolidColorBrush(Color.FromArgb(0, 0, 0, 0));
+                return new SolidColorBrush(Colors.Transparent);
             }
         }
 

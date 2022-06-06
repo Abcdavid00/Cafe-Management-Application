@@ -47,6 +47,7 @@ namespace CSWBManagementApplication.Models
         public DateTime Birthdate
         {
             get { return birthdate; }
+            set { birthdate = value; }
         }
 
         private string profilePicturePath;

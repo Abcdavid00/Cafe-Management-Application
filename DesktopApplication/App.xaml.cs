@@ -49,9 +49,9 @@ namespace CSWBManagementApplication
             DarkTheme.SetTheme(this);
             this.Resources["MediumFontSize"] = screenWidth * 0.01 + 1.12;
 
-            double cafeCardWidth = ((ownerViewMainAreaWidth * 23 / 25) - (double)CAFE_CARD_PER_ROW * 10) / (double)CAFE_CARD_PER_ROW;
+            double cafeCardWidth = ((ownerViewMainAreaWidth * 23d / 25d) - (double)CAFE_CARD_PER_ROW * 10) / (double)CAFE_CARD_PER_ROW;
             this.Resources["CafeCardWidth"] = cafeCardWidth;
-            this.Resources["CafeCardHeight"] = cafeCardWidth * 1.3;
+            this.Resources["CafeCardHeight"] = cafeCardWidth * 2d / 3d;
 
             this.Resources["FloorTilesPerFloorLine"] = FLOOR_TILES_PER_FLOOR_LINE;
         }

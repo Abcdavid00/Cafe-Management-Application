@@ -6,6 +6,25 @@ namespace CSWBManagementApplication.ViewModels
 {
     internal class CafeDetailsViewModel : ViewModelBase
     {
+        private Cafe cafe;
+
+        public Cafe Cafe
+        {
+            get { return cafe; }
+            set
+            {
+                cafe = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public CafeDetailsViewModel(Cafe cafe)
+        {
+            this.Cafe = cafe;
+            this.CafeLayoutViewModel = new CafeLayoutViewModel(cafe);
+            this.CafeStaffViewModel = new CafeStaffViewModel(cafe);
+        }
+
         public bool IsStatisticSelected
         {
             get => SelectedIndex == 0;
@@ -26,6 +45,16 @@ namespace CSWBManagementApplication.ViewModels
             get => new CommandBase(() => SelectedIndex = 1);
         }
 
+        public bool IsStaffsSelected
+        {
+            get => SelectedIndex == 2;
+        }
+
+        public ICommand StaffsButtonPressed
+        {
+            get => new CommandBase(() => SelectedIndex = 2);
+        }
+
         private int selectedIndex;
 
         public int SelectedIndex
@@ -37,6 +66,7 @@ namespace CSWBManagementApplication.ViewModels
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(IsStatisticSelected));
                 OnPropertyChanged(nameof(IsLayoutSelected));
+                OnPropertyChanged(nameof(IsStaffsSelected));
             }
         }
 
@@ -52,22 +82,16 @@ namespace CSWBManagementApplication.ViewModels
             }
         }
 
-        private Cafe cafe;
+        private CafeStaffViewModel cafeStaffViewModel;
 
-        public Cafe Cafe
+        public CafeStaffViewModel CafeStaffViewModel
         {
-            get { return cafe; }
+            get => cafeStaffViewModel;
             set
             {
-                cafe = value;
+                cafeStaffViewModel = value;
                 OnPropertyChanged();
             }
-        }
-
-        public CafeDetailsViewModel(Cafe cafe)
-        {
-            this.Cafe = cafe;
-            this.CafeLayoutViewModel = new CafeLayoutViewModel(cafe);
         }
     }
 }

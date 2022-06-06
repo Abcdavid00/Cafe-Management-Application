@@ -210,13 +210,18 @@ namespace CSWBManagementApplication.Models
                 floors = value;
             }
         }
+        
+        private Dictionary<string, Staff> staffs;
 
-        private Dictionary<string, int> staffs;
-
-        public Dictionary<string, int> Staffs
+        public Dictionary<string, Staff> Staffs
         {
             get { return staffs; }
             set { staffs = value; }
+        }
+
+        private Staff manager;
+        public Staff Manager {
+            get => manager;
         }
 
         public DocumentReference CafeReference
@@ -229,7 +234,7 @@ namespace CSWBManagementApplication.Models
             this.CafeID = "";
             this.address = "";
             this.floors = new List<Floor>();
-            this.staffs = new Dictionary<string, int>();
+            this.staffs = new Dictionary<string, Staff>();
             hasStaffsInfo = false;
             hasFloorsInfo = false;
         }
@@ -239,7 +244,7 @@ namespace CSWBManagementApplication.Models
             this.cafeID = cafeID;
             this.address = address;
             this.floors = new List<Floor>();
-            this.staffs = new Dictionary<string, int>();
+            this.staffs = new Dictionary<string, Staff>();
             hasStaffsInfo = false;
             hasFloorsInfo = false;
         }
@@ -250,27 +255,45 @@ namespace CSWBManagementApplication.Models
             await Database.UpdateCafeAddressAsync(CafeID, Address);
         }
 
-        public async void UploadFloors()
-        {
-            await Database.UpdateFloorsAsync(CafeID, Floors);
-        }
-
         public async Task GetCafeStaffsInfo()
         {
-            if (!hasStaffsInfo)
+            if (hasStaffsInfo)
             {
-                await Database.GetCafeStaffsInfoAsyncs(this);
+                this.manager = null;
+                this.Staffs?.Clear();
+            } else
+            {
                 hasStaffsInfo = true;
-            }                     
+            }
+            manager = await Database.GetStaff(await Database.FindManagerAsync(CafeID));
+            await Database.GetCafeStaffsInfoAsyncs(this);
+            if (manager != null)
+            {
+                Staffs.Remove(manager.UID);
+            }
+            
+        }
+
+        public async void UploadStaffs()
+        {
+            await Database.UpdateStaffsAsync(this);
         }
 
         public async Task GetCafeFloorsInfo()
         {
-            if (!hasFloorsInfo)
+            if (hasFloorsInfo)
             {
-                await Database.GetCafeFloorsInfoAsync(this);
+                this.Floors?.Clear();
+            } else
+            {
                 hasFloorsInfo = true;
             }
+            await Database.GetCafeFloorsInfoAsync(this);
+        }
+
+        public async void UploadFloors()
+        {
+            await Database.UpdateFloorsAsync(CafeID, Floors);
         }
     }
 }
