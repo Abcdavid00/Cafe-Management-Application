@@ -1,4 +1,5 @@
-﻿using CSWBManagementApplication.Models;
+﻿using CSWBManagementApplication.Commands;
+using CSWBManagementApplication.Models;
 using CSWBManagementApplication.Resources;
 using CSWBManagementApplication.Services;
 using MaterialDesignThemes.Wpf;
@@ -6,8 +7,9 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace CSWBManagementApplication.ViewModels
@@ -26,10 +28,11 @@ namespace CSWBManagementApplication.ViewModels
 
             public Brush Foreground
             {
-                get => (isManager ? DarkTheme.SolidLight : DarkTheme.SolidDark); 
-            }           
+                get => (isManager ? DarkTheme.SolidLight : DarkTheme.SolidDark);
+            }
 
             private string name;
+
             public string Name
             {
                 get => (hasInfo ? name : "---");
@@ -41,6 +44,7 @@ namespace CSWBManagementApplication.ViewModels
             }
 
             private string email;
+
             public string Email
             {
                 get => email;
@@ -52,6 +56,7 @@ namespace CSWBManagementApplication.ViewModels
             }
 
             private string phone;
+
             public string Phone
             {
                 get => (hasInfo ? phone : "---");
@@ -63,6 +68,7 @@ namespace CSWBManagementApplication.ViewModels
             }
 
             private bool isMale;
+
             public bool IsMale
             {
                 get => (hasInfo ? isMale : false);
@@ -92,52 +98,77 @@ namespace CSWBManagementApplication.ViewModels
             }
 
             private DateTime birthdate;
+
             public DateTime Birthdate
             {
                 get => birthdate;
                 set => birthdate = value;
             }
+
             public string BirthdateText
             {
-                get => (hasInfo ? Birthdate.ToString("yyyy-MM-dd") : "---");
+                get => (hasInfo ? Birthdate.ToString("dd-MM-yyyy") : "---");
             }
-            
 
-            public StaffDetailViewModel(Staff staff, bool isManager = false)
+            private ICommand command;
+
+            public ICommand Command
+            {
+                get => command;
+            }
+
+            private Staff staff;
+
+            public Staff Staff
+            {
+                get => staff;
+            }
+
+            public StaffDetailViewModel(Staff staff, ICommand command, bool isManager = false)
             {
                 this.isManager = isManager;
+                this.staff = staff;
                 hasInfo = true;
                 Name = staff.Name;
                 Email = staff.Email;
                 Phone = staff.Phone;
                 IsMale = staff.IsMale;
                 Birthdate = staff.Birthdate;
+                this.command = command;
             }
 
-            public StaffDetailViewModel(StaffPlaceholder staffPlaceHolder)
+            public StaffDetailViewModel(StaffPlaceholder staffPlaceHolder, ICommand command)
             {
                 isManager = false;
                 hasInfo = false;
                 Email = staffPlaceHolder.Email;
+                this.command = command;
             }
         }
-        
+
         private Cafe cafe;
 
-        public CafeStaffViewModel(Cafe cafe)
+        private Privilege privilege;
+
+        private bool initiallized;
+
+        public CafeStaffViewModel(Cafe cafe, Privilege privilege)
         {
             this.cafe = cafe;
-            
-            Initialize();
+            initiallized = false;
+            this.isViewingStaffDetails = false;
+            this.privilege = privilege;
+            InitializeCafeStaffs();            
         }
 
         private ObservableCollection<StaffDetailViewModel> staffInfos;
+
         public ObservableCollection<StaffDetailViewModel> StaffInfos
         {
             get => staffInfos;
             set
             {
-                staffInfos = value;               
+                staffInfos = value;
                 OnPropertyChanged();
             }
         }
@@ -146,10 +177,11 @@ namespace CSWBManagementApplication.ViewModels
         {
             get
             {
-                if (isViewingStaffDetails)
+                if (IsViewingStaffDetails)
                 {
                     return StaffDetailsViewModel;
-                } else
+                }
+                else
                 {
                     return FindStaffViewModel;
                 }
@@ -157,17 +189,19 @@ namespace CSWBManagementApplication.ViewModels
         }
 
         private StaffDetailsViewModel staffDetailsViewModel;
+
         private StaffDetailsViewModel StaffDetailsViewModel
         {
-            get => StaffDetailsViewModel;
+            get => staffDetailsViewModel;
             set
             {
-                StaffDetailsViewModel = value;
+                staffDetailsViewModel = value;
                 OnPropertyChanged();
             }
         }
 
         private bool isViewingStaffDetails;
+
         private bool IsViewingStaffDetails
         {
             get => isViewingStaffDetails;
@@ -177,11 +211,16 @@ namespace CSWBManagementApplication.ViewModels
                 {
                     isViewingStaffDetails = value;
                     OnPropertyChanged(nameof(AlternativeViewModel));
+                    OnPropertyChanged(nameof(RemoveStaffButtonVisibility));
+                    OnPropertyChanged(nameof(RemoveStaffPlaceholderButtonVisibility));
+                    OnPropertyChanged(nameof(MakeManagerButtonVisibility));
+                    OnPropertyChanged(nameof(IsViewingStaffDetails));
                 }
             }
         }
 
         private FindStaffViewModel findStaffViewModel;
+
         private FindStaffViewModel FindStaffViewModel
         {
             get => findStaffViewModel;
@@ -192,30 +231,44 @@ namespace CSWBManagementApplication.ViewModels
             }
         }
 
-        private async void Initialize()
+        private void RefreshList()
         {
-            List<StaffPlaceholder> staffPlaceholders = (await Database.GetStaffPlaceholders(cafe.CafeID)).ToList();
-            await cafe.GetCafeStaffsInfo();
+            this.StaffDetailsViewModel = new StaffDetailsViewModel();
+            List<StaffPlaceholder> staffPlaceholders = new List<StaffPlaceholder>();
             StaffInfos?.Clear();
             StaffInfos = new ObservableCollection<StaffDetailViewModel>();
-            
+
             if (cafe.Manager != null)
             {
-                StaffInfos.Add(new StaffDetailViewModel(cafe.Manager, true));
+                StaffInfos.Add(new StaffDetailViewModel(cafe.Manager, new CommandBase(() => StaffDetailsViewModel.UpdateInfo(cafe.Manager, true)), true));
             }
 
             foreach (Staff staff in cafe.Staffs.Values)
             {
-                StaffInfos.Add(new StaffDetailViewModel(staff));
+                StaffInfos.Add(new StaffDetailViewModel(staff, new CommandBase(() => StaffDetailsViewModel.UpdateInfo(staff))));
             }
 
             foreach (StaffPlaceholder staffPlaceholder in staffPlaceholders)
             {
-                StaffInfos.Add(new StaffDetailViewModel(staffPlaceholder));
+                StaffInfos.Add(new StaffDetailViewModel(staffPlaceholder, new CommandBase(() => StaffDetailsViewModel.UpdateInfo(staffPlaceholder))));
             }
 
+            if (cafe.Manager != null)
+            {
+                this.StaffDetailsViewModel.UpdateInfo(cafe.Manager, true);
+            }
+            else if (cafe.Staffs.Count > 0)
+            {
+                this.StaffDetailsViewModel.UpdateInfo(cafe.Staffs.Values.First());
+            }
+            else if (staffPlaceholders.Count > 0)
+            {
+                this.StaffDetailsViewModel.UpdateInfo(staffPlaceholders.First());
+            }
+
+            this.StaffDetailsViewModel.OnInfoUpdate += StaffDetailsViewModel_OnInfoUpdate;
 #if DEBUG
-            StaffInfos.Add(new StaffDetailViewModel(new Staff()
+            Staff debugManager = new Staff()
             {
                 CafeID = cafe.CafeID,
                 Name = $"Vu Viet Huy",
@@ -223,30 +276,83 @@ namespace CSWBManagementApplication.ViewModels
                 Phone = "1234567890",
                 IsMale = true,
                 Birthdate = DateTime.Today
-            }, true));
+            };
 
-            for (int i = 0; i<10; i++)
+            StaffInfos.Add(new StaffDetailViewModel(debugManager, new CommandBase(() => StaffDetailsViewModel.UpdateInfo(debugManager, true)), true));
+
+            for (int i = 0; i < 10; i++)
             {
-                StaffInfos.Add(new StaffDetailViewModel(new Staff()
+                Staff debugStaff = new Staff()
                 {
                     CafeID = cafe.CafeID,
-                    Name = $"Huynh Duy Khang {i}",
+                    Name = $"Huynh Duy Khang Khung Khang {i}",
                     Email = $"hduykhang0{i}@gmail.com",
                     Phone = "1234567890",
                     IsMale = i % 2 == 0,
                     Birthdate = DateTime.Today
-                }));
+                };
+                StaffInfos.Add(new StaffDetailViewModel(debugStaff, new CommandBase(() => StaffDetailsViewModel.UpdateInfo(debugStaff))));
             }
 
             for (int i = 0; i < 10; i++)
             {
-                StaffInfos.Add(new StaffDetailViewModel(new StaffPlaceholder()
+                StaffPlaceholder debugStaffPlaceholder = new StaffPlaceholder()
                 {
                     CafeID = cafe.CafeID,
                     Email = $"hduykhang0{i}@gmail.com",
-                }));
+                };
+                StaffInfos.Add(new StaffDetailViewModel(debugStaffPlaceholder, new CommandBase(() => StaffDetailsViewModel.UpdateInfo(debugStaffPlaceholder))));
             }
 #endif
+        }
+
+        private async void InitializeCafeStaffs()
+        {
+            List<StaffPlaceholder> staffPlaceholders =  (await Database.GetStaffPlaceholders(cafe.CafeID)).ToList();
+            await cafe.GetCafeStaffsInfo();
+            RefreshList();
+            initiallized = true;
+        }
+
+        private void StaffDetailsViewModel_OnInfoUpdate(object sender, EventArgs e)
+        {
+            IsViewingStaffDetails = !StaffDetailsViewModel.IsEmpty;
+        }
+
+        public Visibility RemoveStaffButtonVisibility
+        {
+            get
+            {
+                if (!initiallized)
+                {
+                    return Visibility.Collapsed;
+                }
+                return ((IsViewingStaffDetails && !StaffDetailsViewModel.isPlaceholder) ? Visibility.Visible : Visibility.Collapsed);
+            }
+        }
+
+        public Visibility RemoveStaffPlaceholderButtonVisibility
+        {
+            get
+            {
+                if (!initiallized)
+                {
+                    return Visibility.Collapsed;
+                }
+                return ((IsViewingStaffDetails && StaffDetailsViewModel.isPlaceholder) ? Visibility.Visible : Visibility.Collapsed);
+            }
+        }
+
+        public Visibility MakeManagerButtonVisibility
+        {
+            get
+            {
+                if (!initiallized)
+                {
+                    return Visibility.Collapsed;
+                }
+                return ((IsViewingStaffDetails && !StaffDetailsViewModel.isPlaceholder && !StaffDetailsViewModel.IsManager && privilege is Privilege.Owner) ? Visibility.Visible : Visibility.Collapsed);
+            }
         }
     }
 }

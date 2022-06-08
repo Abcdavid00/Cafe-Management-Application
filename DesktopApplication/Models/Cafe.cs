@@ -199,7 +199,7 @@ namespace CSWBManagementApplication.Models
 
         private bool hasStaffsInfo;
         private bool hasFloorsInfo;
-        
+
         private List<Floor> floors;
 
         public List<Floor> Floors
@@ -210,7 +210,7 @@ namespace CSWBManagementApplication.Models
                 floors = value;
             }
         }
-        
+
         private Dictionary<string, Staff> staffs;
 
         public Dictionary<string, Staff> Staffs
@@ -220,7 +220,9 @@ namespace CSWBManagementApplication.Models
         }
 
         private Staff manager;
-        public Staff Manager {
+
+        public Staff Manager
+        {
             get => manager;
         }
 
@@ -261,17 +263,17 @@ namespace CSWBManagementApplication.Models
             {
                 this.manager = null;
                 this.Staffs?.Clear();
-            } else
+            }
+            else
             {
                 hasStaffsInfo = true;
             }
-            manager = await Database.GetStaff(await Database.FindManagerAsync(CafeID));
+            manager = await Database.GetStaff(Database.FindManagerAsync(CafeID));
             await Database.GetCafeStaffsInfoAsyncs(this);
             if (manager != null)
             {
                 Staffs.Remove(manager.UID);
             }
-            
         }
 
         public async void UploadStaffs()
@@ -284,7 +286,8 @@ namespace CSWBManagementApplication.Models
             if (hasFloorsInfo)
             {
                 this.Floors?.Clear();
-            } else
+            }
+            else
             {
                 hasFloorsInfo = true;
             }
@@ -294,6 +297,22 @@ namespace CSWBManagementApplication.Models
         public async void UploadFloors()
         {
             await Database.UpdateFloorsAsync(CafeID, Floors);
+        }
+
+        public Staff GetStaff(string staffID)
+        {
+            if (Manager != null)
+            {
+                if (Manager.UID == staffID)
+                {
+                    return Manager;
+                }
+            }
+            if (Staffs.ContainsKey(staffID))
+            {
+                return Staffs[staffID];
+            }
+            return null;
         }
     }
 }

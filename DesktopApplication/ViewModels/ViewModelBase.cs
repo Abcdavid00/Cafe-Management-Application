@@ -11,5 +11,12 @@ namespace CSWBManagementApplication.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        public enum Privilege
+        {
+            Owner,
+            Manager,
+            Staff
+        }
     }
 }

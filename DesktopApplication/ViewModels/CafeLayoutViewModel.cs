@@ -253,9 +253,12 @@ namespace CSWBManagementApplication.ViewModels
             }
         }
 
-        public CafeLayoutViewModel(Cafe cafe)
+        private Privilege privilege;
+
+        public CafeLayoutViewModel(Cafe cafe, Privilege privilege)
         {
             this.Cafe = cafe;
+            this.privilege = privilege;
             Initialize();
         }
 

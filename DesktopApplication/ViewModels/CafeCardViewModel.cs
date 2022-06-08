@@ -111,7 +111,7 @@ namespace CSWBManagementApplication.ViewModels
             LastMonthRevenue = "$0";
             Compare = "0%";
 
-            Staff manager = await Database.GetStaff(await Database.FindManagerAsync(cafe.CafeID));
+            Staff manager = await Database.GetStaff(Database.FindManagerAsync(cafe.CafeID));
             if (manager != null)
             {
                 ManagerName = manager.Name;

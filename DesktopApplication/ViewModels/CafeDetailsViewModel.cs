@@ -18,11 +18,14 @@ namespace CSWBManagementApplication.ViewModels
             }
         }
 
-        public CafeDetailsViewModel(Cafe cafe)
+        private Privilege privilege;
+
+        public CafeDetailsViewModel(Cafe cafe, Privilege privilege)
         {
             this.Cafe = cafe;
-            this.CafeLayoutViewModel = new CafeLayoutViewModel(cafe);
-            this.CafeStaffViewModel = new CafeStaffViewModel(cafe);
+            this.privilege = privilege;
+            this.CafeLayoutViewModel = new CafeLayoutViewModel(cafe, privilege);
+            this.CafeStaffViewModel = new CafeStaffViewModel(cafe, privilege);
         }
 
         public bool IsStatisticSelected

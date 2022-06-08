@@ -352,6 +352,9 @@
     <Compile Include="Views\Components\EditableFloorLayout.xaml.cs">
       <DependentUpon>EditableFloorLayout.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Components\FindStaffViewModel.xaml.cs">
+      <DependentUpon>FindStaffViewModel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Components\FloorLayout.xaml.cs">
       <DependentUpon>FloorLayout.xaml</DependentUpon>
     </Compile>
@@ -431,6 +434,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Components\EditableFloorLayout.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Components\FindStaffViewModel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

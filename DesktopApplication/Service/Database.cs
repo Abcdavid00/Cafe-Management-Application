@@ -394,9 +394,9 @@ namespace CSWBManagementApplication.Services
             await floorDocument.DeleteAsync();
         }
 
-        public static async Task<DocumentReference> FindManagerAsync(string cafeID)
+        public static DocumentReference FindManagerAsync(string cafeID)
         {
-            QuerySnapshot managerSnapshot = await CafeStaffCollection(cafeID).WhereEqualTo("Level", 1).GetSnapshotAsync();
+            QuerySnapshot managerSnapshot = CafeStaffCollection(cafeID).WhereEqualTo("Level", 1).GetSnapshotAsync().Result;
             if (managerSnapshot.Count != 0)
             {
                 return UserDocument(managerSnapshot.Documents[0].Id);

@@ -26,7 +26,7 @@
                 Content="Statistics"
                 IsChecked="{Binding IsStatisticSelected, Mode=OneWay}"
                 Style="{StaticResource MaterialDesignTabRadioButton}" />
-            
+
             <RadioButton
                 Margin="0"
                 Command="{Binding LayoutButtonPressed, Mode=OneWay}"
@@ -82,11 +82,10 @@
                 <ContentControl Content="{Binding CafeStaffViewModel}">
                     <ContentControl.ContentTemplate>
                         <DataTemplate>
-                            <components:CafeStaff/>
+                            <components:CafeStaff />
                         </DataTemplate>
                     </ContentControl.ContentTemplate>
                 </ContentControl>
-
             </materialDesign:TransitionerSlide>
         </materialDesign:Transitioner>
     </Grid>

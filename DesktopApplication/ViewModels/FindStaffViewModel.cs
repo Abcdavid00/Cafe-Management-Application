@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CSWBManagementApplication.ViewModels
+﻿namespace CSWBManagementApplication.ViewModels
 {
     internal class FindStaffViewModel : ViewModelBase
     {
+        public FindStaffViewModel()
+        {
+        }
     }
 }

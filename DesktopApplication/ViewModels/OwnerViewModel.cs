@@ -6,6 +6,7 @@ using MaterialDesignThemes.Wpf;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace CSWBManagementApplication.ViewModels
@@ -121,7 +122,7 @@ namespace CSWBManagementApplication.ViewModels
             {
                 CafeDetailsViewModel = null;
             }
-            CafeDetailsViewModel = new CafeDetailsViewModel(cafe);
+            CafeDetailsViewModel = new CafeDetailsViewModel(cafe, Privilege.Owner);
             CafeDetailsViewModel.CafeLayoutViewModel.OnEdittedChange += CafeLayoutViewModel_OnEdittedChange;
         }
 
@@ -213,6 +214,11 @@ namespace CSWBManagementApplication.ViewModels
                 }
                 OnPropertyChanged(nameof(CafeViewBackButtonVisibility));
             }
+        }
+
+        public void SearchTextChanged(object sender, TextChangedEventArgs e)
+        {
+            string searchText = (sender as TextBlock).Text;
         }
 
         #endregion CafeView

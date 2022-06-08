@@ -4,7 +4,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:component="clr-namespace:CSWBManagementApplication.Views.Components"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:CSWBManagementApplication.Views.Components"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vms="clr-namespace:CSWBManagementApplication.ViewModels"
@@ -40,45 +39,43 @@
                     <RowDefinition Height="80" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0" Height="50" Margin="30,10,30,0">
+                <Grid
+                    Grid.Row="0"
+                    Height="50"
+                    Margin="30,10,30,0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1.8*" />
-                        <ColumnDefinition Width="1.75*" />
+                        <ColumnDefinition Width="1.6*" />
+                        <ColumnDefinition Width="0.4*" />
+                        <ColumnDefinition Width="1.6*" />
                         <ColumnDefinition Width="0.75*" />
-                        <ColumnDefinition Width="0.25*" />
                         <ColumnDefinition Width="0.75*" />
                     </Grid.ColumnDefinitions>
                     <TextBlock
                         Grid.Column="0"
-                        HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         FontSize="{DynamicResource MediumFontSize}"
                         FontWeight="Bold"
                         Text="Name" />
                     <TextBlock
                         Grid.Column="1"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        FontSize="{DynamicResource MediumFontSize}"
-                        FontWeight="Bold"
-                        Text="Email" />
-                    <TextBlock
-                        Grid.Column="2"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        FontSize="{DynamicResource MediumFontSize}"
-                        FontWeight="Bold"
-                        Text="Phone" />
-                    <TextBlock
-                        Grid.Column="3"
-                        HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         FontSize="{DynamicResource MediumFontSize}"
                         FontWeight="Bold"
                         Text="Sex" />
                     <TextBlock
+                        Grid.Column="2"
+                        VerticalAlignment="Center"
+                        FontSize="{DynamicResource MediumFontSize}"
+                        FontWeight="Bold"
+                        Text="Email" />
+                    <TextBlock
+                        Grid.Column="3"
+                        VerticalAlignment="Center"
+                        FontSize="{DynamicResource MediumFontSize}"
+                        FontWeight="Bold"
+                        Text="Phone" />
+                    <TextBlock
                         Grid.Column="4"
-                        HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         FontSize="{DynamicResource MediumFontSize}"
                         FontWeight="Bold"
@@ -106,25 +103,26 @@
                                     Padding="0"
                                     HorizontalContentAlignment="Stretch"
                                     materialDesign:ButtonAssist.CornerRadius="10"
-                                    Background="{Binding Background}"
-                                    Foreground="{Binding Foreground}">
+                                    Background="{Binding Background, Mode=OneWay}"
+                                    Command="{Binding Command, Mode=OneWay}"
+                                    Foreground="{Binding Foreground, Mode=OneWay}">
                                     <Grid Margin="15,5,5,5">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="1.8*" />
-                                            <ColumnDefinition Width="1.75*" />
+                                            <ColumnDefinition Width="1.6*" />
+                                            <ColumnDefinition Width="0.4*" />
+                                            <ColumnDefinition Width="1.6*" />
                                             <ColumnDefinition Width="0.75*" />
-                                            <ColumnDefinition Width="0.25*" />
                                             <ColumnDefinition Width="0.75*" />
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock Grid.Column="0" Text="{Binding Name}" />
-                                        <TextBlock Grid.Column="1" Text="{Binding Email}" />
-                                        <TextBlock Grid.Column="2" Text="{Binding Phone}" />
+                                        <TextBlock Grid.Column="0" Text="{Binding Name, Mode=OneWay}" />
                                         <materialDesign:PackIcon
-                                            Grid.Column="3"
+                                            Grid.Column="1"
                                             BorderThickness="0"
-                                            Foreground="{Binding SexColor}"
-                                            Kind="{Binding SexIcon}" />
-                                        <TextBlock Grid.Column="4" Text="{Binding BirthdateText}" />
+                                            Foreground="{Binding SexColor, Mode=OneWay}"
+                                            Kind="{Binding SexIcon, Mode=OneWay}" />
+                                        <TextBlock Grid.Column="2" Text="{Binding Email, Mode=OneWay}" />
+                                        <TextBlock Grid.Column="3" Text="{Binding Phone, Mode=OneWay}" />
+                                        <TextBlock Grid.Column="4" Text="{Binding BirthdateText, Mode=OneWay}" />
                                     </Grid>
                                 </Button>
                             </DataTemplate>
@@ -132,7 +130,6 @@
                     </ItemsControl>
                 </ScrollViewer>
             </Grid>
-
         </materialDesign:Card>
 
         <materialDesign:Card
@@ -182,10 +179,10 @@
                             Margin="10,0,10,0"
                             Padding="0"
                             VerticalAlignment="Stretch"
-                            Visibility="{Binding RemoveStaffButtonVisibility}"
                             Command="{Binding RemoveStaffCommand, Mode=OneWay}"
                             Style="{StaticResource MaterialDesignIconButton}"
-                            ToolTip="Remove Staff">
+                            ToolTip="Remove Staff"
+                            Visibility="{Binding RemoveStaffButtonVisibility, Mode=OneWay}">
                             <materialDesign:PackIcon Kind="AccountMinus" />
                         </Button>
                         <Button
@@ -193,10 +190,10 @@
                             Margin="10,0,10,0"
                             Padding="0"
                             VerticalAlignment="Stretch"
-                            Visibility="{Binding RemoveStaffPlaceholderButtonVisibility}"
                             Command="{Binding RemoveStaffPlaceholderCommand, Mode=OneWay}"
                             Style="{StaticResource MaterialDesignIconButton}"
-                            ToolTip="Remove Staff placeholder">
+                            ToolTip="Remove Staff placeholder"
+                            Visibility="{Binding RemoveStaffPlaceholderButtonVisibility, Mode=OneWay}">
                             <materialDesign:PackIcon Kind="AccountMinusOutline" />
                         </Button>
                         <Button
@@ -204,14 +201,13 @@
                             Margin="10,0,10,0"
                             Padding="0"
                             VerticalAlignment="Stretch"
-                            Visibility="{Binding MakeManagerButtonVisibility}"
                             Command="{Binding MakeManagerCommand, Mode=OneWay}"
                             Style="{StaticResource MaterialDesignIconButton}"
-                            ToolTip="Make Manager">
+                            ToolTip="Make Manager"
+                            Visibility="{Binding MakeManagerButtonVisibility, Mode=OneWay}">
                             <materialDesign:PackIcon Kind="CrownCircleOutline" />
                         </Button>
                     </StackPanel>
-
                 </materialDesign:Card>
 
                 <materialDesign:Card
@@ -224,19 +220,16 @@
                     <ContentControl Content="{Binding AlternativeViewModel}">
                         <ContentControl.Resources>
                             <DataTemplate DataType="{x:Type vms:FindStaffViewModel}">
-                                
+                                <component:FindStaffViewModel />
                             </DataTemplate>
 
                             <DataTemplate DataType="{x:Type vms:StaffDetailsViewModel}">
-                                
+                                <TextBlock Foreground="Aqua" Text="{Binding Name}" />
                             </DataTemplate>
                         </ContentControl.Resources>
                     </ContentControl>
-                    
                 </materialDesign:Card>
-
             </Grid>
-
         </materialDesign:Card>
     </Grid>
 </UserControl>
