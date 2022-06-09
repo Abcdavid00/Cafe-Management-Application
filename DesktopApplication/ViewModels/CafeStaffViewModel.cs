@@ -92,8 +92,8 @@ namespace CSWBManagementApplication.ViewModels
             public Brush SexColor
             {
                 get => (hasInfo ? (IsMale ?
-                    new SolidColorBrush(Colors.Cyan) :
-                    new SolidColorBrush(Colors.LightPink)) :
+                    new SolidColorBrush(Color.FromArgb(255, 40, 100, 250)) :
+                    new SolidColorBrush(Color.FromArgb(255, 205, 60, 90))) :
                     new SolidColorBrush(Colors.Transparent));
             }
 
@@ -158,7 +158,9 @@ namespace CSWBManagementApplication.ViewModels
             initiallized = false;
             this.isViewingStaffDetails = false;
             this.privilege = privilege;
-            InitializeCafeStaffs();            
+            GetDatabaseData();
+            FindStaffViewModel = new FindStaffViewModel(cafe);
+            this.cafe.OnCafeStaffListChanged += ((object sender, EventArgs e )=>RefreshList() );
         }
 
         private ObservableCollection<StaffDetailViewModel> staffInfos;
@@ -211,11 +213,11 @@ namespace CSWBManagementApplication.ViewModels
                 {
                     isViewingStaffDetails = value;
                     OnPropertyChanged(nameof(AlternativeViewModel));
-                    OnPropertyChanged(nameof(RemoveStaffButtonVisibility));
-                    OnPropertyChanged(nameof(RemoveStaffPlaceholderButtonVisibility));
-                    OnPropertyChanged(nameof(MakeManagerButtonVisibility));
                     OnPropertyChanged(nameof(IsViewingStaffDetails));
                 }
+                OnPropertyChanged(nameof(RemoveStaffButtonVisibility));
+                OnPropertyChanged(nameof(RemoveStaffPlaceholderButtonVisibility));
+                OnPropertyChanged(nameof(MakeManagerButtonVisibility));
             }
         }
 
@@ -231,10 +233,11 @@ namespace CSWBManagementApplication.ViewModels
             }
         }
 
-        private void RefreshList()
+        private async void RefreshList()
         {
+            
+            List<StaffPlaceholder> staffPlaceholders = (await Database.GetStaffPlaceholders(cafe.CafeID)).ToList();
             this.StaffDetailsViewModel = new StaffDetailsViewModel();
-            List<StaffPlaceholder> staffPlaceholders = new List<StaffPlaceholder>();
             StaffInfos?.Clear();
             StaffInfos = new ObservableCollection<StaffDetailViewModel>();
 
@@ -267,51 +270,55 @@ namespace CSWBManagementApplication.ViewModels
             }
 
             this.StaffDetailsViewModel.OnInfoUpdate += StaffDetailsViewModel_OnInfoUpdate;
+
+            #region Debug
 #if DEBUG
-            Staff debugManager = new Staff()
-            {
-                CafeID = cafe.CafeID,
-                Name = $"Vu Viet Huy",
-                Email = "hduykhang100@gmail.com",
-                Phone = "1234567890",
-                IsMale = true,
-                Birthdate = DateTime.Today
-            };
+            //Staff debugManager = new Staff()
+            //{
+            //    CafeID = cafe.CafeID,
+            //    Name = $"Vu Viet Huy",
+            //    Email = "hduykhang100@gmail.com",
+            //    Phone = "1234567890",
+            //    IsMale = true,
+            //    Birthdate = DateTime.Today
+            //};
 
-            StaffInfos.Add(new StaffDetailViewModel(debugManager, new CommandBase(() => StaffDetailsViewModel.UpdateInfo(debugManager, true)), true));
+            //StaffInfos.Add(new StaffDetailViewModel(debugManager, new CommandBase(() => StaffDetailsViewModel.UpdateInfo(debugManager, true)), true));
 
-            for (int i = 0; i < 10; i++)
-            {
-                Staff debugStaff = new Staff()
-                {
-                    CafeID = cafe.CafeID,
-                    Name = $"Huynh Duy Khang Khung Khang {i}",
-                    Email = $"hduykhang0{i}@gmail.com",
-                    Phone = "1234567890",
-                    IsMale = i % 2 == 0,
-                    Birthdate = DateTime.Today
-                };
-                StaffInfos.Add(new StaffDetailViewModel(debugStaff, new CommandBase(() => StaffDetailsViewModel.UpdateInfo(debugStaff))));
-            }
+            //for (int i = 0; i < 10; i++)
+            //{
+            //    Staff debugStaff = new Staff()
+            //    {
+            //        CafeID = cafe.CafeID,
+            //        Name = $"Huynh Duy Khang Khung Khang {i}",
+            //        Email = $"hduykhang0{i}@gmail.com",
+            //        Phone = "1234567890",
+            //        IsMale = i % 2 == 0,
+            //        Birthdate = DateTime.Today
+            //    };
+            //    StaffInfos.Add(new StaffDetailViewModel(debugStaff, new CommandBase(() => StaffDetailsViewModel.UpdateInfo(debugStaff))));
+            //}
 
-            for (int i = 0; i < 10; i++)
-            {
-                StaffPlaceholder debugStaffPlaceholder = new StaffPlaceholder()
-                {
-                    CafeID = cafe.CafeID,
-                    Email = $"hduykhang0{i}@gmail.com",
-                };
-                StaffInfos.Add(new StaffDetailViewModel(debugStaffPlaceholder, new CommandBase(() => StaffDetailsViewModel.UpdateInfo(debugStaffPlaceholder))));
-            }
+            //for (int i = 0; i < 10; i++)
+            //{
+            //    StaffPlaceholder debugStaffPlaceholder = new StaffPlaceholder()
+            //    {
+            //        CafeID = cafe.CafeID,
+            //        Email = $"hduykhang0{i}@gmail.com",
+            //    };
+            //    StaffInfos.Add(new StaffDetailViewModel(debugStaffPlaceholder, new CommandBase(() => StaffDetailsViewModel.UpdateInfo(debugStaffPlaceholder))));
+            //}
 #endif
+            #endregion
+            
+            initiallized = true;
         }
 
-        private async void InitializeCafeStaffs()
-        {
-            List<StaffPlaceholder> staffPlaceholders =  (await Database.GetStaffPlaceholders(cafe.CafeID)).ToList();
+        private async void GetDatabaseData()
+        {          
             await cafe.GetCafeStaffsInfo();
             RefreshList();
-            initiallized = true;
+            
         }
 
         private void StaffDetailsViewModel_OnInfoUpdate(object sender, EventArgs e)
@@ -327,7 +334,7 @@ namespace CSWBManagementApplication.ViewModels
                 {
                     return Visibility.Collapsed;
                 }
-                return ((IsViewingStaffDetails && !StaffDetailsViewModel.isPlaceholder) ? Visibility.Visible : Visibility.Collapsed);
+                return ((IsViewingStaffDetails && !StaffDetailsViewModel.IsPlaceholder) ? Visibility.Visible : Visibility.Collapsed);
             }
         }
 
@@ -339,7 +346,7 @@ namespace CSWBManagementApplication.ViewModels
                 {
                     return Visibility.Collapsed;
                 }
-                return ((IsViewingStaffDetails && StaffDetailsViewModel.isPlaceholder) ? Visibility.Visible : Visibility.Collapsed);
+                return ((IsViewingStaffDetails && StaffDetailsViewModel.IsPlaceholder) ? Visibility.Visible : Visibility.Collapsed);
             }
         }
 
@@ -351,8 +358,46 @@ namespace CSWBManagementApplication.ViewModels
                 {
                     return Visibility.Collapsed;
                 }
-                return ((IsViewingStaffDetails && !StaffDetailsViewModel.isPlaceholder && !StaffDetailsViewModel.IsManager && privilege is Privilege.Owner) ? Visibility.Visible : Visibility.Collapsed);
+                return ((IsViewingStaffDetails && !StaffDetailsViewModel.IsPlaceholder && !StaffDetailsViewModel.IsManager && privilege is Privilege.Owner) ? Visibility.Visible : Visibility.Collapsed);
             }
+        }
+
+        public ICommand AddStaffCommand
+        {
+            get => new CommandBase(() =>
+            {
+                StaffDetailsViewModel.Clear();
+            });
+        }
+
+        public ICommand RemoveStaffCommand
+        {
+            get => new CommandBase(() =>
+            {
+                if (isViewingStaffDetails && !StaffDetailsViewModel.IsPlaceholder)
+                {
+                    cafe.RemoveStaff(StaffDetailsViewModel.Staff);
+                }                
+            });
+        }
+
+        public ICommand RemoveStaffPlaceholderCommand
+        {
+            get => new CommandBase(() =>
+            {
+                if (isViewingStaffDetails && StaffDetailsViewModel.IsPlaceholder)
+                {
+                    cafe.RemoveStaffPlaceholder(StaffDetailsViewModel.StaffPlaceholder);
+                }
+            });
+        }
+
+        public ICommand MakeManagerCommand
+        {
+            get => new CommandBase(() =>
+            {
+
+            });
         }
     }
 }

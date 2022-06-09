@@ -313,8 +313,9 @@ namespace CSWBManagementApplication.Services
                 result.Floors.Add(floorSnapshot.ConvertTo<Floor>());
             }
             result.Floors.Sort((f1, f2) => f1.FloorNumber.CompareTo(f2.FloorNumber));
+            
             return result;
-        }
+        }      
 
         public static async Task<IEnumerable<Cafe>> GetAllCafes()
         {
@@ -412,6 +413,15 @@ namespace CSWBManagementApplication.Services
             {
                 staffs.Add(UserDocument(staffSnapshot.Id));
             }
+            return staffs.AsEnumerable();
+        }
+
+        public static async Task<IEnumerable<Staff>> GetAllStaffsExclude(string cafeID)
+        {
+            List<Staff> staffs = new List<Staff>();
+            QuerySnapshot staffsSnapshot = await UserCollection.WhereNotEqualTo("CafeID", cafeID).GetSnapshotAsync();
+            staffs.AddRange(from staffSnapshot in staffsSnapshot
+                            select staffSnapshot.ConvertTo<Staff>());
             return staffs.AsEnumerable();
         }
 
@@ -600,7 +610,7 @@ namespace CSWBManagementApplication.Services
             await StaffDocument(cafeID, staffID).UpdateAsync("Level", (isManager ? 1 : 0));
         }
 
-        public static async Task<StaffPlaceholder> CreateStaffPlaceholder(string email, string cafeID)
+        public static async Task<StaffPlaceholder> CreateStaffPlaceholderAsync(string email, string cafeID)
         {
             StaffPlaceholder staffPlaceholder = new StaffPlaceholder()
             {
@@ -626,7 +636,7 @@ namespace CSWBManagementApplication.Services
             await staffPlaceholderReference.DeleteAsync();
         }
 
-        public static async Task RemoveStaffPlaceholder(string email)
+        public static async Task RemoveStaffPlaceholderAsync(string email)
         {
             DocumentReference staffPlaceholderReference = await FindStaffPlaceholder(email);
             while (staffPlaceholderReference != null)

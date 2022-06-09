@@ -117,7 +117,8 @@
                                         <TextBlock Grid.Column="0" Text="{Binding Name, Mode=OneWay}" />
                                         <materialDesign:PackIcon
                                             Grid.Column="1"
-                                            BorderThickness="0"
+                                            Width="20"
+                                            Height="20"
                                             Foreground="{Binding SexColor, Mode=OneWay}"
                                             Kind="{Binding SexIcon, Mode=OneWay}" />
                                         <TextBlock Grid.Column="2" Text="{Binding Email, Mode=OneWay}" />
@@ -172,7 +173,7 @@
                             Command="{Binding AddStaffCommand, Mode=OneWay}"
                             Style="{StaticResource MaterialDesignIconButton}"
                             ToolTip="Add Staff">
-                            <materialDesign:PackIcon Kind="AccountPlusOutline" />
+                            <materialDesign:PackIcon Kind="AccountPlus" />
                         </Button>
                         <Button
                             Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}"
@@ -220,7 +221,7 @@
                     <ContentControl Content="{Binding AlternativeViewModel}">
                         <ContentControl.Resources>
                             <DataTemplate DataType="{x:Type vms:FindStaffViewModel}">
-                                <component:FindStaffViewModel />
+                                <component:FindStaff/>
                             </DataTemplate>
 
                             <DataTemplate DataType="{x:Type vms:StaffDetailsViewModel}">

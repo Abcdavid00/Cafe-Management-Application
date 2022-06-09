@@ -274,6 +274,7 @@ namespace CSWBManagementApplication.Models
             {
                 Staffs.Remove(manager.UID);
             }
+            OnCafeStaffListChanged?.Invoke(this, EventArgs.Empty);
         }
 
         public async void UploadStaffs()
@@ -292,7 +293,7 @@ namespace CSWBManagementApplication.Models
                 hasFloorsInfo = true;
             }
             await Database.GetCafeFloorsInfoAsync(this);
-        }
+            OnCafeFloorListChanged?.Invoke(this, EventArgs.Empty);}
 
         public async void UploadFloors()
         {
@@ -314,5 +315,46 @@ namespace CSWBManagementApplication.Models
             }
             return null;
         }
+
+        public async void AddStaff(Staff staff)
+        {
+            await Database.AddStaffToCafeAsync(CafeID, staff.UID);
+            if (hasStaffsInfo)
+            {
+                await GetCafeStaffsInfo();
+            }
+        }      
+
+        public async void RemoveStaff(Staff staff)
+        {
+            await Database.RemoveStaffFromCafeAsync(staff.UID);
+            if (hasStaffsInfo)
+            {
+                await GetCafeStaffsInfo();
+            }
+        }
+
+        public event EventHandler OnCafeStaffListChanged;
+
+        public async void AddStaffPlaceholder(string email)
+        {
+            await Database.CreateStaffPlaceholderAsync(email, CafeID);
+            if (hasStaffsInfo)
+            {
+                await GetCafeStaffsInfo();
+            }
+        }
+
+        public async void RemoveStaffPlaceholder(StaffPlaceholder staffPlaceholder)
+        {
+            await Database.RemoveStaffPlaceholderAsync(staffPlaceholder.Email);
+            if (hasStaffsInfo)
+            {
+                await GetCafeStaffsInfo();
+            }
+        }
+
+        public event EventHandler OnCafeFloorListChanged;
+
     }
 }

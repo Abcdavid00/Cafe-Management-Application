@@ -18,9 +18,9 @@ namespace CSWBManagementApplication.Views.Components
     /// <summary>
     /// Interaction logic for FindStaffViewModel.xaml
     /// </summary>
-    public partial class FindStaffViewModel : UserControl
+    public partial class FindStaff : UserControl
     {
-        public FindStaffViewModel()
+        public FindStaff()
         {
             InitializeComponent();
         }

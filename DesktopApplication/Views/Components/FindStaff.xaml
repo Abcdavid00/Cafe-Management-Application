@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="CSWBManagementApplication.Views.Components.FindStaffViewModel"
+    x:Class="CSWBManagementApplication.Views.Components.FindStaff"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -52,7 +52,13 @@
             </Grid>
 
             <ScrollViewer Grid.Row="1">
-                <ItemsControl ItemsSource="{Binding DisplayStaffs}">
+                <ItemsControl
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    
+                    ItemsSource="{Binding DisplayStaffs, Mode=OneWay}"
+                    VirtualizingPanel.IsVirtualizing="True"
+                    VirtualizingPanel.VirtualizationMode="Recycling">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel Orientation="Vertical" />
@@ -60,11 +66,9 @@
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Vertical">
-                                <TextBlock FontSize="25" Text="{Binding Name}" />
-                                <TextBlock FontSize="20" Text="{Binding Email}" />
-                                <TextBlock FontSize="20" Text="{Binding Phone}" />
-                            </StackPanel>
+                            <materialDesign:Card HorizontalAlignment="Stretch" Background="{DynamicResource SolidLight}" Height="50" UniformCornerRadius="10" Margin="5,5,5,5">
+                                
+                            </materialDesign:Card>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
@@ -75,9 +79,9 @@
                 Height="50"
                 Margin="70,100,70,100"
                 VerticalAlignment="Top"
+                Command="{Binding AddStaffPlaceholderCommand, Mode=OneWay}"
                 Content="Add new Staff placeholder"
-                Visibility="{Binding AddStaffPlaceholderButtonVisibility}"
-                Command="{Binding AddStaffPlaceholderCommand}" />
+                Visibility="{Binding AddStaffPlaceholderButtonVisibility, Mode=OneWay}" />
         </Grid>
     </Grid>
 </UserControl>

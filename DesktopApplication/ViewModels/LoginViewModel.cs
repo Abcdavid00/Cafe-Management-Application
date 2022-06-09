@@ -17,51 +17,52 @@ namespace CSWBManagementApplication.ViewModels
             set { email = value; OnPropertyChanged(); }
         }
 
-        private string forgotPasswordEmail;
-
-        public string ForgotPasswordEmail
-        {
-            get => forgotPasswordEmail;
-            set
-            {
-                forgotPasswordEmail = value;
-                OnPropertyChanged("ForgotPasswordEmailTxtBox");
-            }
-        }
-
-        private ICommand loginCommand;
-
         public ICommand LoginCommand
         {
-            get => loginCommand;
-            private set
-            {
-                loginCommand = value;
-                OnPropertyChanged("LoginCommand");
-            }
+            get => new RelayCommand<PasswordBox>(Login);
         }
 
-        private ICommand forgotPasswordCommand;
+        public ICommand CreateAccountCommand
+        {
+            get => new CommandBase(() =>
+            {
+                IsCreateAccountDialog = true;               
+                IsDialogOpen = true;
+            });
+        }
 
         public ICommand ForgotPasswordCommand
         {
-            get => forgotPasswordCommand;
-            private set
+            get => new CommandBase(()=>
             {
-                forgotPasswordCommand = value;
-                OnPropertyChanged("ForgotPasswordCommand");
-            }
+                IsCreateAccountDialog = false;
+                IsDialogOpen = true;                
+            });
         }
 
-        private ICommand sendResetPasswordMailCommand;
+        private ForgotPasswordDialogViewModel forgotPasswordDialogViewModel;
+        private CreateAccountDialogViewModel createAccountDialogViewModel;
 
-        public ICommand SendResetPasswordMailCommand
+        private bool isCreateAccountDialog;
+        private bool IsCreateAccountDialog
         {
-            get => sendResetPasswordMailCommand;
-            private set
+            get => isCreateAccountDialog;
+            set
             {
-                sendResetPasswordMailCommand = value;
-                OnPropertyChanged("SendResetPasswordMailCommand");
+                isCreateAccountDialog = value;
+                OnPropertyChanged(nameof(DialogViewModel));
+                OnPropertyChanged();
+            }
+        }
+        public ViewModelBase DialogViewModel
+        {
+            get
+            {
+                if (IsCreateAccountDialog)
+                {
+                    return createAccountDialogViewModel;
+                }
+                return forgotPasswordDialogViewModel;
             }
         }
 
@@ -71,15 +72,15 @@ namespace CSWBManagementApplication.ViewModels
             set;
         }
 
-        private bool isForgotPasswordDialogOpen;
+        private bool isDialogOpen;
 
-        public bool IsForgotPasswordDialogOpen
+        public bool IsDialogOpen
         {
-            get => isForgotPasswordDialogOpen;
-            set
+            get => isDialogOpen;
+            private set
             {
-                isForgotPasswordDialogOpen = value;
-                OnPropertyChanged("IsForgotPasswordDialogOpen");
+                isDialogOpen = value;
+                OnPropertyChanged();
             }
         }
 
@@ -90,21 +91,18 @@ namespace CSWBManagementApplication.ViewModels
         public LoginViewModel(MainViewModel mainViewModel)
         {
             this.mainViewModel = mainViewModel;
+            this.forgotPasswordDialogViewModel = new ForgotPasswordDialogViewModel();
+            this.forgotPasswordDialogViewModel.OnResetPasswordMailSended += ForgotPasswordDialogViewModel_OnResetPasswordMailSended;
+            this.createAccountDialogViewModel = new CreateAccountDialogViewModel();
+            isCreateAccountDialog = true;
             LoginViewSnackbarMessageQueue = new SnackbarMessageQueue(TimeSpan.FromMilliseconds(5000));
-            ForgotPasswordCommand = new CommandBase(() =>
-            {
-                IsForgotPasswordDialogOpen = true;
-            });
-            SendResetPasswordMailCommand = new CommandBase(SendResetPasswordMail);
-            LoginCommand = new RelayCommand<PasswordBox>(Login);
             userLink = null;
         }
 
-        public async void SendResetPasswordMail()
+        private void ForgotPasswordDialogViewModel_OnResetPasswordMailSended(object sender, EventArgs e)
         {
-            await Database.SendResetPasswordMail(ForgotPasswordEmail);
-            ForgotPasswordEmail = "";
-            IsForgotPasswordDialogOpen = false;
+            IsDialogOpen = false;
+            LoginViewSnackbarMessageQueue.Enqueue("Password reset email has just been sent");
         }
 
         public async void Login(PasswordBox passwordBox)

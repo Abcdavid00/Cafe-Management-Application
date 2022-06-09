@@ -132,6 +132,7 @@
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Center"
                                     materialDesign:HintAssist.Hint="Search"
+                                    materialDesign:TextFieldAssist.HasClearButton="True"
                                     FontSize="25"
                                     Foreground="{DynamicResource SolidLight}"
                                     Text="{Binding SearchText, Mode=TwoWay}"

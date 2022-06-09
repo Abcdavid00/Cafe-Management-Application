@@ -320,10 +320,12 @@
     <Compile Include="ViewModels\CafeDetailsViewModel.cs" />
     <Compile Include="ViewModels\CafeLayoutViewModel.cs" />
     <Compile Include="ViewModels\CafeStaffViewModel.cs" />
+    <Compile Include="ViewModels\CreateAccountDialogViewModel.cs" />
     <Compile Include="ViewModels\CreateOwnerViewModel.cs" />
     <Compile Include="ViewModels\EditableFloorLayoutViewModel.cs" />
     <Compile Include="ViewModels\FindStaffViewModel.cs" />
     <Compile Include="ViewModels\FloorTileViewModel.cs" />
+    <Compile Include="ViewModels\ForgotPasswordDialogViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ManagerViewModel.cs" />
@@ -352,8 +354,8 @@
     <Compile Include="Views\Components\EditableFloorLayout.xaml.cs">
       <DependentUpon>EditableFloorLayout.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Components\FindStaffViewModel.xaml.cs">
-      <DependentUpon>FindStaffViewModel.xaml</DependentUpon>
+    <Compile Include="Views\Components\FindStaff.xaml.cs">
+      <DependentUpon>FindStaff.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Components\FloorLayout.xaml.cs">
       <DependentUpon>FloorLayout.xaml</DependentUpon>
@@ -437,7 +439,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Components\FindStaffViewModel.xaml">
+    <Page Include="Views\Components\FindStaff.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

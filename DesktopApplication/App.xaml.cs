@@ -27,7 +27,7 @@ namespace CSWBManagementApplication
         }
 
         protected override void OnStartup(StartupEventArgs e)
-        {
+       {
             SetDynamicResources();
 
             MainWindow = new MainWindow()
