@@ -46,7 +46,7 @@ namespace CSWBManagementApplication.ViewModels
 
         public string Birthdate
         {
-            get => (isPlaceholder ? Staff.Birthdate.ToString("yyyy-MM-dd") : "---");
+            get => (isPlaceholder ? Staff.Birthdate.ToString("dd-MM-yyyy") : "---");
         }
 
         private Staff staff;
