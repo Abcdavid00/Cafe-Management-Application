@@ -129,7 +129,7 @@
                                 <TextBox
                                     Margin="10,0,0,0"
                                     Padding="0"
-                                    HorizontalAlignment="Left"
+                                    HorizontalAlignment="Stretch"
                                     VerticalAlignment="Center"
                                     materialDesign:HintAssist.Hint="Search"
                                     materialDesign:TextFieldAssist.HasClearButton="True"

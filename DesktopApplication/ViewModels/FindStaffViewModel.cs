@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace CSWBManagementApplication.ViewModels
 {
@@ -28,10 +29,26 @@ namespace CSWBManagementApplication.ViewModels
             get => (string.IsNullOrEmpty(staff.CafeID) ? "Unassigned" : "Assigned");
         }
 
-        public ICommand AddCommmand
+        public Brush StateColor
+        {
+            get => (string.IsNullOrEmpty(staff.CafeID) ?
+                new SolidColorBrush(Colors.Green) :
+                new SolidColorBrush(Colors.Red));
+        }
+
+        public Visibility AddButtonVisibility
+        {
+            get => (string.IsNullOrEmpty(staff.CafeID) ? Visibility.Visible : Visibility.Collapsed);
+        }
+
+        public ICommand AddCommand
         {
             get => new CommandBase(() =>
             {
+                if (string.IsNullOrEmpty(staff.CafeID))
+                {
+                    destinationCafe.AddStaff(staff);                    
+                }
             });
         }
 
@@ -85,9 +102,9 @@ namespace CSWBManagementApplication.ViewModels
             get => new CommandBase(() => { RefreshList(); });
         }
 
-        private async void RefreshList()
+        public async void RefreshList()
         {
-            FullStaffList = (from staff in ((await Database.GetAllStaffsExclude(cafe.CafeID)).ToList())
+            FullStaffList = (from staff in ((await Database.GetAllStaffsAsync()).ToList())
                              select new FindStaffItemViewModel(staff, cafe)).ToList();
             filter();
         }

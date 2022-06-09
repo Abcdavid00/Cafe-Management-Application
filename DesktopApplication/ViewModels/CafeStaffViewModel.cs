@@ -160,7 +160,11 @@ namespace CSWBManagementApplication.ViewModels
             this.privilege = privilege;
             GetDatabaseData();
             FindStaffViewModel = new FindStaffViewModel(cafe);
-            this.cafe.OnCafeStaffListChanged += ((object sender, EventArgs e )=>RefreshList() );
+            this.cafe.OnCafeStaffListChanged += ((object sender, EventArgs e) =>
+            {
+                RefreshList();
+                FindStaffViewModel.RefreshList();
+            } );
         }
 
         private ObservableCollection<StaffDetailViewModel> staffInfos;
@@ -231,8 +235,7 @@ namespace CSWBManagementApplication.ViewModels
         }
 
         private async void RefreshList()
-        {
-            
+        {           
             List<StaffPlaceholder> staffPlaceholders = (await Database.GetStaffPlaceholders(cafe.CafeID)).ToList();
             this.StaffDetailsViewModel = new StaffDetailsViewModel();
             StaffInfos?.Clear();
@@ -267,47 +270,51 @@ namespace CSWBManagementApplication.ViewModels
             else if (staffPlaceholders.Count > 0)
             {
                 this.StaffDetailsViewModel.UpdateInfo(staffPlaceholders.First());
+            } else
+            {
+                this.StaffDetailsViewModel.Clear();
             }
+                    
 
             this.StaffDetailsViewModel.OnInfoUpdate += StaffDetailsViewModel_OnInfoUpdate;
 
             #region Debug
 #if DEBUG
-            Staff debugManager = new Staff()
-            {
-                CafeID = cafe.CafeID,
-                Name = $"Vu Viet Huy",
-                Email = "hduykhang100@gmail.com",
-                Phone = "1234567890",
-                IsMale = true,
-                Birthdate = DateTime.Today
-            };
+            //Staff debugManager = new Staff()
+            //{
+            //    CafeID = cafe.CafeID,
+            //    Name = $"Vu Viet Huy",
+            //    Email = "hduykhang100@gmail.com",
+            //    Phone = "1234567890",
+            //    IsMale = true,
+            //    Birthdate = DateTime.Today
+            //};
 
-            StaffInfos.Add(new StaffDetailViewModel(debugManager, new CommandBase(() => StaffDetailsViewModel.UpdateInfo(debugManager, true)), true));
-            StaffDetailsViewModel.UpdateInfo(debugManager, true);
-            for (int i = 0; i < 10; i++)
-            {
-                Staff debugStaff = new Staff()
-                {
-                    CafeID = cafe.CafeID,
-                    Name = $"Huynh Duy Khang Khung Khang {i}",
-                    Email = $"hduykhang0{i}@gmail.com",
-                    Phone = "1234567890",
-                    IsMale = i % 2 == 0,
-                    Birthdate = DateTime.Today
-                };
-                StaffInfos.Add(new StaffDetailViewModel(debugStaff, new CommandBase(() => StaffDetailsViewModel.UpdateInfo(debugStaff))));
-            }
+            //StaffInfos.Add(new StaffDetailViewModel(debugManager, new CommandBase(() => StaffDetailsViewModel.UpdateInfo(debugManager, true)), true));
+            //StaffDetailsViewModel.UpdateInfo(debugManager, true);
+            //for (int i = 0; i < 10; i++)
+            //{
+            //    Staff debugStaff = new Staff()
+            //    {
+            //        CafeID = cafe.CafeID,
+            //        Name = $"Huynh Duy Khang Khung Khang {i}",
+            //        Email = $"hduykhang0{i}@gmail.com",
+            //        Phone = "1234567890",
+            //        IsMale = i % 2 == 0,
+            //        Birthdate = DateTime.Today
+            //    };
+            //    StaffInfos.Add(new StaffDetailViewModel(debugStaff, new CommandBase(() => StaffDetailsViewModel.UpdateInfo(debugStaff))));
+            //}
 
-            for (int i = 0; i < 10; i++)
-            {
-                StaffPlaceholder debugStaffPlaceholder = new StaffPlaceholder()
-                {
-                    CafeID = cafe.CafeID,
-                    Email = $"hduykhang0{i}@gmail.com",
-                };
-                StaffInfos.Add(new StaffDetailViewModel(debugStaffPlaceholder, new CommandBase(() => StaffDetailsViewModel.UpdateInfo(debugStaffPlaceholder))));
-            }
+            //for (int i = 0; i < 10; i++)
+            //{
+            //    StaffPlaceholder debugStaffPlaceholder = new StaffPlaceholder()
+            //    {
+            //        CafeID = cafe.CafeID,
+            //        Email = $"hduykhang0{i}@gmail.com",
+            //    };
+            //    StaffInfos.Add(new StaffDetailViewModel(debugStaffPlaceholder, new CommandBase(() => StaffDetailsViewModel.UpdateInfo(debugStaffPlaceholder))));
+            //}
 #endif
             #endregion
             initiallized = true;
@@ -333,7 +340,7 @@ namespace CSWBManagementApplication.ViewModels
                 {
                     return Visibility.Collapsed;
                 }
-                return ((IsViewingStaffDetails && !StaffDetailsViewModel.IsPlaceholder) ? Visibility.Visible : Visibility.Collapsed);
+                return ((IsViewingStaffDetails && !StaffDetailsViewModel.IsPlaceholder && !StaffDetailsViewModel.IsEmpty) ? Visibility.Visible : Visibility.Collapsed);
             }
         }
 
@@ -373,9 +380,10 @@ namespace CSWBManagementApplication.ViewModels
         {
             get => new CommandBase(() =>
             {
-                if (isViewingStaffDetails && !StaffDetailsViewModel.IsPlaceholder)
+                if (isViewingStaffDetails && !StaffDetailsViewModel.IsPlaceholder && !StaffDetailsViewModel.IsEmpty)
                 {
                     cafe.RemoveStaff(StaffDetailsViewModel.Staff);
+                    this.StaffDetailsViewModel.Clear();
                 }                
             });
         }
@@ -387,6 +395,7 @@ namespace CSWBManagementApplication.ViewModels
                 if (isViewingStaffDetails && StaffDetailsViewModel.IsPlaceholder)
                 {
                     cafe.RemoveStaffPlaceholder(StaffDetailsViewModel.StaffPlaceholder);
+                    this.StaffDetailsViewModel.Clear();
                 }
             });
         }

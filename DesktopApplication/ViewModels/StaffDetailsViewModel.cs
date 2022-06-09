@@ -104,38 +104,27 @@ namespace CSWBManagementApplication.ViewModels
 
         public void UpdateInfo(Staff staff, bool isMananger = false)
         {
-            if (this.Staff != staff)
-            {
-                this.isManager = isMananger;
-                this.Staff = staff;
-                this.staffPlaceholder = null;
-                //isEmpty = false;            
-                OnInfoUpdate?.Invoke(this, EventArgs.Empty);
-            }
+            this.isManager = isMananger;
+            this.Staff = staff;
+            this.staffPlaceholder = null;         
+            OnInfoUpdate?.Invoke(this, EventArgs.Empty);
         }
 
         public void UpdateInfo(StaffPlaceholder staffPlaceholder)
         {
-            if (this.StaffPlaceholder != staffPlaceholder)
-            {
-                this.isManager = false;
-                this.StaffPlaceholder = staffPlaceholder;
-                this.Staff = null;
-                               
-                OnInfoUpdate?.Invoke(this, EventArgs.Empty);
-            }
+            this.isManager = false;
+            this.StaffPlaceholder = staffPlaceholder;
+            this.Staff = null;
+            OnInfoUpdate?.Invoke(this, EventArgs.Empty);
         }
 
         public void Clear()
         {
-            if (this.StaffPlaceholder != null || this.Staff != null)
-            {
-                this.Staff = null;
-                this.StaffPlaceholder = null;
-                
-                this.isManager = false;
-                OnInfoUpdate?.Invoke(this, EventArgs.Empty);
-            }
+            this.Staff = null;
+            this.StaffPlaceholder = null;
+
+            this.isManager = false;
+            OnInfoUpdate?.Invoke(this, EventArgs.Empty);
         }
 
         public StaffDetailsViewModel()

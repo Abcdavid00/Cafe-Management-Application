@@ -269,7 +269,7 @@ namespace CSWBManagementApplication.Models
                 hasStaffsInfo = true;
             }
             manager = await Database.GetStaff(Database.FindManagerAsync(CafeID));
-            await Database.GetCafeStaffsInfoAsyncs(this);
+            await Database.GetCafeStaffsInfoAsync(this);
             if (manager != null)
             {
                 Staffs.Remove(manager.UID);
