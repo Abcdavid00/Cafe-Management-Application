@@ -54,7 +54,7 @@ namespace CSWBManagementApplication.ViewModels
                     OnPropertyChanged();
                 }
             }
-
+            
             private string phone;
 
             public string Phone
@@ -209,12 +209,9 @@ namespace CSWBManagementApplication.ViewModels
             get => isViewingStaffDetails;
             set
             {
-                if (isViewingStaffDetails != value)
-                {
-                    isViewingStaffDetails = value;
-                    OnPropertyChanged(nameof(AlternativeViewModel));
-                    OnPropertyChanged(nameof(IsViewingStaffDetails));
-                }
+                isViewingStaffDetails = value;
+                OnPropertyChanged(nameof(AlternativeViewModel));
+                OnPropertyChanged(nameof(IsViewingStaffDetails));
                 OnPropertyChanged(nameof(RemoveStaffButtonVisibility));
                 OnPropertyChanged(nameof(RemoveStaffPlaceholderButtonVisibility));
                 OnPropertyChanged(nameof(MakeManagerButtonVisibility));
@@ -243,7 +240,10 @@ namespace CSWBManagementApplication.ViewModels
 
             if (cafe.Manager != null)
             {
-                StaffInfos.Add(new StaffDetailViewModel(cafe.Manager, new CommandBase(() => StaffDetailsViewModel.UpdateInfo(cafe.Manager, true)), true));
+                StaffInfos.Add(new StaffDetailViewModel(cafe.Manager, new CommandBase(() => 
+                {
+                    StaffDetailsViewModel.UpdateInfo(cafe.Manager, true);
+                }), true));
             }
 
             foreach (Staff staff in cafe.Staffs.Values)
@@ -273,44 +273,43 @@ namespace CSWBManagementApplication.ViewModels
 
             #region Debug
 #if DEBUG
-            //Staff debugManager = new Staff()
-            //{
-            //    CafeID = cafe.CafeID,
-            //    Name = $"Vu Viet Huy",
-            //    Email = "hduykhang100@gmail.com",
-            //    Phone = "1234567890",
-            //    IsMale = true,
-            //    Birthdate = DateTime.Today
-            //};
+            Staff debugManager = new Staff()
+            {
+                CafeID = cafe.CafeID,
+                Name = $"Vu Viet Huy",
+                Email = "hduykhang100@gmail.com",
+                Phone = "1234567890",
+                IsMale = true,
+                Birthdate = DateTime.Today
+            };
 
-            //StaffInfos.Add(new StaffDetailViewModel(debugManager, new CommandBase(() => StaffDetailsViewModel.UpdateInfo(debugManager, true)), true));
+            StaffInfos.Add(new StaffDetailViewModel(debugManager, new CommandBase(() => StaffDetailsViewModel.UpdateInfo(debugManager, true)), true));
+            StaffDetailsViewModel.UpdateInfo(debugManager, true);
+            for (int i = 0; i < 10; i++)
+            {
+                Staff debugStaff = new Staff()
+                {
+                    CafeID = cafe.CafeID,
+                    Name = $"Huynh Duy Khang Khung Khang {i}",
+                    Email = $"hduykhang0{i}@gmail.com",
+                    Phone = "1234567890",
+                    IsMale = i % 2 == 0,
+                    Birthdate = DateTime.Today
+                };
+                StaffInfos.Add(new StaffDetailViewModel(debugStaff, new CommandBase(() => StaffDetailsViewModel.UpdateInfo(debugStaff))));
+            }
 
-            //for (int i = 0; i < 10; i++)
-            //{
-            //    Staff debugStaff = new Staff()
-            //    {
-            //        CafeID = cafe.CafeID,
-            //        Name = $"Huynh Duy Khang Khung Khang {i}",
-            //        Email = $"hduykhang0{i}@gmail.com",
-            //        Phone = "1234567890",
-            //        IsMale = i % 2 == 0,
-            //        Birthdate = DateTime.Today
-            //    };
-            //    StaffInfos.Add(new StaffDetailViewModel(debugStaff, new CommandBase(() => StaffDetailsViewModel.UpdateInfo(debugStaff))));
-            //}
-
-            //for (int i = 0; i < 10; i++)
-            //{
-            //    StaffPlaceholder debugStaffPlaceholder = new StaffPlaceholder()
-            //    {
-            //        CafeID = cafe.CafeID,
-            //        Email = $"hduykhang0{i}@gmail.com",
-            //    };
-            //    StaffInfos.Add(new StaffDetailViewModel(debugStaffPlaceholder, new CommandBase(() => StaffDetailsViewModel.UpdateInfo(debugStaffPlaceholder))));
-            //}
+            for (int i = 0; i < 10; i++)
+            {
+                StaffPlaceholder debugStaffPlaceholder = new StaffPlaceholder()
+                {
+                    CafeID = cafe.CafeID,
+                    Email = $"hduykhang0{i}@gmail.com",
+                };
+                StaffInfos.Add(new StaffDetailViewModel(debugStaffPlaceholder, new CommandBase(() => StaffDetailsViewModel.UpdateInfo(debugStaffPlaceholder))));
+            }
 #endif
             #endregion
-            
             initiallized = true;
         }
 

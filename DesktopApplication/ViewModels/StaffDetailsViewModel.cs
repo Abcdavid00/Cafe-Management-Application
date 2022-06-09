@@ -26,27 +26,32 @@ namespace CSWBManagementApplication.ViewModels
 
         public string Name
         {
-            get => (!IsPlaceholder ? staff.Name : "---");
+            get => ((!IsPlaceholder && !IsEmpty) ? staff.Name : "---");
         }
 
         public string Email
         {
-            get => (!isEmpty ? "---" : (!IsPlaceholder ? staff.Email : staffPlaceholder.Email));
+            get => (IsEmpty ? "---" : (!IsPlaceholder ? staff.Email : staffPlaceholder.Email));
+        }
+
+        public string Role
+        {
+            get => (!IsPlaceholder ? (IsManager ? "Manager" : "Staff") : "Placeholder");
         }
 
         public string Phone
         {
-            get => (!IsPlaceholder ? staff.Phone : "---");
+            get => ((!IsPlaceholder && !IsEmpty) ? staff.Phone : "---");
         }
 
         public string Sex
         {
-            get => (!IsPlaceholder ? (staff.IsMale ? "Male" : "Female") : "---");
+            get => ((!IsPlaceholder && !IsEmpty) ? (staff.IsMale ? "Male" : "Female") : "---");
         }
 
         public string Birthdate
         {
-            get => (!IsPlaceholder ? Staff.Birthdate.ToString("yyyy-MM-dd") : "---");
+            get => ((!IsPlaceholder && !IsEmpty) ? Staff.Birthdate.ToString("yyyy-MM-dd") : "---");
         }
 
         private Staff staff;
@@ -56,28 +61,19 @@ namespace CSWBManagementApplication.ViewModels
             get => staff;
             private set
             {
-                staffPlaceholder = null;
-                staff = value;
-                OnPropertyChanged(nameof(Background));
-                OnPropertyChanged(nameof(Foreground));
-                OnPropertyChanged(nameof(Name));
-                OnPropertyChanged(nameof(Email));
-                OnPropertyChanged(nameof(Phone));
-                OnPropertyChanged(nameof(Sex));
-                OnPropertyChanged(nameof(Birthdate));
+                staff = value;          
+                Refresh();
             }
         }
 
         public bool IsPlaceholder
         {
-            get => (staff == null);
+            get => (staff == null && staffPlaceholder != null);
         }
-
-        private bool isEmpty;
 
         public bool IsEmpty
         {
-            get => isEmpty;
+            get => (staff == null && staffPlaceholder == null);
         }
 
         private StaffPlaceholder staffPlaceholder;
@@ -87,16 +83,21 @@ namespace CSWBManagementApplication.ViewModels
             get => staffPlaceholder;
             private set
             {
-                staff = null;
-                staffPlaceholder = value;
-                OnPropertyChanged(nameof(Background));
-                OnPropertyChanged(nameof(Foreground));
-                OnPropertyChanged(nameof(Name));
-                OnPropertyChanged(nameof(Email));
-                OnPropertyChanged(nameof(Phone));
-                OnPropertyChanged(nameof(Sex));
-                OnPropertyChanged(nameof(Birthdate));
+                staffPlaceholder = value;            
+                Refresh();
             }
+        }
+
+        private void Refresh()
+        {
+            OnPropertyChanged(nameof(Background));
+            OnPropertyChanged(nameof(Foreground));
+            OnPropertyChanged(nameof(Name));
+            OnPropertyChanged(nameof(Email));
+            OnPropertyChanged(nameof(Role));
+            OnPropertyChanged(nameof(Phone));
+            OnPropertyChanged(nameof(Sex));
+            OnPropertyChanged(nameof(Birthdate));
         }
 
         public event EventHandler OnInfoUpdate;
@@ -105,10 +106,10 @@ namespace CSWBManagementApplication.ViewModels
         {
             if (this.Staff != staff)
             {
-                this.Staff = staff;
-                staffPlaceholder = null;
-                isEmpty = false;
                 this.isManager = isMananger;
+                this.Staff = staff;
+                this.staffPlaceholder = null;
+                //isEmpty = false;            
                 OnInfoUpdate?.Invoke(this, EventArgs.Empty);
             }
         }
@@ -117,10 +118,10 @@ namespace CSWBManagementApplication.ViewModels
         {
             if (this.StaffPlaceholder != staffPlaceholder)
             {
+                this.isManager = false;
                 this.StaffPlaceholder = staffPlaceholder;
                 this.Staff = null;
-                isEmpty = false;
-                this.isManager = false;
+                               
                 OnInfoUpdate?.Invoke(this, EventArgs.Empty);
             }
         }
@@ -131,7 +132,7 @@ namespace CSWBManagementApplication.ViewModels
             {
                 this.Staff = null;
                 this.StaffPlaceholder = null;
-                isEmpty = true;
+                
                 this.isManager = false;
                 OnInfoUpdate?.Invoke(this, EventArgs.Empty);
             }
@@ -139,7 +140,7 @@ namespace CSWBManagementApplication.ViewModels
 
         public StaffDetailsViewModel()
         {
-            isEmpty = true;
+            
         }
 
         public StaffDetailsViewModel(Staff staff, bool isManager = false)
