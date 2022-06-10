@@ -383,7 +383,7 @@
                                                    TextWrapping="Wrap"
                                                    Foreground="{DynamicResource TextColorDarkGray}"
                                                    FontSize="15"
-                                                   TextAlignment="Center"
+                                                   TextAlignment="Left"
                                                    />
                                         </StackPanel>
 
