@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -54,7 +53,7 @@ namespace CSWBManagementApplication.ViewModels
                     OnPropertyChanged();
                 }
             }
-            
+
             private string phone;
 
             public string Phone
@@ -164,7 +163,7 @@ namespace CSWBManagementApplication.ViewModels
             {
                 RefreshList();
                 FindStaffViewModel.RefreshList();
-            } );
+            });
         }
 
         private ObservableCollection<StaffDetailViewModel> staffInfos;
@@ -235,7 +234,7 @@ namespace CSWBManagementApplication.ViewModels
         }
 
         private async void RefreshList()
-        {           
+        {
             List<StaffPlaceholder> staffPlaceholders = (await Database.GetStaffPlaceholders(cafe.CafeID)).ToList();
             this.StaffDetailsViewModel = new StaffDetailsViewModel();
             StaffInfos?.Clear();
@@ -243,7 +242,7 @@ namespace CSWBManagementApplication.ViewModels
 
             if (cafe.Manager != null)
             {
-                StaffInfos.Add(new StaffDetailViewModel(cafe.Manager, new CommandBase(() => 
+                StaffInfos.Add(new StaffDetailViewModel(cafe.Manager, new CommandBase(() =>
                 {
                     StaffDetailsViewModel.UpdateInfo(cafe.Manager, true);
                 }), true));
@@ -270,15 +269,16 @@ namespace CSWBManagementApplication.ViewModels
             else if (staffPlaceholders.Count > 0)
             {
                 this.StaffDetailsViewModel.UpdateInfo(staffPlaceholders.First());
-            } else
+            }
+            else
             {
                 this.StaffDetailsViewModel.Clear();
             }
-                    
 
             this.StaffDetailsViewModel.OnInfoUpdate += StaffDetailsViewModel_OnInfoUpdate;
 
             #region Debug
+
 #if DEBUG
             //Staff debugManager = new Staff()
             //{
@@ -316,15 +316,16 @@ namespace CSWBManagementApplication.ViewModels
             //    StaffInfos.Add(new StaffDetailViewModel(debugStaffPlaceholder, new CommandBase(() => StaffDetailsViewModel.UpdateInfo(debugStaffPlaceholder))));
             //}
 #endif
-            #endregion
+
+            #endregion Debug
+
             initiallized = true;
         }
 
         private async void GetDatabaseData()
-        {          
+        {
             await cafe.GetCafeStaffsInfo();
             RefreshList();
-            
         }
 
         private void StaffDetailsViewModel_OnInfoUpdate(object sender, EventArgs e)
@@ -384,7 +385,7 @@ namespace CSWBManagementApplication.ViewModels
                 {
                     cafe.RemoveStaff(StaffDetailsViewModel.Staff);
                     this.StaffDetailsViewModel.Clear();
-                }                
+                }
             });
         }
 
@@ -404,7 +405,6 @@ namespace CSWBManagementApplication.ViewModels
         {
             get => new CommandBase(() =>
             {
-
             });
         }
     }

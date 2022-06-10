@@ -4,12 +4,6 @@ using CSWBManagementApplication.Services;
 using Firebase.Auth;
 using MaterialDesignThemes.Wpf;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -19,6 +13,7 @@ namespace CSWBManagementApplication.ViewModels
     internal class CreateAccountDialogViewModel : ViewModelBase
     {
         private string email;
+
         public string Email
         {
             get => email;
@@ -30,6 +25,7 @@ namespace CSWBManagementApplication.ViewModels
         }
 
         private string name;
+
         public string Name
         {
             get => name;
@@ -41,6 +37,7 @@ namespace CSWBManagementApplication.ViewModels
         }
 
         private SnackbarMessageQueue createAccountDialogSnackbarMessageQueue;
+
         public SnackbarMessageQueue CreateAccountDialogSnackbarMessageQueue
         {
             get => createAccountDialogSnackbarMessageQueue;
@@ -52,6 +49,7 @@ namespace CSWBManagementApplication.ViewModels
         }
 
         private string sex;
+
         public string Sex
         {
             get => sex;
@@ -63,6 +61,7 @@ namespace CSWBManagementApplication.ViewModels
         }
 
         private DateTime birthdate;
+
         public DateTime Birthdate
         {
             get => birthdate;
@@ -74,6 +73,7 @@ namespace CSWBManagementApplication.ViewModels
         }
 
         private string phone;
+
         public string Phone
         {
             get => phone;
@@ -197,7 +197,6 @@ namespace CSWBManagementApplication.ViewModels
             ButtonIcon = PackIconKind.AccountPlus;
             State = 0;
             ResendVisibility = Visibility.Hidden;
-
         }
 
         private bool VerifyInput(PasswordBox passwordBox)
@@ -247,7 +246,7 @@ namespace CSWBManagementApplication.ViewModels
                 CreateAccountDialogSnackbarMessageQueue.Enqueue("This email is invalid");
                 return;
             }
-            if (state ==0)
+            if (state == 0)
             {
                 await Database.DeleteUserByMail(Email);
                 AuthLink = await Database.RegisterUser(Email, passwordBox.Password);
@@ -261,7 +260,6 @@ namespace CSWBManagementApplication.ViewModels
                 await Database.DeleteUserByToken(AuthLink.FirebaseToken);
                 AuthLink = null;
             }
-
         }
 
         private async void WaitForVerification(StaffPlaceholder staffPlaceholder)
@@ -272,7 +270,7 @@ namespace CSWBManagementApplication.ViewModels
                 if (AuthLink.User.IsEmailVerified)
                 {
                     State = 2;
-                    await Database.CreateUserAsync(AuthLink,staffPlaceholder.CafeID,Name,Phone,Sex.Contains("Male"),Birthdate,false);
+                    await Database.CreateUserAsync(AuthLink, staffPlaceholder.CafeID, Name, Phone, Sex.Contains("Male"), Birthdate, false);
                     await Database.RemoveStaffPlaceholderAsync(staffPlaceholder.Email);
                     OnUserSuccessfullyCreated?.Invoke(this, AuthLink);
                 }
@@ -295,6 +293,5 @@ namespace CSWBManagementApplication.ViewModels
         }
 
         public event EventHandler<FirebaseAuthLink> OnUserSuccessfullyCreated;
-        
     }
 }

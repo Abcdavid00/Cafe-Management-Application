@@ -37,14 +37,14 @@
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Center"
                     materialDesign:HintAssist.Hint="Email"
-                    FontSize="25"
                     materialDesign:TextFieldAssist.HasClearButton="True"
+                    FontSize="25"
                     Foreground="{DynamicResource SolidLight}"
-                    Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 <Button
                     Grid.Column="1"
                     Padding="0"
-                    materialDesign:ButtonAssist.CornerRadius="5"                   
+                    materialDesign:ButtonAssist.CornerRadius="5"
                     Command="{Binding RefreshCommand, Mode=OneWay}"
                     ToolTip="Search for staff">
                     <materialDesign:PackIcon Kind="Refresh" />
@@ -55,7 +55,6 @@
                 <ItemsControl
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
-                    
                     ItemsSource="{Binding DisplayStaffs, Mode=OneWay}"
                     VirtualizingPanel.IsVirtualizing="True"
                     VirtualizingPanel.VirtualizationMode="Recycling">
@@ -66,28 +65,35 @@
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <materialDesign:Card HorizontalAlignment="Stretch" Background="{DynamicResource SolidLight}" Height="50" UniformCornerRadius="10" Margin="5,5,5,5">
+                            <materialDesign:Card
+                                Height="50"
+                                Margin="5,5,5,5"
+                                HorizontalAlignment="Stretch"
+                                Background="{DynamicResource SolidLight}"
+                                UniformCornerRadius="10">
                                 <Grid Margin="3,3,10,3">
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="*"/>
-                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
                                     </Grid.RowDefinitions>
                                     <StackPanel Grid.Row="0" Orientation="Horizontal">
-                                        <TextBlock Text="{Binding Name}"/>
-                                        <TextBlock Margin="10,0,0,0" Text="{Binding State}" Foreground="{Binding StateColor}"/>
+                                        <TextBlock Text="{Binding Name}" />
+                                        <TextBlock
+                                            Margin="10,0,0,0"
+                                            Foreground="{Binding StateColor}"
+                                            Text="{Binding State}" />
                                     </StackPanel>
 
-                                    
-                                    <TextBlock Grid.Row="1" Text="{Binding Email}"/>
-                                    <Button Width="{Binding ActualHeight, RelativeSource={RelativeSource Mode=Self}}"
-                                            Command="{Binding AddCommand, Mode=OneWay}"
-                                            Visibility="{Binding AddButtonVisibility, Mode=OneWay}"
-                                            Grid.Row="0"
-                                            Grid.RowSpan="2"
-                                            HorizontalAlignment="Right"
-                                            Padding="0"
-                                            >
-                                        <materialDesign:PackIcon Kind="Plus"/>
+                                    <TextBlock Grid.Row="1" Text="{Binding Email}" />
+                                    <Button
+                                        Grid.Row="0"
+                                        Grid.RowSpan="2"
+                                        Width="{Binding ActualHeight, RelativeSource={RelativeSource Mode=Self}}"
+                                        Padding="0"
+                                        HorizontalAlignment="Right"
+                                        Command="{Binding AddCommand, Mode=OneWay}"
+                                        Visibility="{Binding AddButtonVisibility, Mode=OneWay}">
+                                        <materialDesign:PackIcon Kind="Plus" />
                                     </Button>
                                 </Grid>
                             </materialDesign:Card>

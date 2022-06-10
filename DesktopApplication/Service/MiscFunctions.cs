@@ -72,7 +72,7 @@ namespace CSWBManagementApplication.Service
             private double bStep;
 
             private Color color1;
-            
+
             public Color Color1
             {
                 get { return color1; }
@@ -191,7 +191,5 @@ namespace CSWBManagementApplication.Service
                 }
             }
         }
-
-
     }
 }

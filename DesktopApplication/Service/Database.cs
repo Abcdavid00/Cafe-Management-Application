@@ -313,9 +313,9 @@ namespace CSWBManagementApplication.Services
                 result.Floors.Add(floorSnapshot.ConvertTo<Floor>());
             }
             result.Floors.Sort((f1, f2) => f1.FloorNumber.CompareTo(f2.FloorNumber));
-            
+
             return result;
-        }      
+        }
 
         public static async Task<IEnumerable<Cafe>> GetAllCafes()
         {
@@ -333,8 +333,8 @@ namespace CSWBManagementApplication.Services
         {
             QuerySnapshot staffSnapshots = await cafe.CafeReference.Collection(CAFE_STAFF_COLLECTION).WhereEqualTo("Level", 0).GetSnapshotAsync();
             List<Staff> staffs = new List<Staff>();
-            staffs.AddRange(await GetStaffs( from staffSnapshot in staffSnapshots
-                                             select UserDocument(staffSnapshot.Id)));
+            staffs.AddRange(await GetStaffs(from staffSnapshot in staffSnapshots
+                                            select UserDocument(staffSnapshot.Id)));
             foreach (Staff staff in staffs)
             {
                 cafe.Staffs.Add(staff.UID, staff);
@@ -516,11 +516,11 @@ namespace CSWBManagementApplication.Services
             }
             return staffs.AsEnumerable();
         }
-        
+
         public static async Task<IEnumerable<Staff>> GetAllStaffsAsync()
         {
             List<Staff> staffs = new List<Staff>();
-            QuerySnapshot staffSnapshots = await UserCollection.WhereEqualTo("IsOwner",false).GetSnapshotAsync();
+            QuerySnapshot staffSnapshots = await UserCollection.WhereEqualTo("IsOwner", false).GetSnapshotAsync();
             foreach (DocumentSnapshot staffSnapshot in staffSnapshots)
             {
                 if (!staffSnapshot.GetValue<bool>("IsOwner"))
@@ -745,7 +745,7 @@ namespace CSWBManagementApplication.Services
             if (existUserRecord != null)
             {
                 await AdminAuth.DeleteUserAsync(existUserRecord.Uid);
-            }            
+            }
         }
 
         public static async Task DeleteUserByToken(string firebaseToken)

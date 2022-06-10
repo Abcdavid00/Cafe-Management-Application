@@ -11,6 +11,5 @@ namespace CSWBManagementApplication.Views
         {
             InitializeComponent();
         }
-
     }
 }

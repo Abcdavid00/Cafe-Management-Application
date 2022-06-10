@@ -135,8 +135,7 @@
                                     materialDesign:TextFieldAssist.HasClearButton="True"
                                     FontSize="25"
                                     Foreground="{DynamicResource SolidLight}"
-                                    Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                     />
+                                    Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             </StackPanel>
 
                             <ScrollViewer
@@ -207,7 +206,7 @@
                         </ContentControl.ContentTemplate>
                     </ContentControl>
                 </Grid>
-                
+
                 <materialDesign:TransitionerSlide.ForwardWipe>
                     <materialDesign:SlideWipe Direction="Up" />
                 </materialDesign:TransitionerSlide.ForwardWipe>

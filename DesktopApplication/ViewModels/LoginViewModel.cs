@@ -27,17 +27,17 @@ namespace CSWBManagementApplication.ViewModels
         {
             get => new CommandBase(() =>
             {
-                IsCreateAccountDialog = true;               
+                IsCreateAccountDialog = true;
                 IsDialogOpen = true;
             });
         }
 
         public ICommand ForgotPasswordCommand
         {
-            get => new CommandBase(()=>
+            get => new CommandBase(() =>
             {
                 IsCreateAccountDialog = false;
-                IsDialogOpen = true;                
+                IsDialogOpen = true;
             });
         }
 
@@ -45,6 +45,7 @@ namespace CSWBManagementApplication.ViewModels
         private CreateAccountDialogViewModel createAccountDialogViewModel;
 
         private bool isCreateAccountDialog;
+
         private bool IsCreateAccountDialog
         {
             get => isCreateAccountDialog;
@@ -55,6 +56,7 @@ namespace CSWBManagementApplication.ViewModels
                 OnPropertyChanged();
             }
         }
+
         public ViewModelBase DialogViewModel
         {
             get
@@ -106,7 +108,7 @@ namespace CSWBManagementApplication.ViewModels
             IsDialogOpen = false;
             mainViewModel.UserLink = AuthLink;
         }
-        
+
         private void ForgotPasswordDialogViewModel_OnResetPasswordMailSended(object sender, EventArgs e)
         {
             IsDialogOpen = false;
