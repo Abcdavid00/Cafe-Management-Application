@@ -1,5 +1,6 @@
 ﻿using CSWBManagementApplication.Commands;
 using CSWBManagementApplication.Services;
+using Firebase.Auth;
 using MaterialDesignThemes.Wpf;
 using System;
 using System.Windows.Controls;
@@ -86,7 +87,7 @@ namespace CSWBManagementApplication.ViewModels
 
         private MainViewModel mainViewModel;
 
-        private Firebase.Auth.FirebaseAuthLink userLink;
+        private FirebaseAuthLink userLink;
 
         public LoginViewModel(MainViewModel mainViewModel)
         {
@@ -94,11 +95,18 @@ namespace CSWBManagementApplication.ViewModels
             this.forgotPasswordDialogViewModel = new ForgotPasswordDialogViewModel();
             this.forgotPasswordDialogViewModel.OnResetPasswordMailSended += ForgotPasswordDialogViewModel_OnResetPasswordMailSended;
             this.createAccountDialogViewModel = new CreateAccountDialogViewModel();
+            this.createAccountDialogViewModel.OnUserSuccessfullyCreated += NewAccoutCreated;
             isCreateAccountDialog = true;
             LoginViewSnackbarMessageQueue = new SnackbarMessageQueue(TimeSpan.FromMilliseconds(5000));
             userLink = null;
         }
 
+        private void NewAccoutCreated(object o, FirebaseAuthLink AuthLink)
+        {
+            IsDialogOpen = false;
+            mainViewModel.UserLink = AuthLink;
+        }
+        
         private void ForgotPasswordDialogViewModel_OnResetPasswordMailSended(object sender, EventArgs e)
         {
             IsDialogOpen = false;

@@ -135,8 +135,8 @@
                                     materialDesign:TextFieldAssist.HasClearButton="True"
                                     FontSize="25"
                                     Foreground="{DynamicResource SolidLight}"
-                                    Text="{Binding SearchText, Mode=TwoWay}"
-                                    TextChanged="TextBox_TextChanged" />
+                                    Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     />
                             </StackPanel>
 
                             <ScrollViewer

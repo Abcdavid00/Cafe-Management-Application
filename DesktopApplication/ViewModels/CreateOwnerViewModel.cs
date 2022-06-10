@@ -177,7 +177,7 @@ namespace CSWBManagementApplication.ViewModels
                 else if (state == 1)
                 {
                     State = 0;
-                    await Database.DeleteUser(AuthLink.FirebaseToken);
+                    await Database.DeleteUserByToken(AuthLink.FirebaseToken);
                     AuthLink = null;
                 }
             }

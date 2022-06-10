@@ -149,20 +149,22 @@
                         <ContentControl Content="{Binding DialogViewModel, Mode=OneWay}">
                             <ContentControl.Resources>
                                 <DataTemplate DataType="{x:Type vms:CreateAccountDialogViewModel}">
-                                    <Grid MinWidth="500" Margin="50,0,50,20">
+                                    <Grid MinWidth="500" Margin="50,20,50,20">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="1*" />
                                             <RowDefinition Height="1*" />
                                             <RowDefinition Height="8*" />
                                             <RowDefinition Height="1*" />
+                                            <RowDefinition Height="1*" />
+                                            <RowDefinition Height="1*" />
                                         </Grid.RowDefinitions>
 
                                         <TextBlock
                                             Grid.Row="1"
+                                            Margin="0,0,0,10"
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
                                             FontSize="25"
-                                            Margin="0 0 0 10"
                                             Text="Create new account" />
 
                                         <Grid Grid.Row="2">
@@ -177,36 +179,39 @@
 
                                                 <TextBox
                                                     Grid.Row="0"
+                                                    Margin="0,10,0,10"
                                                     Padding="3"
                                                     materialDesign:HintAssist.Hint="Email"
                                                     BorderThickness="2"
                                                     FontSize="20"
                                                     Foreground="White"
+                                                    IsEnabled="{Binding IsEnabled}"
                                                     Style="{StaticResource MaterialDesignFilledTextBox}"
-                                                    Text="{Binding CreateAccountEmail}"
-                                                    Margin="0 10 0 10"/>
+                                                    Text="{Binding Email, Mode=OneWayToSource}" />
 
                                                 <PasswordBox
-                                                    x:Name="PasswordBox"
+                                                    x:Name="CreateAccountPasswordBox"
                                                     Grid.Row="1"
+                                                    Margin="0,10,0,10"
                                                     Padding="3"
                                                     materialDesign:HintAssist.Hint="Password"
                                                     BorderThickness="2"
                                                     FontSize="20"
                                                     Foreground="White"
-                                                    Style="{StaticResource MaterialDesignFilledPasswordBox}"
-                                                    Margin="0 10 0 10"/>
+                                                    IsEnabled="{Binding IsEnabled}"
+                                                    Style="{StaticResource MaterialDesignFilledPasswordBox}" />
 
                                                 <TextBox
                                                     Grid.Row="2"
+                                                    Margin="0,10,0,10"
                                                     Padding="3"
                                                     materialDesign:HintAssist.Hint="Name"
                                                     BorderThickness="2"
                                                     FontSize="20"
                                                     Foreground="White"
+                                                    IsEnabled="{Binding IsEnabled}"
                                                     Style="{StaticResource MaterialDesignFilledTextBox}"
-                                                    Text="{Binding Name}"
-                                                    Margin="0 10 0 10"/>
+                                                    Text="{Binding Name, Mode=OneWayToSource}" />
 
                                                 <Grid Grid.Row="3">
                                                     <Grid.ColumnDefinitions>
@@ -214,69 +219,96 @@
                                                         <ColumnDefinition Width="1*" />
                                                     </Grid.ColumnDefinitions>
 
-                                                    <ComboBox Grid.Column="0"
-                                                        Style="{StaticResource MaterialDesignFilledComboBox}"
-                                                        materialDesign:HintAssist.Hint="Sex"
-                                                        Margin="0 10 10 10"
-                                                        FontSize="17"
+                                                    <ComboBox
+                                                        Grid.Column="0"
                                                         Height="60"
+                                                        Margin="0,10,10,10"
                                                         VerticalContentAlignment="Center"
-                                                        >
+                                                        materialDesign:HintAssist.Hint="Sex"
+                                                        FontSize="17"
+                                                        IsEnabled="{Binding IsEnabled}"
+                                                        SelectedValue="{Binding Sex, Mode=OneWayToSource}"
+                                                        Style="{StaticResource MaterialDesignFilledComboBox}">
                                                         <ComboBox.Items>
-                                                            <ComboBoxItem Content="Male" Tag="Male"/>
-                                                            <ComboBoxItem Content="Female" Tag="Female"/>
+                                                            <ComboBoxItem Content="Male" Tag="Male" />
+                                                            <ComboBoxItem Content="Female" Tag="Female" />
                                                         </ComboBox.Items>
                                                     </ComboBox>
 
-                                                    <DatePicker Grid.Column="1"
-                                                        materialDesign:HintAssist.Hint="Birthdate"
-                                                        Style="{StaticResource MaterialDesignFilledDatePicker}" 
-                                                        FontSize="17"
-                                                        Margin="0 10 0 10"
+                                                    <DatePicker
+                                                        Grid.Column="1"
                                                         Height="60"
-                                                        Padding="10 0 10 0"
-                                                        />
+                                                        Margin="0,10,0,10"
+                                                        Padding="10,0,10,0"
+                                                        IsEnabled="{Binding IsEnabled}"
+                                                        materialDesign:HintAssist.Hint="Birthdate"
+                                                        SelectedDate="{Binding Birthdate, Mode=OneWayToSource}"
+                                                        FontSize="17"
+                                                        Style="{StaticResource MaterialDesignFilledDatePicker}" />
                                                 </Grid>
 
                                                 <TextBox
                                                     Grid.Row="4"
+                                                    Margin="0,10,0,10"
                                                     Padding="3"
                                                     materialDesign:HintAssist.Hint="Phone"
                                                     BorderThickness="2"
                                                     FontSize="20"
                                                     Foreground="White"
+                                                    IsEnabled="{Binding IsEnabled}"
                                                     Style="{StaticResource MaterialDesignFilledTextBox}"
-                                                    Text="{Binding Phone}"
-                                                    Margin="0 10 0 10"/>
+                                                    Text="{Binding Phone, Mode=OneWayToSource}" />
                                             </Grid>
                                         </Grid>
-                                            
-                                      
+
                                         <Button
                                             Grid.Row="3"
+                                            Grid.Column="1"
+                                            Command="{Binding ResendVerifyMail}"
+                                            Content="Resend verify mail"
+                                            Foreground="{DynamicResource SolidLight}"
+                                            IsEnabled="{Binding Waiting}"
+                                            VerticalAlignment="Top"
+                                            Style="{StaticResource MaterialDesignFlatLightButton}"
+                                            Visibility="{Binding ResendVisibility}" />
+
+                                        <Button
+                                            Grid.Row="4"
                                             Width="50"
                                             Height="50"
+                                            Margin="0,10,0,0"
                                             materialDesign:ButtonProgressAssist.IsIndeterminate="True"
-                                            materialDesign:ButtonProgressAssist.IsIndicatorVisible="{Binding Waiting}"
+                                            materialDesign:ButtonProgressAssist.IsIndicatorVisible="{Binding Waiting, Mode=OneWay}"
                                             materialDesign:ButtonProgressAssist.Value="0"
-                                            Command="{Binding ButtonCommand}"
-                                            CommandParameter="{Binding ElementName=PasswordBox}"
+                                            Command="{Binding CreateAccountButtonCommand, Mode=OneWay}"
+                                            CommandParameter="{Binding ElementName=CreateAccountPasswordBox}"
                                             Style="{StaticResource MaterialDesignFloatingActionButton}"
-                                            ToolTip="{Binding ButtonToolTip}"
-                                            Margin="0 10 0 0">
+                                            ToolTip="{Binding ButtonToolTip, Mode=OneWay}">
                                             <materialDesign:PackIcon
                                                 Width="30"
                                                 Height="30"
                                                 Kind="{Binding ButtonIcon}" />
                                         </Button>
 
-                                        <Image Grid.Row="0"
-                                                    Source="{StaticResource LogoWithText}" 
-                                                   Width="300"
-                                                   HorizontalAlignment="Center"
-                                                   VerticalAlignment="Center"
-                                                   Margin="0 0 0 0"
-                                                   />
+                                        <Rectangle
+                                            Grid.Row="5"
+                                            Width="0"
+                                            Height="50"
+                                            Fill="Transparent" />
+
+                                        <materialDesign:Snackbar
+                                            Grid.Row="5"
+                                            Background="{DynamicResource LinearMain}"
+                                            Foreground="{DynamicResource SolidLight}"
+                                            MessageQueue="{Binding CreateAccountDialogSnackbarMessageQueue}" />
+
+                                        <Image
+                                            Grid.Row="0"
+                                            Width="300"
+                                            Margin="0,0,0,0"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Source="{StaticResource LogoWithText}" />
                                     </Grid>
                                 </DataTemplate>
 
@@ -290,11 +322,11 @@
 
                                         <TextBlock
                                             Grid.Row="0"
+                                            Margin="0,0,0,10"
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
                                             FontSize="25"
-                                            Text="Enter your email address"
-                                            Margin="0 0 0 10"/>
+                                            Text="Enter your email address" />
 
                                         <TextBox
                                             Grid.Row="1"
@@ -311,12 +343,12 @@
                                             Grid.Row="2"
                                             Grid.Column="1"
                                             Height="50"
+                                            Margin="20,10,20,0"
+                                            HorizontalAlignment="Center"
                                             materialDesign:ButtonAssist.CornerRadius="5"
                                             Command="{Binding SendResetPasswordMailCommand}"
                                             Content="Send mail"
-                                            FontSize="25"
-                                            HorizontalAlignment="Center"
-                                            Margin="20 10 20 0"/>
+                                            FontSize="25" />
                                     </Grid>
                                 </DataTemplate>
                             </ContentControl.Resources>

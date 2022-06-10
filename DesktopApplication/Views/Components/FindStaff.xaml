@@ -40,8 +40,7 @@
                     FontSize="25"
                     materialDesign:TextFieldAssist.HasClearButton="True"
                     Foreground="{DynamicResource SolidLight}"
-                    Text="{Binding SearchText, Mode=TwoWay}"
-                    TextChanged="TextBox_TextChanged" />
+                    Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 <Button
                     Grid.Column="1"
                     Padding="0"

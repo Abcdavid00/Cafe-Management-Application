@@ -629,6 +629,12 @@ namespace CSWBManagementApplication.Services
 
         public static async Task<StaffPlaceholder> CreateStaffPlaceholderAsync(string email, string cafeID)
         {
+            DocumentReference staffPlaceholderReference = await FindStaffPlaceholder(email);
+            if (staffPlaceholderReference != null)
+            {
+                await staffPlaceholderReference.UpdateAsync("CafeID", cafeID);
+                return (await staffPlaceholderReference.GetSnapshotAsync()).ConvertTo<StaffPlaceholder>();
+            }
             StaffPlaceholder staffPlaceholder = new StaffPlaceholder()
             {
                 Email = email,
@@ -646,6 +652,16 @@ namespace CSWBManagementApplication.Services
                 return null;
             }
             return staffPlaceholderSnapshot.Documents[0].Reference;
+        }
+
+        public static async Task<StaffPlaceholder> GetStaffPlaceholderAsync(string email)
+        {
+            QuerySnapshot staffPlaceholderSnapshot = await StaffPlaceholderCollection.WhereEqualTo("Email", email).Limit(1).GetSnapshotAsync();
+            if (staffPlaceholderSnapshot.Count == 0)
+            {
+                return null;
+            }
+            return staffPlaceholderSnapshot.Documents[0].ConvertTo<StaffPlaceholder>();
         }
 
         public static async Task RemoveStaffPlaceholder(DocumentReference staffPlaceholderReference)
@@ -723,7 +739,16 @@ namespace CSWBManagementApplication.Services
             await AuthProvider.SendPasswordResetEmailAsync(mail);
         }
 
-        public static async Task DeleteUser(string firebaseToken)
+        public static async Task DeleteUserByMail(string mail)
+        {
+            UserRecord existUserRecord = await AdminAuth.GetUserByEmailAsync(mail); ;
+            if (existUserRecord != null)
+            {
+                await AdminAuth.DeleteUserAsync(existUserRecord.Uid);
+            }            
+        }
+
+        public static async Task DeleteUserByToken(string firebaseToken)
         {
             await AuthProvider.DeleteUserAsync(firebaseToken);
         }
