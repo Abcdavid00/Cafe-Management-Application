@@ -221,7 +221,7 @@
                     <ContentControl Content="{Binding AlternativeViewModel}">
                         <ContentControl.Resources>
                             <DataTemplate DataType="{x:Type vms:FindStaffViewModel}">
-                                <component:FindStaff/>
+                                <component:FindStaff />
                             </DataTemplate>
 
                             <DataTemplate DataType="{x:Type vms:StaffDetailsViewModel}">
@@ -238,7 +238,7 @@
                                         <RowDefinition Height="150*" />
                                     </Grid.RowDefinitions>
 
-                                    <!--Image staff-->
+                                    <!--  Image staff  -->
                                     <Grid Grid.Row="1">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="2*" />
@@ -248,18 +248,17 @@
 
                                         <!--<Image Source="{Binding Path=Image, Mode=OneWay}" Grid.Column="1"/>-->
                                         <materialDesign:PackIcon
-                                        Grid.Column="1"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Foreground="{DynamicResource SolidLight}"
-                                        Kind="AccountCircle"
-                                        Height="auto"
-                                        Width="auto"
-                                        />
+                                            Grid.Column="1"
+                                            Width="auto"
+                                            Height="auto"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Foreground="{DynamicResource SolidLight}"
+                                            Kind="AccountCircle" />
 
                                     </Grid>
-                                    
-                                    <!--Name staff-->
+
+                                    <!--  Name staff  -->
                                     <Grid Grid.Row="3">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="1*" />
@@ -267,27 +266,29 @@
                                             <ColumnDefinition Width="1*" />
                                         </Grid.ColumnDefinitions>
 
-                                        <TextBlock Grid.Column="1" Text="{Binding Name, Mode=OneWay}"
-                                                   VerticalAlignment="Center"
-                                                   HorizontalAlignment="Center"
-                                                   TextWrapping="Wrap"
-                                                   Foreground="White"
-                                                   FontSize="20"
-                                                   TextAlignment="Center"
-                                                   />
+                                        <TextBlock
+                                            Grid.Column="1"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontSize="20"
+                                            Foreground="White"
+                                            Text="{Binding Name, Mode=OneWay}"
+                                            TextAlignment="Center"
+                                            TextWrapping="Wrap" />
                                     </Grid>
-                                    
-                                    <!--Level staff-->
-                                    <TextBlock Grid.Row="5" Text="{Binding Role, Mode=OneWay}"
-                                                   VerticalAlignment="Center"
-                                                   HorizontalAlignment="Center"
-                                                   TextWrapping="Wrap"
-                                                   Foreground="{DynamicResource TextColorDarkGray}"
-                                                   FontSize="15"
-                                                   TextAlignment="Center"
-                                                   />
-                                    
-                                    <!--Details staff-->
+
+                                    <!--  Level staff  -->
+                                    <TextBlock
+                                        Grid.Row="5"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        FontSize="15"
+                                        Foreground="{DynamicResource TextColorDarkGray}"
+                                        Text="{Binding Role, Mode=OneWay}"
+                                        TextAlignment="Center"
+                                        TextWrapping="Wrap" />
+
+                                    <!--  Details staff  -->
                                     <Grid Grid.Row="7">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="2*" />
@@ -303,70 +304,70 @@
                                             <RowDefinition Height="2*" />
                                         </Grid.RowDefinitions>
 
-                                        <!--Sex staff-->
+                                        <!--  Sex staff  -->
                                         <StackPanel Grid.Row="0" Grid.Column="1">
-                                            <TextBlock  Text="Sex"
-                                                   VerticalAlignment="Center"
-                                                   HorizontalAlignment="Left"
-                                                   TextWrapping="Wrap"
-                                                   Foreground="White"
-                                                   FontSize="15"
-                                                   TextAlignment="Center"
-                                                   Margin="0 10 10 10"
-                                                   />
-                                            <TextBlock  Text="{Binding Sex}"
-                                                   VerticalAlignment="Center"
-                                                   HorizontalAlignment="Left"
-                                                   TextWrapping="Wrap"
-                                                   Foreground="{DynamicResource TextColorDarkGray}"
-                                                   FontSize="15"
-                                                   TextAlignment="Center"
-                                                   />
+                                            <TextBlock
+                                                Margin="0,10,10,10"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                FontSize="15"
+                                                Foreground="White"
+                                                Text="Sex"
+                                                TextAlignment="Center"
+                                                TextWrapping="Wrap" />
+                                            <TextBlock
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                FontSize="15"
+                                                Foreground="{DynamicResource TextColorDarkGray}"
+                                                Text="{Binding Sex}"
+                                                TextAlignment="Center"
+                                                TextWrapping="Wrap" />
                                         </StackPanel>
 
-                                        <!--Birthday staff-->
+                                        <!--  Birthday staff  -->
                                         <StackPanel Grid.Row="0" Grid.Column="3">
-                                            <TextBlock  Text="Birthdate"
-                                                   VerticalAlignment="Center"
-                                                   HorizontalAlignment="Left"
-                                                   TextWrapping="Wrap"
-                                                   Foreground="White"
-                                                   FontSize="15"
-                                                   TextAlignment="Center"
-                                                   Margin="0 10 10 10"
-                                                   />
-                                            <TextBlock  Text="{Binding Birthdate}"
-                                                   VerticalAlignment="Center"
-                                                   HorizontalAlignment="Left"
-                                                   TextWrapping="Wrap"
-                                                   Foreground="{DynamicResource TextColorDarkGray}"
-                                                   FontSize="15"
-                                                   TextAlignment="Center"
-                                                   />
-                                        </StackPanel>
-                                       
-                                        <!--Phone staff-->
-                                        <StackPanel Grid.Row="2" Grid.Column="1">
-                                            <TextBlock  Text="Phone"
-                                                   VerticalAlignment="Center"
-                                                   HorizontalAlignment="Left"
-                                                   TextWrapping="Wrap"
-                                                   Foreground="White"
-                                                   FontSize="15"
-                                                   TextAlignment="Center"
-                                                   Margin="0 10 10 10"
-                                                   />
-                                            <TextBlock  Text="{Binding Phone}"
-                                                   VerticalAlignment="Center"
-                                                   HorizontalAlignment="Left"
-                                                   TextWrapping="Wrap"
-                                                   Foreground="{DynamicResource TextColorDarkGray}"
-                                                   FontSize="15"
-                                                   TextAlignment="Center"
-                                                   />
+                                            <TextBlock
+                                                Margin="0,10,10,10"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                FontSize="15"
+                                                Foreground="White"
+                                                Text="Birthdate"
+                                                TextAlignment="Center"
+                                                TextWrapping="Wrap" />
+                                            <TextBlock
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                FontSize="15"
+                                                Foreground="{DynamicResource TextColorDarkGray}"
+                                                Text="{Binding Birthdate}"
+                                                TextAlignment="Center"
+                                                TextWrapping="Wrap" />
                                         </StackPanel>
 
-                                        <!--Email staff-->
+                                        <!--  Phone staff  -->
+                                        <StackPanel Grid.Row="2" Grid.Column="1">
+                                            <TextBlock
+                                                Margin="0,10,10,10"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                FontSize="15"
+                                                Foreground="White"
+                                                Text="Phone"
+                                                TextAlignment="Center"
+                                                TextWrapping="Wrap" />
+                                            <TextBlock
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                FontSize="15"
+                                                Foreground="{DynamicResource TextColorDarkGray}"
+                                                Text="{Binding Phone}"
+                                                TextAlignment="Center"
+                                                TextWrapping="Wrap" />
+                                        </StackPanel>
+
+                                        <!--  Email staff  -->
                                         <StackPanel Grid.Row="2" Grid.Column="3">
                                             <TextBlock  Text="Email"
                                                    VerticalAlignment="Center"
@@ -388,8 +389,8 @@
                                         </StackPanel>
 
                                     </Grid>
-                                    
-                                    </Grid>
+
+                                </Grid>
                             </DataTemplate>
                         </ContentControl.Resources>
                     </ContentControl>

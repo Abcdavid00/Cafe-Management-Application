@@ -329,12 +329,15 @@ namespace CSWBManagementApplication.Services
             return cafes.AsEnumerable();
         }
 
-        public static async Task GetCafeStaffsInfoAsyncs(Cafe cafe)
+        public static async Task GetCafeStaffsInfoAsync(Cafe cafe)
         {
             QuerySnapshot staffSnapshots = await cafe.CafeReference.Collection(CAFE_STAFF_COLLECTION).WhereEqualTo("Level", 0).GetSnapshotAsync();
-            foreach (DocumentSnapshot staffSnapshot in staffSnapshots)
+            List<Staff> staffs = new List<Staff>();
+            staffs.AddRange(await GetStaffs( from staffSnapshot in staffSnapshots
+                                             select UserDocument(staffSnapshot.Id)));
+            foreach (Staff staff in staffs)
             {
-                cafe.Staffs.Add(staffSnapshot.Id, staffSnapshot.ConvertTo<Staff>());
+                cafe.Staffs.Add(staff.UID, staff);
             }
         }
 
@@ -507,6 +510,20 @@ namespace CSWBManagementApplication.Services
             {
                 DocumentSnapshot staffSnapshot = await staffReference.GetSnapshotAsync();
                 if (staffSnapshot.Exists && (!staffSnapshot.GetValue<bool>("IsOwner")))
+                {
+                    staffs.Add(staffSnapshot.ConvertTo<Staff>());
+                }
+            }
+            return staffs.AsEnumerable();
+        }
+        
+        public static async Task<IEnumerable<Staff>> GetAllStaffsAsync()
+        {
+            List<Staff> staffs = new List<Staff>();
+            QuerySnapshot staffSnapshots = await UserCollection.WhereEqualTo("IsOwner",false).GetSnapshotAsync();
+            foreach (DocumentSnapshot staffSnapshot in staffSnapshots)
+            {
+                if (!staffSnapshot.GetValue<bool>("IsOwner"))
                 {
                     staffs.Add(staffSnapshot.ConvertTo<Staff>());
                 }

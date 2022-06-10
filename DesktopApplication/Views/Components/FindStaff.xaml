@@ -38,13 +38,14 @@
                     VerticalAlignment="Center"
                     materialDesign:HintAssist.Hint="Email"
                     FontSize="25"
+                    materialDesign:TextFieldAssist.HasClearButton="True"
                     Foreground="{DynamicResource SolidLight}"
                     Text="{Binding SearchText, Mode=TwoWay}"
                     TextChanged="TextBox_TextChanged" />
                 <Button
                     Grid.Column="1"
                     Padding="0"
-                    materialDesign:ButtonAssist.CornerRadius="5"
+                    materialDesign:ButtonAssist.CornerRadius="5"                   
                     Command="{Binding RefreshCommand, Mode=OneWay}"
                     ToolTip="Search for staff">
                     <materialDesign:PackIcon Kind="Refresh" />
@@ -67,7 +68,29 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <materialDesign:Card HorizontalAlignment="Stretch" Background="{DynamicResource SolidLight}" Height="50" UniformCornerRadius="10" Margin="5,5,5,5">
-                                
+                                <Grid Margin="3,3,10,3">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <StackPanel Grid.Row="0" Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Name}"/>
+                                        <TextBlock Margin="10,0,0,0" Text="{Binding State}" Foreground="{Binding StateColor}"/>
+                                    </StackPanel>
+
+                                    
+                                    <TextBlock Grid.Row="1" Text="{Binding Email}"/>
+                                    <Button Width="{Binding ActualHeight, RelativeSource={RelativeSource Mode=Self}}"
+                                            Command="{Binding AddCommand, Mode=OneWay}"
+                                            Visibility="{Binding AddButtonVisibility, Mode=OneWay}"
+                                            Grid.Row="0"
+                                            Grid.RowSpan="2"
+                                            HorizontalAlignment="Right"
+                                            Padding="0"
+                                            >
+                                        <materialDesign:PackIcon Kind="Plus"/>
+                                    </Button>
+                                </Grid>
                             </materialDesign:Card>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>

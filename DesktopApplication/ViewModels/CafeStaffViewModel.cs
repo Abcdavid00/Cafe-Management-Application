@@ -54,7 +54,7 @@ namespace CSWBManagementApplication.ViewModels
                     OnPropertyChanged();
                 }
             }
-
+            
             private string phone;
 
             public string Phone
@@ -160,7 +160,11 @@ namespace CSWBManagementApplication.ViewModels
             this.privilege = privilege;
             GetDatabaseData();
             FindStaffViewModel = new FindStaffViewModel(cafe);
-            this.cafe.OnCafeStaffListChanged += ((object sender, EventArgs e )=>RefreshList() );
+            this.cafe.OnCafeStaffListChanged += ((object sender, EventArgs e) =>
+            {
+                RefreshList();
+                FindStaffViewModel.RefreshList();
+            } );
         }
 
         private ObservableCollection<StaffDetailViewModel> staffInfos;
@@ -209,12 +213,9 @@ namespace CSWBManagementApplication.ViewModels
             get => isViewingStaffDetails;
             set
             {
-                if (isViewingStaffDetails != value)
-                {
-                    isViewingStaffDetails = value;
-                    OnPropertyChanged(nameof(AlternativeViewModel));
-                    OnPropertyChanged(nameof(IsViewingStaffDetails));
-                }
+                isViewingStaffDetails = value;
+                OnPropertyChanged(nameof(AlternativeViewModel));
+                OnPropertyChanged(nameof(IsViewingStaffDetails));
                 OnPropertyChanged(nameof(RemoveStaffButtonVisibility));
                 OnPropertyChanged(nameof(RemoveStaffPlaceholderButtonVisibility));
                 OnPropertyChanged(nameof(MakeManagerButtonVisibility));
@@ -234,8 +235,7 @@ namespace CSWBManagementApplication.ViewModels
         }
 
         private async void RefreshList()
-        {
-            
+        {           
             List<StaffPlaceholder> staffPlaceholders = (await Database.GetStaffPlaceholders(cafe.CafeID)).ToList();
             this.StaffDetailsViewModel = new StaffDetailsViewModel();
             StaffInfos?.Clear();
@@ -243,7 +243,10 @@ namespace CSWBManagementApplication.ViewModels
 
             if (cafe.Manager != null)
             {
-                StaffInfos.Add(new StaffDetailViewModel(cafe.Manager, new CommandBase(() => StaffDetailsViewModel.UpdateInfo(cafe.Manager, true)), true));
+                StaffInfos.Add(new StaffDetailViewModel(cafe.Manager, new CommandBase(() => 
+                {
+                    StaffDetailsViewModel.UpdateInfo(cafe.Manager, true);
+                }), true));
             }
 
             foreach (Staff staff in cafe.Staffs.Values)
@@ -267,7 +270,11 @@ namespace CSWBManagementApplication.ViewModels
             else if (staffPlaceholders.Count > 0)
             {
                 this.StaffDetailsViewModel.UpdateInfo(staffPlaceholders.First());
+            } else
+            {
+                this.StaffDetailsViewModel.Clear();
             }
+                    
 
             this.StaffDetailsViewModel.OnInfoUpdate += StaffDetailsViewModel_OnInfoUpdate;
 
@@ -284,7 +291,7 @@ namespace CSWBManagementApplication.ViewModels
             //};
 
             //StaffInfos.Add(new StaffDetailViewModel(debugManager, new CommandBase(() => StaffDetailsViewModel.UpdateInfo(debugManager, true)), true));
-
+            //StaffDetailsViewModel.UpdateInfo(debugManager, true);
             //for (int i = 0; i < 10; i++)
             //{
             //    Staff debugStaff = new Staff()
@@ -310,7 +317,6 @@ namespace CSWBManagementApplication.ViewModels
             //}
 #endif
             #endregion
-            
             initiallized = true;
         }
 
@@ -334,7 +340,7 @@ namespace CSWBManagementApplication.ViewModels
                 {
                     return Visibility.Collapsed;
                 }
-                return ((IsViewingStaffDetails && !StaffDetailsViewModel.IsPlaceholder) ? Visibility.Visible : Visibility.Collapsed);
+                return ((IsViewingStaffDetails && !StaffDetailsViewModel.IsPlaceholder && !StaffDetailsViewModel.IsEmpty) ? Visibility.Visible : Visibility.Collapsed);
             }
         }
 
@@ -374,9 +380,10 @@ namespace CSWBManagementApplication.ViewModels
         {
             get => new CommandBase(() =>
             {
-                if (isViewingStaffDetails && !StaffDetailsViewModel.IsPlaceholder)
+                if (isViewingStaffDetails && !StaffDetailsViewModel.IsPlaceholder && !StaffDetailsViewModel.IsEmpty)
                 {
                     cafe.RemoveStaff(StaffDetailsViewModel.Staff);
+                    this.StaffDetailsViewModel.Clear();
                 }                
             });
         }
@@ -388,6 +395,7 @@ namespace CSWBManagementApplication.ViewModels
                 if (isViewingStaffDetails && StaffDetailsViewModel.IsPlaceholder)
                 {
                     cafe.RemoveStaffPlaceholder(StaffDetailsViewModel.StaffPlaceholder);
+                    this.StaffDetailsViewModel.Clear();
                 }
             });
         }
