@@ -38,7 +38,7 @@
                     VerticalAlignment="Center"
                     materialDesign:HintAssist.Hint="Email"
                     materialDesign:TextFieldAssist.HasClearButton="True"
-                    FontSize="25"
+                    FontSize="20"
                     Foreground="{DynamicResource SolidLight}"
                     Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 <Button
@@ -66,28 +66,72 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <materialDesign:Card
-                                Height="50"
+                                Height="auto"
                                 Margin="5,5,5,5"
                                 HorizontalAlignment="Stretch"
                                 Background="{DynamicResource SolidLight}"
                                 UniformCornerRadius="10">
-                                <Grid Margin="3,3,10,3">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="*" />
-                                    </Grid.RowDefinitions>
-                                    <StackPanel Grid.Row="0" Orientation="Horizontal">
-                                        <TextBlock Text="{Binding Name}" />
-                                        <TextBlock
-                                            Margin="10,0,0,0"
-                                            Foreground="{Binding StateColor}"
-                                            Text="{Binding State}" />
-                                    </StackPanel>
+                                <Grid Margin="5,5,10,5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*" />
+                                        <ColumnDefinition Width="7*" />
+                                        <ColumnDefinition Width="1*" />
+                                    </Grid.ColumnDefinitions>
+                                    
+                                    <materialDesign:PackIcon
+                                            Grid.Column="0"
+                                            Width="45"
+                                            Height="45"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Foreground="{DynamicResource SolidDark}"
+                                            Kind="AccountCircle" />
 
-                                    <TextBlock Grid.Row="1" Text="{Binding Email}" />
+                                    <Grid Grid.Column="1"
+                                          Margin="5 5 5 5">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+
+                                        <Grid Grid.Row="0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="1.2*" />
+                                                <ColumnDefinition Width="1*" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <TextBlock
+                                                Grid.Column="0"
+                                                Margin="0,0,5,5"
+                                                Text="{Binding Name}"
+                                                VerticalAlignment="Center"
+                                                FontSize="13"
+                                                TextWrapping="Wrap"
+                                            />
+
+                                            <TextBlock
+                                                Grid.Column="1"
+                                                Foreground="{Binding StateColor}"
+                                                Text="{Binding State}" 
+                                                VerticalAlignment="Center"
+                                                HorizontalAlignment="Center"
+                                                FontSize="13"
+                                                TextWrapping="Wrap"
+                                                />
+                                        </Grid>
+
+                                        <TextBlock Grid.Row="1"
+                                                   Text="{Binding Email}"
+                                                   FontSize="12"
+                                                   Foreground="{DynamicResource TextColorDarkGray}"   
+                                                   TextWrapping="Wrap"
+                                                   VerticalAlignment="Center"
+                                                   />
+                                    </Grid>
+
                                     <Button
-                                        Grid.Row="0"
-                                        Grid.RowSpan="2"
+                                        Grid.Column="2"
+                                        Height="20"
                                         Width="{Binding ActualHeight, RelativeSource={RelativeSource Mode=Self}}"
                                         Padding="0"
                                         HorizontalAlignment="Right"
@@ -96,6 +140,8 @@
                                         <materialDesign:PackIcon Kind="Plus" />
                                     </Button>
                                 </Grid>
+                                
+                                
                             </materialDesign:Card>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
@@ -105,10 +151,11 @@
             <Button
                 Grid.Row="1"
                 Height="50"
-                Margin="70,100,70,100"
+                Margin="60,100,60,100"
                 VerticalAlignment="Top"
                 Command="{Binding AddStaffPlaceholderCommand, Mode=OneWay}"
-                Content="Add new Staff placeholder"
+                Content="Add new Staff"
+                FontSize="15"
                 Visibility="{Binding AddStaffPlaceholderButtonVisibility, Mode=OneWay}" />
         </Grid>
     </Grid>
