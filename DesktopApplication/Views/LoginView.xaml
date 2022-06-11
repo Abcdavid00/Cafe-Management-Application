@@ -149,7 +149,7 @@
                         <ContentControl Content="{Binding DialogViewModel, Mode=OneWay}">
                             <ContentControl.Resources>
                                 <DataTemplate DataType="{x:Type vms:CreateAccountDialogViewModel}">
-                                    <Grid MinWidth="500" Margin="50,0,50,20">
+                                    <Grid MinWidth="500" Margin="50,20,50,20">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="1*" />
                                             <RowDefinition Height="1*" />
@@ -162,7 +162,7 @@
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
                                             FontSize="25"
-                                            Margin="0 0 0 10"
+                                            Margin="0 5 0 10"
                                             Text="Create new account" />
 
                                         <Grid Grid.Row="2">
@@ -272,10 +272,10 @@
 
                                         <Image Grid.Row="0"
                                                     Source="{StaticResource LogoWithText}" 
-                                                   Width="300"
+                                                   Width="150"
                                                    HorizontalAlignment="Center"
                                                    VerticalAlignment="Center"
-                                                   Margin="0 0 0 0"
+                                                   Margin="0 0 0 10"
                                                    />
                                     </Grid>
                                 </DataTemplate>
