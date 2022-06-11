@@ -1,10 +1,6 @@
 ﻿using CSWBManagementApplication.Commands;
 using CSWBManagementApplication.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace CSWBManagementApplication.ViewModels
@@ -25,7 +21,6 @@ namespace CSWBManagementApplication.ViewModels
 
         public ForgotPasswordDialogViewModel()
         {
-            
         }
 
         public ICommand SendResetPasswordMailCommand

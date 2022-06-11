@@ -61,7 +61,7 @@ namespace CSWBManagementApplication.ViewModels
             get => staff;
             private set
             {
-                staff = value;          
+                staff = value;
                 Refresh();
             }
         }
@@ -83,7 +83,7 @@ namespace CSWBManagementApplication.ViewModels
             get => staffPlaceholder;
             private set
             {
-                staffPlaceholder = value;            
+                staffPlaceholder = value;
                 Refresh();
             }
         }
@@ -106,7 +106,7 @@ namespace CSWBManagementApplication.ViewModels
         {
             this.isManager = isMananger;
             this.Staff = staff;
-            this.staffPlaceholder = null;         
+            this.staffPlaceholder = null;
             OnInfoUpdate?.Invoke(this, EventArgs.Empty);
         }
 
@@ -129,7 +129,6 @@ namespace CSWBManagementApplication.ViewModels
 
         public StaffDetailsViewModel()
         {
-            
         }
 
         public StaffDetailsViewModel(Staff staff, bool isManager = false)

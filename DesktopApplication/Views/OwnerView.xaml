@@ -129,14 +129,13 @@
                                 <TextBox
                                     Margin="10,0,0,0"
                                     Padding="0"
-                                    HorizontalAlignment="Stretch"
+                                    HorizontalAlignment="Left"
                                     VerticalAlignment="Center"
                                     materialDesign:HintAssist.Hint="Search"
                                     materialDesign:TextFieldAssist.HasClearButton="True"
                                     FontSize="25"
                                     Foreground="{DynamicResource SolidLight}"
-                                    Text="{Binding SearchText, Mode=TwoWay}"
-                                    TextChanged="TextBox_TextChanged" />
+                                    Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             </StackPanel>
 
                             <ScrollViewer
@@ -197,6 +196,16 @@
                 <materialDesign:TransitionerSlide.BackwardWipe>
                     <materialDesign:SlideWipe Direction="Down" />
                 </materialDesign:TransitionerSlide.BackwardWipe>
+
+                <Grid>
+                    <ContentControl Content="{Binding CafeDetailsViewModel}">
+                        <ContentControl.ContentTemplate>
+                            <DataTemplate>
+                                <components:CafeDetails />
+                            </DataTemplate>
+                        </ContentControl.ContentTemplate>
+                    </ContentControl>
+                </Grid>
 
                 <materialDesign:TransitionerSlide.ForwardWipe>
                     <materialDesign:SlideWipe Direction="Up" />

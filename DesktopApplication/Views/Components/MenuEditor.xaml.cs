@@ -3,11 +3,11 @@
 namespace CSWBManagementApplication.Views.Components
 {
     /// <summary>
-    /// Interaction logic for FindStaffViewModel.xaml
+    /// Interaction logic for MenuEditor.xaml
     /// </summary>
-    public partial class FindStaff : UserControl
+    public partial class MenuEditor : UserControl
     {
-        public FindStaff()
+        public MenuEditor()
         {
             InitializeComponent();
         }

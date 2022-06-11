@@ -293,7 +293,8 @@ namespace CSWBManagementApplication.Models
                 hasFloorsInfo = true;
             }
             await Database.GetCafeFloorsInfoAsync(this);
-            OnCafeFloorListChanged?.Invoke(this, EventArgs.Empty);}
+            OnCafeFloorListChanged?.Invoke(this, EventArgs.Empty);
+        }
 
         public async void UploadFloors()
         {
@@ -323,7 +324,7 @@ namespace CSWBManagementApplication.Models
             {
                 await GetCafeStaffsInfo();
             }
-        }      
+        }
 
         public async void RemoveStaff(Staff staff)
         {
@@ -355,6 +356,5 @@ namespace CSWBManagementApplication.Models
         }
 
         public event EventHandler OnCafeFloorListChanged;
-
     }
 }

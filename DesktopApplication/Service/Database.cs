@@ -313,9 +313,9 @@ namespace CSWBManagementApplication.Services
                 result.Floors.Add(floorSnapshot.ConvertTo<Floor>());
             }
             result.Floors.Sort((f1, f2) => f1.FloorNumber.CompareTo(f2.FloorNumber));
-            
+
             return result;
-        }      
+        }
 
         public static async Task<IEnumerable<Cafe>> GetAllCafes()
         {
@@ -333,8 +333,8 @@ namespace CSWBManagementApplication.Services
         {
             QuerySnapshot staffSnapshots = await cafe.CafeReference.Collection(CAFE_STAFF_COLLECTION).WhereEqualTo("Level", 0).GetSnapshotAsync();
             List<Staff> staffs = new List<Staff>();
-            staffs.AddRange(await GetStaffs( from staffSnapshot in staffSnapshots
-                                             select UserDocument(staffSnapshot.Id)));
+            staffs.AddRange(await GetStaffs(from staffSnapshot in staffSnapshots
+                                            select UserDocument(staffSnapshot.Id)));
             foreach (Staff staff in staffs)
             {
                 cafe.Staffs.Add(staff.UID, staff);
@@ -516,11 +516,11 @@ namespace CSWBManagementApplication.Services
             }
             return staffs.AsEnumerable();
         }
-        
+
         public static async Task<IEnumerable<Staff>> GetAllStaffsAsync()
         {
             List<Staff> staffs = new List<Staff>();
-            QuerySnapshot staffSnapshots = await UserCollection.WhereEqualTo("IsOwner",false).GetSnapshotAsync();
+            QuerySnapshot staffSnapshots = await UserCollection.WhereEqualTo("IsOwner", false).GetSnapshotAsync();
             foreach (DocumentSnapshot staffSnapshot in staffSnapshots)
             {
                 if (!staffSnapshot.GetValue<bool>("IsOwner"))
@@ -629,6 +629,12 @@ namespace CSWBManagementApplication.Services
 
         public static async Task<StaffPlaceholder> CreateStaffPlaceholderAsync(string email, string cafeID)
         {
+            DocumentReference staffPlaceholderReference = await FindStaffPlaceholder(email);
+            if (staffPlaceholderReference != null)
+            {
+                await staffPlaceholderReference.UpdateAsync("CafeID", cafeID);
+                return (await staffPlaceholderReference.GetSnapshotAsync()).ConvertTo<StaffPlaceholder>();
+            }
             StaffPlaceholder staffPlaceholder = new StaffPlaceholder()
             {
                 Email = email,
@@ -646,6 +652,16 @@ namespace CSWBManagementApplication.Services
                 return null;
             }
             return staffPlaceholderSnapshot.Documents[0].Reference;
+        }
+
+        public static async Task<StaffPlaceholder> GetStaffPlaceholderAsync(string email)
+        {
+            QuerySnapshot staffPlaceholderSnapshot = await StaffPlaceholderCollection.WhereEqualTo("Email", email).Limit(1).GetSnapshotAsync();
+            if (staffPlaceholderSnapshot.Count == 0)
+            {
+                return null;
+            }
+            return staffPlaceholderSnapshot.Documents[0].ConvertTo<StaffPlaceholder>();
         }
 
         public static async Task RemoveStaffPlaceholder(DocumentReference staffPlaceholderReference)
@@ -723,7 +739,16 @@ namespace CSWBManagementApplication.Services
             await AuthProvider.SendPasswordResetEmailAsync(mail);
         }
 
-        public static async Task DeleteUser(string firebaseToken)
+        public static async Task DeleteUserByMail(string mail)
+        {
+            UserRecord existUserRecord = await AdminAuth.GetUserByEmailAsync(mail); ;
+            if (existUserRecord != null)
+            {
+                await AdminAuth.DeleteUserAsync(existUserRecord.Uid);
+            }
+        }
+
+        public static async Task DeleteUserByToken(string firebaseToken)
         {
             await AuthProvider.DeleteUserAsync(firebaseToken);
         }

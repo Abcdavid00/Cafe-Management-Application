@@ -47,7 +47,7 @@ namespace CSWBManagementApplication.ViewModels
             {
                 if (string.IsNullOrEmpty(staff.CafeID))
                 {
-                    destinationCafe.AddStaff(staff);                    
+                    destinationCafe.AddStaff(staff);
                 }
             });
         }
@@ -66,6 +66,7 @@ namespace CSWBManagementApplication.ViewModels
         public Cafe cafe;
 
         private ObservableCollection<FindStaffItemViewModel> displayStaffs;
+
         public ObservableCollection<FindStaffItemViewModel> DisplayStaffs
         {
             get => displayStaffs;
@@ -123,7 +124,6 @@ namespace CSWBManagementApplication.ViewModels
                 DisplayStaffs = new ObservableCollection<FindStaffItemViewModel>(FullStaffList.Where(x => x.Email.ToLower().Contains(filter)));
             }
             AddStaffPlaceholderButtonVisibility = (DisplayStaffs.Count == 0 ? Visibility.Visible : Visibility.Collapsed);
-            
         }
 
         private Visibility addStaffPlaceholderButtonVisibility;
