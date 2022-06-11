@@ -58,6 +58,11 @@ namespace CSWBManagementApplication.Services
 
         private const string STAFF_PLACEHOLDER_COLLECTION = "StaffPlaceholders";
 
+        private const string CATEGORY_COLLECTION = "Categories";
+        private const string PRODUCT_COLLECTION = "Products";
+
+        private const string ORDER_COLLECTION = "Orders";
+
         private static FirestoreDb db;
 
         public static FirestoreDb FirestoreDatabase
@@ -77,6 +82,11 @@ namespace CSWBManagementApplication.Services
         public static CollectionReference UserCollection = FirestoreDatabase.Collection(USER_COLLECTION);
 
         public static CollectionReference StaffPlaceholderCollection = FirestoreDatabase.Collection(STAFF_PLACEHOLDER_COLLECTION);
+
+        public static CollectionReference CategoryCollection = FirestoreDatabase.Collection(CATEGORY_COLLECTION);
+        public static CollectionReference ProductCollection = FirestoreDatabase.Collection(PRODUCT_COLLECTION);
+
+        public static CollectionReference OrderCollection = FirestoreDatabase.Collection(ORDER_COLLECTION);
 
         #endregion Firestore
 
@@ -207,6 +217,21 @@ namespace CSWBManagementApplication.Services
         public static DocumentReference StaffPlaceholder(string placeholderID)
         {
             return StaffPlaceholderCollection.Document(placeholderID);
+        }
+
+        public static DocumentReference CategoryDocument(string categoryID)
+        {
+            return CategoryCollection.Document(categoryID);
+        }
+
+        public static DocumentReference ProductDocument(string productID)
+        {
+            return ProductCollection.Document(productID);
+        }
+
+        public static DocumentReference OrderDocument(string orderID)
+        {
+            return OrderCollection.Document(orderID);
         }
 
         #endregion Misc
@@ -691,6 +716,99 @@ namespace CSWBManagementApplication.Services
         }
 
         #endregion User
+
+        #region Category
+
+        public static async Task<Category> CreateCategoryAsync(string name)
+        {
+            DocumentReference categoryReference = await CategoryCollection.AddAsync(new Category() { Name = name });
+            return (await categoryReference.GetSnapshotAsync()).ConvertTo<Category>();
+        }
+
+        public static async Task UpdateCategoryAsync(Category category)
+        {
+            try
+            {
+                await CategoryDocument(category.CategoryID).UpdateAsync("Name", category.Name);
+            } catch (Exception e)
+            {
+                
+            }
+        }
+
+        public static async Task AddProductToCategoryAsync(string categoryID, string productID)
+        {
+            try
+            {
+                await ProductDocument(productID).UpdateAsync("CategoryID", categoryID);
+            }
+            catch (Exception e)
+            {
+
+            }
+        }
+
+        public static async Task RemoveCategoryAsync(string categoryID)
+        {
+            try
+            {
+                List<Task> tasks = new List<Task>();
+                QuerySnapshot categoryProductSnapshot = await ProductCollection.WhereEqualTo("CategoryID", categoryID).GetSnapshotAsync();
+                foreach (DocumentSnapshot productSnapshot in categoryProductSnapshot.Documents)
+                {
+                    tasks.Add( productSnapshot.Reference.UpdateAsync("CategoryID", ""));
+                }
+                tasks.Add(CategoryDocument(categoryID).DeleteAsync());
+                await Task.WhenAll(tasks);
+            }
+            catch (Exception e)
+            {
+
+            }
+        }
+
+
+
+        #endregion
+
+        #region Product
+
+        public static async Task<Product> CreateProductAsync(string name, int sPrice, int mPrice, int lPrice)
+        {
+            DocumentReference productReference = await ProductCollection.AddAsync(new Product()
+            {
+                Name = name,
+                SPrice = sPrice,
+                MPrice = mPrice,
+                LPrice = lPrice
+            });
+            return (await productReference.GetSnapshotAsync()).ConvertTo<Product>();
+        }
+
+        public static async Task UpdateProductAsync(Product product)
+        {
+            try
+            {
+                List<Task> tasks = new List<Task>();
+                DocumentReference productReference = ProductDocument(product.ProductID);
+                tasks.Add(productReference.UpdateAsync("Name", product.Name));
+                tasks.Add(productReference.UpdateAsync("SPrice", product.SPrice));
+                tasks.Add(productReference.UpdateAsync("MPrice", product.MPrice));
+                tasks.Add(productReference.UpdateAsync("LPrice", product.LPrice));
+                await Task.WhenAll(tasks);
+            }
+            catch (Exception e)
+            {
+
+            }
+        }
+
+        public static async Task RemoveProductFromCategoryAsync(string productID)
+        {
+            await ProductDocument(productID).UpdateAsync("CategoryID", "");
+        }
+
+        #endregion
 
         #endregion Firestore
 

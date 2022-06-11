@@ -305,6 +305,7 @@
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Models\Cafe.cs" />
     <Compile Include="Models\CafeLayoutUpdate.cs" />
+    <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Menu.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Owner.cs" />
