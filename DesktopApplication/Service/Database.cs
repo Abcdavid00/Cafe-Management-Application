@@ -741,10 +741,16 @@ namespace CSWBManagementApplication.Services
 
         public static async Task DeleteUserByMail(string mail)
         {
-            UserRecord existUserRecord = await AdminAuth.GetUserByEmailAsync(mail); ;
-            if (existUserRecord != null)
+            try
             {
-                await AdminAuth.DeleteUserAsync(existUserRecord.Uid);
+                UserRecord existUserRecord = await AdminAuth.GetUserByEmailAsync(mail); ;
+                if (existUserRecord != null)
+                {
+                    await AdminAuth.DeleteUserAsync(existUserRecord.Uid);
+                }
+            } catch (Exception e)
+            {
+                
             }
         }
 
