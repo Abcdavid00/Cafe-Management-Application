@@ -208,6 +208,7 @@
                             Visibility="{Binding MakeManagerButtonVisibility, Mode=OneWay}">
                             <materialDesign:PackIcon Kind="CrownCircleOutline" />
                         </Button>
+
                     </StackPanel>
                 </materialDesign:Card>
 

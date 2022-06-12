@@ -14,7 +14,7 @@
             VerticalAlignment="Center"
             FontSize="42"
             FontWeight="Bold"
-            Foreground="{StaticResource SolidLightGray}"
+            Foreground="{DynamicResource SolidLight}"
             Text="{Binding ViewName}" />
     </Grid>
 </UserControl>

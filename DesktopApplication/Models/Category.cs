@@ -25,5 +25,18 @@ namespace CSWBManagementApplication.Models
         {
             await Database.UpdateCategoryAsync(this);
         }
+
+        public event EventHandler ProductListUpdated;
+
+        private List<Product> products;
+        public List<Product> Products
+        {
+            get => products;
+            private set
+            {
+                products = value;
+                ProductListUpdated?.Invoke(this, EventArgs.Empty);
+            }
+        }
     }
 }

@@ -422,15 +422,30 @@ namespace CSWBManagementApplication.Services
             DocumentReference floorDocument = FloorDocument(cafeID, floorID);
             await floorDocument.DeleteAsync();
         }
-
-        public static DocumentReference FindManagerAsync(string cafeID)
+        
+        public static async Task<DocumentReference> FindManagerAsync(string cafeID)
         {
-            QuerySnapshot managerSnapshot = CafeStaffCollection(cafeID).WhereEqualTo("Level", 1).GetSnapshotAsync().Result;
+            QuerySnapshot managerSnapshot = await CafeStaffCollection(cafeID).WhereEqualTo("Level", 1).GetSnapshotAsync();
             if (managerSnapshot.Count != 0)
             {
                 return UserDocument(managerSnapshot.Documents[0].Id);
             }
             return null;
+        }
+
+        public static async Task RemoveManagerAsync(string cafeID)
+        {
+            QuerySnapshot managerSnapshot = await CafeStaffCollection(cafeID).WhereEqualTo("Level", 1).GetSnapshotAsync();
+            if (managerSnapshot.Count != 0)
+            {
+                await StaffDocument(cafeID, managerSnapshot.Documents[0].Id).UpdateAsync("Level",0);
+            }
+        }
+
+        public static async Task SetManagerAsync(string cafeID, string StaffID)
+        {
+            await RemoveManagerAsync(cafeID);
+            await StaffDocument(cafeID, StaffID).UpdateAsync("Level", 1);
         }
 
         public static async Task<IEnumerable<DocumentReference>> FindStaffsAsync(string cafeID)
@@ -570,9 +585,9 @@ namespace CSWBManagementApplication.Services
             return staffs.AsEnumerable();
         }
 
-        public static async Task<Models.User.Roles> UserRole(DocumentReference userReference)
+        public static Models.User.Roles UserRole(DocumentReference userReference)
         {
-            DocumentSnapshot userSnapshot = await userReference.GetSnapshotAsync();
+            DocumentSnapshot userSnapshot = userReference.GetSnapshotAsync().Result;
 
             if (!userSnapshot.Exists)
             {
@@ -585,7 +600,7 @@ namespace CSWBManagementApplication.Services
             }
 
             Staff staff = userSnapshot.ConvertTo<Staff>();
-            DocumentSnapshot staffSnapshot = await StaffDocument(staff.CafeID, staff.UID).GetSnapshotAsync();
+            DocumentSnapshot staffSnapshot = StaffDocument(staff.CafeID, staff.UID).GetSnapshotAsync().Result;
 
             if (!staffSnapshot.Exists)
             {
@@ -767,7 +782,16 @@ namespace CSWBManagementApplication.Services
             }
         }
 
-
+        public static async Task<IEnumerable<Product>> GetProductAsync(string categoryID)
+        {
+            QuerySnapshot productsSnapshot = await ProductCollection.WhereEqualTo("CategoryID", categoryID).GetSnapshotAsync();
+            List<Product> products = new List<Product>();
+            foreach (DocumentSnapshot productSnapshot in productsSnapshot.Documents)
+            {
+                products.Add(productSnapshot.ConvertTo<Product>());
+            }
+            return products.AsEnumerable();
+        }
 
         #endregion
 
@@ -800,6 +824,20 @@ namespace CSWBManagementApplication.Services
             catch (Exception e)
             {
 
+            }
+        }
+
+        
+        
+        public static async Task GetProductInfoAsync(Product product)
+        {
+            DocumentSnapshot productSnapshot = await ProductDocument(product.ProductID).GetSnapshotAsync();
+            if (productSnapshot.Exists)
+            {
+                product.Name = productSnapshot.GetValue<string>("Name");
+                product.SPrice = productSnapshot.GetValue<int>("SPrice");
+                product.MPrice = productSnapshot.GetValue<int>("MPrice");
+                product.LPrice = productSnapshot.GetValue<int>("LPrice");
             }
         }
 

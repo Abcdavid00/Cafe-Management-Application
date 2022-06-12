@@ -218,6 +218,8 @@
                     <materialDesign:SlideWipe Direction="Down" />
                 </materialDesign:TransitionerSlide.BackwardWipe>
 
+                <components:MenuEditor/>
+
                 <materialDesign:TransitionerSlide.ForwardWipe>
                     <materialDesign:SlideWipe Direction="Up" />
                 </materialDesign:TransitionerSlide.ForwardWipe>
