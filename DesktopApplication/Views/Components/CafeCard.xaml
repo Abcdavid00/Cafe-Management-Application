@@ -5,7 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="200"
+    d:DesignHeight="400"
     d:DesignWidth="300"
     mc:Ignorable="d">
     <Grid
@@ -22,7 +22,7 @@
             Style="{StaticResource DefaultButton}">
             <Button.Content>
                 <Grid>
-                    <materialDesign:Card Background="{DynamicResource LinearBackground}" UniformCornerRadius="10">
+                    <materialDesign:Card Background="{DynamicResource SolidDark}" UniformCornerRadius="10">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="0.5*" />
@@ -34,7 +34,7 @@
                             <Grid Grid.Row="1">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*" />
-                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="1.75*" />
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
@@ -59,7 +59,7 @@
                                     Margin="10,0,0,0"
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Center"
-                                    FontSize="20"
+                                    FontSize="18"
                                     Foreground="{DynamicResource SolidLight}"
                                     Text="Manager" />
 
@@ -69,15 +69,17 @@
                                     Margin="10,0,0,0"
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Center"
-                                    FontSize="20"
-                                    Foreground="{DynamicResource SolidLight}"
-                                    Text="{Binding ManagerName}" />
+                                    FontSize="15"
+                                    Foreground="{DynamicResource TextColorDarkerGray}"
+                                    Text="{Binding ManagerName}"
+                                    TextWrapping="Wrap"
+                                    Padding="0 0 5 0"/>
                             </Grid>
 
                             <Grid Grid.Row="2">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*" />
-                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="1.75*" />
                                 </Grid.RowDefinitions>
 
                                 <TextBlock
@@ -85,7 +87,7 @@
                                     Margin="15,0,0,0"
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Center"
-                                    FontSize="20"
+                                    FontSize="18"
                                     Foreground="{DynamicResource SolidLight}"
                                     Text="Address" />
 
@@ -94,9 +96,10 @@
                                     Margin="15,0,0,0"
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Center"
-                                    FontSize="20"
-                                    Foreground="{DynamicResource SolidLight}"
-                                    Text="{Binding Address}" />
+                                    FontSize="15"
+                                    Foreground="{DynamicResource TextColorDarkerGray}"
+                                    Text="{Binding Address}"
+                                    TextWrapping="Wrap"/>
                             </Grid>
                         </Grid>
                     </materialDesign:Card>

@@ -51,4 +51,7 @@
 
     <Color x:Key="ColorDarkGray">#999999</Color>
     <SolidColorBrush x:Key="TextColorDarkGray" Color="{DynamicResource ColorDarkGray}" />
+
+    <Color x:Key="ColorDarkerGray">#777777</Color>
+    <SolidColorBrush x:Key="TextColorDarkerGray" Color="{DynamicResource ColorDarkerGray}" />
 </ResourceDictionary>

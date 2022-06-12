@@ -25,7 +25,8 @@
                 Command="{Binding StatisticsButtonPressed, Mode=OneWay}"
                 Content="Statistics"
                 IsChecked="{Binding IsStatisticSelected, Mode=OneWay}"
-                Style="{StaticResource MaterialDesignTabRadioButton}" />
+                Style="{StaticResource MaterialDesignTabRadioButton}" >
+            </RadioButton>
 
             <RadioButton
                 Margin="0"
@@ -52,7 +53,7 @@
                 <ContentControl>
                     <ContentControl.ContentTemplate>
                         <DataTemplate>
-                            <Grid Background="LightBlue" />
+                            <components:CafeStatistics/>
                         </DataTemplate>
                     </ContentControl.ContentTemplate>
                 </ContentControl>

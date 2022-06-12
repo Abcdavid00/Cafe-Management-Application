@@ -2,11 +2,964 @@
     x:Class="CSWBManagementApplication.Views.Components.CafeStatistics"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:components="clr-namespace:CSWBManagementApplication.Views.Components"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:CSWBManagementApplication.Views.Components"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
-    <Grid />
+    <Grid Background="{DynamicResource LinearDarkBackground}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20*" />
+            <RowDefinition Height="290*" />
+            <RowDefinition Height="20*" />
+            <RowDefinition Height="660*" />
+            <RowDefinition Height="20*" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10*" />
+            <ColumnDefinition Width="980*" />
+            <ColumnDefinition Width="10*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="600*" />
+                <ColumnDefinition Width="10*" />
+                <ColumnDefinition Width="290*" />
+            </Grid.ColumnDefinitions>
+
+            <!--  Time card  -->
+            <materialDesign:Card
+                Grid.Column="0"
+                Background="{DynamicResource SolidDark}"
+                UniformCornerRadius="10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*" />
+                        <RowDefinition Height="160*" />
+                        <RowDefinition Height="790*" />
+                        <RowDefinition Height="40*" />
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="15*" />
+                        <ColumnDefinition Width="960*" />
+                        <ColumnDefinition Width="25*" />
+                    </Grid.ColumnDefinitions>
+
+
+                    <TextBlock
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        FontSize="24"
+                        FontWeight="Bold"
+                        Foreground="{DynamicResource LinearMain}"
+                        Text="Time" />
+
+                    <Grid Grid.Row="2" Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="5*" />
+                            <RowDefinition Height="240*" />
+                            <RowDefinition Height="10*" />
+                            <RowDefinition Height="240*" />
+                            <RowDefinition Height="10*" />
+                            <RowDefinition Height="240*" />
+                            <RowDefinition Height="10*" />
+                            <RowDefinition Height="240*" />
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="20*" />
+                            <ColumnDefinition Width="118.133" />
+                            <ColumnDefinition Width="5*" />
+                            <ColumnDefinition Width="118*" />
+                            <ColumnDefinition Width="5*" />
+                            <ColumnDefinition Width="118*" />
+                            <ColumnDefinition Width="5*" />
+                            <ColumnDefinition Width="118*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            FontSize="20"
+                            Foreground="White"
+                            Text="Filter by" />
+
+                        <TextBlock
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            FontSize="20"
+                            Foreground="White"
+                            Text="From" />
+
+                        <TextBlock
+                            Grid.Row="5"
+                            Grid.Column="1"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            FontSize="20"
+                            Foreground="White"
+                            Text="To" />
+
+                        <Grid Grid.Row="1" Grid.Column="3">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="15*" />
+                                <ColumnDefinition Width="85*" />
+                            </Grid.ColumnDefinitions>
+
+                            <RadioButton
+                                Grid.Column="0"
+                                HorizontalContentAlignment="Left"
+                                VerticalContentAlignment="Center"
+                                GroupName="Filter by"
+                                Style="{StaticResource MaterialDesignRadioButton}" />
+                            <TextBlock
+                                Grid.Column="1"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Foreground="White"
+                                Text="Day" />
+
+                        </Grid>
+
+                        <Grid Grid.Row="1" Grid.Column="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="15*" />
+                                <ColumnDefinition Width="85*" />
+                            </Grid.ColumnDefinitions>
+
+                            <RadioButton
+                                Grid.Column="0"
+                                HorizontalContentAlignment="Left"
+                                VerticalContentAlignment="Center"
+                                GroupName="Filter by"
+                                Style="{StaticResource MaterialDesignRadioButton}" />
+                            <TextBlock
+                                Grid.Column="1"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Foreground="White"
+                                Text="Month" />
+
+                        </Grid>
+
+                        <Grid Grid.Row="1" Grid.Column="7">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="15*" />
+                                <ColumnDefinition Width="85*" />
+                            </Grid.ColumnDefinitions>
+
+                            <RadioButton
+                                Grid.Column="0"
+                                HorizontalContentAlignment="Left"
+                                VerticalContentAlignment="Center"
+                                GroupName="Filter by"
+                                Style="{StaticResource MaterialDesignRadioButton}" />
+                            <TextBlock
+                                Grid.Column="1"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Foreground="White"
+                                Text="Year" />
+                        </Grid>
+
+                        <!--  -ComboBox Day  -->
+                        <ComboBox
+                            Grid.Row="3"
+                            Grid.Column="3"
+                            Width="100"
+                            Padding="10,5,10,5"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            FontSize="15"
+                            Foreground="White"
+                            Style="{StaticResource MaterialDesignOutlinedComboBox}">
+                            <ComboBox.Items>
+                                <ComboBoxItem Content="01" Tag="01" />
+                                <ComboBoxItem Content="02" Tag="02" />
+                                <ComboBoxItem Content="03" Tag="03" />
+                                <ComboBoxItem Content="04" Tag="04" />
+                                <ComboBoxItem Content="05" Tag="05" />
+                                <ComboBoxItem Content="06" Tag="06" />
+                                <ComboBoxItem Content="07" Tag="07" />
+                                <ComboBoxItem Content="08" Tag="08" />
+                                <ComboBoxItem Content="09" Tag="09" />
+                                <ComboBoxItem Content="10" Tag="10" />
+                                <ComboBoxItem Content="11" Tag="11" />
+                                <ComboBoxItem Content="12" Tag="12" />
+                                <ComboBoxItem Content="13" Tag="13" />
+                                <ComboBoxItem Content="14" Tag="14" />
+                                <ComboBoxItem Content="15" Tag="15" />
+                                <ComboBoxItem Content="16" Tag="16" />
+                                <ComboBoxItem Content="17" Tag="17" />
+                                <ComboBoxItem Content="18" Tag="18" />
+                                <ComboBoxItem Content="19" Tag="19" />
+                                <ComboBoxItem Content="20" Tag="20" />
+                                <ComboBoxItem Content="21" Tag="21" />
+                                <ComboBoxItem Content="22" Tag="22" />
+                                <ComboBoxItem Content="23" Tag="23" />
+                                <ComboBoxItem Content="24" Tag="24" />
+                                <ComboBoxItem Content="25" Tag="25" />
+                                <ComboBoxItem Content="26" Tag="26" />
+                                <ComboBoxItem Content="27" Tag="27" />
+                                <ComboBoxItem Content="28" Tag="28" />
+                                <ComboBoxItem Content="29" Tag="29" />
+                                <ComboBoxItem Content="30" Tag="30" />
+                                <ComboBoxItem Content="31" Tag="31" />
+                            </ComboBox.Items>
+                        </ComboBox>
+
+                        <!--  -ComboBox Month  -->
+                        <ComboBox
+                            Grid.Row="3"
+                            Grid.Column="5"
+                            Width="100"
+                            Padding="10,5,10,5"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            FontSize="15"
+                            Foreground="White"
+                            Style="{StaticResource MaterialDesignOutlinedComboBox}">
+                            <ComboBox.Items>
+                                <ComboBoxItem Content="01" Tag="01" />
+                                <ComboBoxItem Content="02" Tag="02" />
+                                <ComboBoxItem Content="03" Tag="03" />
+                                <ComboBoxItem Content="04" Tag="04" />
+                                <ComboBoxItem Content="05" Tag="05" />
+                                <ComboBoxItem Content="06" Tag="06" />
+                                <ComboBoxItem Content="07" Tag="07" />
+                                <ComboBoxItem Content="08" Tag="08" />
+                                <ComboBoxItem Content="09" Tag="09" />
+                                <ComboBoxItem Content="10" Tag="10" />
+                                <ComboBoxItem Content="11" Tag="11" />
+                                <ComboBoxItem Content="12" Tag="12" />
+                            </ComboBox.Items>
+                        </ComboBox>
+
+                        <!--  -ComboBox Year  -->
+                        <ComboBox
+                            Grid.Row="3"
+                            Grid.Column="7"
+                            Width="100"
+                            Padding="10,5,10,5"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            FontSize="15"
+                            Foreground="White"
+                            IsEditable="true"
+                            Style="{StaticResource MaterialDesignOutlinedComboBox}">
+                            <ComboBox.Items>
+                                <ComboBoxItem Content="2001" Tag="01" />
+                                <ComboBoxItem Content="2002" Tag="02" />
+                                <ComboBoxItem Content="2003" Tag="03" />
+                                <ComboBoxItem Content="2004" Tag="04" />
+                                <ComboBoxItem Content="2005" Tag="05" />
+                                <ComboBoxItem Content="2006" Tag="06" />
+                                <ComboBoxItem Content="2007" Tag="07" />
+                                <ComboBoxItem Content="2008" Tag="08" />
+                                <ComboBoxItem Content="2009" Tag="09" />
+                                <ComboBoxItem Content="2010" Tag="10" />
+                                <ComboBoxItem Content="2011" Tag="11" />
+                                <ComboBoxItem Content="2012" Tag="12" />
+                            </ComboBox.Items>
+                        </ComboBox>
+
+                        <CheckBox
+                            x:Name="ToCheckBox"
+                            Grid.Row="5"
+                            Grid.Column="0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            IsChecked="True"
+                            IsThreeState="False" />
+
+                        <!--  -ComboBox Day  -->
+                        <ComboBox
+                            Grid.Row="5"
+                            Grid.Column="3"
+                            Width="100"
+                            Padding="10,5,10,5"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            FontSize="15"
+                            Foreground="White"
+                            Style="{StaticResource MaterialDesignOutlinedComboBox}">
+                            <ComboBox.Items>
+                                <ComboBoxItem Content="01" Tag="01" />
+                                <ComboBoxItem Content="02" Tag="02" />
+                                <ComboBoxItem Content="03" Tag="03" />
+                                <ComboBoxItem Content="04" Tag="04" />
+                                <ComboBoxItem Content="05" Tag="05" />
+                                <ComboBoxItem Content="06" Tag="06" />
+                                <ComboBoxItem Content="07" Tag="07" />
+                                <ComboBoxItem Content="08" Tag="08" />
+                                <ComboBoxItem Content="09" Tag="09" />
+                                <ComboBoxItem Content="10" Tag="10" />
+                                <ComboBoxItem Content="11" Tag="11" />
+                                <ComboBoxItem Content="12" Tag="12" />
+                                <ComboBoxItem Content="13" Tag="13" />
+                                <ComboBoxItem Content="14" Tag="14" />
+                                <ComboBoxItem Content="15" Tag="15" />
+                                <ComboBoxItem Content="16" Tag="16" />
+                                <ComboBoxItem Content="17" Tag="17" />
+                                <ComboBoxItem Content="18" Tag="18" />
+                                <ComboBoxItem Content="19" Tag="19" />
+                                <ComboBoxItem Content="20" Tag="20" />
+                                <ComboBoxItem Content="21" Tag="21" />
+                                <ComboBoxItem Content="22" Tag="22" />
+                                <ComboBoxItem Content="23" Tag="23" />
+                                <ComboBoxItem Content="24" Tag="24" />
+                                <ComboBoxItem Content="25" Tag="25" />
+                                <ComboBoxItem Content="26" Tag="26" />
+                                <ComboBoxItem Content="27" Tag="27" />
+                                <ComboBoxItem Content="28" Tag="28" />
+                                <ComboBoxItem Content="29" Tag="29" />
+                                <ComboBoxItem Content="30" Tag="30" />
+                                <ComboBoxItem Content="31" Tag="31" />
+                            </ComboBox.Items>
+                        </ComboBox>
+
+                        <!--  -ComboBox Month  -->
+                        <ComboBox
+                            Grid.Row="5"
+                            Grid.Column="5"
+                            Width="100"
+                            Padding="10,5,10,5"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            FontSize="15"
+                            Foreground="White"
+                            Style="{StaticResource MaterialDesignOutlinedComboBox}">
+                            <ComboBox.Items>
+                                <ComboBoxItem Content="01" Tag="01" />
+                                <ComboBoxItem Content="02" Tag="02" />
+                                <ComboBoxItem Content="03" Tag="03" />
+                                <ComboBoxItem Content="04" Tag="04" />
+                                <ComboBoxItem Content="05" Tag="05" />
+                                <ComboBoxItem Content="06" Tag="06" />
+                                <ComboBoxItem Content="07" Tag="07" />
+                                <ComboBoxItem Content="08" Tag="08" />
+                                <ComboBoxItem Content="09" Tag="09" />
+                                <ComboBoxItem Content="10" Tag="10" />
+                                <ComboBoxItem Content="11" Tag="11" />
+                                <ComboBoxItem Content="12" Tag="12" />
+                            </ComboBox.Items>
+                        </ComboBox>
+
+                        <!--  -ComboBox Year  -->
+                        <ComboBox
+                            Grid.Row="5"
+                            Grid.Column="7"
+                            Width="100"
+                            Padding="10,5,10,5"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            FontSize="15"
+                            Foreground="White"
+                            IsEditable="true"
+                            Style="{StaticResource MaterialDesignOutlinedComboBox}">
+                            <ComboBox.Items>
+                                <ComboBoxItem Content="2001" Tag="01" />
+                                <ComboBoxItem Content="2002" Tag="02" />
+                                <ComboBoxItem Content="2003" Tag="03" />
+                                <ComboBoxItem Content="2004" Tag="04" />
+                                <ComboBoxItem Content="2005" Tag="05" />
+                                <ComboBoxItem Content="2006" Tag="06" />
+                                <ComboBoxItem Content="2007" Tag="07" />
+                                <ComboBoxItem Content="2008" Tag="08" />
+                                <ComboBoxItem Content="2009" Tag="09" />
+                                <ComboBoxItem Content="2010" Tag="10" />
+                                <ComboBoxItem Content="2011" Tag="11" />
+                                <ComboBoxItem Content="2012" Tag="12" />
+                            </ComboBox.Items>
+                        </ComboBox>
+
+
+                        <Button
+                            Grid.Row="7"
+                            Grid.Column="7"
+                            Width="35"
+                            Height="35"
+                            Margin="0"
+                            Padding="0"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                            Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                            ToolTip="MaterialDesignFloatingActionMiniDarkButton">
+                            <materialDesign:PackIcon
+                                Width="20"
+                                Height="20"
+                                Kind="Search" />
+                        </Button>
+
+
+                    </Grid>
+
+                </Grid>
+
+            </materialDesign:Card>
+
+            <!--  Card Information  -->
+            <materialDesign:Card
+                Grid.Column="2"
+                Background="{DynamicResource SolidDark}"
+                UniformCornerRadius="10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*" />
+                        <RowDefinition Height="160*" />
+                        <RowDefinition Height="790*" />
+                        <RowDefinition Height="40*" />
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30*" />
+                        <ColumnDefinition Width="940*" />
+                        <ColumnDefinition Width="30*" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        FontSize="24"
+                        FontWeight="Bold"
+                        Foreground="{DynamicResource LinearMain}"
+                        Text="Info" />
+
+                    <!--<TextBlock
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Margin="0,0,5,0"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        FontSize="17"
+                        Foreground="{DynamicResource TextColorDarkGray}"
+                        Text="Edit" />-->
+                    <Grid Grid.Row="2" Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <!--<ColumnDefinition Width="0*"/>-->
+                            <ColumnDefinition Width="980*" />
+                            <ColumnDefinition Width="10*" />
+                        </Grid.ColumnDefinitions>
+
+                        <!--  Manager info  -->
+                        <Grid Grid.Row="0" Grid.Column="0">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="20*" />
+                                <ColumnDefinition Width="80*" />
+                            </Grid.ColumnDefinitions>
+
+                            <!--<Image Grid.Row="0"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Source="Assets/Logo.png"
+                                   Width="50"
+                                   Height="50"
+                                   Stretch="UniformToFill"/>-->
+
+                            <materialDesign:PackIcon
+                                Grid.Row="0"
+                                Width="auto"
+                                Height="auto"
+                                Margin="10,10,10,10"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="{DynamicResource SolidLight}"
+                                Kind="AccountCircle" />
+
+                            <StackPanel
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center">
+                                <TextBlock
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    FontSize="20"
+                                    Foreground="{DynamicResource SolidLight}"
+                                    Text="Manager" />
+
+                                <TextBlock
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    FontSize="17"
+                                    Foreground="{DynamicResource TextColorDarkerGray}"
+                                    Text="Huynh Duy Khang " />
+
+                            </StackPanel>
+                        </Grid>
+                        <StackPanel
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            Margin="20,0,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center">
+                            <WrapPanel>
+                                <TextBlock
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    FontSize="20"
+                                    Foreground="{DynamicResource SolidLight}"
+                                    Text="Address" />
+
+                                <Button
+                                    Width="17"
+                                    Height="17"
+                                    Margin="10,0,0,0"
+                                    Padding="0,0,0,2"
+                                    VerticalAlignment="Center"
+                                    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                    ToolTip="{Binding toolTip}">
+                                    <materialDesign:PackIcon
+                                        Height="15"
+                                        VerticalAlignment="Center"
+                                        Kind="{Binding icon}" />
+                                    <!--
+                                        Kind="SquareEditOutline"
+                                        Kind="ContentSave" />
+                                    -->
+                                </Button>
+
+                                <Button
+                                    Width="17"
+                                    Height="17"
+                                    Margin="10,0,0,0"
+                                    Padding="0,0,0,2"
+                                    VerticalAlignment="Center"
+                                    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                    ToolTip="{Binding toolTip}"
+                                    Visibility="{Binding visibilityCancelButton}">
+                                    <materialDesign:PackIcon
+                                        Height="15"
+                                        VerticalAlignment="Center"
+                                        Kind="Cancel" />
+                                </Button>
+                            </WrapPanel>
+
+
+                            <TextBox
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="17"
+                                Foreground="#AAAAAA"
+                                IsEnabled="{Binding isEnableAddress}"
+                                Text="10/34, Ward 5, Thong Nhat, Bien Hoa City, Dong Nai Province, Viet Nam "
+                                TextWrapping="Wrap" />
+
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </materialDesign:Card>
+        </Grid>
+
+        <Grid Grid.Row="3" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200*" />
+                <ColumnDefinition Width="10*" />
+                <ColumnDefinition Width="300*" />
+                <ColumnDefinition Width="10*" />
+                <ColumnDefinition Width="600*" />
+            </Grid.ColumnDefinitions>
+
+            <materialDesign:Card
+                Grid.Column="0"
+                Background="{DynamicResource SolidDark}"
+                Foreground="{DynamicResource SolidLight}"
+                UniformCornerRadius="10">
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="9*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="60*" />
+                        <ColumnDefinition Width="880*" />
+                        <ColumnDefinition Width="60*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        FontSize="20"
+                        FontWeight="Bold"
+                        Foreground="{DynamicResource LinearMain}"
+                        Text="Revenue" />
+
+                    <Grid Grid.Row="1" Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="9*" />
+                        </Grid.RowDefinitions>
+                        <Grid
+                            Grid.Row="0"
+                            Height="auto"
+                            VerticalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1.5*" />
+                                <ColumnDefinition Width="2*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                FontSize="{DynamicResource MediumFontSize}"
+                                FontWeight="Bold"
+                                Text="Time" />
+                            <TextBlock
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                FontSize="{DynamicResource MediumFontSize}"
+                                FontWeight="Bold"
+                                Text="Revenue" />
+
+                        </Grid>
+
+                        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible">
+                            <ItemsControl
+                                Margin="10,0,10,10"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                ItemsSource="{Binding StaffInfos, Mode=OneWay}"
+                                VirtualizingPanel.IsVirtualizing="True"
+                                VirtualizingPanel.VirtualizationMode="Recycling">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Vertical" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Button
+                                            Height="auto"
+                                            Margin="5,5,5,5"
+                                            Padding="10"
+                                            HorizontalContentAlignment="Stretch"
+                                            materialDesign:ButtonAssist.CornerRadius="10"
+                                            Background="{Binding Background, Mode=OneWay}"
+                                            Command="{Binding Command, Mode=OneWay}"
+                                            Foreground="{Binding Foreground, Mode=OneWay}">
+                                            <Grid Margin="15,5,5,5">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="1.5*" />
+                                                    <ColumnDefinition Width="2*" />
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock
+                                                    Grid.Column="0"
+                                                    Padding="0,0,10,0"
+                                                    VerticalAlignment="Center"
+                                                    Text="{Binding Time, Mode=OneWay}"
+                                                    TextWrapping="Wrap" />
+                                                <TextBlock
+                                                    Grid.Column="1"
+                                                    VerticalAlignment="Center"
+                                                    Text="{Binding Revenue, Mode=OneWay}"
+                                                    TextWrapping="Wrap" />
+                                            </Grid>
+                                        </Button>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </Grid>
+                </Grid>
+
+            </materialDesign:Card>
+
+            <materialDesign:Card
+                Grid.Column="2"
+                Background="{DynamicResource SolidDark}"
+                Foreground="{DynamicResource SolidLight}"
+                UniformCornerRadius="10">
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="9*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30*" />
+                        <ColumnDefinition Width="940*" />
+                        <ColumnDefinition Width="30*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        FontSize="20"
+                        FontWeight="Bold"
+                        Foreground="{DynamicResource LinearMain}"
+                        Text="Drinks" />
+
+                    <Grid Grid.Row="1" Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="9*" />
+                        </Grid.RowDefinitions>
+                        <Grid
+                            Grid.Row="0"
+                            Height="auto"
+                            VerticalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1.5*" />
+                                <ColumnDefinition Width="0.5*" />
+                                <ColumnDefinition Width="1.5*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                FontSize="{DynamicResource MediumFontSize}"
+                                FontWeight="Bold"
+                                Text="Name" />
+                            <TextBlock
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                FontSize="{DynamicResource MediumFontSize}"
+                                FontWeight="Bold"
+                                Text="Size" />
+                            <TextBlock
+                                Grid.Column="2"
+                                VerticalAlignment="Center"
+                                FontSize="{DynamicResource MediumFontSize}"
+                                FontWeight="Bold"
+                                Text="Sold" />
+                        </Grid>
+
+                        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible">
+                            <ItemsControl
+                                Margin="10,0,10,10"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                ItemsSource="{Binding StaffInfos, Mode=OneWay}"
+                                VirtualizingPanel.IsVirtualizing="True"
+                                VirtualizingPanel.VirtualizationMode="Recycling">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Vertical" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Button
+                                            Height="auto"
+                                            Margin="5,5,5,5"
+                                            Padding="10"
+                                            HorizontalContentAlignment="Stretch"
+                                            materialDesign:ButtonAssist.CornerRadius="10"
+                                            Background="{Binding Background, Mode=OneWay}"
+                                            Command="{Binding Command, Mode=OneWay}"
+                                            Foreground="{Binding Foreground, Mode=OneWay}">
+                                            <Grid Margin="15,5,5,5">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="1.5*" />
+                                                    <ColumnDefinition Width="0.5*" />
+                                                    <ColumnDefinition Width="1.5*" />
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock
+                                                    Grid.Column="0"
+                                                    Padding="0,0,10,0"
+                                                    VerticalAlignment="Center"
+                                                    Text="{Binding Name, Mode=OneWay}"
+                                                    TextWrapping="Wrap" />
+                                                <TextBlock
+                                                    Grid.Column="1"
+                                                    VerticalAlignment="Center"
+                                                    Text="{Binding Size, Mode=OneWay}"
+                                                    TextWrapping="Wrap" />
+                                                <TextBlock
+                                                    Grid.Column="1"
+                                                    VerticalAlignment="Center"
+                                                    Text="{Binding Sold, Mode=OneWay}"
+                                                    TextWrapping="Wrap" />
+                                            </Grid>
+                                        </Button>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </Grid>
+                </Grid>
+
+            </materialDesign:Card>
+
+            <materialDesign:Card
+                Grid.Column="4"
+                Background="{DynamicResource SolidDark}"
+                Foreground="{DynamicResource SolidLight}"
+                UniformCornerRadius="10">
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="9*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30*" />
+                        <ColumnDefinition Width="940*" />
+                        <ColumnDefinition Width="30*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        FontSize="20"
+                        FontWeight="Bold"
+                        Foreground="{DynamicResource LinearMain}"
+                        Text="Order History" />
+
+                    <Grid Grid.Row="1" Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="9*" />
+                        </Grid.RowDefinitions>
+                        <Grid
+                            Grid.Row="0"
+                            Height="auto"
+                            VerticalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1.5*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1.5*" />
+                                <ColumnDefinition Width="1.5*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                FontSize="{DynamicResource MediumFontSize}"
+                                FontWeight="Bold"
+                                Text="Name" />
+                            <TextBlock
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                FontSize="{DynamicResource MediumFontSize}"
+                                FontWeight="Bold"
+                                Text="Size" />
+                            <TextBlock
+                                Grid.Column="2"
+                                VerticalAlignment="Center"
+                                FontSize="{DynamicResource MediumFontSize}"
+                                FontWeight="Bold"
+                                Text="Category" />
+                            <TextBlock
+                                Grid.Column="3"
+                                VerticalAlignment="Center"
+                                FontSize="{DynamicResource MediumFontSize}"
+                                FontWeight="Bold"
+                                Text="Sold" />
+                        </Grid>
+
+                        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible">
+                            <ItemsControl
+                                Margin="10,0,10,10"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                ItemsSource="{Binding StaffInfos, Mode=OneWay}"
+                                VirtualizingPanel.IsVirtualizing="True"
+                                VirtualizingPanel.VirtualizationMode="Recycling">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Vertical" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Button
+                                            Height="auto"
+                                            Margin="5,5,5,5"
+                                            Padding="10"
+                                            HorizontalContentAlignment="Stretch"
+                                            materialDesign:ButtonAssist.CornerRadius="10"
+                                            Background="{Binding Background, Mode=OneWay}"
+                                            Command="{Binding Command, Mode=OneWay}"
+                                            Foreground="{Binding Foreground, Mode=OneWay}">
+                                            <Grid Margin="15,5,5,5">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="1.5*" />
+                                                    <ColumnDefinition Width="1*" />
+                                                    <ColumnDefinition Width="1.5*" />
+                                                    <ColumnDefinition Width="1.5*" />
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock
+                                                    Grid.Column="0"
+                                                    Padding="0,0,10,0"
+                                                    VerticalAlignment="Center"
+                                                    Text="{Binding Name, Mode=OneWay}"
+                                                    TextWrapping="Wrap" />
+                                                <TextBlock
+                                                    Grid.Column="1"
+                                                    VerticalAlignment="Center"
+                                                    Text="{Binding BirthdateText, Mode=OneWay}"
+                                                    TextWrapping="Wrap" />
+                                            </Grid>
+                                        </Button>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </Grid>
+                </Grid>
+
+            </materialDesign:Card>
+        </Grid>
+
+        <!--<materialDesign:Card
+            Grid.Row="3"
+            Grid.Column="1"
+            Background="{DynamicResource SolidDark}"
+            UniformCornerRadius="10">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20*" />
+                    <RowDefinition Height="840*" />
+                    <RowDefinition Height="25*" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10*" />
+                    <ColumnDefinition Width="900*" />
+                    <ColumnDefinition Width="10*" />
+                </Grid.ColumnDefinitions>
+
+                <ListBox
+                    x:Name="RadioButtonGroupChoiceChipPrimaryOutline"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Width="auto"
+                    Height="auto"
+                    Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineListBox}">
+                    <ListBoxItem Content="Revenue" IsSelected="False" />
+                    <ListBoxItem Content="Drinks" />
+                    <ListBoxItem Content="Order History" />
+                </ListBox>
+
+
+            </Grid>
+        </materialDesign:Card>-->
+
+    </Grid>
 </UserControl>

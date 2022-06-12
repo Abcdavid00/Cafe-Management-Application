@@ -98,9 +98,9 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Button
-                                    Height="50"
+                                    Height="auto"
                                     Margin="5,5,5,5"
-                                    Padding="0"
+                                    Padding="10"
                                     HorizontalContentAlignment="Stretch"
                                     materialDesign:ButtonAssist.CornerRadius="10"
                                     Background="{Binding Background, Mode=OneWay}"
@@ -114,16 +114,18 @@
                                             <ColumnDefinition Width="0.75*" />
                                             <ColumnDefinition Width="0.75*" />
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock Grid.Column="0" Text="{Binding Name, Mode=OneWay}" />
+                                        <TextBlock Grid.Column="0" Text="{Binding Name, Mode=OneWay}" TextWrapping="Wrap" VerticalAlignment="Center" 
+                                                   Padding="0 0 10 0"/>
                                         <materialDesign:PackIcon
                                             Grid.Column="1"
                                             Width="20"
                                             Height="20"
                                             Foreground="{Binding SexColor, Mode=OneWay}"
-                                            Kind="{Binding SexIcon, Mode=OneWay}" />
-                                        <TextBlock Grid.Column="2" Text="{Binding Email, Mode=OneWay}" />
-                                        <TextBlock Grid.Column="3" Text="{Binding Phone, Mode=OneWay}" />
-                                        <TextBlock Grid.Column="4" Text="{Binding BirthdateText, Mode=OneWay}" />
+                                            Kind="{Binding SexIcon, Mode=OneWay}"
+                                            VerticalAlignment="Center"/>
+                                        <TextBlock Grid.Column="2" Text="{Binding Email, Mode=OneWay}" VerticalAlignment="Center" Padding="0 0 10 0"/>
+                                        <TextBlock Grid.Column="3" Text="{Binding Phone, Mode=OneWay}" VerticalAlignment="Center" Padding="0 0 10 0"/>
+                                        <TextBlock Grid.Column="4" Text="{Binding BirthdateText, Mode=OneWay}" VerticalAlignment="Center"/>
                                     </Grid>
                                 </Button>
                             </DataTemplate>
