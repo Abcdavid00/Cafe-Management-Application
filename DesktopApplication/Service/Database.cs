@@ -805,15 +805,17 @@ namespace CSWBManagementApplication.Services
 
         #region Product
 
-        public static async Task<Product> CreateProductAsync(string name, int sPrice, int mPrice, int lPrice)
+        public static async Task<Product> CreateProductAsync(string name)
         {
-            DocumentReference productReference = await ProductCollection.AddAsync(new Product()
+            Product product = new Product()
             {
                 Name = name,
-                SPrice = sPrice,
-                MPrice = mPrice,
-                LPrice = lPrice
-            });
+                CategoryID = "",
+                SPrice = 0,
+                MPrice = 0,
+                LPrice = 0
+            };
+            DocumentReference productReference = await ProductCollection.AddAsync(product);
             return (await productReference.GetSnapshotAsync()).ConvertTo<Product>();
         }
 

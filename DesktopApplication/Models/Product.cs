@@ -3,6 +3,7 @@ using Google.Cloud.Firestore;
 
 namespace CSWBManagementApplication.Models
 {
+    [FirestoreData]
     internal class Product
     {
         [FirestoreDocumentId]

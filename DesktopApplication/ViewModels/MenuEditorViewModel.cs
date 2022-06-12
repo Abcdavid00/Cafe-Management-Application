@@ -1,8 +1,10 @@
-﻿using CSWBManagementApplication.Models;
+﻿using CSWBManagementApplication.Commands;
+using CSWBManagementApplication.Models;
 using CSWBManagementApplication.Services;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Input;
 
 namespace CSWBManagementApplication.ViewModels
 {
@@ -48,17 +50,17 @@ namespace CSWBManagementApplication.ViewModels
         {
             List<Category> categories = (await Database.GetAllCategoriesAsync()).ToList();
             #region debug
-#if DEBUG
-            categories = new List<Category>();
-            categories.Add(new Category() { Name = "Coffee" });
-            categories.Last().Products = new List<Product>();
-            categories.Last().Products.Add(new Product() { Name = "White Coffee", CategoryID="1" , SPrice = 10000, MPrice = 20000, LPrice = 30000 });
-            categories.Last().Products.Add(new Product() { Name = "Black Coffee", CategoryID = "1", SPrice = 5000, MPrice = 15000, LPrice = 20000 });
-            categories.Add(new Category() { Name = "Milk Tea" });
-            categories.Last().Products = new List<Product>();
-            categories.Last().Products.Add(new Product() { Name = "Special", CategoryID = "1", SPrice = 10000, MPrice = 20000, LPrice = 30000 });
-            categories.Last().Products.Add(new Product() { Name = "Traditional", CategoryID = "1", SPrice = 5000, MPrice = 15000, LPrice = 20000 });
-#endif
+//#if DEBUG
+//            categories = new List<Category>();
+//            categories.Add(new Category() { Name = "Coffee" });
+//            categories.Last().Products = new List<Product>();
+//            categories.Last().Products.Add(new Product() { Name = "White Coffee", CategoryID="1" , SPrice = 10000, MPrice = 20000, LPrice = 30000 });
+//            categories.Last().Products.Add(new Product() { Name = "Black Coffee", CategoryID = "1", SPrice = 5000, MPrice = 15000, LPrice = 20000 });
+//            categories.Add(new Category() { Name = "Milk Tea" });
+//            categories.Last().Products = new List<Product>();
+//            categories.Last().Products.Add(new Product() { Name = "Special", CategoryID = "1", SPrice = 10000, MPrice = 20000, LPrice = 30000 });
+//            categories.Last().Products.Add(new Product() { Name = "Traditional", CategoryID = "1", SPrice = 5000, MPrice = 15000, LPrice = 20000 });
+//#endif
             #endregion
             Categories?.Clear();
             Categories = new ObservableCollection<CategoryViewModel>(categories.Select(c => new CategoryViewModel(c)));
@@ -78,13 +80,13 @@ namespace CSWBManagementApplication.ViewModels
         {
             List<Product> products = (await Database.GetAllUnassignedProductsAsync()).ToList();
             #region debug
-#if DEBUG
-            products = new List<Product>();
-            products.Add(new Product() { Name = "White Coffee", SPrice = 10000, MPrice = 20000, LPrice = 30000 });
-            products.Add(new Product() { Name = "Black Coffee", SPrice = 5000, MPrice = 15000, LPrice = 20000 });
-            products.Add(new Product() { Name = "Special", SPrice = 10000, MPrice = 20000, LPrice = 30000 });
-            products.Add(new Product() { Name = "Traditional", SPrice = 5000, MPrice = 15000, LPrice = 20000 });
-#endif
+//#if DEBUG
+//            products = new List<Product>();
+//            products.Add(new Product() { Name = "White Coffee", SPrice = 10000, MPrice = 20000, LPrice = 30000 });
+//            products.Add(new Product() { Name = "Black Coffee", SPrice = 5000, MPrice = 15000, LPrice = 20000 });
+//            products.Add(new Product() { Name = "Special", SPrice = 10000, MPrice = 20000, LPrice = 30000 });
+//            products.Add(new Product() { Name = "Traditional", SPrice = 5000, MPrice = 15000, LPrice = 20000 });
+//#endif
             #endregion
             UnassignedProducts?.Clear();
             UnassignedProducts = new ObservableCollection<ProductViewModel>(products.Select(p => new ProductViewModel(p)));
@@ -97,6 +99,26 @@ namespace CSWBManagementApplication.ViewModels
             }
         }
 
-        
+        public ICommand AddProductCommand
+        {
+            get => new CommandBase(CreateNewProduct);
+        }
+
+        private async void CreateNewProduct()
+        {
+            await Database.CreateProductAsync("New Product");
+            RefreshUnassignedProducts();
+        }
+
+        public ICommand AddCategoryCommand
+        {
+            get => new CommandBase(CreateNewCategory);
+        }
+
+        private async void CreateNewCategory()
+        {
+            await Database.CreateCategoryAsync("New Category");
+            RefreshCategories();
+        }
     }
 }

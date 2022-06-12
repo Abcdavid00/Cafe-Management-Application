@@ -218,9 +218,13 @@
                     Background="{DynamicResource SolidDark}"
                     UniformCornerRadius="10">
 
-                    <StackPanel>
-                        <TextBox Text="{Binding ProductSearchText, UpdateSourceTrigger=PropertyChanged}" />
-                        <ScrollViewer>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <TextBox Text="{Binding ProductSearchText, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0"/>
+                        <ScrollViewer VerticalScrollBarVisibility="Visible" Grid.Row="1">
                             <ItemsControl ItemsSource="{Binding UnassignedProducts, Mode=OneWay}">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
@@ -234,9 +238,7 @@
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
                         </ScrollViewer>
-                    </StackPanel>
-
-
+                    </Grid>
 
                 </materialDesign:Card>
 

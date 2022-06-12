@@ -1,5 +1,6 @@
 ﻿using CSWBManagementApplication.Commands;
 using CSWBManagementApplication.Models;
+using CSWBManagementApplication.Resources;
 using CSWBManagementApplication.Service;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace CSWBManagementApplication.ViewModels
 {
@@ -23,6 +25,7 @@ namespace CSWBManagementApplication.ViewModels
         public ProductViewModel(Product product)
         {
             this.product = product;
+            activated = false;
         }
 
         public string Name
@@ -93,6 +96,28 @@ namespace CSWBManagementApplication.ViewModels
             {
                 EditButtonClicked?.Invoke(this, product);
             });
+        }
+
+        private bool activated;
+        public bool Activated
+        {
+            get => activated;
+            set
+            {
+                activated = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(Background));
+            }
+        }
+
+        public Brush Background
+        {
+            get => activated ? DarkTheme.LinearMain : DarkTheme.SolidLight;
+        }
+        
+        public Brush ButtonBackground
+        {
+            get => activated ? DarkTheme.SolidDark : DarkTheme.SolidMain;
         }
     }
 }

@@ -13,7 +13,7 @@
     <materialDesign:Card
         Height="auto"
         Margin="1,10,1,10"
-        Background="{DynamicResource LinearMain}"
+        Background="{DynamicResource SolidLight}"
         UniformCornerRadius="10">
         <Grid>
             <Grid.RowDefinitions>
@@ -24,6 +24,7 @@
                 Grid.Row="0"
                 Height="auto"
                 materialDesign:ButtonAssist.CornerRadius="10"
+                Background="{Binding TitleBrush, Mode=OneWay}"
                 Command="{Binding TitleButton, Mode=OneWay}"
                 Content="{Binding Name, Mode=OneWay}" />
             <ItemsControl Grid.Row="1" ItemsSource="{Binding Products, Mode=OneWay}">
