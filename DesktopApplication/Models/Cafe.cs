@@ -268,7 +268,7 @@ namespace CSWBManagementApplication.Models
             {
                 hasStaffsInfo = true;
             }
-            manager = await Database.GetStaff(Database.FindManagerAsync(CafeID));
+            manager = await Database.GetStaff(await Database.FindManagerAsync(CafeID));
             await Database.GetCafeStaffsInfoAsync(this);
             if (manager != null)
             {
@@ -356,5 +356,29 @@ namespace CSWBManagementApplication.Models
         }
 
         public event EventHandler OnCafeFloorListChanged;
+
+        public async void RemoveManager()
+        {
+            if (manager != null)
+            {
+                await Database.RemoveManagerAsync(CafeID);
+                if (hasStaffsInfo)
+                {
+                    await GetCafeStaffsInfo();
+                }
+            }
+        }
+
+        public async void SetManager(Staff staff)
+        {
+            if (Staffs.ContainsValue(staff))
+            {
+                await Database.SetManagerAsync(CafeID, staff.UID);
+                if (hasStaffsInfo)
+                {
+                    await GetCafeStaffsInfo();
+                }
+            }
+        }
     }
 }

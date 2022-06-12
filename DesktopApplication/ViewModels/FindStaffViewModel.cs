@@ -118,12 +118,13 @@ namespace CSWBManagementApplication.ViewModels
                 DisplayStaffs = new ObservableCollection<FindStaffItemViewModel>(FullStaffList);
             }
             else
-
             {
-                string filter = searchText.Trim().ToLower();
-                DisplayStaffs = new ObservableCollection<FindStaffItemViewModel>(FullStaffList.Where(x => x.Email.ToLower().Contains(filter)));
+                DisplayStaffs = new ObservableCollection<FindStaffItemViewModel>(FullStaffList.Where(x => x.Email.Contains(searchText)));
             }
-            AddStaffPlaceholderButtonVisibility = (DisplayStaffs.Count == 0 ? Visibility.Visible : Visibility.Collapsed);
+            AddStaffPlaceholderButtonVisibility = ((FullStaffList.Where(x => x.Email == SearchText).Count() == 0 &&
+                !string.IsNullOrEmpty(searchText)) ?
+                Visibility.Visible :
+                Visibility.Collapsed);
         }
 
         private Visibility addStaffPlaceholderButtonVisibility;

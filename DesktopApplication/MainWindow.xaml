@@ -9,6 +9,7 @@
     xmlns:vms="clr-namespace:CSWBManagementApplication.ViewModels"
     Name="StackCoffeeApp"
     Title="Stack Coffee"
+    Icon="/Assets/Logo.png"
     d:DesignHeight="1080"
     d:DesignWidth="1920"
     WindowStartupLocation="CenterScreen"

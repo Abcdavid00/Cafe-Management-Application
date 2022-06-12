@@ -58,6 +58,11 @@ namespace CSWBManagementApplication.Services
 
         private const string STAFF_PLACEHOLDER_COLLECTION = "StaffPlaceholders";
 
+        private const string CATEGORY_COLLECTION = "Categories";
+        private const string PRODUCT_COLLECTION = "Products";
+
+        private const string ORDER_COLLECTION = "Orders";
+
         private static FirestoreDb db;
 
         public static FirestoreDb FirestoreDatabase
@@ -77,6 +82,11 @@ namespace CSWBManagementApplication.Services
         public static CollectionReference UserCollection = FirestoreDatabase.Collection(USER_COLLECTION);
 
         public static CollectionReference StaffPlaceholderCollection = FirestoreDatabase.Collection(STAFF_PLACEHOLDER_COLLECTION);
+
+        public static CollectionReference CategoryCollection = FirestoreDatabase.Collection(CATEGORY_COLLECTION);
+        public static CollectionReference ProductCollection = FirestoreDatabase.Collection(PRODUCT_COLLECTION);
+
+        public static CollectionReference OrderCollection = FirestoreDatabase.Collection(ORDER_COLLECTION);
 
         #endregion Firestore
 
@@ -207,6 +217,21 @@ namespace CSWBManagementApplication.Services
         public static DocumentReference StaffPlaceholder(string placeholderID)
         {
             return StaffPlaceholderCollection.Document(placeholderID);
+        }
+
+        public static DocumentReference CategoryDocument(string categoryID)
+        {
+            return CategoryCollection.Document(categoryID);
+        }
+
+        public static DocumentReference ProductDocument(string productID)
+        {
+            return ProductCollection.Document(productID);
+        }
+
+        public static DocumentReference OrderDocument(string orderID)
+        {
+            return OrderCollection.Document(orderID);
         }
 
         #endregion Misc
@@ -397,15 +422,30 @@ namespace CSWBManagementApplication.Services
             DocumentReference floorDocument = FloorDocument(cafeID, floorID);
             await floorDocument.DeleteAsync();
         }
-
-        public static DocumentReference FindManagerAsync(string cafeID)
+        
+        public static async Task<DocumentReference> FindManagerAsync(string cafeID)
         {
-            QuerySnapshot managerSnapshot = CafeStaffCollection(cafeID).WhereEqualTo("Level", 1).GetSnapshotAsync().Result;
+            QuerySnapshot managerSnapshot = await CafeStaffCollection(cafeID).WhereEqualTo("Level", 1).GetSnapshotAsync();
             if (managerSnapshot.Count != 0)
             {
                 return UserDocument(managerSnapshot.Documents[0].Id);
             }
             return null;
+        }
+
+        public static async Task RemoveManagerAsync(string cafeID)
+        {
+            QuerySnapshot managerSnapshot = await CafeStaffCollection(cafeID).WhereEqualTo("Level", 1).GetSnapshotAsync();
+            if (managerSnapshot.Count != 0)
+            {
+                await StaffDocument(cafeID, managerSnapshot.Documents[0].Id).UpdateAsync("Level",0);
+            }
+        }
+
+        public static async Task SetManagerAsync(string cafeID, string StaffID)
+        {
+            await RemoveManagerAsync(cafeID);
+            await StaffDocument(cafeID, StaffID).UpdateAsync("Level", 1);
         }
 
         public static async Task<IEnumerable<DocumentReference>> FindStaffsAsync(string cafeID)
@@ -545,9 +585,9 @@ namespace CSWBManagementApplication.Services
             return staffs.AsEnumerable();
         }
 
-        public static async Task<Models.User.Roles> UserRole(DocumentReference userReference)
+        public static Models.User.Roles UserRole(DocumentReference userReference)
         {
-            DocumentSnapshot userSnapshot = await userReference.GetSnapshotAsync();
+            DocumentSnapshot userSnapshot = userReference.GetSnapshotAsync().Result;
 
             if (!userSnapshot.Exists)
             {
@@ -560,7 +600,7 @@ namespace CSWBManagementApplication.Services
             }
 
             Staff staff = userSnapshot.ConvertTo<Staff>();
-            DocumentSnapshot staffSnapshot = await StaffDocument(staff.CafeID, staff.UID).GetSnapshotAsync();
+            DocumentSnapshot staffSnapshot = StaffDocument(staff.CafeID, staff.UID).GetSnapshotAsync().Result;
 
             if (!staffSnapshot.Exists)
             {
@@ -691,6 +731,136 @@ namespace CSWBManagementApplication.Services
         }
 
         #endregion User
+
+        #region Category
+
+        public static async Task<Category> CreateCategoryAsync(string name)
+        {
+            DocumentReference categoryReference = await CategoryCollection.AddAsync(new Category() { Name = name });
+            return (await categoryReference.GetSnapshotAsync()).ConvertTo<Category>();
+        }
+
+        public static async Task<IEnumerable<Category>> GetAllCategoriesAsync()
+        {
+            List<Category> categories = new List<Category>();
+            QuerySnapshot categoriesSnapshot = await CategoryCollection.GetSnapshotAsync();
+            categories.AddRange(categoriesSnapshot.Documents.Select(document => document.ConvertTo<Category>()));
+            return categories.AsEnumerable();
+        }
+
+        public static async Task UpdateCategoryAsync(Category category)
+        {
+            try
+            {
+                await CategoryDocument(category.CategoryID).UpdateAsync("Name", category.Name);
+            } catch (Exception e)
+            {
+                
+            }
+        }
+
+        public static async Task AddProductToCategoryAsync(string categoryID, string productID)
+        {
+            try
+            {
+                await ProductDocument(productID).UpdateAsync("CategoryID", categoryID);
+            }
+            catch (Exception e)
+            {
+
+            }
+        }
+
+        public static async Task RemoveCategoryAsync(string categoryID)
+        {
+            try
+            {
+                List<Task> tasks = new List<Task>();
+                QuerySnapshot categoryProductSnapshot = await ProductCollection.WhereEqualTo("CategoryID", categoryID).GetSnapshotAsync();
+                foreach (DocumentSnapshot productSnapshot in categoryProductSnapshot.Documents)
+                {
+                    tasks.Add( productSnapshot.Reference.UpdateAsync("CategoryID", ""));
+                }
+                tasks.Add(CategoryDocument(categoryID).DeleteAsync());
+                await Task.WhenAll(tasks);
+            }
+            catch (Exception e)
+            {
+
+            }
+        }
+
+        public static async Task<IEnumerable<Product>> GetProductsAsync(string categoryID)
+        {
+            QuerySnapshot productsSnapshot = await ProductCollection.WhereEqualTo("CategoryID", categoryID).GetSnapshotAsync();
+            List<Product> products = new List<Product>();
+            foreach (DocumentSnapshot productSnapshot in productsSnapshot.Documents)
+            {
+                products.Add(productSnapshot.ConvertTo<Product>());
+            }
+            return products.AsEnumerable();
+        }
+
+        #endregion
+
+        #region Product
+
+        public static async Task<Product> CreateProductAsync(string name, int sPrice, int mPrice, int lPrice)
+        {
+            DocumentReference productReference = await ProductCollection.AddAsync(new Product()
+            {
+                Name = name,
+                SPrice = sPrice,
+                MPrice = mPrice,
+                LPrice = lPrice
+            });
+            return (await productReference.GetSnapshotAsync()).ConvertTo<Product>();
+        }
+
+        public static async Task UpdateProductAsync(Product product)
+        {
+            try
+            {
+                List<Task> tasks = new List<Task>();
+                DocumentReference productReference = ProductDocument(product.ProductID);
+                tasks.Add(productReference.UpdateAsync("Name", product.Name));
+                tasks.Add(productReference.UpdateAsync("SPrice", product.SPrice));
+                tasks.Add(productReference.UpdateAsync("MPrice", product.MPrice));
+                tasks.Add(productReference.UpdateAsync("LPrice", product.LPrice));
+                await Task.WhenAll(tasks);
+            }
+            catch (Exception e)
+            {
+
+            }
+        }
+
+        public static async Task<IEnumerable<Product>> GetAllUnassignedProductsAsync()
+        {
+            List<Product> products = new List<Product>();
+            QuerySnapshot productsSnapshot = await ProductCollection.WhereEqualTo("CategoryID", "").GetSnapshotAsync();
+            products.AddRange(productsSnapshot.Documents.Select(productSnapshot => productSnapshot.ConvertTo<Product>()));
+            return products.AsEnumerable();
+        }
+        
+        public static async Task GetProductInfoAsync(Product product)
+        {
+            DocumentSnapshot productSnapshot = await ProductDocument(product.ProductID).GetSnapshotAsync();
+            if (productSnapshot.Exists)
+            {
+                product.Name = productSnapshot.GetValue<string>("Name");
+                product.SPrice = productSnapshot.GetValue<int>("SPrice");
+                product.MPrice = productSnapshot.GetValue<int>("MPrice");
+                product.LPrice = productSnapshot.GetValue<int>("LPrice");
+            }
+        }
+
+        public static async Task RemoveProductFromCategoryAsync(string productID)
+        {
+            await ProductDocument(productID).UpdateAsync("CategoryID", "");
+        }
+
+        #endregion
 
         #endregion Firestore
 

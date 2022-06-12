@@ -60,7 +60,7 @@ namespace CSWBManagementApplication.Models
 
         public Roles Role
         {
-            get => (isOwner ? Roles.Owner : Database.UserRole(UserReference).Result);
+            get => (isOwner ? Roles.Owner : Database.UserRole(UserReference));
         }
     }
 }

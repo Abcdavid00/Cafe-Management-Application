@@ -305,6 +305,7 @@
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Models\Cafe.cs" />
     <Compile Include="Models\CafeLayoutUpdate.cs" />
+    <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Menu.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Owner.cs" />
@@ -321,6 +322,7 @@
     <Compile Include="ViewModels\CafeDetailsViewModel.cs" />
     <Compile Include="ViewModels\CafeLayoutViewModel.cs" />
     <Compile Include="ViewModels\CafeStaffViewModel.cs" />
+    <Compile Include="ViewModels\CategoryViewModel.cs" />
     <Compile Include="ViewModels\CreateAccountDialogViewModel.cs" />
     <Compile Include="ViewModels\CreateOwnerViewModel.cs" />
     <Compile Include="ViewModels\EditableFloorLayoutViewModel.cs" />
@@ -333,6 +335,7 @@
     <Compile Include="ViewModels\MenuEditorViewModel.cs" />
     <Compile Include="ViewModels\NavigationChipViewModel.cs" />
     <Compile Include="ViewModels\OwnerViewModel.cs" />
+    <Compile Include="ViewModels\ProductViewModel.cs" />
     <Compile Include="ViewModels\StaffDetailsViewModel.cs" />
     <Compile Include="ViewModels\StaffViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
@@ -353,6 +356,9 @@
     <Compile Include="Views\Components\CafeStatistics.xaml.cs">
       <DependentUpon>CafeStatistics.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Components\Category.xaml.cs">
+      <DependentUpon>Category.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Components\EditableFloorLayout.xaml.cs">
       <DependentUpon>EditableFloorLayout.xaml</DependentUpon>
     </Compile>
@@ -371,8 +377,8 @@
     <Compile Include="Views\Components\NavigationChip.xaml.cs">
       <DependentUpon>NavigationChip.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Components\StatisticsRevenue.xaml.cs">
-      <DependentUpon>StatisticsRevenue.xaml</DependentUpon>
+    <Compile Include="Views\Components\Product.xaml.cs">
+      <DependentUpon>Product.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Components\ViewOnlyFloorLayout.xaml.cs">
       <DependentUpon>ViewOnlyFloorLayout.xaml</DependentUpon>
@@ -443,6 +449,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Components\Category.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Components\EditableFloorLayout.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -467,7 +477,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Components\StatisticsRevenue.xaml">
+    <Page Include="Views\Components\Product.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

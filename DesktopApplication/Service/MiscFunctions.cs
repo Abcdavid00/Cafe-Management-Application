@@ -29,6 +29,15 @@ namespace CSWBManagementApplication.Service
             }
         }
 
+        public static string IntToPrice(int p)
+        {
+            if (p == 0)
+            {
+                return "---";
+            }
+            return p.ToString("n0") + "VND";
+        }
+
         public class SolidColorPulsar
         {
             private int refreshRate;

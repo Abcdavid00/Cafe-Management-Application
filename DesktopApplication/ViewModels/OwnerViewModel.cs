@@ -68,9 +68,10 @@ namespace CSWBManagementApplication.ViewModels
             {
                 new NavigationChipViewModel("Home", PackIconKind.Home, new Commands.CommandBase(()=>SelectedIndex=0), true),
                 new NavigationChipViewModel("Cafes", PackIconKind.Coffee, new Commands.CommandBase(()=>SelectedIndex=1), false),
-                new NavigationChipViewModel("Staff", PackIconKind.Person, new Commands.CommandBase(()=>SelectedIndex=2), false),
-                new NavigationChipViewModel("Products", PackIconKind.Silverware, new Commands.CommandBase(()=>SelectedIndex=3), false),
+                //new NavigationChipViewModel("Staff", PackIconKind.Person, new Commands.CommandBase(()=>SelectedIndex=2), false),
+                new NavigationChipViewModel("Products", PackIconKind.Silverware, new Commands.CommandBase(()=>SelectedIndex=2), false),
             };
+            MenuEditorViewModel = new MenuEditorViewModel();
             Initialize();
         }
 
@@ -222,5 +223,16 @@ namespace CSWBManagementApplication.ViewModels
         }
 
         #endregion CafeView
+
+        private MenuEditorViewModel menuEditorViewModel;
+        public MenuEditorViewModel MenuEditorViewModel
+        {
+            get => menuEditorViewModel;
+            set
+            {
+                menuEditorViewModel = value;
+                OnPropertyChanged();
+            }
+        }
     }
 }
