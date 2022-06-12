@@ -156,10 +156,9 @@
                             Margin="10,0,10,0"
                             Padding="0"
                             VerticalAlignment="Stretch"
-                            Command="{Binding RemoveStaffCommand, Mode=OneWay}"
+                            Command="{Binding AddCategoryCommand, Mode=OneWay}"
                             Style="{StaticResource MaterialDesignIconButton}"
-                            ToolTip="Remove Staff"
-                            Visibility="{Binding RemoveStaffButtonVisibility, Mode=OneWay}">
+                            ToolTip="Add Category">
                             <materialDesign:PackIcon Kind="TableColumnAddAfter" />
                         </Button>
                         <Button
@@ -167,10 +166,10 @@
                             Margin="10,0,10,0"
                             Padding="0"
                             VerticalAlignment="Stretch"
-                            Command="{Binding RemoveStaffPlaceholderCommand, Mode=OneWay}"
+                            Command="{Binding RemoveCategoryCommand, Mode=OneWay}"
                             Style="{StaticResource MaterialDesignIconButton}"
-                            ToolTip="Remove Staff placeholder"
-                            Visibility="{Binding RemoveStaffPlaceholderButtonVisibility, Mode=OneWay}">
+                            ToolTip="Remove Category"
+                            Visibility="{Binding RemoveCategoryButtonVisibility, Mode=OneWay}">
                             <materialDesign:PackIcon Kind="TableColumnRemove" />
                         </Button>
                     </StackPanel>
@@ -193,7 +192,8 @@
                             MinWidth="100"
                             VerticalAlignment="Center"
                             Foreground="{DynamicResource SolidLight}"
-                            Text="{Binding CurrentCategoryName}" />
+                            Text="{Binding CurrentCategoryName, UpdateSourceTrigger=PropertyChanged}"
+                            Visibility="{Binding CategoryNameTextBoxVisibility, Mode=OneWay}" />
 
                         <Button
                             Grid.Column="1"
@@ -201,7 +201,8 @@
                             Margin="5,0,10,0"
                             Padding="0"
                             HorizontalAlignment="Right"
-                            Visibility="{Binding CategoryNameSaveButton, Mode=OneWay}">
+                            Command="{Binding CategoryNameSaveCommand, Mode=OneWay}"
+                            Visibility="{Binding CategoryNameSaveButtonVisibility, Mode=OneWay}">
                             <Button.Content>
                                 <materialDesign:PackIcon Kind="FloppyDisc" />
                             </Button.Content>
@@ -218,7 +219,7 @@
                     UniformCornerRadius="10">
 
                     <StackPanel>
-                        <TextBox Text="{Binding ProductSearchText}" />
+                        <TextBox Text="{Binding ProductSearchText, UpdateSourceTrigger=PropertyChanged}" />
                         <ScrollViewer>
                             <ItemsControl ItemsSource="{Binding UnassignedProducts, Mode=OneWay}">
                                 <ItemsControl.ItemsPanel>
@@ -291,7 +292,7 @@
                             Grid.Row="1"
                             Grid.Column="1"
                             VerticalAlignment="Center"
-                            Text="{Binding CurrentProductName}" />
+                            Text="{Binding CurrentProductName, UpdateSourceTrigger=PropertyChanged}" />
 
                         <TextBlock
                             Grid.Row="2"
@@ -303,7 +304,7 @@
                             Grid.Row="2"
                             Grid.Column="1"
                             VerticalAlignment="Center"
-                            Text="{Binding CurrentProductName}" />
+                            Text="{Binding CurrentProductName, UpdateSourceTrigger=PropertyChanged}" />
 
                         <TextBlock
                             Grid.Row="3"
@@ -315,7 +316,7 @@
                             Grid.Row="3"
                             Grid.Column="1"
                             VerticalAlignment="Center"
-                            Text="{Binding CurrentProductName}" />
+                            Text="{Binding CurrentProductName, UpdateSourceTrigger=PropertyChanged}" />
 
                         <TextBlock
                             Grid.Row="4"
@@ -327,7 +328,7 @@
                             Grid.Row="4"
                             Grid.Column="1"
                             VerticalAlignment="Center"
-                            Text="{Binding CurrentProductName}" />
+                            Text="{Binding CurrentProductName, UpdateSourceTrigger=PropertyChanged}" />
 
                     </Grid>
 
