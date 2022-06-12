@@ -184,14 +184,21 @@
                     UniformCornerRadius="10">
 
                     <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
                         <TextBox
-                            HorizontalAlignment="Left"
+                            Grid.Column="0"
+                            MinWidth="100"
                             VerticalAlignment="Center"
-                            Text="{Binding CurrentCategory}" />
+                            Foreground="{DynamicResource SolidLight}"
+                            Text="{Binding CurrentCategoryName}" />
 
                         <Button
+                            Grid.Column="1"
                             Width="{Binding ActualHeight, RelativeSource={RelativeSource Mode=Self}}"
-                            Margin="0,0,10,0"
+                            Margin="5,0,10,0"
                             Padding="0"
                             HorizontalAlignment="Right"
                             Visibility="{Binding CategoryNameSaveButton, Mode=OneWay}">
@@ -210,20 +217,25 @@
                     Background="{DynamicResource SolidDark}"
                     UniformCornerRadius="10">
 
-                    <ScrollViewer>
-                        <ItemsControl ItemsSource="{Binding UnassignedProducts, Mode=OneWay}">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <StackPanel Orientation="Vertical" />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <component:Product />
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </ScrollViewer>
+                    <StackPanel>
+                        <TextBox Text="{Binding ProductSearchText}" />
+                        <ScrollViewer>
+                            <ItemsControl ItemsSource="{Binding UnassignedProducts, Mode=OneWay}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Vertical" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <component:Product />
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </StackPanel>
+
+
 
                 </materialDesign:Card>
 
@@ -232,9 +244,92 @@
                     Grid.Column="1"
                     Margin="1,1,1,1"
                     Background="{DynamicResource SolidDark}"
+                    Foreground="{DynamicResource SolidLight}"
                     UniformCornerRadius="10">
 
-                    <Grid />
+                    <Grid Margin="5,5,5,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontWeight="Bold"
+                            Text="Product Editor" />
+                        <Button
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            Width="{Binding ActualHeight, RelativeSource={RelativeSource Mode=Self}}"
+                            Margin="0,0,10,0"
+                            Padding="0"
+                            HorizontalAlignment="Right"
+                            Visibility="{Binding ProductDetailsSaveButton, Mode=OneWay}">
+                            <Button.Content>
+                                <materialDesign:PackIcon Kind="FloppyDisc" />
+                            </Button.Content>
+                        </Button>
+                        <TextBlock
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            Margin="5,0,5,0"
+                            VerticalAlignment="Center"
+                            Text="Name:" />
+                        <TextBox
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            VerticalAlignment="Center"
+                            Text="{Binding CurrentProductName}" />
+
+                        <TextBlock
+                            Grid.Row="2"
+                            Grid.Column="0"
+                            Margin="5,0,5,0"
+                            VerticalAlignment="Center"
+                            Text="Small Size Price:" />
+                        <TextBox
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            VerticalAlignment="Center"
+                            Text="{Binding CurrentProductName}" />
+
+                        <TextBlock
+                            Grid.Row="3"
+                            Grid.Column="0"
+                            Margin="5,0,5,0"
+                            VerticalAlignment="Center"
+                            Text="Medium Size Price:" />
+                        <TextBox
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            VerticalAlignment="Center"
+                            Text="{Binding CurrentProductName}" />
+
+                        <TextBlock
+                            Grid.Row="4"
+                            Grid.Column="0"
+                            Margin="5,0,5,0"
+                            VerticalAlignment="Center"
+                            Text="Large Size Price:" />
+                        <TextBox
+                            Grid.Row="4"
+                            Grid.Column="1"
+                            VerticalAlignment="Center"
+                            Text="{Binding CurrentProductName}" />
+
+                    </Grid>
 
                 </materialDesign:Card>
             </Grid>
