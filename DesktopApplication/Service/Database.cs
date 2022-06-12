@@ -740,6 +740,14 @@ namespace CSWBManagementApplication.Services
             return (await categoryReference.GetSnapshotAsync()).ConvertTo<Category>();
         }
 
+        public static async Task<IEnumerable<Category>> GetAllCategoriesAsync()
+        {
+            List<Category> categories = new List<Category>();
+            QuerySnapshot categoriesSnapshot = await CategoryCollection.GetSnapshotAsync();
+            categories.AddRange(categoriesSnapshot.Documents.Select(document => document.ConvertTo<Category>()));
+            return categories.AsEnumerable();
+        }
+
         public static async Task UpdateCategoryAsync(Category category)
         {
             try
@@ -782,7 +790,7 @@ namespace CSWBManagementApplication.Services
             }
         }
 
-        public static async Task<IEnumerable<Product>> GetProductAsync(string categoryID)
+        public static async Task<IEnumerable<Product>> GetProductsAsync(string categoryID)
         {
             QuerySnapshot productsSnapshot = await ProductCollection.WhereEqualTo("CategoryID", categoryID).GetSnapshotAsync();
             List<Product> products = new List<Product>();
@@ -827,7 +835,13 @@ namespace CSWBManagementApplication.Services
             }
         }
 
-        
+        public static async Task<IEnumerable<Product>> GetAllUnassignedProductsAsync()
+        {
+            List<Product> products = new List<Product>();
+            QuerySnapshot productsSnapshot = await ProductCollection.WhereEqualTo("CategoryID", "").GetSnapshotAsync();
+            products.AddRange(productsSnapshot.Documents.Select(productSnapshot => productSnapshot.ConvertTo<Product>()));
+            return products.AsEnumerable();
+        }
         
         public static async Task GetProductInfoAsync(Product product)
         {

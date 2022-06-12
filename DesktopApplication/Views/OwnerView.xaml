@@ -218,7 +218,17 @@
                     <materialDesign:SlideWipe Direction="Down" />
                 </materialDesign:TransitionerSlide.BackwardWipe>
 
-                <components:MenuEditor/>
+
+                <ContentControl Content="{Binding MenuEditorViewModel, Mode=OneWay}">
+
+                    <ContentControl.ContentTemplate>
+                        <DataTemplate>
+                            <components:MenuEditor />
+                        </DataTemplate>
+                    </ContentControl.ContentTemplate>
+
+                </ContentControl>
+                
 
                 <materialDesign:TransitionerSlide.ForwardWipe>
                     <materialDesign:SlideWipe Direction="Up" />

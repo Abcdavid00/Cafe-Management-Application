@@ -11,8 +11,9 @@
     mc:Ignorable="d">
     <materialDesign:Card
         Height="auto"
-        Margin="1,1,1,1"
+        Margin="10,10,10,10"
         Background="{DynamicResource SolidLight}"
+        Foreground="{DynamicResource SolidDark}"
         UniformCornerRadius="10">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -23,40 +24,52 @@
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
-            <TextBox Grid.Column="0" Grid.ColumnSpan="{Binding NameColumnSpan,Mode=OneWay}" Text="{Binding Name, Mode=OneWay}" />
-            <TextBox Grid.Column="1" Text="{Binding SPrice, Mode=OneWay}" Visibility="{Binding PriceVisibility, Mode=OneWay}"/>
-            <TextBox Grid.Column="2" Text="{Binding MPrice, Mode=OneWay}" Visibility="{Binding PriceVisibility, Mode=OneWay}"/>
-            <TextBox Grid.Column="3" Text="{Binding LPrice, Mode=OneWay}" Visibility="{Binding PriceVisibility, Mode=OneWay}"/>
+            <TextBlock
+                Grid.Column="0"
+                Grid.ColumnSpan="{Binding NameColumnSpan, Mode=OneWay}"
+                Text="{Binding Name, Mode=OneWay}" />
+            <TextBlock
+                Grid.Column="1"
+                Text="{Binding SPrice, Mode=OneWay}"
+                Visibility="{Binding PriceVisibility, Mode=OneWay}" />
+            <TextBlock
+                Grid.Column="2"
+                Text="{Binding MPrice, Mode=OneWay}"
+                Visibility="{Binding PriceVisibility, Mode=OneWay}" />
+            <TextBlock
+                Grid.Column="3"
+                Text="{Binding LPrice, Mode=OneWay}"
+                Visibility="{Binding PriceVisibility, Mode=OneWay}" />
             <Button
                 Grid.Column="4"
                 Height="{Binding ActualWidth, RelativeSource={RelativeSource Mode=Self}}"
                 Margin="5,5,5,5"
-                Command="{Binding Edit, Mode=OneWay}"
-                Padding="0" >
+                Padding="0"
+                Command="{Binding Edit, Mode=OneWay}">
                 <Button.Content>
-                    <materialDesign:PackIcon Kind="Edit"/>
+                    <materialDesign:PackIcon Kind="Edit" />
                 </Button.Content>
             </Button>
             <Button
                 Grid.Column="5"
                 Height="{Binding ActualWidth, RelativeSource={RelativeSource Mode=Self}}"
                 Margin="5,5,5,5"
+                Padding="0"
                 Command="{Binding Add, Mode=OneWay}"
-                Visibility="{Binding AddButtonVisibility, Mode=OneWay}"
-                Padding="0" >
+                Visibility="{Binding AddButtonVisibility, Mode=OneWay}">
                 <Button.Content>
-                    <materialDesign:PackIcon Kind="Add"/>
+                    <materialDesign:PackIcon Kind="Add" />
                 </Button.Content>
             </Button>
             <Button
                 Grid.Column="5"
                 Height="{Binding ActualWidth, RelativeSource={RelativeSource Mode=Self}}"
                 Margin="5,5,5,5"
+                Padding="0"
                 Command="{Binding Remove, Mode=OneWay}"
-                Visibility="{Binding RemoveButtonVisibility, Mode=OneWay}"
-                Padding="0" >
+                Visibility="{Binding RemoveButtonVisibility, Mode=OneWay}">
                 <Button.Content>
-                    <materialDesign:PackIcon Kind="Remove"/>
+                    <materialDesign:PackIcon Kind="Remove" />
                 </Button.Content>
             </Button>
         </Grid>

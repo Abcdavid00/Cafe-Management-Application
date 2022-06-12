@@ -18,7 +18,8 @@ namespace CSWBManagementApplication.Models
         public string Name { get; set; }
 
         public Category()
-        {           
+        {
+            GetProducts();
         }
 
         public async void UpdateCategory()
@@ -32,11 +33,16 @@ namespace CSWBManagementApplication.Models
         public List<Product> Products
         {
             get => products;
-            private set
+            set
             {
                 products = value;
                 ProductListUpdated?.Invoke(this, EventArgs.Empty);
             }
+        }
+
+        public async void GetProducts()
+        {
+            Products = (await Database.GetProductsAsync(CategoryID)).ToList();
         }
     }
 }
