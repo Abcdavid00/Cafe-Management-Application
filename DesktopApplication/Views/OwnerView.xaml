@@ -191,26 +191,16 @@
                 </materialDesign:TransitionerSlide.ForwardWipe>
             </materialDesign:TransitionerSlide>
 
-            <materialDesign:TransitionerSlide>
+            <!--<materialDesign:TransitionerSlide>
 
                 <materialDesign:TransitionerSlide.BackwardWipe>
                     <materialDesign:SlideWipe Direction="Down" />
                 </materialDesign:TransitionerSlide.BackwardWipe>
 
-                <Grid>
-                    <ContentControl Content="{Binding CafeDetailsViewModel}">
-                        <ContentControl.ContentTemplate>
-                            <DataTemplate>
-                                <components:CafeDetails />
-                            </DataTemplate>
-                        </ContentControl.ContentTemplate>
-                    </ContentControl>
-                </Grid>
-
                 <materialDesign:TransitionerSlide.ForwardWipe>
                     <materialDesign:SlideWipe Direction="Up" />
                 </materialDesign:TransitionerSlide.ForwardWipe>
-            </materialDesign:TransitionerSlide>
+            </materialDesign:TransitionerSlide>-->
 
             <materialDesign:TransitionerSlide>
 
