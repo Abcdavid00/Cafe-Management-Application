@@ -11,5 +11,10 @@ namespace CSWBManagementApplication.Views.Components
         {
             InitializeComponent();
         }
+
+        private void PackIcon_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+
+        }
     }
 }

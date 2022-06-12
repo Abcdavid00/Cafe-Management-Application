@@ -16,7 +16,7 @@
             <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="18*" />
             <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="9*" />
+            <ColumnDefinition Width="15*" />
             <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
 
@@ -43,11 +43,11 @@
                     Height="50"
                     Margin="30,10,30,0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1.6*" />
+                        <ColumnDefinition Width="1*" />
                         <ColumnDefinition Width="0.4*" />
-                        <ColumnDefinition Width="1.6*" />
-                        <ColumnDefinition Width="0.75*" />
-                        <ColumnDefinition Width="0.75*" />
+                        <ColumnDefinition Width="0.4*" />
+                        <ColumnDefinition Width="0.4*" />
+                        <ColumnDefinition Width="0.25*" />
                     </Grid.ColumnDefinitions>
                     <TextBlock
                         Grid.Column="0"
@@ -60,25 +60,25 @@
                         VerticalAlignment="Center"
                         FontSize="{DynamicResource MediumFontSize}"
                         FontWeight="Bold"
-                        Text="Sex" />
+                        Text="Size S" />
                     <TextBlock
                         Grid.Column="2"
                         VerticalAlignment="Center"
                         FontSize="{DynamicResource MediumFontSize}"
                         FontWeight="Bold"
-                        Text="Email" />
+                        Text="Size M" />
                     <TextBlock
                         Grid.Column="3"
                         VerticalAlignment="Center"
                         FontSize="{DynamicResource MediumFontSize}"
                         FontWeight="Bold"
-                        Text="Phone" />
+                        Text="Size L" />
                     <TextBlock
                         Grid.Column="4"
                         VerticalAlignment="Center"
                         FontSize="{DynamicResource MediumFontSize}"
                         FontWeight="Bold"
-                        Text="Birthdate" />
+                        Text="" />
                 </Grid>
 
                 <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible">
@@ -96,7 +96,19 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Button
+
+                                <materialDesign:Card
+                                    Height="auto"
+                                    Foreground="White"
+                                    Background="{Binding Background, Mode=OneWay}"
+                                    UniformCornerRadius="10"
+                                    Margin="5,5,5,5"                                   
+                                    >
+                                    
+                                    
+                                </materialDesign:Card>
+                                
+                                <!--<Button
                                     Height="50"
                                     Margin="5,5,5,5"
                                     Padding="0"
@@ -124,7 +136,7 @@
                                         <TextBlock Grid.Column="3" Text="{Binding Phone, Mode=OneWay}" />
                                         <TextBlock Grid.Column="4" Text="{Binding BirthdateText, Mode=OneWay}" />
                                     </Grid>
-                                </Button>
+                                </Button>-->
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>

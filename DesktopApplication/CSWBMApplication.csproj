@@ -371,6 +371,9 @@
     <Compile Include="Views\Components\NavigationChip.xaml.cs">
       <DependentUpon>NavigationChip.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Components\StatisticsRevenue.xaml.cs">
+      <DependentUpon>StatisticsRevenue.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Components\ViewOnlyFloorLayout.xaml.cs">
       <DependentUpon>ViewOnlyFloorLayout.xaml</DependentUpon>
     </Compile>
@@ -461,6 +464,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Components\NavigationChip.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Components\StatisticsRevenue.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
