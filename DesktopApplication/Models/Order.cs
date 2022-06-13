@@ -43,6 +43,9 @@ namespace CSWBManagementApplication.Models
         public string OrderID { get; set; }
 
         [FirestoreProperty]
+        public string CafeID { get; set; }
+        
+        [FirestoreProperty]
         public int FloorNumber { get; set; }
 
         [FirestoreProperty]
@@ -56,8 +59,9 @@ namespace CSWBManagementApplication.Models
 
         }
 
-        public ActiveOrder(int floorNumber, Position table)
+        public ActiveOrder(string cafeID ,int floorNumber, Position table)
         {
+            this.CafeID = cafeID;
             this.FloorNumber = floorNumber;
             this.Table = table;
             OrderedProducts = new List<OrderedProduct>();
@@ -93,6 +97,9 @@ namespace CSWBManagementApplication.Models
         [FirestoreDocumentId]
         public string OrderID { get; set; }
 
+        [FirestoreProperty]
+        public string CafeID { get; set; }
+
         private DateTime time;
         public DateTime Time
         {
@@ -120,8 +127,9 @@ namespace CSWBManagementApplication.Models
 
         }
 
-        public Order(DateTime time, long total, List<OrderedProduct> orderedProducts)
+        public Order(string cafeID ,DateTime time, long total, List<OrderedProduct> orderedProducts)
         {
+            this.CafeID = cafeID;
             this.Time = time;
             this.Total = total;
             this.OrderedProducts = new List<OrderedProduct>(orderedProducts);

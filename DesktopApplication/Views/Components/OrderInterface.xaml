@@ -2,9 +2,9 @@
     x:Class="CSWBManagementApplication.Views.Components.OrderInterface"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:component="clr-namespace:CSWBManagementApplication.Views.Components"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:CSWBManagementApplication.Views.Components"
-    xmlns:component="clr-namespace:CSWBManagementApplication.Views.Components"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="1080"
@@ -35,7 +35,7 @@
             <ContentControl
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
-                Content="{Binding CurrentEditableFloorLayoutViewModel, Mode=OneWay}">
+                Content="{Binding CurrentOrderFloorLayout, Mode=OneWay}">
                 <ContentControl.ContentTemplate>
                     <DataTemplate>
                         <component:EditableFloorLayout />
@@ -99,27 +99,14 @@
                 </materialDesign:Card>
 
                 <materialDesign:Card
-                        Grid.Row="1" Grid.Column="3"
-                        Margin="1,1,1,1"
-                        Background="{DynamicResource SolidDark}"
-                        UniformCornerRadius="10">
+                    Grid.Row="1"
+                    Grid.Column="3"
+                    Margin="1,1,1,1"
+                    Background="{DynamicResource SolidDark}"
+                    UniformCornerRadius="10">
 
                     <ScrollViewer VerticalScrollBarVisibility="Visible">
-                        <ItemsControl
-                                ItemsSource="{Binding FloorsClipboard, Mode=OneWay}"
-                                VirtualizingPanel.IsVirtualizing="True"
-                                VirtualizingPanel.VirtualizationMode="Recycling">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <StackPanel VerticalAlignment="Bottom" Orientation="Vertical" />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <component:ViewOnlyFloorLayout />
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
+
                     </ScrollViewer>
                 </materialDesign:Card>
             </Grid>

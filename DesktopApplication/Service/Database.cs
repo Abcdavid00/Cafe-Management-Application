@@ -882,17 +882,17 @@ namespace CSWBManagementApplication.Services
 
         #region Order
 
-        public static async Task<ActiveOrder> CreateActiveOrderAsync(int floorNumber, Position table)
+        public static async Task<ActiveOrder> CreateActiveOrderAsync(string cafeID, int floorNumber, Position table)
         {
-            ActiveOrder activeOrder = new ActiveOrder(floorNumber, table);
+            ActiveOrder activeOrder = new ActiveOrder(cafeID ,floorNumber, table);
             DocumentReference activeOrderReference = await ActiveOrderCollection.AddAsync(activeOrder);
             return (await activeOrderReference.GetSnapshotAsync()).ConvertTo<ActiveOrder>();
         }
 
-        public static async Task<IEnumerable<ActiveOrder>> GetAllActiveOrdersAsync()
+        public static async Task<IEnumerable<ActiveOrder>> GetAllActiveOrdersAsync(string cafeID)
         {
             List<ActiveOrder> activeOrders = new List<ActiveOrder>();
-            QuerySnapshot activeOrdersSnapshot = await ActiveOrderCollection.GetSnapshotAsync();
+            QuerySnapshot activeOrdersSnapshot = await ActiveOrderCollection.WhereEqualTo("CafeID",cafeID).GetSnapshotAsync();
             activeOrders.AddRange(activeOrdersSnapshot.Documents.Select(activeOrderSnapshot => activeOrderSnapshot.ConvertTo<ActiveOrder>()));
             return activeOrders.AsEnumerable();
         }

@@ -54,7 +54,14 @@ namespace CSWBManagementApplication.Models
             return false;           
         }
 
-        
+        public int CompareTo(Position other)
+        {
+            if (this.Y != other.Y)
+            {
+                return this.Y.CompareTo(other.Y);
+            }
+            return this.X.CompareTo(other.X);
+        }
     }
 
     [FirestoreData]

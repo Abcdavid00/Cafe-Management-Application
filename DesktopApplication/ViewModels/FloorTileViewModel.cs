@@ -1,4 +1,5 @@
 ﻿using CSWBManagementApplication.Resources;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using static CSWBManagementApplication.Service.MiscFunctions;
@@ -11,10 +12,6 @@ namespace CSWBManagementApplication.ViewModels
         {
             get
             {
-                if (isPulsing)
-                {
-                    return Pulsar.CurrentColor;
-                }
                 if (HasTile)
                 {
                     return DarkTheme.LinearLightBackground;
@@ -41,9 +38,33 @@ namespace CSWBManagementApplication.ViewModels
             {
                 if (HasTable)
                 {
-                    return DarkTheme.LinearMain;
+                    if (Activated)
+                    {
+                        return DarkTheme.SolidMain;
+                    } else
+                    {
+                        return DarkTheme.SolidLight;
+                    }
                 }
                 return new SolidColorBrush(Colors.Transparent);
+            }
+        }
+        
+        public Brush Foreground
+        {
+            get => (Activated ? DarkTheme.SolidLight : DarkTheme.SolidDark);
+        }
+
+        private bool activated;
+        public bool Activated
+        {
+            get => activated;
+            set
+            {
+                activated = value;
+                OnPropertyChanged(nameof(InnerBackground));
+                OnPropertyChanged(nameof(Foreground));
+                OnPropertyChanged();
             }
         }
 
@@ -97,62 +118,52 @@ namespace CSWBManagementApplication.ViewModels
             }
         }
 
+        private string content;
+
+        public string Content
+        {
+            get => content;
+            set
+            {
+                content = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public Visibility Visibility
+        {
+            get => (HasTile || HasTable) ? Visibility.Visible : Visibility.Collapsed;
+        }
+
         private ICommand command;
 
         public ICommand Command
         {
             get => command;
-            private set
+            set
             {
                 command = value;
                 OnPropertyChanged();
             }
         }
 
-        private bool isPulsing;
-
-        private SolidColorPulsar pulsar;
-
-        private SolidColorPulsar Pulsar
-        {
-            get
-            {
-                if (pulsar == null)
-                {
-                    pulsar = new SolidColorPulsar((DarkTheme.SolidDark as SolidColorBrush).Color, (DarkTheme.SolidLight as SolidColorBrush).Color, 60, 1000);
-                    pulsar.OnColorChanged += (object sender, SolidColorBrush e) =>
-                    {
-                        OnPropertyChanged(nameof(OuterBackground));
-                    };
-                }
-                return pulsar;
-            }
-        }
-
-        public void StartPulsing()
-        {
-            if (!isPulsing)
-            {
-                isPulsing = true;
-                Pulsar.StartPulsing();
-            }
-        }
-
-        public void StopPulsing()
-        {
-            if (isPulsing)
-            {
-                isPulsing = false;
-                Pulsar.StopPulsing();
-            }
-        }
-
-        public FloorTileViewModel(bool hasTile, bool hasTable, bool hasBorder, ICommand command)
+        public FloorTileViewModel(bool hasTile, bool hasTable, bool hasBorder, ICommand command,string content, bool activated = false)
         {
             HasTile = hasTile;
             HasTable = hasTable;
             HasBorder = hasBorder;
+            Content = content;
             Command = command;
+            Activated = activated;
+        }
+
+        public FloorTileViewModel()
+        {
+            HasTile = false;
+            HasTable = false;
+            HasBorder = false;
+            Command = null;
+            Activated = false;
         }
 
         public FloorTileViewModel(bool hasTile, bool hasTable, bool hasBorder = false)
@@ -161,6 +172,7 @@ namespace CSWBManagementApplication.ViewModels
             HasTable = hasTable;
             HasBorder = hasBorder;
             Command = null;
+            Activated = false;
         }
 
         public FloorTileViewModel(ICommand command)
@@ -169,6 +181,7 @@ namespace CSWBManagementApplication.ViewModels
             HasTable = false;
             HasBorder = true;
             Command = command;
+            Activated = false;
         }
     }
 }
