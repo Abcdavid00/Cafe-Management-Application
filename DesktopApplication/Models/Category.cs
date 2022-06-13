@@ -19,14 +19,18 @@ namespace CSWBManagementApplication.Models
 
         public Category()
         {
-            GetProducts();
+            
         }
 
-        public async void UpdateCategory()
+        public async void UpdateCategoryName(string name)
         {
+            Name = name;
             await Database.UpdateCategoryAsync(this);
+            CategoryNameUpdated?.Invoke(this, Name);
         }
 
+        public event EventHandler<string> CategoryNameUpdated;
+        
         public event EventHandler ProductListUpdated;
 
         private List<Product> products;
@@ -42,7 +46,20 @@ namespace CSWBManagementApplication.Models
 
         public async void GetProducts()
         {
+            Products?.Clear();
             Products = (await Database.GetProductsAsync(CategoryID)).ToList();
+        }
+        
+        public async Task AddProduct(Product product)
+        {
+            await Database.AddProductToCategoryAsync(CategoryID, product.ProductID);
+            GetProducts();
+        }
+
+        public async Task RemoveProduct(Product product)
+        {
+            await Database.RemoveProductFromCategoryAsync(product.ProductID);
+            GetProducts();
         }
     }
 }

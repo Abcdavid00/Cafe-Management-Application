@@ -745,6 +745,10 @@ namespace CSWBManagementApplication.Services
             List<Category> categories = new List<Category>();
             QuerySnapshot categoriesSnapshot = await CategoryCollection.GetSnapshotAsync();
             categories.AddRange(categoriesSnapshot.Documents.Select(document => document.ConvertTo<Category>()));
+            foreach (Category category in categories)
+            {
+                category.GetProducts();
+            }
             return categories.AsEnumerable();
         }
 

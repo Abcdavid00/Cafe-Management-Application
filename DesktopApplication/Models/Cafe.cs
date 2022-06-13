@@ -255,7 +255,10 @@ namespace CSWBManagementApplication.Models
         {
             this.Address = address;
             await Database.UpdateCafeAddressAsync(CafeID, Address);
+            OnCafeAddressChanged(this, EventArgs.Empty);
         }
+
+        public event EventHandler OnCafeAddressChanged;
 
         public async Task GetCafeStaffsInfo()
         {
@@ -377,8 +380,12 @@ namespace CSWBManagementApplication.Models
                 if (hasStaffsInfo)
                 {
                     await GetCafeStaffsInfo();
+                    OnCafeManagerChanged?.Invoke(this, EventArgs.Empty);
                 }
             }
+            
         }
+
+        public event EventHandler OnCafeManagerChanged;
     }
 }
