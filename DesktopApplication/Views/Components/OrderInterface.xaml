@@ -4,11 +4,125 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:CSWBManagementApplication.Views.Components"
+    xmlns:component="clr-namespace:CSWBManagementApplication.Views.Components"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="1080"
     d:DesignWidth="1920"
     mc:Ignorable="d">
-    <Grid >
-        <TextBlock Text="Order" Foreground="{DynamicResource SolidLight}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+    <Grid Background="{DynamicResource LinearDarkBackground}">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="18*" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="9*" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="26*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <materialDesign:Card
+            Grid.Row="1"
+            Grid.Column="1"
+            Background="{DynamicResource SolidDark}"
+            UniformCornerRadius="10">
+
+            <ContentControl
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Content="{Binding CurrentEditableFloorLayoutViewModel, Mode=OneWay}">
+                <ContentControl.ContentTemplate>
+                    <DataTemplate>
+                        <component:EditableFloorLayout />
+                    </DataTemplate>
+                </ContentControl.ContentTemplate>
+            </ContentControl>
+        </materialDesign:Card>
+
+        <materialDesign:Card
+            Grid.Row="1"
+            Grid.Column="3"
+            Background="{DynamicResource SolidLight}"
+            UniformCornerRadius="10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.5*" />
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="0.5*" />
+                    <ColumnDefinition Width="12*" />
+                    <ColumnDefinition Width="0.5*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="23*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <materialDesign:Card
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="1,1,1,1"
+                    Background="{DynamicResource SolidDark}"
+                    UniformCornerRadius="10">
+
+                    <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                        <ItemsControl
+                            ItemsSource="{Binding FloorButtons}"
+                            VirtualizingPanel.IsVirtualizing="True"
+                            VirtualizingPanel.VirtualizationMode="Recycling">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel VerticalAlignment="Bottom" Orientation="Vertical" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Button
+                                        Height="{Binding Path=ActualWidth, RelativeSource={RelativeSource Self}}"
+                                        Padding="0"
+                                        HorizontalAlignment="Stretch"
+                                        Background="{Binding Background, Mode=OneWay}"
+                                        Command="{Binding Command, Mode=OneWay}"
+                                        Content="{Binding Content, Mode=OneWay}"
+                                        Foreground="{Binding Foreground, Mode=OneWay}"
+                                        Style="{StaticResource MaterialDesignIconButton}"
+                                        ToolTip="{Binding ToolTip, Mode=OneWay}" />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </materialDesign:Card>
+
+                <materialDesign:Card
+                        Grid.Row="1" Grid.Column="3"
+                        Margin="1,1,1,1"
+                        Background="{DynamicResource SolidDark}"
+                        UniformCornerRadius="10">
+
+                    <ScrollViewer VerticalScrollBarVisibility="Visible">
+                        <ItemsControl
+                                ItemsSource="{Binding FloorsClipboard, Mode=OneWay}"
+                                VirtualizingPanel.IsVirtualizing="True"
+                                VirtualizingPanel.VirtualizationMode="Recycling">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel VerticalAlignment="Bottom" Orientation="Vertical" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <component:ViewOnlyFloorLayout />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </materialDesign:Card>
+            </Grid>
+        </materialDesign:Card>
     </Grid>
 </UserControl>

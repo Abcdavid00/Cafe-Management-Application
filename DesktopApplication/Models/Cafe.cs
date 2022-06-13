@@ -44,6 +44,17 @@ namespace CSWBManagementApplication.Models
         {
             return a.X != b.X || a.Y != b.Y;
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is Position)
+            {
+                return this == (Position)obj;
+            }
+            return false;           
+        }
+
+        
     }
 
     [FirestoreData]

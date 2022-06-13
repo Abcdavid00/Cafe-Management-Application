@@ -327,6 +327,7 @@
     <Compile Include="ViewModels\CreateOwnerViewModel.cs" />
     <Compile Include="ViewModels\EditableFloorLayoutViewModel.cs" />
     <Compile Include="ViewModels\FindStaffViewModel.cs" />
+    <Compile Include="ViewModels\FloorButtonViewModel.cs" />
     <Compile Include="ViewModels\FloorTileViewModel.cs" />
     <Compile Include="ViewModels\ForgotPasswordDialogViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />

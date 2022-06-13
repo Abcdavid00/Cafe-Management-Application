@@ -30,7 +30,10 @@ namespace CSWBManagementApplication.Resources
         {
             foreach (var Property in typeof(DarkTheme).GetProperties())
             {
-                app.Resources[Property.Name] = Property.GetValue(null);
+                if (Property.PropertyType == typeof(Brush))
+                {
+                    app.Resources[Property.Name] = Property.GetValue(null);
+                }
             }
         }
     }
