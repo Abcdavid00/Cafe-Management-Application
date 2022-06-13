@@ -923,10 +923,10 @@
                                 Text="Placed By" />
                             <TextBlock
                                 Grid.Column="2"
+                                HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
                                 FontSize="{DynamicResource MediumFontSize}"
                                 FontWeight="Bold"
-                                HorizontalAlignment="Right"
                                 Text="Total" />
                         </Grid>
 
@@ -963,17 +963,17 @@
                                                 </Grid.ColumnDefinitions>
                                                 <StackPanel Grid.Column="0">
                                                     <TextBlock
-                                                    Padding="0,0,10,0"
-                                                    VerticalAlignment="Center"
-                                                    Text="{Binding DateOrder, Mode=OneWay}"
-                                                    TextWrapping="Wrap" />
+                                                        Padding="0,0,10,0"
+                                                        VerticalAlignment="Center"
+                                                        Text="{Binding DateOrder, Mode=OneWay}"
+                                                        TextWrapping="Wrap" />
                                                     <TextBlock
-                                                    Padding="0,0,10,0"
-                                                    VerticalAlignment="Center"
-                                                    Text="{Binding TimeOrder, Mode=OneWay}"
-                                                    TextWrapping="Wrap" />
+                                                        Padding="0,0,10,0"
+                                                        VerticalAlignment="Center"
+                                                        Text="{Binding TimeOrder, Mode=OneWay}"
+                                                        TextWrapping="Wrap" />
                                                 </StackPanel>
-                                                
+
                                                 <TextBlock
                                                     Grid.Column="1"
                                                     VerticalAlignment="Center"
@@ -982,9 +982,9 @@
 
                                                 <TextBlock
                                                     Grid.Column="1"
+                                                    HorizontalAlignment="Right"
                                                     VerticalAlignment="Center"
                                                     Text="{Binding TotalAmount, Mode=OneWay}"
-                                                    HorizontalAlignment="Right"
                                                     TextWrapping="Wrap" />
                                             </Grid>
                                         </Button>
@@ -992,8 +992,8 @@
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
                         </ScrollViewer>
-                        
-                        
+
+
                     </Grid>
 
                     <materialDesign:Card
@@ -1141,11 +1141,11 @@
                                                 Text="Name" />
                                             <TextBlock
                                                 Grid.Column="2"
+                                                HorizontalAlignment="Center"
                                                 VerticalAlignment="Center"
                                                 FontSize="17"
                                                 FontWeight="Bold"
                                                 Foreground="#BBBBBB"
-                                                HorizontalAlignment="Center"
                                                 Text="QTY" />
                                         </Grid>
 
@@ -1186,9 +1186,9 @@
                                                                     TextWrapping="Wrap" />
                                                                 <TextBlock
                                                                     Grid.Column="1"
+                                                                    HorizontalAlignment="Center"
                                                                     VerticalAlignment="Center"
                                                                     Text="{Binding QuantityOrderDetail, Mode=OneWay}"
-                                                                    HorizontalAlignment="Center"
                                                                     TextWrapping="Wrap" />
                                                             </Grid>
                                                         </Button>
@@ -1218,20 +1218,20 @@
                         </Grid>
                     </materialDesign:Card>
 
-                    <StackPanel Grid.Row="2"
-                                Grid.Column="1">
+                    <StackPanel Grid.Row="2" Grid.Column="1">
                         <Line
-                            X1="0" X2="1"
-                            Y1="0" Y2="0"
                             Stretch="Uniform"
                             Stroke="#666666"
-                            StrokeThickness="0.5"/>
+                            StrokeThickness="0.5"
+                            X1="0"
+                            X2="1"
+                            Y1="0"
+                            Y2="0" />
                         <TextBlock
-                            Text="Total Orders : 100"
                             HorizontalAlignment="Right"
-                            FontSize="13"
                             VerticalAlignment="Center"
-                            />
+                            FontSize="13"
+                            Text="Total Orders : 100" />
 
                     </StackPanel>
                 </Grid>

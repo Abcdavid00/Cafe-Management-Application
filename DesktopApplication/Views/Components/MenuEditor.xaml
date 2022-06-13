@@ -223,9 +223,12 @@
                             <RowDefinition Height="auto" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
-                        <TextBox Text="{Binding ProductSearchText, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0"/>
-                        <ScrollViewer VerticalScrollBarVisibility="Visible" Grid.Row="1">
-                            <ItemsControl ItemsSource="{Binding UnassignedDisplayProducts, Mode=OneWay}">
+                        <TextBox Grid.Row="0" Text="{Binding ProductSearchText, UpdateSourceTrigger=PropertyChanged}" />
+                        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible">
+                            <ItemsControl
+                                ItemsSource="{Binding UnassignedDisplayProducts, Mode=OneWay}"
+                                VirtualizingPanel.IsVirtualizing="True"
+                                VirtualizingPanel.VirtualizationMode="Recycling">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <StackPanel Orientation="Vertical" />
@@ -246,10 +249,10 @@
                     Grid.Row="7"
                     Grid.Column="1"
                     Margin="1,1,1,1"
-                    Visibility="{Binding ProductDetailsVisibility, Mode=OneWay}"
                     Background="{DynamicResource SolidDark}"
                     Foreground="{DynamicResource SolidLight}"
-                    UniformCornerRadius="10">
+                    UniformCornerRadius="10"
+                    Visibility="{Binding ProductDetailsVisibility, Mode=OneWay}">
 
                     <Grid Margin="5,5,5,5">
                         <Grid.ColumnDefinitions>
@@ -266,10 +269,11 @@
 
                         <TextBlock
                             Grid.Column="1"
+                            Margin="0,0,313,0"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Center"
                             FontWeight="Bold"
-                            Text="Product Editor" Margin="0,0,313,0" />
+                            Text="Product Editor" />
                         <Button
                             Grid.Row="0"
                             Grid.Column="0"

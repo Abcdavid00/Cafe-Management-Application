@@ -27,7 +27,11 @@
                 Background="{Binding TitleBrush, Mode=OneWay}"
                 Command="{Binding TitleButton, Mode=OneWay}"
                 Content="{Binding Name, Mode=OneWay}" />
-            <ItemsControl Grid.Row="1" ItemsSource="{Binding Products, Mode=OneWay}">
+            <ItemsControl
+                Grid.Row="1"
+                ItemsSource="{Binding Products, Mode=OneWay}"
+                VirtualizingPanel.IsVirtualizing="True"
+                VirtualizingPanel.VirtualizationMode="Recycling">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Vertical" />
