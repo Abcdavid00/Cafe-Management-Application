@@ -240,6 +240,7 @@
                         <ScrollViewer
                             Grid.Row="1"
                             Margin="10,0,10,0"
+                            Padding="0,0,0,5"
                             VerticalScrollBarVisibility="Visible">
                             <ItemsControl
                                 ItemsSource="{Binding UnassignedDisplayProducts, Mode=OneWay}"

@@ -110,7 +110,7 @@
                     Background="{DynamicResource SolidDark}"
                     UniformCornerRadius="10">
 
-                    <Grid Margin="5,5,5,5">
+                    <Grid Margin="10,10,10,10">
                         <ContentControl Content="{Binding OrderDisplayViewModel, Mode=OneWay}">
                             <ContentControl.ContentTemplate>
                                 <DataTemplate>
@@ -123,33 +123,53 @@
                                         </Grid.RowDefinitions>
                                         <TextBlock
                                             Grid.Row="0"
+                                            Margin="0,0,0,5"
+                                            FontSize="15"
                                             Foreground="{DynamicResource SolidLight}"
                                             Text="{Binding FloorString, Mode=OneWay}" />
                                         <TextBlock
                                             Grid.Row="1"
+                                            Margin="0,0,0,10"
+                                            FontSize="15"
                                             Foreground="{DynamicResource SolidLight}"
                                             Text="{Binding TableString, Mode=OneWay}" />
-                                        <ScrollViewer Grid.Row="2" >
+                                        <ScrollViewer Grid.Row="2">
                                             <ItemsControl ItemsSource="{Binding Products, Mode=OneWay}" VirtualizingPanel.IsVirtualizing="True">
                                                 <ItemsControl.ItemsPanel>
                                                     <ItemsPanelTemplate>
-                                                        <StackPanel Orientation="Vertical"  />
+                                                        <StackPanel Orientation="Vertical" />
                                                     </ItemsPanelTemplate>
                                                 </ItemsControl.ItemsPanel>
                                                 <ItemsControl.ItemTemplate>
                                                     <DataTemplate>
-                                                        <materialDesign:Card HorizontalAlignment="Stretch" Margin="5,10,5,5" Background="{DynamicResource SolidLight}" Height="30">
+                                                        <materialDesign:Card
+                                                            Height="30"
+                                                            Margin="5,10,5,5"
+                                                            HorizontalAlignment="Stretch"
+                                                            Background="{DynamicResource SolidLight}">
                                                             <Grid>
                                                                 <Grid.ColumnDefinitions>
-                                                                    <ColumnDefinition Width="*"/>
-                                                                    <ColumnDefinition Width="0.25*"/>
-                                                                    <ColumnDefinition Width="*"/>
-                                                                    <ColumnDefinition Width="*"/>
+                                                                    <ColumnDefinition Width="*" />
+                                                                    <ColumnDefinition Width="0.25*" />
+                                                                    <ColumnDefinition Width="*" />
+                                                                    <ColumnDefinition Width="*" />
                                                                 </Grid.ColumnDefinitions>
-                                                                <TextBlock Grid.Column="0" Text="{Binding CombinedName, Mode=OneWay}" VerticalAlignment="Center"/>
-                                                                <TextBlock Grid.Column="1" Text="{Binding Quantity, Mode=OneWay}" VerticalAlignment="Center"/>
-                                                                <TextBlock Grid.Column="2" Text="{Binding PriceString, Mode=OneWay}" VerticalAlignment="Center"/>
-                                                                <TextBlock Grid.Column="3" Text="{Binding Total, Mode=OneWay}" VerticalAlignment="Center"/>
+                                                                <TextBlock
+                                                                    Grid.Column="0"
+                                                                    VerticalAlignment="Center"
+                                                                    Text="{Binding CombinedName, Mode=OneWay}" />
+                                                                <TextBlock
+                                                                    Grid.Column="1"
+                                                                    VerticalAlignment="Center"
+                                                                    Text="{Binding Quantity, Mode=OneWay}" />
+                                                                <TextBlock
+                                                                    Grid.Column="2"
+                                                                    VerticalAlignment="Center"
+                                                                    Text="{Binding PriceString, Mode=OneWay}" />
+                                                                <TextBlock
+                                                                    Grid.Column="3"
+                                                                    VerticalAlignment="Center"
+                                                                    Text="{Binding Total, Mode=OneWay}" />
                                                             </Grid>
                                                         </materialDesign:Card>
                                                     </DataTemplate>
@@ -169,9 +189,9 @@
                     MinHeight="50"
                     Margin="1,10,1,1"
                     materialDesign:ButtonAssist.CornerRadius="10"
-                    IsEnabled="{Binding MainButtonIsEnabled, Mode=OneWay}"
                     Command="{Binding MainButtonCommand, Mode=OneWay}"
-                    Content="{Binding MainButtonContent, Mode=OneWay}" />
+                    Content="{Binding MainButtonContent, Mode=OneWay}"
+                    IsEnabled="{Binding MainButtonIsEnabled, Mode=OneWay}" />
 
                 <materialDesign:Card
                     Grid.Row="1"

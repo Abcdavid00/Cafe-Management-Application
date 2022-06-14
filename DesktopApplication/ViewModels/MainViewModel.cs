@@ -129,7 +129,7 @@ namespace CSWBManagementApplication.ViewModels
             }
             UserLink = null;
 #if DEBUG
-            UserLink = await Database.SignIn("dangkhoabh02@gmail.com", "123456");
+            UserLink = await Database.SignIn("dangkhoahb02@gmail.com", "123456");
 #endif
         }
     }

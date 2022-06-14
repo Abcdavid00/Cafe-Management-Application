@@ -144,7 +144,7 @@ namespace CSWBManagementApplication.ViewModels
                 OnPropertyChanged();
             }
         }
-        public string FloorString => (floorNumber == 0) ? "" : $"Floor {floorNumber}";
+        public string FloorString => (floorNumber == 0) ? "" : $"Floor: {floorNumber}";
 
         ObservableCollection<OrderedProductViewModel> products;
         public ObservableCollection<OrderedProductViewModel> Products
