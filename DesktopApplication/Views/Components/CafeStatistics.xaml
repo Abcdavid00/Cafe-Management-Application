@@ -853,7 +853,7 @@
                             HorizontalAlignment="Right"
                             VerticalAlignment="Center"
                             FontSize="13"
-                            Text="{Binding ToTalSold}" />
+                            Text="{Binding TotalSold}" />
 
                     </StackPanel>
                 </Grid>
@@ -874,8 +874,8 @@
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="30*" />
-                        <ColumnDefinition Width="600*" />
-                        <ColumnDefinition Width="10*" />
+                        <ColumnDefinition Width="590*" />
+                        <ColumnDefinition Width="20*" />
                         <ColumnDefinition Width="300*" />
                         <ColumnDefinition Width="10*" />
                     </Grid.ColumnDefinitions>
@@ -998,7 +998,7 @@
 
                     <materialDesign:Card
                         Grid.Row="0"
-                        Grid.RowSpan="2"
+                        Grid.RowSpan="3"
                         Grid.Column="3"
                         Margin="0,10,0,10"
                         Background="#666666"
@@ -1075,7 +1075,7 @@
                                         VerticalAlignment="Center"
                                         FontSize="17"
                                         Foreground="#BBBBBB"
-                                        Text="A123" />
+                                        Text="{Binding TableOrderDetail}" />
                                 </StackPanel>
 
                                 <StackPanel Grid.Row="4">
@@ -1221,17 +1221,26 @@
                     <StackPanel Grid.Row="2"
                                 Grid.Column="1">
                         <Line
+                            Margin="0 0 0 5"
                             X1="0" X2="1"
                             Y1="0" Y2="0"
                             Stretch="Uniform"
                             Stroke="#666666"
                             StrokeThickness="0.5"/>
-                        <TextBlock
-                            Text="Total Orders : 100"
-                            HorizontalAlignment="Right"
-                            FontSize="13"
+                        <WrapPanel HorizontalAlignment="Right">
+                            <TextBlock
+                            Text="Total Orders : "
+                            FontSize="17"
                             VerticalAlignment="Center"
                             />
+                            <TextBlock
+                            Text="{Binding TotalOrder}"
+                            HorizontalAlignment="Right"
+                            FontSize="17"
+                            VerticalAlignment="Center"
+                            />
+                        </WrapPanel>
+                        
 
                     </StackPanel>
                 </Grid>
