@@ -17,7 +17,7 @@
             <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="18*" />
             <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="15*" />
+            <ColumnDefinition Width="12*" />
             <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
 
@@ -44,11 +44,12 @@
                     Height="50"
                     Margin="30,10,30,0">
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="4*" />
+                        <ColumnDefinition Width="3*" />
+                        <ColumnDefinition Width="3*" />
+                        <ColumnDefinition Width="3*" />
                         <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="0.4*" />
-                        <ColumnDefinition Width="0.4*" />
-                        <ColumnDefinition Width="0.4*" />
-                        <ColumnDefinition Width="0.25*" />
+                        <ColumnDefinition Width="1*" />
                     </Grid.ColumnDefinitions>
                     <TextBlock
                         Grid.Column="0"
@@ -113,7 +114,7 @@
 
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="0.2*" />
+                    <RowDefinition Height="0.3*" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="0.2*" />
                     <RowDefinition Height="*" />
@@ -121,13 +122,13 @@
                     <RowDefinition Height="6*" />
                     <RowDefinition Height="0.2*" />
                     <RowDefinition Height="6*" />
-                    <RowDefinition Height="0.2*" />
+                    <RowDefinition Height="0.3*" />
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.5*" />
+                    <ColumnDefinition Width="0.4*" />
                     <ColumnDefinition Width="9*" />
-                    <ColumnDefinition Width="0.5*" />
+                    <ColumnDefinition Width="0.4*" />
                 </Grid.ColumnDefinitions>
 
                 <materialDesign:Card
@@ -189,8 +190,12 @@
                         </Grid.ColumnDefinitions>
                         <TextBox
                             Grid.Column="0"
-                            MinWidth="100"
                             VerticalAlignment="Center"
+                            HorizontalContentAlignment="Center"
+                            Margin="20 0 20 0"
+                            Width="auto"
+                            FontSize="15"
+                            ClipToBounds="True"
                             Foreground="{DynamicResource SolidLight}"
                             Text="{Binding CurrentCategoryName, UpdateSourceTrigger=PropertyChanged}"
                             Visibility="{Binding CategoryNameTextBoxVisibility, Mode=OneWay}" />
@@ -198,7 +203,7 @@
                         <Button
                             Grid.Column="1"
                             Width="{Binding ActualHeight, RelativeSource={RelativeSource Mode=Self}}"
-                            Margin="5,0,10,0"
+                            Margin="0,5,10,5"
                             Padding="0"
                             HorizontalAlignment="Right"
                             Command="{Binding CategoryNameSaveCommand, Mode=OneWay}"
