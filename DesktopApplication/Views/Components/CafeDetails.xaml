@@ -50,7 +50,7 @@
                     <materialDesign:SlideWipe Direction="Left" />
                 </materialDesign:TransitionerSlide.ForwardWipe>
 
-                <ContentControl>
+                <ContentControl Content="{Binding CafeStatisticViewModel, Mode=OneWay}">
                     <ContentControl.ContentTemplate>
                         <DataTemplate>
                             <components:CafeStatistics/>
@@ -68,7 +68,7 @@
                     <materialDesign:SlideWipe Direction="Right" />
                 </materialDesign:TransitionerSlide.BackwardWipe>
 
-                <ContentControl Content="{Binding CafeLayoutViewModel}">
+                <ContentControl Content="{Binding CafeLayoutViewModel, Mode=OneWay}">
                     <ContentControl.ContentTemplate>
                         <DataTemplate>
                             <components:CafeLayout />
@@ -83,7 +83,7 @@
                     <materialDesign:SlideWipe Direction="Right" />
                 </materialDesign:TransitionerSlide.BackwardWipe>
 
-                <ContentControl Content="{Binding CafeStaffViewModel}">
+                <ContentControl Content="{Binding CafeStaffViewModel, Mode=OneWay}">
                     <ContentControl.ContentTemplate>
                         <DataTemplate>
                             <components:CafeStaff />
