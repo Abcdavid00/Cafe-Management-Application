@@ -133,6 +133,29 @@ namespace CSWBManagementApplication.ViewModels
             }
         }
 
+        private int Total
+        { 
+            get
+            {
+                if (ActiveOrder != null)
+                {
+                    int total = 0;
+                    foreach (OrderedProduct op in ActiveOrder.OrderedProducts)
+                    {
+                        total += GetPrice(op.ProductID, op.Size);
+                    }
+                    return total;
+                }
+                if (PreviousOrder != null)
+                {
+                    return (int)PreviousOrder.Total;
+                }
+                return 0;
+            }
+        }
+
+        public string TotalString => MiscFunctions.IntToPrice(Total);
+
         private int floorNumber;
         public int FloorNumber
         {
@@ -557,7 +580,10 @@ namespace CSWBManagementApplication.ViewModels
                 {
                     total += GetPrice(op.ProductID, op.Size);
                 }
-                Order order = await Database.CreateOrderAsync(new Order(this.cafe.CafeID, this.staff.UID, DateTime.Now, total, CurrentActiveOrder.OrderedProducts));
+
+                DateTime now = DateTime.Now;
+                DateTime time = new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, now.Second);
+                Order order = await Database.CreateOrderAsync(new Order(this.cafe.CafeID, this.staff.UID, time, total, CurrentActiveOrder.OrderedProducts));
                 previousOrdersMap[SelectedTableFloor][SelectedTablePosition]= order;
                 CurrentOrder = previousOrdersMap[SelectedTableFloor][SelectedTablePosition];
                 activeOrdersMap[SelectedTableFloor][SelectedTablePosition]= null;
