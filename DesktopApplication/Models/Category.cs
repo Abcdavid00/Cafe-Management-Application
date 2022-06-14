@@ -49,6 +49,12 @@ namespace CSWBManagementApplication.Models
             Products?.Clear();
             Products = (await Database.GetProductsAsync(CategoryID)).ToList();
         }
+
+        public async Task GetProductsAsync()
+        {
+            Products?.Clear();
+            Products = (await Database.GetProductsAsync(CategoryID)).ToList();
+        }
         
         public async Task AddProduct(Product product)
         {

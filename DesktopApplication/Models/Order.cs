@@ -36,6 +36,29 @@ namespace CSWBManagementApplication.Models
         }
     }
 
+    internal class NestedOrderedProduct
+    {
+        public string ProductID { get; set; }
+        
+        public int Size { get; set; }
+
+        public int Count { get; set; }
+
+        public NestedOrderedProduct()
+        {
+            ProductID = "";
+            Size = 0;
+            Count = 0;
+        }
+
+        public NestedOrderedProduct(string productID, int size)
+        {
+            ProductID = productID;
+            Size = size;
+            Count = 1;
+        }
+    }
+    
     [FirestoreData]
     internal class ActiveOrder
     {
@@ -74,6 +97,7 @@ namespace CSWBManagementApplication.Models
                 OrderedProducts = new List<OrderedProduct>();
             }
             OrderedProducts.Add(orderedProduct);
+            OrderedProductsChanged?.Invoke(this, new EventArgs());
         }
 
         public void RemoveOrderProduct(OrderedProduct orderedProduct)
@@ -88,7 +112,31 @@ namespace CSWBManagementApplication.Models
             {
                 OrderedProducts.RemoveAt(index);
             }
+            OrderedProductsChanged?.Invoke(this, new EventArgs());
         }
+
+        public List<NestedOrderedProduct> NestedOrderedProducts
+        {
+            get
+            {
+                List<NestedOrderedProduct> nestedOrderedProducts = new List<NestedOrderedProduct>();
+                foreach (var orderedProduct in OrderedProducts)
+                {
+                    NestedOrderedProduct existNestedOrderedProduct = nestedOrderedProducts.Find((op) => op.ProductID == orderedProduct.ProductID && op.Size == orderedProduct.Size);
+                    if (existNestedOrderedProduct == null)
+                    {
+                        nestedOrderedProducts.Add(new NestedOrderedProduct(orderedProduct.ProductID, orderedProduct.Size));
+                    }
+                    else
+                    {
+                        existNestedOrderedProduct.Count++;
+                    }
+                }
+                return nestedOrderedProducts;
+            }
+        }
+
+        public event EventHandler OrderedProductsChanged;
     }
 
     [FirestoreData]
@@ -99,6 +147,9 @@ namespace CSWBManagementApplication.Models
 
         [FirestoreProperty]
         public string CafeID { get; set; }
+
+        [FirestoreProperty]
+        public string StaffID { get; set; }
 
         private DateTime time;
         public DateTime Time
@@ -122,14 +173,36 @@ namespace CSWBManagementApplication.Models
         [FirestoreProperty]
         public List<OrderedProduct> OrderedProducts { get; set; }
 
+        public List<NestedOrderedProduct> NestedOrderedProducts
+        {
+            get
+            {
+                List<NestedOrderedProduct> nestedOrderedProducts = new List<NestedOrderedProduct>();
+                foreach (var orderedProduct in OrderedProducts)
+                {
+                    NestedOrderedProduct existNestedOrderedProduct = nestedOrderedProducts.Find((op) => op.ProductID == orderedProduct.ProductID && op.Size == orderedProduct.Size);
+                    if (existNestedOrderedProduct == null)
+                    {
+                        nestedOrderedProducts.Add(new NestedOrderedProduct(orderedProduct.ProductID, orderedProduct.Size));
+                    }
+                    else
+                    {
+                        existNestedOrderedProduct.Count++;
+                    }
+                }
+                return nestedOrderedProducts;
+            }
+        }
+
         public Order()
         {
 
         }
 
-        public Order(string cafeID ,DateTime time, long total, List<OrderedProduct> orderedProducts)
+        public Order(string cafeID ,string staffID ,DateTime time, long total, List<OrderedProduct> orderedProducts)
         {
             this.CafeID = cafeID;
+            this.StaffID = staffID;
             this.Time = time;
             this.Total = total;
             this.OrderedProducts = new List<OrderedProduct>(orderedProducts);
