@@ -223,7 +223,8 @@ namespace CSWBManagementApplication.ViewModels
             {
                 Products = new ObservableCollection<OrderedProductViewModel>();
             }
-            
+            OnPropertyChanged(nameof(Total));
+            OnPropertyChanged(nameof(TotalString));
         }
 
         public void Update(ActiveOrder activeOrder, int floorIndex, int tableNumber)
