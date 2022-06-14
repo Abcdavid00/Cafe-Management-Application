@@ -72,6 +72,16 @@ namespace CSWBManagementApplication.Service
             }
         }
 
+        public static long MinDate(DateTime dateTime)
+        {
+            return new DateTime(dateTime.Year, dateTime.Month, dateTime.Day,0,0,0).ToBinary();
+        }
+
+        public static long MaxDate(DateTime dateTime)
+        {
+            return new DateTime(dateTime.Year, dateTime.Month, dateTime.Day, 23, 59, 59).ToBinary();
+        }
+
         public class SolidColorPulsar
         {
             private int refreshRate;
@@ -234,5 +244,7 @@ namespace CSWBManagementApplication.Service
                 }
             }
         }
-    }
+
+        
+}
 }

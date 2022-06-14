@@ -115,28 +115,46 @@
                                 <ColumnDefinition Width="24*" />
                             </Grid.ColumnDefinitions>
 
-                            <StackPanel
-                                Grid.Row="1"
-                                Grid.Column="1"
-                                HorizontalAlignment="Left"
-                                Orientation="Horizontal">
-                                <materialDesign:PackIcon
-                                    Width="auto"
-                                    Height="auto"
-                                    Foreground="White"
-                                    Kind="Search" />
+                            <Grid Grid.Row="1" Grid.Column="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="9*" />
+                                    <ColumnDefinition Width="1*" />
+                                </Grid.ColumnDefinitions>
 
-                                <TextBox
-                                    Margin="10,0,0,0"
-                                    Padding="0"
+                                <StackPanel
+                                    Grid.Column="0"
                                     HorizontalAlignment="Left"
+                                    Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Width="auto"
+                                        Height="auto"
+                                        Foreground="White"
+                                        Kind="Search" />
+
+                                    <TextBox
+                                        Margin="10,0,0,0"
+                                        Padding="0"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        materialDesign:HintAssist.Hint="Search"
+                                        materialDesign:TextFieldAssist.HasClearButton="True"
+                                        FontSize="25"
+                                        Foreground="{DynamicResource SolidLight}"
+                                        Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                </StackPanel>
+
+                                <Button
+                                    Grid.Column="1"
+                                    Height="{Binding ActualWidth, RelativeSource={RelativeSource Mode=Self}}"
+                                    Padding="0"
                                     VerticalAlignment="Center"
-                                    materialDesign:HintAssist.Hint="Search"
-                                    materialDesign:TextFieldAssist.HasClearButton="True"
-                                    FontSize="25"
-                                    Foreground="{DynamicResource SolidLight}"
-                                    Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                            </StackPanel>
+                                    Background="{Binding ButtonBackground, Mode=OneWay}"
+                                    Command="{Binding Add, Mode=OneWay}">
+                                    <Button.Content>
+                                        <materialDesign:PackIcon Kind="Add" />
+                                    </Button.Content>
+                                </Button>
+                            </Grid>
 
                             <ScrollViewer
                                 Grid.Row="2"
@@ -218,7 +236,7 @@
                     </ContentControl.ContentTemplate>
 
                 </ContentControl>
-                
+
 
                 <materialDesign:TransitionerSlide.ForwardWipe>
                     <materialDesign:SlideWipe Direction="Up" />
