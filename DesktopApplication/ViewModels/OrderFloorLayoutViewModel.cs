@@ -80,7 +80,7 @@ namespace CSWBManagementApplication.ViewModels
             FloorTiles[PositionToIndex(position)].HasBorder = selected;
         }
 
-        public void SetTableActive(Position position, bool activated)
+        public void SetTableActivated(Position position, bool activated)
         {
             FloorTiles[PositionToIndex(position)].Activated = activated;
         }

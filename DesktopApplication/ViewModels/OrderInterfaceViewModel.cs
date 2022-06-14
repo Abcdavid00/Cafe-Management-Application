@@ -244,7 +244,7 @@ namespace CSWBManagementApplication.ViewModels
         public OrderInterfaceViewModel(Staff staff)
         {
             this.staff = staff;
-            
+            MainButtonIsEnabled = false;
             Initiallize();
         }
 
@@ -295,10 +295,19 @@ namespace CSWBManagementApplication.ViewModels
                 category.ProductClicked += Category_ProductClicked;
             }
             OrderDisplayViewModel = new OrderDisplayViewModel(GetPrice, GetName);
-
             categories.Clear();
         }
 
+        private bool mainButtonIsEnabled;
+        public bool MainButtonIsEnabled
+        {
+            get => mainButtonIsEnabled;
+            set
+            {
+                mainButtonIsEnabled = value;
+                OnPropertyChanged();
+            }
+        }
         private int GetPrice(string productID, int size)
         {
             Product product = products.First(p => p.ProductID == productID);
@@ -474,6 +483,7 @@ namespace CSWBManagementApplication.ViewModels
             {
                 OrderDisplayViewModel.Update(CurrentOrder, SelectedTableFloor, GetTableNumber(SelectedTableFloor, SelectedTablePosition));
             }
+            MainButtonIsEnabled = true;   
         }
 
         private ActiveOrder currentActiveOrder;
@@ -507,7 +517,7 @@ namespace CSWBManagementApplication.ViewModels
 
         private void SetTableActivated(int floorIndex, Position tablePosition, bool value)
         {
-            orderFloorLayouts[floorIndex].SetTableSelected(tablePosition, value);
+            orderFloorLayouts[floorIndex].SetTableActivated(tablePosition, value);
         }
 
         private int GetTableNumber(int floorIndex, Position tablePosition)
@@ -526,6 +536,7 @@ namespace CSWBManagementApplication.ViewModels
                 activeOrdersMap[SelectedTableFloor][SelectedTablePosition] = new ActiveOrder(this.cafe.CafeID,SelectedTableFloor,SelectedTablePosition);
                 CurrentActiveOrder = activeOrdersMap[SelectedTableFloor][SelectedTablePosition];
                 OrderDisplayViewModel.Update(CurrentActiveOrder, SelectedTableFloor, GetTableNumber(SelectedTableFloor, SelectedTablePosition));
+                SetTableActivated(SelectedTableFloor, SelectedTablePosition, true);
             }
         }
         private void Category_ProductClicked(object sender, OrderingProductEventArgs e)
@@ -551,6 +562,7 @@ namespace CSWBManagementApplication.ViewModels
                 CurrentOrder = previousOrdersMap[SelectedTableFloor][SelectedTablePosition];
                 activeOrdersMap[SelectedTableFloor][SelectedTablePosition]= null;
                 CurrentActiveOrder = null;
+                SetTableActivated(SelectedTableFloor, SelectedTablePosition, false);
             }
         }
 
