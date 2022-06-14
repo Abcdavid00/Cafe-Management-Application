@@ -82,6 +82,23 @@ namespace CSWBManagementApplication.ViewModels
             }
         }
 
+        public string Time
+        {
+            get => order.Time.ToString("dd/MM/yyyy\nHH:mm:ss");
+        }
+
+        private string staffName;
+        public string StaffName
+        {
+            get => staffName;
+            set
+            {
+                staffName = value;
+                OnPropertyChanged();
+            }
+        }
+
+
         private int Total
         {
             get
@@ -120,10 +137,10 @@ namespace CSWBManagementApplication.ViewModels
 
         private Func<string, string> GetName;
 
-        public void Update(Order order)
+        public void Update(Order order, string staffName)
         {
             Order = order;
-            
+            StaffName = staffName;
         }
 
         public OrderDetailsViewModel(Func<string, string> getName)
@@ -482,6 +499,22 @@ namespace CSWBManagementApplication.ViewModels
 
         #region Seach
 
+        private int totalOrders;
+        public int TotalOrders
+        {
+            get => totalOrders;
+            set
+            {
+                totalOrders = value;
+                OnPropertyChanged(nameof(TotalOrdersString));
+                OnPropertyChanged();
+            }
+        }
+        public string TotalOrdersString
+        {
+            get => totalOrders.ToString();
+        }
+
         public string GetStaffName(string staffID)
         {
             while (!initiallized)
@@ -537,7 +570,7 @@ namespace CSWBManagementApplication.ViewModels
 
             HistoryOrders?.Clear();
 
-            HistoryOrders = new ObservableCollection<HistoryOrderViewModel>(orders.Select(o => new HistoryOrderViewModel(o, GetStaffName(o.StaffID), new CommandBase(() => { OrderDetails.Update(o); }))));
+            HistoryOrders = new ObservableCollection<HistoryOrderViewModel>(orders.Select(o => new HistoryOrderViewModel(o, GetStaffName(o.StaffID), new CommandBase(() => { OrderDetails.Update(o,GetStaffName(o.StaffID)); }))));
         }
         
         
