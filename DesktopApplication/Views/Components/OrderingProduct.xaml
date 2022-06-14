@@ -22,20 +22,27 @@
                 <ColumnDefinition Width="3*" />
                 <ColumnDefinition Width="3*" />
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" Text="{Binding Name, Mode=OneWay}" />
+            <TextBlock
+                Grid.Column="0"
+                Margin="5,0,5,0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Text="{Binding Name, Mode=OneWay}" />
             <Button
                 Grid.Column="1"
-                Margin="10,5,10,5"
+                Margin="10,5,5,5"
                 Padding="0"
                 Command="{Binding SPriceCommand, Mode=OneWay}"
                 Content="{Binding SPrice, Mode=OneWay}"
+                FontSize="10"
                 IsEnabled="{Binding IsSPriceEnabled, Mode=OneWay}" />
             <Button
                 Grid.Column="2"
-                Margin="10,5,10,5"
+                Margin="10,5,5,5"
                 Padding="0"
                 Command="{Binding MPriceCommand, Mode=OneWay}"
                 Content="{Binding MPrice, Mode=OneWay}"
+                FontSize="10"
                 IsEnabled="{Binding IsMPriceEnabled, Mode=OneWay}" />
             <Button
                 Grid.Column="3"
@@ -43,6 +50,7 @@
                 Padding="0"
                 Command="{Binding LPriceCommand, Mode=OneWay}"
                 Content="{Binding LPrice, Mode=OneWay}"
+                FontSize="10"
                 IsEnabled="{Binding IsLPriceEnabled, Mode=OneWay}" />
         </Grid>
     </materialDesign:Card>
