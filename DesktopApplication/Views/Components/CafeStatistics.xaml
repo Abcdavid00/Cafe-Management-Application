@@ -722,7 +722,6 @@
 
                     <Grid
                         Grid.Row="1"
-                        Grid.RowSpan="2"
                         Grid.Column="1"
                         Height="auto"
                         Margin="0,0,0,10"
@@ -734,6 +733,7 @@
                         <Grid
                             Grid.Row="0"
                             Height="auto"
+                            Margin="10,0,10,5"
                             VerticalAlignment="Center">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1.5*" />
@@ -762,9 +762,9 @@
                                 Text="Sold" />
                         </Grid>
 
-                        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible">
+                        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Hidden">
                             <ItemsControl
-                                Margin="10,0,10,10"
+                                Margin="0,0,0,10"
                                 HorizontalAlignment="Stretch"
                                 VerticalAlignment="Stretch"
                                 ItemsSource="{Binding StaffInfos, Mode=OneWay}"
@@ -878,9 +878,9 @@
                             <RowDefinition Height="9*" />
                         </Grid.RowDefinitions>
                         <Grid
-                            Margin="10 0 10 5"
                             Grid.Row="0"
                             Height="auto"
+                            Margin="10,0,10,5"
                             VerticalAlignment="Center">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="0.75*" />
@@ -933,7 +933,7 @@
                                             BorderBrush="Transparent"
                                             Command="{Binding Command, Mode=OneWay}"
                                             Foreground="{Binding Foreground, Mode=OneWay}">
-                                            <Grid >
+                                            <Grid>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="0.75*" />
                                                     <ColumnDefinition Width="1.5*" />
@@ -978,218 +978,224 @@
                         Background="#666666"
                         UniformCornerRadius="10">
 
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="20*" />
-                                <RowDefinition Height="0.5*" />
-                                <RowDefinition Height="200*" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="10*" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-
-                            <TextBlock
-                                Grid.Row="1"
-                                Grid.Column="1"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                FontSize="20"
-                                FontWeight="Bold"
-                                Text="Order Detail" />
-
-                            <Grid Grid.Row="3" Grid.Column="1">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="1.2*" />
-                                    <RowDefinition Height="0.1*" />
-                                    <RowDefinition Height="1.2*" />
-                                    <RowDefinition Height="0.1*" />
-                                    <RowDefinition Height="auto" MaxHeight="95" />
-                                    <RowDefinition Height="0.1*" />
-                                    <RowDefinition Height="4.3*" />
-                                    <RowDefinition Height="0.1*" />
-                                    <RowDefinition Height="1.5*" />
-                                </Grid.RowDefinitions>
-
-                                <StackPanel Grid.Row="0">
-                                    <TextBlock
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Center"
-                                        FontSize="18"
-                                        Text="Time" />
-                                    <WrapPanel Margin="15,0,0,0">
-                                        <TextBlock
-                                            Margin="0,0,5,0"
-                                            HorizontalAlignment="Left"
-                                            VerticalAlignment="Center"
-                                            FontSize="17"
-                                            Foreground="#BBBBBB"
-                                            Text="{Binding DateOrder}" />
-                                        <TextBlock
-                                            HorizontalAlignment="Left"
-                                            VerticalAlignment="Center"
-                                            FontSize="17"
-                                            Foreground="#BBBBBB"
-                                            Text="{Binding TimeOrder}" />
-                                    </WrapPanel>
-                                </StackPanel>
-
-                                <StackPanel Grid.Row="2">
-                                    <TextBlock
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Center"
-                                        FontSize="18"
-                                        Text="Table" />
-                                    <TextBlock
-                                        Margin="15,0,0,0"
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Center"
-                                        FontSize="17"
-                                        Foreground="#BBBBBB"
-                                        Text="{Binding TableOrderDetail}" />
-                                </StackPanel>
-
-                                <StackPanel Grid.Row="4">
-                                    <TextBlock
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Center"
-                                        FontSize="18"
-                                        Text="Placed By" />
-                                    <Grid Margin="15,0,0,0">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="1*" />
-                                            <ColumnDefinition Width="5*" />
-                                        </Grid.ColumnDefinitions>
-                                        <materialDesign:PackIcon
-                                            Grid.Column="0"
-                                            Width="auto"
-                                            Height="auto"
-                                            MaxWidth="30"
-                                            MaxHeight="30"
-                                            HorizontalAlignment="Left"
-                                            VerticalAlignment="Center"
-                                            Foreground="{DynamicResource SolidLight}"
-                                            Kind="AccountCircle" />
-                                        <TextBlock
-                                            Grid.Column="1"
-                                            Margin="5,0,0,0"
-                                            HorizontalAlignment="Left"
-                                            VerticalAlignment="Center"
-                                            FontSize="17"
-                                            Foreground="#BBBBBB"
-                                            Text="{Binding PlaceBy}"
-                                            TextWrapping="Wrap" />
-                                    </Grid>
-
-                                </StackPanel>
-
-                                <StackPanel Grid.Row="6">
-                                    <TextBlock
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Center"
-                                        FontSize="18"
-                                        Text="Order List" />
-
+                        <ContentControl Content="{Binding OrderDetails, Mode=OneWay}">
+                            <ContentControl.ContentTemplate>
+                                <DataTemplate>
                                     <Grid>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="*" />
-                                            <RowDefinition Height="9*" />
+                                            <RowDefinition Height="20*" />
+                                            <RowDefinition Height="0.5*" />
+                                            <RowDefinition Height="200*" />
+                                            <RowDefinition Height="*" />
                                         </Grid.RowDefinitions>
-                                        <Grid
-                                            Grid.Row="0"
-                                            Height="auto"
-                                            VerticalAlignment="Center">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="4*" />
-                                                <ColumnDefinition Width="1*" />
-                                            </Grid.ColumnDefinitions>
-                                            <TextBlock
-                                                Grid.Column="0"
-                                                VerticalAlignment="Center"
-                                                FontSize="17"
-                                                FontWeight="Bold"
-                                                Foreground="#BBBBBB"
-                                                Text="Name" />
-                                            <TextBlock
-                                                Grid.Column="2"
-                                                HorizontalAlignment="Center"
-                                                VerticalAlignment="Center"
-                                                FontSize="17"
-                                                FontWeight="Bold"
-                                                Foreground="#BBBBBB"
-                                                Text="QTY" />
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="10*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBlock
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontSize="20"
+                                            FontWeight="Bold"
+                                            Text="Order Detail" />
+
+                                        <Grid Grid.Row="3" Grid.Column="1">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="1.2*" />
+                                                <RowDefinition Height="0.1*" />
+                                                <RowDefinition Height="1.2*" />
+                                                <RowDefinition Height="0.1*" />
+                                                <RowDefinition Height="auto" MaxHeight="95" />
+                                                <RowDefinition Height="0.1*" />
+                                                <RowDefinition Height="4.3*" />
+                                                <RowDefinition Height="0.1*" />
+                                                <RowDefinition Height="1.5*" />
+                                            </Grid.RowDefinitions>
+
+                                            <StackPanel Grid.Row="0">
+                                                <TextBlock
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Center"
+                                                    FontSize="18"
+                                                    Text="Time" />
+                                                <WrapPanel Margin="15,0,0,0">
+                                                    <TextBlock
+                                                        Margin="0,0,5,0"
+                                                        HorizontalAlignment="Left"
+                                                        VerticalAlignment="Center"
+                                                        FontSize="17"
+                                                        Foreground="#BBBBBB"
+                                                        Text="{Binding TotalString, Mode=OneWay}" />
+                                                    <TextBlock
+                                                        HorizontalAlignment="Left"
+                                                        VerticalAlignment="Center"
+                                                        FontSize="17"
+                                                        Foreground="#BBBBBB"
+                                                        Text="{Binding TimeOrder}" />
+                                                </WrapPanel>
+                                            </StackPanel>
+
+                                            <StackPanel Grid.Row="2">
+                                                <TextBlock
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Center"
+                                                    FontSize="18"
+                                                    Text="Table" />
+                                                <TextBlock
+                                                    Margin="15,0,0,0"
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Center"
+                                                    FontSize="17"
+                                                    Foreground="#BBBBBB"
+                                                    Text="{Binding TableOrderDetail}" />
+                                            </StackPanel>
+
+                                            <StackPanel Grid.Row="4">
+                                                <TextBlock
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Center"
+                                                    FontSize="18"
+                                                    Text="Placed By" />
+                                                <Grid Margin="15,0,0,0">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="1*" />
+                                                        <ColumnDefinition Width="5*" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <materialDesign:PackIcon
+                                                        Grid.Column="0"
+                                                        Width="auto"
+                                                        Height="auto"
+                                                        MaxWidth="30"
+                                                        MaxHeight="30"
+                                                        HorizontalAlignment="Left"
+                                                        VerticalAlignment="Center"
+                                                        Foreground="{DynamicResource SolidLight}"
+                                                        Kind="AccountCircle" />
+                                                    <TextBlock
+                                                        Grid.Column="1"
+                                                        Margin="5,0,0,0"
+                                                        HorizontalAlignment="Left"
+                                                        VerticalAlignment="Center"
+                                                        FontSize="17"
+                                                        Foreground="#BBBBBB"
+                                                        Text="{Binding PlaceBy}"
+                                                        TextWrapping="Wrap" />
+                                                </Grid>
+
+                                            </StackPanel>
+
+                                            <StackPanel Grid.Row="6">
+                                                <TextBlock
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Center"
+                                                    FontSize="18"
+                                                    Text="Order List" />
+
+                                                <Grid>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="*" />
+                                                        <RowDefinition Height="9*" />
+                                                    </Grid.RowDefinitions>
+                                                    <Grid
+                                                        Grid.Row="0"
+                                                        Height="auto"
+                                                        VerticalAlignment="Center">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="4*" />
+                                                            <ColumnDefinition Width="1*" />
+                                                        </Grid.ColumnDefinitions>
+                                                        <TextBlock
+                                                            Grid.Column="0"
+                                                            VerticalAlignment="Center"
+                                                            FontSize="17"
+                                                            FontWeight="Bold"
+                                                            Foreground="#BBBBBB"
+                                                            Text="Name" />
+                                                        <TextBlock
+                                                            Grid.Column="2"
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            FontSize="17"
+                                                            FontWeight="Bold"
+                                                            Foreground="#BBBBBB"
+                                                            Text="QTY" />
+                                                    </Grid>
+
+                                                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible">
+                                                        <ItemsControl
+                                                            Margin="10,0,10,10"
+                                                            HorizontalAlignment="Stretch"
+                                                            VerticalAlignment="Stretch"
+                                                            ItemsSource="{Binding StaffInfos, Mode=OneWay}"
+                                                            VirtualizingPanel.IsVirtualizing="True"
+                                                            VirtualizingPanel.VirtualizationMode="Recycling">
+                                                            <ItemsControl.ItemsPanel>
+                                                                <ItemsPanelTemplate>
+                                                                    <StackPanel Orientation="Vertical" />
+                                                                </ItemsPanelTemplate>
+                                                            </ItemsControl.ItemsPanel>
+                                                            <ItemsControl.ItemTemplate>
+                                                                <DataTemplate>
+                                                                    <Button
+                                                                        Height="auto"
+                                                                        Margin="5,5,5,5"
+                                                                        Padding="10"
+                                                                        HorizontalContentAlignment="Stretch"
+                                                                        materialDesign:ButtonAssist.CornerRadius="10"
+                                                                        Background="{Binding Background, Mode=OneWay}"
+                                                                        Command="{Binding Command, Mode=OneWay}"
+                                                                        Foreground="{Binding Foreground, Mode=OneWay}">
+                                                                        <Grid Margin="15,5,5,5">
+                                                                            <Grid.ColumnDefinitions>
+                                                                                <ColumnDefinition Width="4*" />
+                                                                                <ColumnDefinition Width="1*" />
+                                                                            </Grid.ColumnDefinitions>
+                                                                            <TextBlock
+                                                                                Grid.Column="0"
+                                                                                Padding="0,0,10,0"
+                                                                                VerticalAlignment="Center"
+                                                                                Text="{Binding NameOrderDetail, Mode=OneWay}"
+                                                                                TextWrapping="Wrap" />
+                                                                            <TextBlock
+                                                                                Grid.Column="1"
+                                                                                HorizontalAlignment="Center"
+                                                                                VerticalAlignment="Center"
+                                                                                Text="{Binding QuantityOrderDetail, Mode=OneWay}"
+                                                                                TextWrapping="Wrap" />
+                                                                        </Grid>
+                                                                    </Button>
+                                                                </DataTemplate>
+                                                            </ItemsControl.ItemTemplate>
+                                                        </ItemsControl>
+                                                    </ScrollViewer>
+                                                </Grid>
+
+                                            </StackPanel>
+
+                                            <StackPanel Grid.Row="8">
+                                                <TextBlock
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Center"
+                                                    FontSize="18"
+                                                    Text="Total" />
+                                                <TextBlock
+                                                    Margin="15,0,0,0"
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Center"
+                                                    FontSize="17"
+                                                    Foreground="#BBBBBB"
+                                                    Text="{Binding TotalAmount}" />
+                                            </StackPanel>
                                         </Grid>
-
-                                        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible">
-                                            <ItemsControl
-                                                Margin="10,0,10,10"
-                                                HorizontalAlignment="Stretch"
-                                                VerticalAlignment="Stretch"
-                                                ItemsSource="{Binding StaffInfos, Mode=OneWay}"
-                                                VirtualizingPanel.IsVirtualizing="True"
-                                                VirtualizingPanel.VirtualizationMode="Recycling">
-                                                <ItemsControl.ItemsPanel>
-                                                    <ItemsPanelTemplate>
-                                                        <StackPanel Orientation="Vertical" />
-                                                    </ItemsPanelTemplate>
-                                                </ItemsControl.ItemsPanel>
-                                                <ItemsControl.ItemTemplate>
-                                                    <DataTemplate>
-                                                        <Button
-                                                            Height="auto"
-                                                            Margin="5,5,5,5"
-                                                            Padding="10"
-                                                            HorizontalContentAlignment="Stretch"
-                                                            materialDesign:ButtonAssist.CornerRadius="10"
-                                                            Background="{Binding Background, Mode=OneWay}"
-                                                            Command="{Binding Command, Mode=OneWay}"
-                                                            Foreground="{Binding Foreground, Mode=OneWay}">
-                                                            <Grid Margin="15,5,5,5">
-                                                                <Grid.ColumnDefinitions>
-                                                                    <ColumnDefinition Width="4*" />
-                                                                    <ColumnDefinition Width="1*" />
-                                                                </Grid.ColumnDefinitions>
-                                                                <TextBlock
-                                                                    Grid.Column="0"
-                                                                    Padding="0,0,10,0"
-                                                                    VerticalAlignment="Center"
-                                                                    Text="{Binding NameOrderDetail, Mode=OneWay}"
-                                                                    TextWrapping="Wrap" />
-                                                                <TextBlock
-                                                                    Grid.Column="1"
-                                                                    HorizontalAlignment="Center"
-                                                                    VerticalAlignment="Center"
-                                                                    Text="{Binding QuantityOrderDetail, Mode=OneWay}"
-                                                                    TextWrapping="Wrap" />
-                                                            </Grid>
-                                                        </Button>
-                                                    </DataTemplate>
-                                                </ItemsControl.ItemTemplate>
-                                            </ItemsControl>
-                                        </ScrollViewer>
                                     </Grid>
-
-                                </StackPanel>
-
-                                <StackPanel Grid.Row="8">
-                                    <TextBlock
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Center"
-                                        FontSize="18"
-                                        Text="Total" />
-                                    <TextBlock
-                                        Margin="15,0,0,0"
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Center"
-                                        FontSize="17"
-                                        Foreground="#BBBBBB"
-                                        Text="{Binding TotalAmount}" />
-                                </StackPanel>
-                            </Grid>
-                        </Grid>
+                                </DataTemplate>
+                            </ContentControl.ContentTemplate>
+                        </ContentControl>
                     </materialDesign:Card>
 
                     <StackPanel Grid.Row="2" Grid.Column="1">
