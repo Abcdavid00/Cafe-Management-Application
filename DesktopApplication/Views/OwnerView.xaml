@@ -145,11 +145,13 @@
 
                                 <Button
                                     Grid.Column="1"
-                                    Height="{Binding ActualWidth, RelativeSource={RelativeSource Mode=Self}}"
+                                    Width="30"
+                                    Height="30"
                                     Padding="0"
                                     VerticalAlignment="Center"
-                                    Background="{Binding ButtonBackground, Mode=OneWay}"
-                                    Command="{Binding Add, Mode=OneWay}">
+                                    Background="{DynamicResource LinearMain}"
+                                    Command="{Binding Add, Mode=OneWay}"
+                                    ToolTip="Add Cafe">
                                     <Button.Content>
                                         <materialDesign:PackIcon Kind="Add" />
                                     </Button.Content>
