@@ -271,28 +271,89 @@
                     Visibility="{Binding ProductDetailsVisibility, Mode=OneWay}">
 
                     <Grid Margin="20,10,20,10">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*" />
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="*" />
+                            <RowDefinition Height="4*" />
                         </Grid.RowDefinitions>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1.5*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <TextBlock
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Margin="5,0,5,0"
+                                VerticalAlignment="Center"
+                                FontSize="15"
+                                Text="Name:" />
+                            <TextBox
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                FontSize="15"
+                                Text="{Binding CurrentProductName, UpdateSourceTrigger=PropertyChanged}" />
+
+                            <TextBlock
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Margin="5,0,5,0"
+                                VerticalAlignment="Center"
+                                FontSize="15"
+                                Text="Small Size Price:" />
+                            <TextBox
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                FontSize="15"
+                                Text="{Binding CurrentProductSPrice, UpdateSourceTrigger=PropertyChanged}" />
+
+                            <TextBlock
+                                Grid.Row="2"
+                                Grid.Column="0"
+                                Margin="5,0,5,0"
+                                VerticalAlignment="Center"
+                                FontSize="15"
+                                Text="Medium Size Price:" />
+                            <TextBox
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                FontSize="15"
+                                Text="{Binding CurrentProductMPrice, UpdateSourceTrigger=PropertyChanged}" />
+
+                            <TextBlock
+                                Grid.Row="3"
+                                Grid.Column="0"
+                                Margin="5,0,5,0"
+                                VerticalAlignment="Center"
+                                FontSize="15"
+                                Text="Large Size Price:" />
+                            <TextBox
+                                Grid.Row="3"
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                FontSize="15"
+                                Text="{Binding CurrentProductLPrice, UpdateSourceTrigger=PropertyChanged}" />
+                        </Grid>
 
                         <TextBlock
-                            Grid.Column="1"
-                            Margin="0,0,313,0"
-                            HorizontalAlignment="Right"
+                            Grid.Row="0"
+                            HorizontalAlignment="Center"
                             VerticalAlignment="Center"
+                            FontSize="20"
                             FontWeight="Bold"
+                            Foreground="{DynamicResource LinearMain}"
                             Text="Product Editor" />
+
                         <Button
                             Grid.Row="0"
-                            Grid.Column="0"
                             Grid.ColumnSpan="2"
                             Width="{Binding ActualHeight, RelativeSource={RelativeSource Mode=Self}}"
                             Margin="0,0,10,0"
@@ -304,53 +365,6 @@
                                 <materialDesign:PackIcon Kind="FloppyDisc" />
                             </Button.Content>
                         </Button>
-                        <TextBlock
-                            Grid.Row="1"
-                            Grid.Column="0"
-                            Margin="5,0,5,0"
-                            VerticalAlignment="Center"
-                            Text="Name:" />
-                        <TextBox
-                            Grid.Row="1"
-                            Grid.Column="1"
-                            VerticalAlignment="Center"
-                            Text="{Binding CurrentProductName, UpdateSourceTrigger=PropertyChanged}" />
-
-                        <TextBlock
-                            Grid.Row="2"
-                            Grid.Column="0"
-                            Margin="5,0,5,0"
-                            VerticalAlignment="Center"
-                            Text="Small Size Price:" />
-                        <TextBox
-                            Grid.Row="2"
-                            Grid.Column="1"
-                            VerticalAlignment="Center"
-                            Text="{Binding CurrentProductSPrice, UpdateSourceTrigger=PropertyChanged}" />
-
-                        <TextBlock
-                            Grid.Row="3"
-                            Grid.Column="0"
-                            Margin="5,0,5,0"
-                            VerticalAlignment="Center"
-                            Text="Medium Size Price:" />
-                        <TextBox
-                            Grid.Row="3"
-                            Grid.Column="1"
-                            VerticalAlignment="Center"
-                            Text="{Binding CurrentProductMPrice, UpdateSourceTrigger=PropertyChanged}" />
-
-                        <TextBlock
-                            Grid.Row="4"
-                            Grid.Column="0"
-                            Margin="5,0,5,0"
-                            VerticalAlignment="Center"
-                            Text="Large Size Price:" />
-                        <TextBox
-                            Grid.Row="4"
-                            Grid.Column="1"
-                            VerticalAlignment="Center"
-                            Text="{Binding CurrentProductLPrice, UpdateSourceTrigger=PropertyChanged}" />
 
                     </Grid>
 
