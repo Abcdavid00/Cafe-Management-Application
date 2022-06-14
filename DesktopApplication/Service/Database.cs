@@ -907,14 +907,25 @@ namespace CSWBManagementApplication.Services
             DocumentReference orderReference = await OrderCollection.AddAsync(order);
             return (await orderReference.GetSnapshotAsync()).ConvertTo<Order>();
         }
-        
-        #endregion
 
-        #endregion Firestore
+        public static async Task<IEnumerable<Order>> GetOrdersAsync(string cafeID, long startTime, long endTime)
+        {
+            List<Order> orders = new List<Order>();
+            QuerySnapshot orderSnapshots = await OrderCollection
+                .WhereEqualTo("CafeID", cafeID)
+                .WhereGreaterThanOrEqualTo("Time", startTime)
+                .WhereLessThanOrEqualTo("Time", endTime)
+                .GetSnapshotAsync();
+            return orderSnapshots.Select(os => os.ConvertTo<Order>());
+        }
 
-        #region Authentication
+            #endregion
 
-        public static async Task<FirebaseAuthLink> RegisterUser(string mail, string password)
+            #endregion Firestore
+
+            #region Authentication
+
+            public static async Task<FirebaseAuthLink> RegisterUser(string mail, string password)
         {
             UserRecord existUserRecord = null;
             try
