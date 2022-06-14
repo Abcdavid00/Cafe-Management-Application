@@ -190,12 +190,10 @@
                         </Grid.ColumnDefinitions>
                         <TextBox
                             Grid.Column="0"
+                            Margin="0,0,10,0"
+                            HorizontalAlignment="Center"
                             VerticalAlignment="Center"
-                            HorizontalContentAlignment="Center"
-                            Margin="20 0 20 0"
-                            Width="auto"
-                            FontSize="15"
-                            ClipToBounds="True"
+                            FontSize="20"
                             Foreground="{DynamicResource SolidLight}"
                             Text="{Binding CurrentCategoryName, UpdateSourceTrigger=PropertyChanged}"
                             Visibility="{Binding CategoryNameTextBoxVisibility, Mode=OneWay}" />
@@ -228,8 +226,21 @@
                             <RowDefinition Height="auto" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
-                        <TextBox Grid.Row="0" Text="{Binding ProductSearchText, UpdateSourceTrigger=PropertyChanged}" />
-                        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible">
+                        <TextBox
+                            Grid.Row="0"
+                            Margin="20,20,20,10"
+                            Padding="0,0,0,0"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Center"
+                            materialDesign:HintAssist.Hint="Name"
+                            materialDesign:TextFieldAssist.HasClearButton="True"
+                            FontSize="17"
+                            Foreground="{DynamicResource SolidLight}"
+                            Text="{Binding ProductSearchText, UpdateSourceTrigger=PropertyChanged}" />
+                        <ScrollViewer
+                            Grid.Row="1"
+                            Margin="10,0,10,0"
+                            VerticalScrollBarVisibility="Visible">
                             <ItemsControl
                                 ItemsSource="{Binding UnassignedDisplayProducts, Mode=OneWay}"
                                 VirtualizingPanel.IsVirtualizing="True"
@@ -259,7 +270,7 @@
                     UniformCornerRadius="10"
                     Visibility="{Binding ProductDetailsVisibility, Mode=OneWay}">
 
-                    <Grid Margin="5,5,5,5">
+                    <Grid Margin="20,10,20,10">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto" />
                             <ColumnDefinition Width="*" />
