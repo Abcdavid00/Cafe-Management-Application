@@ -13,6 +13,126 @@ using System.Windows.Input;
 
 namespace CSWBManagementApplication.ViewModels
 {
+    internal class MiniOrderedProductViewModel : ViewModelBase
+    {
+        private string name;
+        public string Name
+        {
+            get => name;
+            set
+            {
+                name = value;
+                OnPropertyChanged(nameof(Name));
+            }
+        }
+
+        private int size;
+        public string Size
+        {
+            get
+            {
+                if (size == 0)
+                {
+                    return "S";
+                }
+                if (size == 1)
+                {
+                    return "M";
+                }
+                return "L";
+            }
+        }
+
+        private int quantity;
+
+        public MiniOrderedProductViewModel(string name, int size, int quantity)
+        {
+            Name = name;
+            this.size = size;
+            Quantity = quantity;
+        }
+
+        public int Quantity
+        {
+            get => quantity;
+            set
+            {
+                quantity = value;
+                OnPropertyChanged(nameof(Quantity));
+            }
+        }
+
+        public string CombinedName
+        {
+            get => $"{Name} ({Size})";
+        }
+    }
+
+    internal class OrderDetailsViewModel : ViewModelBase
+    {
+        private Order order;
+        public Order Order
+        {
+            get => order;
+            set
+            {
+                order = value;
+                UpdateProducts();
+                OnPropertyChanged();
+            }
+        }
+
+        private int Total
+        {
+            get
+            {
+                if (Order != null)
+                {
+                    return (int)Order.Total;
+                }
+                return 0;
+            }
+        }
+        public string TotalString => MiscFunctions.IntToPrice(Total);
+
+        ObservableCollection<MiniOrderedProductViewModel> products;
+        public ObservableCollection<MiniOrderedProductViewModel> Products
+        {
+            get => products;
+            set
+            {
+                products = value;
+                OnPropertyChanged(nameof(Products));
+            }
+        }
+
+        public void UpdateProducts()
+        {
+            if (Order != null)
+            {
+                Products = new ObservableCollection<MiniOrderedProductViewModel>(Order.NestedOrderedProducts.Select(p => new MiniOrderedProductViewModel(GetName(p.ProductID), p.Size, p.Count)));
+            }
+            else
+            {
+                Products = new ObservableCollection<MiniOrderedProductViewModel>();
+            }
+        }
+
+        private Func<string, string> GetName;
+
+        public void Update(Order order)
+        {
+            Order = order;
+            
+        }
+
+        public OrderDetailsViewModel(Func<string, string> getName)
+        {
+            Order = null;
+            GetName = getName;
+        }
+    }
+    
     internal class HistoryOrderViewModel : ViewModelBase
     {
         private Order order;
@@ -61,6 +181,18 @@ namespace CSWBManagementApplication.ViewModels
     {
         private Cafe cafe;
         private List<Staff> staffs;
+        private List<Product> products;
+        private OrderDetailsViewModel orderDetails;
+        public OrderDetailsViewModel OrderDetails
+        {
+            get => orderDetails;
+            set
+            {
+                orderDetails = value;
+                OnPropertyChanged();
+            }
+        }
+        
         public CafeStatisticViewModel(Cafe cafe)
         {
             this.cafe = cafe;
@@ -68,6 +200,10 @@ namespace CSWBManagementApplication.ViewModels
             Address = cafe.Address;
             initiallized = false;
             HistoryOrders = new ObservableCollection<HistoryOrderViewModel>();
+            OrderDetails = new OrderDetailsViewModel(GetProductName);
+            FDate = 15;
+            FMonth = 6;
+            FYear = 2022;
             Initiallize();
         }
 
@@ -87,6 +223,7 @@ namespace CSWBManagementApplication.ViewModels
         public async void Initiallize()
         {
             staffs = (await Database.GetAllStaffsAsync()).ToList();
+            products = (await Database.GetAllProductsAsync()).ToList();
             initiallized = true;          
         }
 
@@ -354,6 +491,15 @@ namespace CSWBManagementApplication.ViewModels
             return staffs.First(s => s.UID == staffID).Name;
         } 
 
+        public string GetProductName(string productID)
+        {
+            while (!initiallized)
+            {
+                Thread.Sleep(100);
+            }
+            return products.First(p => p.ProductID == productID).Name;
+        }
+
         public ICommand SearchCommand => new CommandBase(()=> Search());
 
         private async void Search()
@@ -391,7 +537,7 @@ namespace CSWBManagementApplication.ViewModels
 
             HistoryOrders?.Clear();
 
-            HistoryOrders = new ObservableCollection<HistoryOrderViewModel>(orders.Select(o => new HistoryOrderViewModel(o, GetStaffName(o.StaffID),null)));
+            HistoryOrders = new ObservableCollection<HistoryOrderViewModel>(orders.Select(o => new HistoryOrderViewModel(o, GetStaffName(o.StaffID), new CommandBase(() => { OrderDetails.Update(o); }))));
         }
         
         

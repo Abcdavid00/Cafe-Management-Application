@@ -860,7 +860,15 @@ namespace CSWBManagementApplication.Services
             products.AddRange(productsSnapshot.Documents.Select(productSnapshot => productSnapshot.ConvertTo<Product>()));
             return products.AsEnumerable();
         }
-        
+
+        public static async Task<IEnumerable<Product>> GetAllProductsAsync()
+        {
+            List<Product> products = new List<Product>();
+            QuerySnapshot productsSnapshot = await ProductCollection.GetSnapshotAsync();
+            products.AddRange(productsSnapshot.Documents.Select(productSnapshot => productSnapshot.ConvertTo<Product>()));
+            return products.AsEnumerable();
+        }
+
         public static async Task GetProductInfoAsync(Product product)
         {
             DocumentSnapshot productSnapshot = await ProductDocument(product.ProductID).GetSnapshotAsync();
