@@ -38,7 +38,7 @@ namespace CSWBManagementApplication.Service
             return p.ToString("n0") + "VND";
         }
 
-        public static void ValidateDate(ref int d, ref int m, ref int y)
+        public static void ValidateDate(ref int d, int m, int y)
         {
             switch (m)
             {
