@@ -24,6 +24,7 @@ namespace CSWBManagementApplication.ViewModels
         {
             this.Cafe = cafe;
             this.privilege = privilege;
+            this.CafeStatisticViewModel = new CafeStatisticViewModel(cafe);
             this.CafeLayoutViewModel = new CafeLayoutViewModel(cafe, privilege);
             this.CafeStaffViewModel = new CafeStaffViewModel(cafe, privilege);
         }
@@ -70,6 +71,17 @@ namespace CSWBManagementApplication.ViewModels
                 OnPropertyChanged(nameof(IsStatisticSelected));
                 OnPropertyChanged(nameof(IsLayoutSelected));
                 OnPropertyChanged(nameof(IsStaffsSelected));
+            }
+        }
+
+        private CafeStatisticViewModel cafeStatisticViewModel;
+        public CafeStatisticViewModel CafeStatisticViewModel
+        {
+            get { return cafeStatisticViewModel; }
+            set
+            {
+                cafeStatisticViewModel = value;
+                OnPropertyChanged();
             }
         }
 

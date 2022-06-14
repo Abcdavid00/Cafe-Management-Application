@@ -322,6 +322,7 @@
     <Compile Include="ViewModels\CafeDetailsViewModel.cs" />
     <Compile Include="ViewModels\CafeLayoutViewModel.cs" />
     <Compile Include="ViewModels\CafeStaffViewModel.cs" />
+    <Compile Include="ViewModels\CafeStatisticViewModel.cs" />
     <Compile Include="ViewModels\CategoryViewModel.cs" />
     <Compile Include="ViewModels\CreateAccountDialogViewModel.cs" />
     <Compile Include="ViewModels\CreateOwnerViewModel.cs" />
