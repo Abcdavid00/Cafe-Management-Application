@@ -13,11 +13,11 @@
     <Grid Background="{DynamicResource LinearDarkBackground}">
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="18*" />
-            <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="9*" />
-            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="0.25*" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="0.25*" />
+            <ColumnDefinition Width="10*" />
+            <ColumnDefinition Width="0.25*" />
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
@@ -33,6 +33,7 @@
             UniformCornerRadius="10">
 
             <ContentControl
+                Margin="20,0,20,0"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
                 Content="{Binding CurrentOrderFloorLayout, Mode=OneWay}">
@@ -52,19 +53,23 @@
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0.5*" />
-                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="3*" />
                     <ColumnDefinition Width="0.5*" />
-                    <ColumnDefinition Width="12*" />
+                    <ColumnDefinition Width="15*" />
+                    <ColumnDefinition Width="0.5*" />
+                    <ColumnDefinition Width="25*" />
                     <ColumnDefinition Width="0.5*" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
-                    <RowDefinition Height="23*" />
+                    <RowDefinition Height="30*" />
+                    <RowDefinition Height="auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
                 <materialDesign:Card
                     Grid.Row="1"
+                    Grid.RowSpan="2"
                     Grid.Column="1"
                     Margin="1,1,1,1"
                     Background="{DynamicResource SolidDark}"
@@ -105,9 +110,47 @@
                     Background="{DynamicResource SolidDark}"
                     UniformCornerRadius="10">
 
-                    <ScrollViewer VerticalScrollBarVisibility="Visible">
+                    <ScrollViewer VerticalScrollBarVisibility="Visible" />
+                </materialDesign:Card>
 
+                <Button
+                    Grid.Row="2"
+                    Grid.Column="3"
+                    Margin="1,10,1,1"
+                    MinHeight="50"
+                    materialDesign:ButtonAssist.CornerRadius="10"
+                    Content="{Binding MainButtonContent}"
+                    />
+
+                <materialDesign:Card
+                    Grid.Row="1"
+                    Grid.RowSpan="2"
+                    Grid.Column="5"
+                    Margin="1,1,1,1"
+                    Background="{DynamicResource SolidDark}"
+                    UniformCornerRadius="10">
+
+                    <ScrollViewer VerticalScrollBarVisibility="Visible">
+                        <ItemsControl
+                        Margin="10,0,10,10"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        ItemsSource="{Binding Categories, Mode=OneWay}"
+                        VirtualizingPanel.IsVirtualizing="True"
+                        VirtualizingPanel.VirtualizationMode="Recycling">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Vertical" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <component:OrderingCategory />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
                     </ScrollViewer>
+
                 </materialDesign:Card>
             </Grid>
         </materialDesign:Card>

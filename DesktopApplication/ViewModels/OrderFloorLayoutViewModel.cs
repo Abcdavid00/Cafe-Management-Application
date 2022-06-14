@@ -49,8 +49,11 @@ namespace CSWBManagementApplication.ViewModels
             return y * count + x;
         }
 
+        public int FloorNumber { get; private set; }
+
         public OrderFloorLayoutViewModel(Floor floor, int startTableIndex)
         {
+            FloorNumber = floor.FloorNumber;
             floor.Tables.Sort((p1, p2) => p1.CompareTo(p2));
             int count = App.FLOOR_TILES_PER_FLOOR_LINE * App.FLOOR_TILES_PER_FLOOR_LINE;
             FloorTiles = new ObservableCollection<FloorTileViewModel>();
@@ -66,6 +69,16 @@ namespace CSWBManagementApplication.ViewModels
                 startTableIndex++;
                 FloorTiles[PositionToIndex(table)].Command = new CommandBase(() => OnFloorTileClicked(table));
             }
+        }
+
+        public void SetTableSelected(Position position, bool selected)
+        {
+            FloorTiles[PositionToIndex(position)].HasBorder = selected;
+        }
+
+        public void SetTableActive(Position position, bool activated)
+        {
+            FloorTiles[PositionToIndex(position)].Activated = activated;
         }
     }
 }

@@ -111,9 +111,10 @@ namespace CSWBManagementApplication.ViewModels
         public bool HasBorder
         {
             get => hasBorder;
-            private set
+            set
             {
                 hasBorder = value;
+                OnPropertyChanged(nameof(OuterBorder));
                 OnPropertyChanged();
             }
         }
@@ -132,7 +133,7 @@ namespace CSWBManagementApplication.ViewModels
 
         public Visibility Visibility
         {
-            get => (HasTile || HasTable) ? Visibility.Visible : Visibility.Collapsed;
+            get => (HasBorder || HasTable) ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private ICommand command;
