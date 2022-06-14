@@ -381,7 +381,7 @@
                             Padding="0"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Center"
-                            Command="{Binding SearchCommand,Mode=OneWay}"
+                            Command="{Binding SearchCommand, Mode=OneWay}"
                             IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                             Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
                             ToolTip="MaterialDesignFloatingActionMiniDarkButton">
@@ -913,7 +913,7 @@
                                 Margin="10,0,10,10"
                                 HorizontalAlignment="Stretch"
                                 VerticalAlignment="Stretch"
-                                ItemsSource="{Binding StaffInfos, Mode=OneWay}"
+                                ItemsSource="{Binding HistoryOrders, Mode=OneWay}"
                                 VirtualizingPanel.IsVirtualizing="True"
                                 VirtualizingPanel.VirtualizationMode="Recycling">
                                 <ItemsControl.ItemsPanel>
@@ -935,22 +935,17 @@
                                             <Grid Margin="15,5,5,5">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="1.5*" />
-                                                    <ColumnDefinition Width="1*" />
                                                     <ColumnDefinition Width="1.5*" />
                                                     <ColumnDefinition Width="1.5*" />
                                                 </Grid.ColumnDefinitions>
-                                                <StackPanel Grid.Column="0">
-                                                    <TextBlock
-                                                        Padding="0,0,10,0"
-                                                        VerticalAlignment="Center"
-                                                        Text="{Binding DateOrder, Mode=OneWay}"
-                                                        TextWrapping="Wrap" />
-                                                    <TextBlock
-                                                        Padding="0,0,10,0"
-                                                        VerticalAlignment="Center"
-                                                        Text="{Binding TimeOrder, Mode=OneWay}"
-                                                        TextWrapping="Wrap" />
-                                                </StackPanel>
+
+                                                <TextBlock
+                                                    Grid.Column="0"
+                                                    Padding="0,0,10,0"
+                                                    VerticalAlignment="Center"
+                                                    Text="{Binding DateTimeOrder, Mode=OneWay}"
+                                                    TextWrapping="Wrap" />
+
 
                                                 <TextBlock
                                                     Grid.Column="1"
