@@ -38,6 +38,40 @@ namespace CSWBManagementApplication.Service
             return p.ToString("n0") + "VND";
         }
 
+        public static void ValidateDate(ref int d, ref int m, ref int y)
+        {
+            switch (m)
+            {
+                case 1:
+                case 3:
+                case 5:
+                case 7:
+                case 8:
+                case 10:
+                case 12:
+                    d = CappedSetter(d, 1, 31);
+                    break;
+                case 4:
+                case 6:
+                case 9:
+                case 11:
+                    d = CappedSetter(d, 1, 30);
+                    break;
+                case 2:
+                    if (y % 4 == 0)
+                    {
+                        d = CappedSetter(d, 1, 29);
+                    }
+                    else
+                    {
+                        d = CappedSetter(d, 1, 28);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
         public class SolidColorPulsar
         {
             private int refreshRate;
