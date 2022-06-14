@@ -1,12 +1,59 @@
-﻿using CSWBManagementApplication.Models;
+﻿using CSWBManagementApplication.Commands;
+using CSWBManagementApplication.Models;
+using CSWBManagementApplication.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace CSWBManagementApplication.ViewModels
 {
+    internal class HistoryOrderViewModel : ViewModelBase
+    {
+        private Order order;
+
+        private ICommand command;
+        public ICommand Command
+        {
+            get => command;
+            set
+            {
+                command = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string Time
+        {
+            get => order.Time.ToString("dd/MM/yyyy\nHH:mm:ss");
+        }
+
+        private string staffName;
+        public string StaffName
+        {
+            get => staffName;
+            set
+            {
+                staffName = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string Total
+        {
+            get => MiscFunctions.IntToPrice((int)order.Total);
+        }
+
+        public HistoryOrderViewModel(Order order, string staffName , CommandBase command)
+        {
+            this.order = order;
+            this.staffName = staffName;
+            this.command = command;
+        }
+    }
+    
     internal class CafeStatisticViewModel : ViewModelBase
     {
         private Cafe cafe;
@@ -14,8 +61,11 @@ namespace CSWBManagementApplication.ViewModels
         public CafeStatisticViewModel(Cafe cafe)
         {
             this.cafe = cafe;
+            FilterType = 0;
+            Address = cafe.Address;
         }
 
+        #region Datetime
         private bool isToEnabled;
         public bool IsToEnabled
         {
@@ -23,6 +73,8 @@ namespace CSWBManagementApplication.ViewModels
             set
             {
                 isToEnabled = value;
+                OnPropertyChanged(nameof(IsTDateEnabled));
+                OnPropertyChanged(nameof(IsTMonthEnabled));
                 OnPropertyChanged();
             }
         }
@@ -36,6 +88,7 @@ namespace CSWBManagementApplication.ViewModels
                 fDateIndex = value;
                 OnPropertyChanged(nameof(FDate));
                 OnPropertyChanged();
+                ValidateFDate();
             }
         }
         public int FDate
@@ -43,9 +96,10 @@ namespace CSWBManagementApplication.ViewModels
             get => fDateIndex + 1;
             set
             {
-                fDateIndex = value - 1;
+                fDateIndex = value - 1;                
                 OnPropertyChanged(nameof(FDateIndex));
                 OnPropertyChanged();
+                ValidateFDate();
             }
         }
 
@@ -58,6 +112,7 @@ namespace CSWBManagementApplication.ViewModels
                 fMonthIndex = value;
                 OnPropertyChanged(nameof(FMonth));
                 OnPropertyChanged();
+                ValidateFDate();
             }
         }
         public int FMonth
@@ -68,18 +123,20 @@ namespace CSWBManagementApplication.ViewModels
                 fMonthIndex = value - 1;
                 OnPropertyChanged(nameof(FMonthIndex));
                 OnPropertyChanged();
+                ValidateFDate();
             }
         }
 
         private int fYear;
         public int FYear
         {
-            get => FYear;
+            get => fYear;
             set
             {
                 fYear = value;
                 OnPropertyChanged(nameof(FYearString));
                 OnPropertyChanged();
+                ValidateFDate();
             }
         }
         public string FYearString
@@ -94,9 +151,21 @@ namespace CSWBManagementApplication.ViewModels
                 }
                 OnPropertyChanged(nameof(FYear));
                 OnPropertyChanged();
+                ValidateFDate();
             }
         }
 
+        private void ValidateFDate()
+        {
+            int newDate = FDate;
+            MiscFunctions.ValidateDate(ref newDate, FMonth, FYear);
+            if (newDate == FDate)
+            {
+                return;
+            }
+            FDate = newDate;
+        }
+        
         private int tDateIndex;
         public int TDateIndex
         {
@@ -106,6 +175,7 @@ namespace CSWBManagementApplication.ViewModels
                 tDateIndex = value;
                 OnPropertyChanged(nameof(TDate));
                 OnPropertyChanged();
+                ValidateTDate();
             }
         }
         public int TDate
@@ -116,6 +186,7 @@ namespace CSWBManagementApplication.ViewModels
                 tDateIndex = value - 1;
                 OnPropertyChanged(nameof(TDateIndex));
                 OnPropertyChanged();
+                ValidateTDate();
             }
         }
 
@@ -128,6 +199,7 @@ namespace CSWBManagementApplication.ViewModels
                 tMonthIndex = value;
                 OnPropertyChanged(nameof(TMonth));
                 OnPropertyChanged();
+                ValidateTDate();
             }
         }
         public int TMonth
@@ -138,6 +210,7 @@ namespace CSWBManagementApplication.ViewModels
                 tMonthIndex = value - 1;
                 OnPropertyChanged(nameof(TMonthIndex));
                 OnPropertyChanged();
+                ValidateTDate();
             }
         }
 
@@ -150,6 +223,7 @@ namespace CSWBManagementApplication.ViewModels
                 tYear = value;
                 OnPropertyChanged(nameof(TYearString));
                 OnPropertyChanged();
+                ValidateTDate();
             }
         }
         public string TYearString
@@ -163,8 +237,86 @@ namespace CSWBManagementApplication.ViewModels
                 }
                 OnPropertyChanged(nameof(TYear));
                 OnPropertyChanged();
+                ValidateTDate();
             }
         }
+
+        private void ValidateTDate()
+        {
+            int newDate = TDate;
+            MiscFunctions.ValidateDate(ref newDate, TMonth, TYear);
+            if (newDate == FDate)
+            {
+                return;
+            }
+            TDate = newDate;
+        }
+
+        private int filterType;
+        public int FilterType
+        {
+            get => filterType;
+            set
+            {
+                filterType = MiscFunctions.CappedSetter(value, 0, 2);
+                OnPropertyChanged(nameof(IsDateEnabled));
+                OnPropertyChanged(nameof(IsMonthEnabled));
+                OnPropertyChanged(nameof(IsTDateEnabled));
+                OnPropertyChanged(nameof(IsTMonthEnabled));
+                OnPropertyChanged();
+
+            }
+        }
+
+        public ICommand FilterByDayCommand => new CommandBase(() => FilterType = 0);
+        public ICommand FilterByMonthCommand => new CommandBase(() => FilterType = 1);
+        public ICommand FilterByYearCommand => new CommandBase(() => FilterType = 2);
+
+        public bool IsDateEnabled
+        {
+            get => filterType == 0;
+        }
+
+        public bool IsTDateEnabled
+        {
+            get => IsDateEnabled && IsToEnabled;
+        }
+
+        public bool IsMonthEnabled
+        {
+            get => filterType < 2;
+        }
+
+        public bool IsTMonthEnabled
+        {
+            get => IsMonthEnabled && IsToEnabled;
+        }
+        #endregion
+
+        #region Address
+
+        private string address;
+        public string Address
+        {
+            get => address;
+            set
+            {
+                address = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ICommand SaveAddressCommand => new CommandBase(() =>
+        {
+            cafe.ChangeAddress(Address);
+        });
+
+        public ICommand DiscardAddressCommand => new CommandBase(() =>
+        {
+            Address = cafe.Address;
+        });
+
+        #endregion
 
     }
 }

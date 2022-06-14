@@ -122,7 +122,9 @@
                                 Grid.Column="0"
                                 HorizontalContentAlignment="Left"
                                 VerticalContentAlignment="Center"
+                                Command="{Binding FilterByDayCommand, Mode=OneWay}"
                                 GroupName="Filter by"
+                                IsChecked="True"
                                 Style="{StaticResource MaterialDesignRadioButton}" />
                             <TextBlock
                                 Grid.Column="1"
@@ -144,6 +146,7 @@
                                 Grid.Column="0"
                                 HorizontalContentAlignment="Left"
                                 VerticalContentAlignment="Center"
+                                Command="{Binding FilterByMonthCommand, Mode=OneWay}"
                                 GroupName="Filter by"
                                 Style="{StaticResource MaterialDesignRadioButton}" />
                             <TextBlock
@@ -166,6 +169,7 @@
                                 Grid.Column="0"
                                 HorizontalContentAlignment="Left"
                                 VerticalContentAlignment="Center"
+                                Command="{Binding FilterByYearCommand, Mode=OneWay}"
                                 GroupName="Filter by"
                                 Style="{StaticResource MaterialDesignRadioButton}" />
                             <TextBlock
@@ -187,6 +191,8 @@
                             VerticalAlignment="Center"
                             FontSize="15"
                             Foreground="White"
+                            IsEnabled="{Binding IsDateEnabled, Mode=OneWay}"
+                            SelectedIndex="{Binding FDateIndex}"
                             Style="{StaticResource MaterialDesignOutlinedComboBox}">
                             <ComboBox.Items>
                                 <ComboBoxItem Content="01" Tag="01" />
@@ -233,6 +239,8 @@
                             VerticalAlignment="Center"
                             FontSize="15"
                             Foreground="White"
+                            IsEnabled="{Binding IsMonthEnabled, Mode=OneWay}"
+                            SelectedIndex="{Binding FMonthIndex}"
                             Style="{StaticResource MaterialDesignOutlinedComboBox}">
                             <ComboBox.Items>
                                 <ComboBoxItem Content="01" Tag="01" />
@@ -260,8 +268,8 @@
                             VerticalAlignment="Center"
                             FontSize="15"
                             Foreground="White"
-                            Text="{Binding FYearString ,UpdateSourceTrigger=PropertyChanged}"
-                            Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                            Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                            Text="{Binding FYearString, UpdateSourceTrigger=PropertyChanged}" />
 
 
                         <CheckBox
@@ -283,7 +291,8 @@
                             VerticalAlignment="Center"
                             FontSize="15"
                             Foreground="White"
-                            IsEnabled="{Binding IsToEnabled, Mode=OneWay}"
+                            IsEnabled="{Binding IsTDateEnabled, Mode=OneWay}"
+                            SelectedIndex="{Binding TDateIndex}"
                             Style="{StaticResource MaterialDesignOutlinedComboBox}">
                             <ComboBox.Items>
                                 <ComboBoxItem Content="01" Tag="01" />
@@ -330,7 +339,8 @@
                             VerticalAlignment="Center"
                             FontSize="15"
                             Foreground="White"
-                            IsEnabled="{Binding IsToEnabled, Mode=OneWay}"
+                            IsEnabled="{Binding IsTMonthEnabled, Mode=OneWay}"
+                            SelectedIndex="{Binding TMonthIndex}"
                             Style="{StaticResource MaterialDesignOutlinedComboBox}">
                             <ComboBox.Items>
                                 <ComboBoxItem Content="01" Tag="01" />
@@ -359,7 +369,8 @@
                             FontSize="15"
                             Foreground="White"
                             IsEnabled="{Binding IsToEnabled, Mode=OneWay}"
-                            Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                            Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                            Text="{Binding FYearString, UpdateSourceTrigger=PropertyChanged}" />
 
                         <Button
                             Grid.Row="7"
@@ -503,16 +514,12 @@
                                     Margin="10,0,0,0"
                                     Padding="0,0,0,2"
                                     VerticalAlignment="Center"
-                                    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-                                    ToolTip="{Binding toolTip}">
+                                    Command="{Binding SaveAddressCommand, Mode=OneWay}"
+                                    ToolTip="Save">
                                     <materialDesign:PackIcon
                                         Height="15"
                                         VerticalAlignment="Center"
-                                        Kind="{Binding icon}" />
-                                    <!--
-                                        Kind="SquareEditOutline"
-                                        Kind="ContentSave" />
-                                    -->
+                                        Kind="FloppyDisc" />
                                 </Button>
 
                                 <Button
@@ -521,9 +528,8 @@
                                     Margin="10,0,0,0"
                                     Padding="0,0,0,2"
                                     VerticalAlignment="Center"
-                                    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-                                    ToolTip="{Binding toolTip}"
-                                    Visibility="{Binding visibilityCancelButton}">
+                                    Command="{Binding DiscardAddressCommand, Mode=OneWay}"
+                                    ToolTip="Cancel">
                                     <materialDesign:PackIcon
                                         Height="15"
                                         VerticalAlignment="Center"
@@ -537,8 +543,7 @@
                                 VerticalAlignment="Center"
                                 FontSize="17"
                                 Foreground="#AAAAAA"
-                                IsEnabled="{Binding isEnableAddress}"
-                                Text="10/34, Ward 5, Thong Nhat, Bien Hoa City, Dong Nai Province, Viet Nam "
+                                Text="{Binding Address}"
                                 TextWrapping="Wrap" />
 
                         </StackPanel>
@@ -1192,26 +1197,26 @@
 
                     <StackPanel Grid.Row="2" Grid.Column="1">
                         <Line
-                            Margin="0 0 0 5"
-                            X1="0" X2="1"
-                            Y1="0" Y2="0"
+                            Margin="0,0,0,5"
                             Stretch="Uniform"
                             Stroke="#666666"
-                            StrokeThickness="0.5"/>
+                            StrokeThickness="0.5"
+                            X1="0"
+                            X2="1"
+                            Y1="0"
+                            Y2="0" />
                         <WrapPanel HorizontalAlignment="Right">
                             <TextBlock
-                            Text="Total Orders : "
-                            FontSize="17"
-                            VerticalAlignment="Center"
-                            />
+                                VerticalAlignment="Center"
+                                FontSize="17"
+                                Text="Total Orders : " />
                             <TextBlock
-                            Text="{Binding TotalOrder}"
-                            HorizontalAlignment="Right"
-                            FontSize="17"
-                            VerticalAlignment="Center"
-                            />
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                FontSize="17"
+                                Text="{Binding TotalOrder}" />
                         </WrapPanel>
-                        
+
 
                     </StackPanel>
                 </Grid>
