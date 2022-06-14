@@ -103,7 +103,7 @@ namespace CSWBManagementApplication.ViewModels
         
         public Brush TitleBrush
         {
-            get => (Activated ? DarkTheme.LinearPrimary : DarkTheme.LinearMain);
+            get => (Activated ? DarkTheme.LinearMain : DarkTheme.LinearLightBackground);
         }
             
     }
