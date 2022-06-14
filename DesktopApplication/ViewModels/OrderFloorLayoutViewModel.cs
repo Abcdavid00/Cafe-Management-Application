@@ -51,6 +51,8 @@ namespace CSWBManagementApplication.ViewModels
 
         public int FloorNumber { get; private set; }
 
+        public Dictionary<Position, int> TableMap { get; private set; }
+
         public OrderFloorLayoutViewModel(Floor floor, int startTableIndex)
         {
             FloorNumber = floor.FloorNumber;
@@ -62,10 +64,12 @@ namespace CSWBManagementApplication.ViewModels
                 Position pos = IndexToPostion(i);
                 FloorTiles.Add(new FloorTileViewModel());
             }
+            TableMap = new Dictionary<Position, int>();
             foreach (Position table in floor.Tables)
             {
                 FloorTiles[PositionToIndex(table)].HasTable = true;
                 FloorTiles[PositionToIndex(table)].Content = startTableIndex.ToString();
+                TableMap.Add(table, startTableIndex);
                 startTableIndex++;
                 FloorTiles[PositionToIndex(table)].Command = new CommandBase(() => OnFloorTileClicked(table));
             }

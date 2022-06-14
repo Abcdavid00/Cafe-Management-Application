@@ -12,7 +12,7 @@
     <materialDesign:Card
         Height="auto"
         Margin="10,10,10,10"
-        Background="{Binding Background, Mode=OneWay}"
+        Background="{DynamicResource SolidLight}"
         Foreground="{DynamicResource SolidDark}"
         UniformCornerRadius="10">
         <Grid>
