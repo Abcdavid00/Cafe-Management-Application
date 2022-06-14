@@ -1,6 +1,7 @@
 ﻿using CSWBManagementApplication.Commands;
 using CSWBManagementApplication.Models;
 using CSWBManagementApplication.Service;
+using CSWBManagementApplication.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -316,6 +317,47 @@ namespace CSWBManagementApplication.ViewModels
             Address = cafe.Address;
         });
 
+        #endregion
+
+        #region Seach
+
+        public ICommand SearchCommand => new CommandBase(()=> Search());
+
+        private async void Search()
+        {
+            DateTime startDate = new DateTime(FYear, FMonth, FDate);
+            DateTime endDate;
+            if (IsToEnabled)
+            {
+                endDate = new DateTime(TYear, TMonth, TDate);
+            }
+            else
+            {
+                endDate = startDate;
+            }
+
+            long start;
+            long end;
+            if (FilterType == 0)
+            {
+                start = MiscFunctions.MinDate(startDate);
+                end = MiscFunctions.MaxDate(endDate);
+            }
+            else if (FilterType == 1)
+            {
+                start = MiscFunctions.MinMonth(startDate);
+                end = MiscFunctions.MaxMonth(endDate);
+            }
+            else
+            {
+                start = MiscFunctions.MinYear(startDate);
+                end = MiscFunctions.MaxYear(endDate);
+            }
+
+            List<Order> orders = (await Database.GetOrdersAsync(cafe.CafeID,start, end)).ToList();
+            int i = 1;
+        }
+        
         #endregion
 
     }

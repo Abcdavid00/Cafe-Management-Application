@@ -381,6 +381,7 @@
                             Padding="0"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Center"
+                            Command="{Binding SearchCommand,Mode=OneWay}"
                             IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                             Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
                             ToolTip="MaterialDesignFloatingActionMiniDarkButton">
