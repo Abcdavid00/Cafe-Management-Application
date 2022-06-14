@@ -4,8 +4,10 @@ using CSWBManagementApplication.Service;
 using CSWBManagementApplication.Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -58,12 +60,34 @@ namespace CSWBManagementApplication.ViewModels
     internal class CafeStatisticViewModel : ViewModelBase
     {
         private Cafe cafe;
-
+        private List<Staff> staffs;
         public CafeStatisticViewModel(Cafe cafe)
         {
             this.cafe = cafe;
             FilterType = 0;
             Address = cafe.Address;
+            initiallized = false;
+            HistoryOrders = new ObservableCollection<HistoryOrderViewModel>();
+            Initiallize();
+        }
+
+        private ObservableCollection<HistoryOrderViewModel> historyOrders;
+        public ObservableCollection<HistoryOrderViewModel> HistoryOrders
+        {
+            get => historyOrders;
+            set
+            {
+                historyOrders = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool initiallized;
+
+        public async void Initiallize()
+        {
+            staffs = (await Database.GetAllStaffsAsync()).ToList();
+            initiallized = true;          
         }
 
         #region Datetime
@@ -321,6 +345,15 @@ namespace CSWBManagementApplication.ViewModels
 
         #region Seach
 
+        public string GetStaffName(string staffID)
+        {
+            while (!initiallized)
+            {
+                Thread.Sleep(100);
+            }
+            return staffs.First(s => s.UID == staffID).Name;
+        } 
+
         public ICommand SearchCommand => new CommandBase(()=> Search());
 
         private async void Search()
@@ -355,8 +388,13 @@ namespace CSWBManagementApplication.ViewModels
             }
 
             List<Order> orders = (await Database.GetOrdersAsync(cafe.CafeID,start, end)).ToList();
-            int i = 1;
+
+            HistoryOrders?.Clear();
+
+            HistoryOrders = new ObservableCollection<HistoryOrderViewModel>(orders.Select(o => new HistoryOrderViewModel(o, GetStaffName(o.StaffID),null)));
         }
+        
+        
         
         #endregion
 

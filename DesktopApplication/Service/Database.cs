@@ -910,13 +910,13 @@ namespace CSWBManagementApplication.Services
 
         public static async Task<IEnumerable<Order>> GetOrdersAsync(string cafeID, long startTime, long endTime)
         {
-            List<Order> orders = new List<Order>();
             QuerySnapshot orderSnapshots = await OrderCollection
                 .WhereEqualTo("CafeID", cafeID)
-                .WhereGreaterThanOrEqualTo("Time", startTime)
-                .WhereLessThanOrEqualTo("Time", endTime)
+                .WhereGreaterThanOrEqualTo("BinaryTime", startTime)
+                .WhereLessThanOrEqualTo("BinaryTime", endTime)
                 .GetSnapshotAsync();
-            return orderSnapshots.Select(os => os.ConvertTo<Order>());
+
+            return orderSnapshots.Documents.Select(os => os.ConvertTo<Order>());
         }
 
             #endregion
