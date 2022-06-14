@@ -99,6 +99,30 @@ namespace CSWBManagementApplication.ViewModels
             get => new CommandBase(CafeViewBack);
         }
 
+        public ICommand AddCafeCommand
+        {
+            get => new CommandBase(AddCafe);
+        }
+
+        public async void AddCafe()
+        {
+            Cafe newCafe = await Database.CreateCafeAsync("New Cafe");
+            List<Cafe> cafes = (await Database.GetAllCafes()).ToList();
+            fullCafesList = new List<CafeCardViewModel>();
+            cafesList = new List<CafeCardViewModel>();
+            foreach (Cafe cafe in cafes)
+            {
+                CafeCardViewModel cafeCardViewModel = new CafeCardViewModel(cafe);
+                cafeCardViewModel.PressCommand = new CommandBase(() =>
+                {
+                    ChooseCafe(cafe);
+                });
+                fullCafesList.Add(cafeCardViewModel);
+            }
+            SearchText = "";
+            ChooseCafe(fullCafesList.First(c => c.Cafe.CafeID == newCafe.CafeID).Cafe);
+        }
+
         private void CafeViewBack()
         {
             if (CafeDetailsViewModel != null && IsCafeViewBackable)

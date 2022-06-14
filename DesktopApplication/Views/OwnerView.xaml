@@ -150,7 +150,7 @@
                                     Padding="0"
                                     VerticalAlignment="Center"
                                     Background="{DynamicResource LinearMain}"
-                                    Command="{Binding Add, Mode=OneWay}"
+                                    Command="{Binding AddCafeCommand, Mode=OneWay}"
                                     ToolTip="Add Cafe">
                                     <Button.Content>
                                         <materialDesign:PackIcon Kind="Add" />
