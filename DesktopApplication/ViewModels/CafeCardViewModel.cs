@@ -98,7 +98,27 @@ namespace CSWBManagementApplication.ViewModels
             set
             {
                 cafe = value;
+                cafe.OnCafeManagerChanged += Cafe_OnCafeManagerChanged;
+                cafe.OnCafeAddressChanged += Cafe_OnCafeAddressChanged;
                 ResetViewModel();
+            }
+        }
+
+        private void Cafe_OnCafeAddressChanged(object sender, System.EventArgs e)
+        {
+            Address = cafe.Address;
+        }
+        
+        private async void Cafe_OnCafeManagerChanged(object sender, System.EventArgs e)
+        {
+            Staff manager = await Database.GetStaff(await Database.FindManagerAsync(Cafe.CafeID));
+            if (manager != null)
+            {
+                ManagerName = manager.Name;
+            }
+            else
+            {
+                ManagerName = "No manager";
             }
         }
 

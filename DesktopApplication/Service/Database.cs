@@ -61,6 +61,7 @@ namespace CSWBManagementApplication.Services
         private const string CATEGORY_COLLECTION = "Categories";
         private const string PRODUCT_COLLECTION = "Products";
 
+        private const string ACTIVE_ORDER_COLLECTION = "ActiveOrders";
         private const string ORDER_COLLECTION = "Orders";
 
         private static FirestoreDb db;
@@ -86,6 +87,7 @@ namespace CSWBManagementApplication.Services
         public static CollectionReference CategoryCollection = FirestoreDatabase.Collection(CATEGORY_COLLECTION);
         public static CollectionReference ProductCollection = FirestoreDatabase.Collection(PRODUCT_COLLECTION);
 
+        public static CollectionReference ActiveOrderCollection = FirestoreDatabase.Collection(ACTIVE_ORDER_COLLECTION);
         public static CollectionReference OrderCollection = FirestoreDatabase.Collection(ORDER_COLLECTION);
 
         #endregion Firestore
@@ -229,6 +231,11 @@ namespace CSWBManagementApplication.Services
             return ProductCollection.Document(productID);
         }
 
+        public static DocumentReference ActiveOrderDocument(string orderID)
+        {
+            return ActiveOrderCollection.Document(orderID);
+        }
+
         public static DocumentReference OrderDocument(string orderID)
         {
             return OrderCollection.Document(orderID);
@@ -314,6 +321,11 @@ namespace CSWBManagementApplication.Services
                 return null;
             }
             return CafeDocument(cafeSnapshot.Documents[0].Id);
+        }
+
+        public static async Task<Cafe> GetCafe(string cafeID)
+        {
+            return (await CafeDocument(cafeID).GetSnapshotAsync()).ConvertTo<Cafe>();
         }
 
         public static async Task<Cafe> GetCafe(DocumentReference cafeReference)
@@ -745,6 +757,10 @@ namespace CSWBManagementApplication.Services
             List<Category> categories = new List<Category>();
             QuerySnapshot categoriesSnapshot = await CategoryCollection.GetSnapshotAsync();
             categories.AddRange(categoriesSnapshot.Documents.Select(document => document.ConvertTo<Category>()));
+            foreach (Category category in categories)
+            {
+                category.GetProducts();
+            }
             return categories.AsEnumerable();
         }
 
@@ -862,6 +878,36 @@ namespace CSWBManagementApplication.Services
             await ProductDocument(productID).UpdateAsync("CategoryID", "");
         }
 
+        #endregion
+
+        #region Order
+
+        public static async Task<ActiveOrder> CreateActiveOrderAsync(string cafeID, int floorNumber, Position table)
+        {
+            ActiveOrder activeOrder = new ActiveOrder(cafeID ,floorNumber, table);
+            DocumentReference activeOrderReference = await ActiveOrderCollection.AddAsync(activeOrder);
+            return (await activeOrderReference.GetSnapshotAsync()).ConvertTo<ActiveOrder>();
+        }
+
+        public static async Task<IEnumerable<ActiveOrder>> GetAllActiveOrdersAsync(string cafeID)
+        {
+            List<ActiveOrder> activeOrders = new List<ActiveOrder>();
+            QuerySnapshot activeOrdersSnapshot = await ActiveOrderCollection.WhereEqualTo("CafeID",cafeID).GetSnapshotAsync();
+            activeOrders.AddRange(activeOrdersSnapshot.Documents.Select(activeOrderSnapshot => activeOrderSnapshot.ConvertTo<ActiveOrder>()));
+            return activeOrders.AsEnumerable();
+        }
+
+        public static async Task RemoveActiveOrderAsync(string orderID)
+        {
+            await ActiveOrderDocument(orderID).DeleteAsync();
+        }
+
+        public static async Task<Order> CreateOrderAsync(Order order)
+        {
+            DocumentReference orderReference = await OrderCollection.AddAsync(order);
+            return (await orderReference.GetSnapshotAsync()).ConvertTo<Order>();
+        }
+        
         #endregion
 
         #endregion Firestore

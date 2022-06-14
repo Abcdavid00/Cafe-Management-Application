@@ -1,5 +1,6 @@
 ﻿using CSWBManagementApplication.Services;
 using Google.Cloud.Firestore;
+using System;
 
 namespace CSWBManagementApplication.Models
 {
@@ -34,5 +35,20 @@ namespace CSWBManagementApplication.Models
                 CategoryID = "";
             }
         }
+
+        public async void UpdateProductInfo(string name, int sPrice, int mPrice, int lPrice)
+        {
+            if (!string.IsNullOrEmpty(name) && sPrice >= 0 && mPrice >= 0 && lPrice >= 0)
+            {
+                this.Name = name;
+                this.SPrice = sPrice;
+                this.MPrice = mPrice;
+                this.LPrice = lPrice;
+                await Database.UpdateProductAsync(this);
+                ProductInfoChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        public event EventHandler ProductInfoChanged;
     }
 }

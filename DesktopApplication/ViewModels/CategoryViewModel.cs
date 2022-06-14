@@ -1,6 +1,7 @@
 ﻿using CSWBManagementApplication.Commands;
 using CSWBManagementApplication.Models;
 using CSWBManagementApplication.Resources;
+using CSWBManagementApplication.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,13 +16,24 @@ namespace CSWBManagementApplication.ViewModels
     internal class CategoryViewModel : ViewModelBase
     {
         private Category category;
+        public Category Category
+        {
+            get => category;
+        }
 
         public CategoryViewModel(Category category)
         {
             this.category = category;
-            Refresh();
+            
             this.category.ProductListUpdated += Category_ProductListUpdated;
+            this.category.CategoryNameUpdated += Category_CategoryNameUpdated;
             activated = false;
+            Refresh();
+        }
+
+        private void Category_CategoryNameUpdated(object sender, string e)
+        {
+            OnPropertyChanged(nameof(Name));
         }
 
         private void Category_ProductListUpdated(object sender, EventArgs e)
@@ -51,17 +63,32 @@ namespace CSWBManagementApplication.ViewModels
             } else
             {
                 Products = new ObservableCollection<ProductViewModel>(category.Products.Select(p => new ProductViewModel(p)));
+                foreach (ProductViewModel productViewModel in Products)
+                {
+                    productViewModel.OnEditButtonClicked += ((object o, Product p) => OnProductEditButtonClicked?.Invoke(this, o as ProductViewModel));
+                    productViewModel.OnRemoveButtonClicked += ((object o, Product p)=> Category.RemoveProduct(p));
+                }
             }
-            
+            OnProductsListChanged?.Invoke(this, EventArgs.Empty);
+            if (Products.Count ==0)
+            {
+                OnProductsListGetEmpty?.Invoke(this, EventArgs.Empty);
+            }
         }
 
-        public event EventHandler TitleClicked;
+        public event EventHandler OnProductsListGetEmpty;
         
+        public event EventHandler<Category> OnTitleClicked;
+
+        public event EventHandler<ProductViewModel> OnProductEditButtonClicked;
+
+        public event EventHandler OnProductsListChanged;
+
         public ICommand TitleButton
         {
-            get => new CommandBase(() => TitleClicked?.Invoke(this, EventArgs.Empty));
-        }
-
+            get => new CommandBase(() => OnTitleClicked?.Invoke(this, this.Category));
+        }       
+        
         private bool activated;
         public bool Activated
         {
@@ -76,7 +103,7 @@ namespace CSWBManagementApplication.ViewModels
         
         public Brush TitleBrush
         {
-            get => (Activated ? DarkTheme.LinearMain : DarkTheme.SolidMain);
+            get => (Activated ? DarkTheme.LinearPrimary : DarkTheme.LinearMain);
         }
             
     }

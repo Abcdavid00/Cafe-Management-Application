@@ -2,19 +2,78 @@
     x:Class="CSWBManagementApplication.Views.StaffView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:components="clr-namespace:CSWBManagementApplication.Views.Components"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:CSWBManagementApplication.Views"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
-    <Grid>
-        <TextBlock
+    <Grid Background="{DynamicResource LinearDarkBackground}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="10*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel
+            Grid.Row="0"
             HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            Orientation="Horizontal">
+            <RadioButton
+                Margin="0"
+                Command="{Binding OrderButtonPressed, Mode=OneWay}"
+                Content="Order"
+                IsChecked="{Binding IsOrderSelected, Mode=OneWay}"
+                Style="{StaticResource MaterialDesignTabRadioButton}" />
+
+            <RadioButton
+                Margin="0"
+                Command="{Binding StaffProfileButtonPressed, Mode=OneWay}"
+                Content="Profile"
+                IsChecked="{Binding IsStaffProfileSelected, Mode=OneWay}"
+                Style="{StaticResource MaterialDesignTabRadioButton}" />
+        </StackPanel>
+
+        <Button
+            Margin="5,5,5,5"
             VerticalAlignment="Center"
-            FontSize="42"
-            FontWeight="Bold"
-            Foreground="{DynamicResource SolidLight}"
-            Text="{Binding ViewName}" />
+            HorizontalAlignment="Left"
+            Command="{Binding Path=LogoutCommand, Mode=OneWay}"
+            Content="{materialDesign:PackIcon Logout}"
+            ToolTip="Log out" />
+
+        <materialDesign:Transitioner Grid.Row="1" SelectedIndex="{Binding SelectedIndex,Mode=OneWay}">
+            <materialDesign:TransitionerSlide>
+
+                <materialDesign:TransitionerSlide.ForwardWipe>
+                    <materialDesign:SlideWipe Direction="Left" />
+                </materialDesign:TransitionerSlide.ForwardWipe>
+
+                <ContentControl Content="{Binding OrderInterfaceViewModel}">
+                    <ContentControl.ContentTemplate>
+                        <DataTemplate>
+                            <components:OrderInterface />
+                        </DataTemplate>
+                    </ContentControl.ContentTemplate>
+                </ContentControl>
+            </materialDesign:TransitionerSlide>
+
+            <materialDesign:TransitionerSlide>
+
+                <materialDesign:TransitionerSlide.BackwardWipe>
+                    <materialDesign:SlideWipe Direction="Right" />
+                </materialDesign:TransitionerSlide.BackwardWipe>
+
+                <ContentControl Content="{Binding StaffProfileViewModel}">
+                    <ContentControl.ContentTemplate>
+                        <DataTemplate>
+                            <components:StaffProfile />
+                        </DataTemplate>
+                    </ContentControl.ContentTemplate>
+                </ContentControl>
+            </materialDesign:TransitionerSlide>
+        </materialDesign:Transitioner>
     </Grid>
 </UserControl>

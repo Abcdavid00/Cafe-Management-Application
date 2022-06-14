@@ -223,9 +223,12 @@
                             <RowDefinition Height="auto" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
-                        <TextBox Text="{Binding ProductSearchText, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0"/>
-                        <ScrollViewer VerticalScrollBarVisibility="Visible" Grid.Row="1">
-                            <ItemsControl ItemsSource="{Binding UnassignedProducts, Mode=OneWay}">
+                        <TextBox Grid.Row="0" Text="{Binding ProductSearchText, UpdateSourceTrigger=PropertyChanged}" />
+                        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible">
+                            <ItemsControl
+                                ItemsSource="{Binding UnassignedDisplayProducts, Mode=OneWay}"
+                                VirtualizingPanel.IsVirtualizing="True"
+                                VirtualizingPanel.VirtualizationMode="Recycling">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <StackPanel Orientation="Vertical" />
@@ -248,7 +251,8 @@
                     Margin="1,1,1,1"
                     Background="{DynamicResource SolidDark}"
                     Foreground="{DynamicResource SolidLight}"
-                    UniformCornerRadius="10">
+                    UniformCornerRadius="10"
+                    Visibility="{Binding ProductDetailsVisibility, Mode=OneWay}">
 
                     <Grid Margin="5,5,5,5">
                         <Grid.ColumnDefinitions>
@@ -264,10 +268,9 @@
                         </Grid.RowDefinitions>
 
                         <TextBlock
-                            Grid.Row="0"
-                            Grid.Column="0"
-                            Grid.ColumnSpan="2"
-                            HorizontalAlignment="Center"
+                            Grid.Column="1"
+                            Margin="0,0,313,0"
+                            HorizontalAlignment="Right"
                             VerticalAlignment="Center"
                             FontWeight="Bold"
                             Text="Product Editor" />
@@ -279,7 +282,8 @@
                             Margin="0,0,10,0"
                             Padding="0"
                             HorizontalAlignment="Right"
-                            Visibility="{Binding ProductDetailsSaveButton, Mode=OneWay}">
+                            Command="{Binding ProductDetailsSaveCommand}"
+                            Visibility="{Binding ProductDetailsSaveButtonVisibility, Mode=OneWay}">
                             <Button.Content>
                                 <materialDesign:PackIcon Kind="FloppyDisc" />
                             </Button.Content>
@@ -306,7 +310,7 @@
                             Grid.Row="2"
                             Grid.Column="1"
                             VerticalAlignment="Center"
-                            Text="{Binding CurrentProductName, UpdateSourceTrigger=PropertyChanged}" />
+                            Text="{Binding CurrentProductSPrice, UpdateSourceTrigger=PropertyChanged}" />
 
                         <TextBlock
                             Grid.Row="3"
@@ -318,7 +322,7 @@
                             Grid.Row="3"
                             Grid.Column="1"
                             VerticalAlignment="Center"
-                            Text="{Binding CurrentProductName, UpdateSourceTrigger=PropertyChanged}" />
+                            Text="{Binding CurrentProductMPrice, UpdateSourceTrigger=PropertyChanged}" />
 
                         <TextBlock
                             Grid.Row="4"
@@ -330,7 +334,7 @@
                             Grid.Row="4"
                             Grid.Column="1"
                             VerticalAlignment="Center"
-                            Text="{Binding CurrentProductName, UpdateSourceTrigger=PropertyChanged}" />
+                            Text="{Binding CurrentProductLPrice, UpdateSourceTrigger=PropertyChanged}" />
 
                     </Grid>
 

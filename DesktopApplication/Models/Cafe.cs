@@ -44,6 +44,24 @@ namespace CSWBManagementApplication.Models
         {
             return a.X != b.X || a.Y != b.Y;
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is Position)
+            {
+                return this == (Position)obj;
+            }
+            return false;           
+        }
+
+        public int CompareTo(Position other)
+        {
+            if (this.Y != other.Y)
+            {
+                return this.Y.CompareTo(other.Y);
+            }
+            return this.X.CompareTo(other.X);
+        }
     }
 
     [FirestoreData]
@@ -255,7 +273,10 @@ namespace CSWBManagementApplication.Models
         {
             this.Address = address;
             await Database.UpdateCafeAddressAsync(CafeID, Address);
+            OnCafeAddressChanged(this, EventArgs.Empty);
         }
+
+        public event EventHandler OnCafeAddressChanged;
 
         public async Task GetCafeStaffsInfo()
         {
@@ -377,8 +398,12 @@ namespace CSWBManagementApplication.Models
                 if (hasStaffsInfo)
                 {
                     await GetCafeStaffsInfo();
+                    OnCafeManagerChanged?.Invoke(this, EventArgs.Empty);
                 }
             }
+            
         }
+
+        public event EventHandler OnCafeManagerChanged;
     }
 }

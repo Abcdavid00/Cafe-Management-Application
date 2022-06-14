@@ -16,7 +16,19 @@ namespace CSWBManagementApplication.ViewModels
     internal class ProductViewModel : ViewModelBase
     {        
         private Product product;
-
+        public Product Product
+        {
+            get => product;
+            set
+            {
+                product = value;
+                OnPropertyChanged(nameof(Name));
+                OnPropertyChanged(nameof(SPrice));
+                OnPropertyChanged(nameof(MPrice));
+                OnPropertyChanged(nameof(LPrice));
+            }
+        }
+        
         private bool inCategory
         {
             get => !string.IsNullOrEmpty(product.CategoryID);
@@ -24,8 +36,17 @@ namespace CSWBManagementApplication.ViewModels
 
         public ProductViewModel(Product product)
         {
-            this.product = product;
+            this.Product = product;
+            this.Product.ProductInfoChanged += OnProductInfoChanged;
             activated = false;
+        }
+
+        private void OnProductInfoChanged(object sender, EventArgs e)
+        {
+            OnPropertyChanged(nameof(Name));
+            OnPropertyChanged(nameof(SPrice));
+            OnPropertyChanged(nameof(MPrice));
+            OnPropertyChanged(nameof(LPrice));
         }
 
         public string Name
@@ -68,33 +89,33 @@ namespace CSWBManagementApplication.ViewModels
             get => inCategory ? Visibility.Visible : Visibility.Collapsed;
         }
 
-        public event EventHandler<Product> AddButtonClicked;
+        public event EventHandler<Product> OnAddButtonClicked;
 
         public ICommand Add
         {
             get => new CommandBase(() =>
             {
-                AddButtonClicked?.Invoke(this, product);
+                OnAddButtonClicked?.Invoke(this, product);
             });
         }
 
-        public event EventHandler<Product> RemoveButtonClicked;
+        public event EventHandler<Product> OnRemoveButtonClicked;
 
         public ICommand Remove
         {
             get => new CommandBase(() =>
             {
-                RemoveButtonClicked?.Invoke(this, product);
+                OnRemoveButtonClicked?.Invoke(this, product);
             });
         }
 
-        public event EventHandler<Product> EditButtonClicked;
+        public event EventHandler<Product> OnEditButtonClicked;
 
         public ICommand Edit
         {
             get => new CommandBase(() =>
             {
-                EditButtonClicked?.Invoke(this, product);
+                OnEditButtonClicked?.Invoke(this, product);
             });
         }
 

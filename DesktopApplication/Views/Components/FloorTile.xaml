@@ -14,6 +14,7 @@
         Background="Transparent"
         BorderBrush="{Binding OuterBorder, Mode=OneWay}"
         Command="{Binding Command, Mode=OneWay}"
+        Visibility="{Binding Visibility, Mode=OneWay}"
         Style="{StaticResource DefaultButton}">
 
         <Grid Background="{Binding OuterBackground, Mode=OneWay}">
@@ -32,7 +33,14 @@
                 Grid.Row="1"
                 Grid.Column="1"
                 Background="{Binding InnerBackground, Mode=OneWay}"
-                UniformCornerRadius="10" />
+                UniformCornerRadius="10">
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Foreground="{Binding Foreground, Mode=OneWay}"
+                    FontWeight="Bold"
+                    Text="{Binding Content, Mode=OneWay}" />
+            </materialDesign:Card>
         </Grid>
     </Button>
 </UserControl>
