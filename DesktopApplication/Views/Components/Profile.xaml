@@ -10,6 +10,223 @@
     d:DesignWidth="1920"
     mc:Ignorable="d">
     <Grid Background="{DynamicResource LinearDarkBackground}">
-        <Grid.ColumnDefinitions />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="17*" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="10*" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+
+        <materialDesign:Card
+            Grid.Row="1"
+            Grid.Column="1"
+            Background="{DynamicResource SolidDark}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="10*" />
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="30*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*" />
+                    <RowDefinition Height="10*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <WrapPanel
+                    Grid.Row="0"
+                    Grid.Column="3"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center">
+
+                    <Button
+                        Width="50"
+                        Height="50"
+                        Margin="10,0,0,0"
+                        Padding="0,0,0,2"
+                        VerticalAlignment="Center"
+                        Command="{Binding SaveAddressCommand, Mode=OneWay}"
+                        ToolTip="Save">
+                        <materialDesign:PackIcon
+                            Width="40"
+                            Height="40"
+                            VerticalAlignment="Center"
+                            Kind="FloppyDisc" />
+                    </Button>
+
+                    <Button
+                        Width="50"
+                        Height="50"
+                        Margin="10,0,0,0"
+                        Padding="0,0,0,2"
+                        VerticalAlignment="Center"
+                        Command="{Binding DiscardAddressCommand, Mode=OneWay}"
+                        ToolTip="Cancel">
+                        <materialDesign:PackIcon
+                            Width="40"
+                            Height="40"
+                            VerticalAlignment="Center"
+                            Kind="Cancel" />
+                    </Button>
+                </WrapPanel>
+
+                <StackPanel
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Orientation="Vertical">
+                    <materialDesign:PackIcon
+                        Width="400"
+                        Height="400"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Foreground="{DynamicResource SolidLight}"
+                        Kind="AccountCircle" />
+
+                    <TextBox
+                        Margin="0,10,0,0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="20"
+                        Foreground="{DynamicResource SolidLight}"
+                        Text="{Binding Name, Mode=OneWay}"
+                        TextAlignment="Center"
+                        TextWrapping="Wrap" />
+
+                    <TextBlock
+                        Margin="0,10,0,0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="17"
+                        Foreground="{DynamicResource TextColorDarkGray}"
+                        Text="{Binding Level, Mode=OneWay}"
+                        TextAlignment="Center"
+                        TextWrapping="Wrap" />
+                </StackPanel>
+
+                <Grid Grid.Row="1" Grid.Column="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="4*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="4*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="4*" />
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0">
+                            <TextBlock
+                                Margin="0,0,0,5"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="50"
+                                Foreground="{DynamicResource SolidLight}"
+                                Text="Gender" />
+
+                            <ComboBox
+                                Width="200"
+                                Height="70"
+                                HorizontalAlignment="Left"
+                                FontSize="45"
+                                Foreground="{DynamicResource TextColorDarkGray}"
+                                Text="{Binding Gender, Mode=OneWay}">
+                                <ComboBoxItem Content="Male" />
+                                <ComboBoxItem Content="Female" />
+                            </ComboBox>
+
+
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1">
+                            <TextBlock
+                                Margin="0,0,0,5"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="50"
+                                Foreground="{DynamicResource SolidLight}"
+                                Text="Birthdate" />
+                            <TextBox
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="45"
+                                Foreground="{DynamicResource TextColorDarkGray}"
+                                Text="{Binding Birthdate, Mode=OneWay}"
+                                TextWrapping="Wrap" />
+                        </StackPanel>
+
+                    </Grid>
+
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0">
+                            <TextBlock
+                                Margin="0,0,0,5"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="50"
+                                Foreground="{DynamicResource SolidLight}"
+                                Text="Phone" />
+                            <TextBox
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="45"
+                                Foreground="{DynamicResource TextColorDarkGray}"
+                                Text="{Binding Phone, Mode=OneWay}"
+                                TextWrapping="Wrap" />
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1">
+                            <TextBlock
+                                Margin="0,0,0,5"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="50"
+                                Foreground="{DynamicResource SolidLight}"
+                                Text="Email" />
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="45"
+                                Foreground="{DynamicResource TextColorDarkGray}"
+                                Text="{Binding Email, Mode=OneWay}"
+                                TextWrapping="Wrap" />
+                        </StackPanel>
+
+                    </Grid>
+
+                    <StackPanel Grid.Row="4">
+                        <TextBlock
+                            Margin="0,0,0,5"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            FontSize="50"
+                            Foreground="{DynamicResource SolidLight}"
+                            Text="Cafe Address" />
+                        <TextBlock
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            FontSize="45"
+                            Foreground="{DynamicResource TextColorDarkGray}"
+                            Text="{Binding CafeAddress, Mode=OneWay}"
+                            TextWrapping="Wrap" />
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </materialDesign:Card>
     </Grid>
 </UserControl>
