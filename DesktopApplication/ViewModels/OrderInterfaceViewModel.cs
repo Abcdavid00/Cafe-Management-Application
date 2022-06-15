@@ -593,6 +593,16 @@ namespace CSWBManagementApplication.ViewModels
             }
         }
 
+        private void CancelOrder()
+        {
+            if (CurrentActiveOrder != null)
+            {
+                activeOrdersMap[SelectedTableFloor][SelectedTablePosition] = null;
+                CurrentActiveOrder = null;
+                SetTableActivated(SelectedTableFloor, SelectedTablePosition, false);
+            }
+        }
+
         public ICommand MainButtonCommand
         {
             get => new CommandBase(() =>
@@ -604,6 +614,14 @@ namespace CSWBManagementApplication.ViewModels
                 {
                     FinishOrder();
                 }
+            });
+        }
+
+        public ICommand CancelButtonCommand
+        {
+            get => new CommandBase(() =>
+            {
+                CancelOrder();
             });
         }
 

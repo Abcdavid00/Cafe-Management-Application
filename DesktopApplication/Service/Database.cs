@@ -282,10 +282,6 @@ namespace CSWBManagementApplication.Services
 
         public static async Task<Cafe> CreateCafeAsync(string address)
         {
-            if (await FindCafeAsync(address) != null)
-            {
-                throw new Exception("Address already exist!");
-            }
             Dictionary<string, object> data = new Dictionary<string, object>()
             {
                 { "Address", address },
@@ -298,10 +294,6 @@ namespace CSWBManagementApplication.Services
         public static async Task UpdateCafeAddressAsync(string cafeID, string address)
         {
             Cafe cafe = await GetCafe(CafeDocument(cafeID));
-            if (await FindCafeAsync(address) != null)
-            {
-                throw new Exception("Address already exist!");
-            }
             if (cafe == null)
             {
                 throw new Exception("Cafe not found!");

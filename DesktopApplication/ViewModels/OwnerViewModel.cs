@@ -66,11 +66,12 @@ namespace CSWBManagementApplication.ViewModels
             });
             NavigationChips = new List<NavigationChipViewModel>
             {
-                new NavigationChipViewModel("Home", PackIconKind.Home, new Commands.CommandBase(()=>SelectedIndex=0), true),
+                new NavigationChipViewModel("", PackIconKind.None, new Commands.CommandBase(()=>SelectedIndex=0), true,false),
                 new NavigationChipViewModel("Cafes", PackIconKind.Coffee, new Commands.CommandBase(()=>SelectedIndex=1), false),
                 //new NavigationChipViewModel("Staff", PackIconKind.Person, new Commands.CommandBase(()=>SelectedIndex=2), false),
                 new NavigationChipViewModel("Products", PackIconKind.Silverware, new Commands.CommandBase(()=>SelectedIndex=2), false),
             };
+            SelectedIndex = 1;
             MenuEditorViewModel = new MenuEditorViewModel();
             Initialize();
         }
@@ -97,6 +98,30 @@ namespace CSWBManagementApplication.ViewModels
         public ICommand CafeViewBackCommand
         {
             get => new CommandBase(CafeViewBack);
+        }
+
+        public ICommand AddCafeCommand
+        {
+            get => new CommandBase(AddCafe);
+        }
+
+        public async void AddCafe()
+        {
+            Cafe newCafe = await Database.CreateCafeAsync("New Cafe");
+            List<Cafe> cafes = (await Database.GetAllCafes()).ToList();
+            fullCafesList = new List<CafeCardViewModel>();
+            cafesList = new List<CafeCardViewModel>();
+            foreach (Cafe cafe in cafes)
+            {
+                CafeCardViewModel cafeCardViewModel = new CafeCardViewModel(cafe);
+                cafeCardViewModel.PressCommand = new CommandBase(() =>
+                {
+                    ChooseCafe(cafe);
+                });
+                fullCafesList.Add(cafeCardViewModel);
+            }
+            SearchText = "";
+            ChooseCafe(fullCafesList.First(c => c.Cafe.CafeID == newCafe.CafeID).Cafe);
         }
 
         private void CafeViewBack()
