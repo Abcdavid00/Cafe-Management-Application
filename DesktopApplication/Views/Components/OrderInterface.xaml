@@ -146,7 +146,7 @@
                                                             <materialDesign:Card
                                                                 Height="auto"
                                                                 Margin="5,10,5,5"
-                                                                Padding="5 5 5 5"
+                                                                Padding="5,5,5,5"
                                                                 HorizontalAlignment="Stretch"
                                                                 Background="{DynamicResource SolidLight}">
                                                                 <Grid>
@@ -157,30 +157,30 @@
                                                                         <ColumnDefinition Width="*" />
                                                                     </Grid.ColumnDefinitions>
                                                                     <TextBlock
-                                                                        TextWrapping="Wrap"
                                                                         Grid.Column="0"
-                                                                        FontSize="12"
                                                                         HorizontalAlignment="Left"
                                                                         VerticalAlignment="Center"
-                                                                        Text="{Binding CombinedName, Mode=OneWay}" />
-                                                                    <TextBlock
                                                                         FontSize="12"
-                                                                        TextWrapping="Wrap"
+                                                                        Text="{Binding CombinedName, Mode=OneWay}"
+                                                                        TextWrapping="Wrap" />
+                                                                    <TextBlock
                                                                         Grid.Column="1"
-                                                                        VerticalAlignment="Center"
                                                                         HorizontalAlignment="Right"
-                                                                        Text="{Binding Quantity, Mode=OneWay}" />
-                                                                    <TextBlock
+                                                                        VerticalAlignment="Center"
                                                                         FontSize="12"
-                                                                        TextWrapping="Wrap"
+                                                                        Text="{Binding Quantity, Mode=OneWay}"
+                                                                        TextWrapping="Wrap" />
+                                                                    <TextBlock
                                                                         Grid.Column="2"
-                                                                        VerticalAlignment="Center"
                                                                         HorizontalAlignment="Right"
-                                                                        Text="{Binding PriceString, Mode=OneWay}" />
+                                                                        VerticalAlignment="Center"
+                                                                        FontSize="12"
+                                                                        Text="{Binding PriceString, Mode=OneWay}"
+                                                                        TextWrapping="Wrap" />
                                                                     <TextBlock
                                                                         Grid.Column="3"
-                                                                        VerticalAlignment="Center"
                                                                         HorizontalAlignment="Right"
+                                                                        VerticalAlignment="Center"
                                                                         Text="{Binding Total, Mode=OneWay}" />
                                                                 </Grid>
                                                             </materialDesign:Card>
@@ -211,8 +211,8 @@
                                                     VerticalAlignment="Center"
                                                     FontSize="17"
                                                     Foreground="{DynamicResource SolidLight}"
-                                                    Text="{Binding TotalString}" 
-                                                    TextWrapping="Wrap"/>
+                                                    Text="{Binding TotalString}"
+                                                    TextWrapping="Wrap" />
                                             </WrapPanel>
                                         </StackPanel>
 
@@ -224,15 +224,36 @@
                     </Grid>
                 </materialDesign:Card>
 
-                <Button
-                    Grid.Row="2"
-                    Grid.Column="3"
-                    MinHeight="50"
-                    Margin="1,10,1,1"
-                    materialDesign:ButtonAssist.CornerRadius="10"
-                    Command="{Binding MainButtonCommand, Mode=OneWay}"
-                    Content="{Binding MainButtonContent, Mode=OneWay}"
-                    IsEnabled="{Binding MainButtonIsEnabled, Mode=OneWay}" />
+                <Grid Grid.Row="2" Grid.Column="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+                    <Button
+                        Grid.Column="0"
+                        MinHeight="50"
+                        Margin="1,10,1,1"
+                        materialDesign:ButtonAssist.CornerRadius="10"
+                        Command="{Binding MainButtonCommand, Mode=OneWay}"
+                        Content="{Binding MainButtonContent, Mode=OneWay}"
+                        IsEnabled="{Binding MainButtonIsEnabled, Mode=OneWay}" />
+
+                    <Button
+                        Grid.Column="1"
+                        MinHeight="50"
+                        Margin="10,10,1,1"
+                        Width="{Binding ActualHeight,RelativeSource={RelativeSource Mode=Self}}"
+                        IsEnabled="{Binding IsMenuEnabled, Mode=OneWay}"
+                        materialDesign:ButtonAssist.CornerRadius="10"
+                        Background="Red"
+                        Command="{Binding CancelButtonCommand, Mode=OneWay}"
+                        >
+                        <Button.Content>
+                            <materialDesign:PackIcon Kind="Remove" />
+                        </Button.Content>
+                    </Button>
+
+                </Grid>
 
                 <materialDesign:Card
                     Grid.Row="1"
