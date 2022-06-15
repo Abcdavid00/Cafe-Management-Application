@@ -118,7 +118,7 @@ namespace CSWBManagementApplication.ViewModels
         public async void Initialize()
         {
             //await Database.ResetDatabaseAsync();
-
+            UserLink = null;
             if ((await Database.GetUserCount()) == 0)
             {
                 CurrentLoginViewModel = new CreateOwnerViewModel(this);
@@ -127,9 +127,9 @@ namespace CSWBManagementApplication.ViewModels
             {
                 CurrentLoginViewModel = new LoginViewModel(this);
             }
-            UserLink = null;
+            
 #if DEBUG
-            UserLink = await Database.SignIn("dangkhoabh02@gmail.com", "123456");
+            //UserLink = await Database.SignIn("dangkhoabh02@gmail.com", "123456");
 #endif
         }
     }

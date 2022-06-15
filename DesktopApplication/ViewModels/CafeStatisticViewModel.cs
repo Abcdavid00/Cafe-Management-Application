@@ -218,9 +218,12 @@ namespace CSWBManagementApplication.ViewModels
             initiallized = false;
             HistoryOrders = new ObservableCollection<HistoryOrderViewModel>();
             OrderDetails = new OrderDetailsViewModel(GetProductName);
-            FDate = 15;
-            FMonth = 6;
-            FYear = 2022;
+            FDate = DateTime.Now.Day;
+            FMonth = DateTime.Now.Month;
+            FYear = DateTime.Now.Year;
+            TDate = DateTime.Now.Day;
+            TMonth = DateTime.Now.Month;
+            TYear = DateTime.Now.Year;
             Initiallize();
         }
 
@@ -424,7 +427,7 @@ namespace CSWBManagementApplication.ViewModels
         {
             int newDate = TDate;
             MiscFunctions.ValidateDate(ref newDate, TMonth, TYear);
-            if (newDate == FDate)
+            if (newDate == TDate)
             {
                 return;
             }
