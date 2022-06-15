@@ -45,7 +45,7 @@ namespace CSWBManagementApplication.ViewModels
 
         private int quantity;
 
-        public MiniOrderedProductViewModel(string name, int size, int quantity)
+        public MiniOrderedProductViewModel(string name, int size, int quantity )
         {
             Name = name;
             this.size = size;
@@ -77,6 +77,8 @@ namespace CSWBManagementApplication.ViewModels
             set
             {
                 order = value;
+                OnPropertyChanged(nameof(Time));
+                OnPropertyChanged(nameof(TotalString));
                 UpdateProducts();
                 OnPropertyChanged();
             }
@@ -84,7 +86,7 @@ namespace CSWBManagementApplication.ViewModels
 
         public string Time
         {
-            get => order.Time.ToString("dd/MM/yyyy\nHH:mm:ss");
+            get => (this.Order != null) ? order.Time.ToString("dd/MM/yyyy\nHH:mm:ss"):"";
         }
 
         private string staffName;
@@ -110,7 +112,7 @@ namespace CSWBManagementApplication.ViewModels
                 return 0;
             }
         }
-        public string TotalString => MiscFunctions.IntToPrice(Total);
+        public string TotalString => (this.Order != null) ? MiscFunctions.IntToPrice(Total) : "";
 
         ObservableCollection<MiniOrderedProductViewModel> products;
         public ObservableCollection<MiniOrderedProductViewModel> Products
@@ -570,7 +572,7 @@ namespace CSWBManagementApplication.ViewModels
             }
 
             List<Order> orders = (await Database.GetOrdersAsync(cafe.CafeID,start, end)).ToList();
-
+            TotalOrders = orders.Count;
             HistoryOrders?.Clear();
 
             HistoryOrders = new ObservableCollection<HistoryOrderViewModel>(orders.Select(o => new HistoryOrderViewModel(o, GetStaffName(o.StaffID), new CommandBase(() => { OrderDetails.Update(o,GetStaffName(o.StaffID)); }))));
