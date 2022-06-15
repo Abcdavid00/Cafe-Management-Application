@@ -613,7 +613,7 @@ namespace CSWBManagementApplication.Services
 
             int level = staffSnapshot.GetValue<int>("Level");
 
-            return (level == 2 ? Models.User.Roles.Manager : Models.User.Roles.Staff);
+            return (level == 1 ? Models.User.Roles.Manager : Models.User.Roles.Staff);
         }
 
         public static async Task RemoveStaffFromCafeAsync(string staffID)

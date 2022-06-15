@@ -25,8 +25,7 @@
                 Command="{Binding StatisticsButtonPressed, Mode=OneWay}"
                 Content="Statistics"
                 IsChecked="{Binding IsStatisticSelected, Mode=OneWay}"
-                Style="{StaticResource MaterialDesignTabRadioButton}" >
-            </RadioButton>
+                Style="{StaticResource MaterialDesignTabRadioButton}" />
 
             <RadioButton
                 Margin="0"
@@ -53,7 +52,7 @@
                 <ContentControl Content="{Binding CafeStatisticViewModel, Mode=OneWay}">
                     <ContentControl.ContentTemplate>
                         <DataTemplate>
-                            <components:CafeStatistics/>
+                            <components:CafeStatistics />
                         </DataTemplate>
                     </ContentControl.ContentTemplate>
                 </ContentControl>

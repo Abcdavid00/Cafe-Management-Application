@@ -343,7 +343,6 @@
     <Compile Include="ViewModels\OwnerViewModel.cs" />
     <Compile Include="ViewModels\ProductViewModel.cs" />
     <Compile Include="ViewModels\StaffDetailsViewModel.cs" />
-    <Compile Include="ViewModels\StaffProfileViewModel.cs" />
     <Compile Include="ViewModels\StaffViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="ViewModels\ViewOnlyFloorLayoutViewModel.cs" />

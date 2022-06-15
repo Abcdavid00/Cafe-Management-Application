@@ -1,10 +1,39 @@
 ﻿using CSWBManagementApplication.Commands;
 using CSWBManagementApplication.Models;
 using CSWBManagementApplication.Service;
+using CSWBManagementApplication.Services;
 using System.Windows.Input;
 
 namespace CSWBManagementApplication.ViewModels
 {
+
+    internal class StaffProfileViewModel : ViewModelBase
+    {
+        private Staff staff;
+
+        public StaffProfileViewModel(Staff staff)
+        {
+            this.staff = staff;
+        }
+
+        private string name;
+        public string Name
+        {
+            get => name;
+            set
+            {
+                name = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private async void LoadCafeDetails()
+        {
+            Cafe cafe = await Database.GetCafe(staff.CafeID);
+            
+        }
+    }
+
     internal class StaffViewModel : ViewModelBase
     {
         private OrderInterfaceViewModel orderInterfaceViewModel;

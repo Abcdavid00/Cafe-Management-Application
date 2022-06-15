@@ -66,10 +66,10 @@
                     <materialDesign:SlideWipe Direction="Right" />
                 </materialDesign:TransitionerSlide.BackwardWipe>
 
-                <ContentControl Content="{Binding StaffProfileViewModel}">
+                <ContentControl Content="{Binding StaffProfileViewModel,Mode=OneWay}">
                     <ContentControl.ContentTemplate>
                         <DataTemplate>
-                            <components:StaffProfile />
+                            <components:Profile />
                         </DataTemplate>
                     </ContentControl.ContentTemplate>
                 </ContentControl>

@@ -96,7 +96,7 @@
                         VerticalAlignment="Center"
                         FontSize="20"
                         Foreground="{DynamicResource SolidLight}"
-                        Text="{Binding Name, Mode=OneWay}"
+                        Text="{Binding Name}"
                         TextAlignment="Center"
                         TextWrapping="Wrap" />
 
@@ -140,7 +140,7 @@
                                 HorizontalAlignment="Left"
                                 FontSize="45"
                                 Foreground="{DynamicResource TextColorDarkGray}"
-                                Text="{Binding Gender, Mode=OneWay}">
+                                SelectedIndex="{Binding Sex}">
                                 <ComboBoxItem Content="Male" />
                                 <ComboBoxItem Content="Female" />
                             </ComboBox>
@@ -156,6 +156,17 @@
                                 FontSize="50"
                                 Foreground="{DynamicResource SolidLight}"
                                 Text="Birthdate" />
+                            <DatePicker
+                                Width="200"
+                                Height="70"
+                                Padding="10,0,10,0"
+                                HorizontalAlignment="Left"
+                                materialDesign:HintAssist.Hint="Pick Date"
+                                materialDesign:TextFieldAssist.HasClearButton="True"
+                                FontSize="25"
+                                Foreground="{DynamicResource TextColorDarkGray}"
+                                SelectedDate="{Binding Birthdate}"
+                                Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
                             <TextBox
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
