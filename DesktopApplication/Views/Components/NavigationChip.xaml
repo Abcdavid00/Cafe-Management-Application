@@ -22,6 +22,7 @@
             Foreground="{Binding Foreground}"
             IconBackground="Transparent"
             IconForeground="{Binding Foreground}"
+            Visibility="{Binding Visibility,Mode=OneWay}"
             Style="{StaticResource MaterialDesignOutlineChip}">
             <materialDesign:Chip.Icon>
                 <materialDesign:PackIcon Kind="{Binding Icon}" />

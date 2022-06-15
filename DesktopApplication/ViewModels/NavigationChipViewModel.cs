@@ -1,5 +1,6 @@
 ﻿using CSWBManagementApplication.Resources;
 using MaterialDesignThemes.Wpf;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -89,12 +90,24 @@ namespace CSWBManagementApplication.ViewModels
             }
         }
 
-        public NavigationChipViewModel(string content, PackIconKind icon, ICommand command, bool activated = false)
+        private Visibility visibility;
+        public Visibility Visibility
+        {
+            get => visibility;
+            set
+            {
+                visibility = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public NavigationChipViewModel(string content, PackIconKind icon, ICommand command, bool activated, bool isVisible=true)
         {
             Content = content;
             Icon = icon;
             Command = command;
             Activated = activated;
+            Visibility = isVisible ? Visibility.Visible : Visibility.Collapsed;
         }
     }
 }

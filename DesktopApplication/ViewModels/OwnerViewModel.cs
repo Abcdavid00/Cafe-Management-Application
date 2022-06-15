@@ -66,11 +66,12 @@ namespace CSWBManagementApplication.ViewModels
             });
             NavigationChips = new List<NavigationChipViewModel>
             {
-                new NavigationChipViewModel("Home", PackIconKind.Home, new Commands.CommandBase(()=>SelectedIndex=0), true),
+                new NavigationChipViewModel("", PackIconKind.None, new Commands.CommandBase(()=>SelectedIndex=0), true,false),
                 new NavigationChipViewModel("Cafes", PackIconKind.Coffee, new Commands.CommandBase(()=>SelectedIndex=1), false),
                 //new NavigationChipViewModel("Staff", PackIconKind.Person, new Commands.CommandBase(()=>SelectedIndex=2), false),
                 new NavigationChipViewModel("Products", PackIconKind.Silverware, new Commands.CommandBase(()=>SelectedIndex=2), false),
             };
+            SelectedIndex = 1;
             MenuEditorViewModel = new MenuEditorViewModel();
             Initialize();
         }
