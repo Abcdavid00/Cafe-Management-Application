@@ -1,4 +1,5 @@
-﻿using Google.Cloud.Firestore;
+﻿using CSWBManagementApplication.Services;
+using Google.Cloud.Firestore;
 using System;
 
 namespace CSWBManagementApplication.Models
@@ -92,6 +93,11 @@ namespace CSWBManagementApplication.Models
         public ulong Salary(int month, int year)
         {
             throw new NotImplementedException();
+        }
+
+        public async void UpdateInfo()
+        {
+            await Database.UpdateStaffInfoAsync(this);
         }
     }
 }

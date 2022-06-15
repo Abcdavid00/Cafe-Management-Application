@@ -638,6 +638,14 @@ namespace CSWBManagementApplication.Services
             await userReference.UpdateAsync("CafeID", "");
         }
 
+        public static async Task UpdateStaffInfoAsync(Staff staff)
+        {
+            await UserDocument(staff.UID).UpdateAsync("Name",staff.Name);
+            await UserDocument(staff.UID).UpdateAsync("Phone", staff.Phone);
+            await UserDocument(staff.UID).UpdateAsync("IsMale", staff.IsMale);
+            await UserDocument(staff.UID).UpdateAsync("BinaryBirthDate", staff.BinaryBirthDate);
+        }
+
         public static async Task AddStaffToCafeAsync(string cafeID, string staffID, bool isManager = false)
         {
             DocumentReference userReference = UserDocument(staffID);

@@ -2,6 +2,7 @@
 using CSWBManagementApplication.Models;
 using CSWBManagementApplication.Service;
 using CSWBManagementApplication.Services;
+using System;
 using System.Windows.Input;
 
 namespace CSWBManagementApplication.ViewModels
@@ -14,6 +15,12 @@ namespace CSWBManagementApplication.ViewModels
         public StaffProfileViewModel(Staff staff)
         {
             this.staff = staff;
+            LoadCafeDetails();
+            Email = staff.Email;
+            Name = staff.Name;
+            Birthdate = staff.Birthdate;
+            Phone = staff.Phone;
+            IsMale = staff.IsMale;
         }
 
         private string name;
@@ -27,9 +34,89 @@ namespace CSWBManagementApplication.ViewModels
             }
         }
 
+        private string cafeAddress;
+        public string CafeAddress
+        {
+            get => cafeAddress;
+            private set
+            {
+                cafeAddress = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private DateTime birthdate;
+        public DateTime Birthdate
+        {
+            get => birthdate;
+            set
+            {
+                birthdate = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private int sex;
+        public int Sex
+        {
+            get => sex;
+            set
+            {
+                sex = value;
+                OnPropertyChanged(nameof(IsMale));
+                OnPropertyChanged();
+            }
+        }
+        public bool IsMale
+        {
+            get => sex == 0;
+            set
+            {
+                sex = (value) ? 0 : 1;
+                OnPropertyChanged(nameof(Sex));
+                OnPropertyChanged();
+            }
+        }
+
+        private string phone;
+        public string Phone
+        {
+            get => phone;
+            set
+            {
+                phone = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string email;
+        public string Email
+        {
+            get => email;
+            private set { email = value; OnPropertyChanged(); }
+        }
+
+        public ICommand SaveCommand => new CommandBase(()=> 
+        {
+            staff.Name = Name;
+            staff.Birthdate = Birthdate;
+            staff.IsMale = IsMale;
+            staff.Phone = Phone;
+            staff.UpdateInfo();
+        });
+
+        public ICommand DiscardCommand => new CommandBase(()=>
+        {
+            Name = staff.Name;
+            Birthdate = staff.Birthdate;
+            Phone = staff.Phone;
+            IsMale = staff.IsMale;
+        });
+
         private async void LoadCafeDetails()
         {
             Cafe cafe = await Database.GetCafe(staff.CafeID);
+            CafeAddress = cafe.Address;
             
         }
     }

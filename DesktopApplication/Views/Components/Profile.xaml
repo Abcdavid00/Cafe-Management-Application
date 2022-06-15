@@ -51,7 +51,7 @@
                         Margin="10,0,0,0"
                         Padding="0,0,0,2"
                         VerticalAlignment="Center"
-                        Command="{Binding SaveAddressCommand, Mode=OneWay}"
+                        Command="{Binding SaveCommand, Mode=OneWay}"
                         ToolTip="Save">
                         <materialDesign:PackIcon
                             Width="40"
@@ -66,7 +66,7 @@
                         Margin="10,0,0,0"
                         Padding="0,0,0,2"
                         VerticalAlignment="Center"
-                        Command="{Binding DiscardAddressCommand, Mode=OneWay}"
+                        Command="{Binding DiscardCommand, Mode=OneWay}"
                         ToolTip="Cancel">
                         <materialDesign:PackIcon
                             Width="40"
@@ -100,15 +100,7 @@
                         TextAlignment="Center"
                         TextWrapping="Wrap" />
 
-                    <TextBlock
-                        Margin="0,10,0,0"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        FontSize="17"
-                        Foreground="{DynamicResource TextColorDarkGray}"
-                        Text="{Binding Level, Mode=OneWay}"
-                        TextAlignment="Center"
-                        TextWrapping="Wrap" />
+                    
                 </StackPanel>
 
                 <Grid Grid.Row="1" Grid.Column="3">
@@ -167,13 +159,7 @@
                                 Foreground="{DynamicResource TextColorDarkGray}"
                                 SelectedDate="{Binding Birthdate}"
                                 Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
-                            <TextBox
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center"
-                                FontSize="45"
-                                Foreground="{DynamicResource TextColorDarkGray}"
-                                Text="{Binding Birthdate, Mode=OneWay}"
-                                TextWrapping="Wrap" />
+                            
                         </StackPanel>
 
                     </Grid>
