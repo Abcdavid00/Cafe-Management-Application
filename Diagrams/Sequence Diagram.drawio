@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2022-06-27T09:01:07.422Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.80 Safari/537.36" etag="MOa0ZNIrWlG1rkvp6ntS" version="20.0.3" type="github" pages="6">
+<mxfile host="app.diagrams.net" modified="2022-06-27T09:17:51.762Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.80 Safari/537.36" etag="kGrSx9m-33H6qb4xFdCG" version="20.0.3" type="github" pages="6">
   <diagram name="Page-1" id="13e1069c-82ec-6db2-03f1-153e76fe0fe0">
     <mxGraphModel dx="1485" dy="763" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="none" math="0" shadow="0">
       <root>
@@ -309,7 +309,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="syZZm-k4GOLZ7Tl2RTYw" name="Add staff">
-    <mxGraphModel dx="1485" dy="763" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1074" dy="756" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -406,56 +406,47 @@
     </mxGraphModel>
   </diagram>
   <diagram id="OQk_RuqxNHTa2ZG-442O" name="CheckStaff">
-    <mxGraphModel dx="849" dy="436" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1074" dy="756" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="iUAJESamd2Wkv9F0l4Ig-26" value="Alternative" style="shape=umlFrame;whiteSpace=wrap;html=1;width=70;height=20;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
-          <mxGeometry x="48.6" y="426.6" width="430.6584324706317" height="153.75193780560446" as="geometry" />
-        </mxCell>
-        <mxCell id="iUAJESamd2Wkv9F0l4Ig-27" value="loop" style="shape=umlFrame;whiteSpace=wrap;html=1;width=40;height=15;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
-          <mxGeometry x="27.133063745019925" y="392.1495658055085" width="483.6178685258963" height="209.4526398268869" as="geometry" />
-        </mxCell>
-        <mxCell id="iUAJESamd2Wkv9F0l4Ig-29" value="Alternative" style="shape=umlFrame;whiteSpace=wrap;html=1;width=70;height=20;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
-          <mxGeometry x="10.400000000000006" y="343" width="522.6" height="317.6" as="geometry" />
-        </mxCell>
         <mxCell id="iUAJESamd2Wkv9F0l4Ig-1" value="" style="shape=umlLifeline;participant=umlActor;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;verticalAlign=top;spacingTop=36;outlineConnect=0;size=38;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
           <mxGeometry x="150" y="101" width="20" height="907" as="geometry" />
         </mxCell>
         <mxCell id="iUAJESamd2Wkv9F0l4Ig-2" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
-          <mxGeometry x="155" y="189" width="10" height="690" as="geometry" />
+          <mxGeometry x="155" y="189" width="10" height="310" as="geometry" />
         </mxCell>
         <mxCell id="iUAJESamd2Wkv9F0l4Ig-3" value="System" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=0;collapsible=0;recursiveResize=0;outlineConnect=0;rounded=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
           <mxGeometry x="250" y="90" width="100" height="903" as="geometry" />
         </mxCell>
         <mxCell id="iUAJESamd2Wkv9F0l4Ig-4" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
-          <mxGeometry x="295" y="189" width="10" height="687" as="geometry" />
+          <mxGeometry x="295" y="189" width="10" height="311" as="geometry" />
         </mxCell>
         <mxCell id="iUAJESamd2Wkv9F0l4Ig-5" value="Database" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;rounded=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
-          <mxGeometry x="410" y="90" width="101" height="901.6" as="geometry" />
+          <mxGeometry x="410" y="90" width="124.60000000000002" height="901.6" as="geometry" />
         </mxCell>
         <mxCell id="iUAJESamd2Wkv9F0l4Ig-6" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="iUAJESamd2Wkv9F0l4Ig-5" vertex="1">
-          <mxGeometry x="45" y="105" width="10" height="679" as="geometry" />
+          <mxGeometry x="57.3" y="102" width="10" height="307" as="geometry" />
         </mxCell>
         <mxCell id="iUAJESamd2Wkv9F0l4Ig-7" value="Alternative" style="shape=umlFrame;whiteSpace=wrap;html=1;width=70;height=20;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="iUAJESamd2Wkv9F0l4Ig-5" vertex="1">
-          <mxGeometry x="-398" y="584" width="522.6" height="141" as="geometry" />
+          <mxGeometry x="-398" y="228" width="522.6" height="160" as="geometry" />
         </mxCell>
         <mxCell id="iUAJESamd2Wkv9F0l4Ig-8" value="Remove staff" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;dashed=1;" parent="iUAJESamd2Wkv9F0l4Ig-5" vertex="1">
-          <mxGeometry x="-398" y="601.9983743842365" width="254.28681078353026" height="40.80788177339902" as="geometry" />
+          <mxGeometry x="-398" y="264.9983743842365" width="254.28681078353026" height="40.80788177339902" as="geometry" />
         </mxCell>
-        <mxCell id="iUAJESamd2Wkv9F0l4Ig-9" value="Send remove &lt;br&gt;staff request" style="html=1;verticalAlign=bottom;endArrow=open;entryX=0;entryY=0;labelBackgroundColor=none;fontFamily=Verdana;fontSize=12;edgeStyle=elbowEdgeStyle;elbow=vertical;endFill=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="iUAJESamd2Wkv9F0l4Ig-5" edge="1">
+        <mxCell id="iUAJESamd2Wkv9F0l4Ig-9" value="Send remove &lt;br&gt;staff from&lt;br&gt;cafe request" style="html=1;verticalAlign=bottom;endArrow=open;entryX=0;entryY=0;labelBackgroundColor=none;fontFamily=Verdana;fontSize=12;edgeStyle=elbowEdgeStyle;elbow=vertical;endFill=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="iUAJESamd2Wkv9F0l4Ig-5" edge="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="-243.99999999999955" y="615" as="sourcePoint" />
-            <mxPoint x="-114" y="615" as="targetPoint" />
+            <mxPoint x="-243.99999999999955" y="278" as="sourcePoint" />
+            <mxPoint x="-114" y="278" as="targetPoint" />
             <Array as="points">
-              <mxPoint x="-169" y="615" />
+              <mxPoint x="-169" y="278" />
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="iUAJESamd2Wkv9F0l4Ig-10" value="Remove staff &lt;br&gt;in database" style="html=1;verticalAlign=bottom;endArrow=block;labelBackgroundColor=none;fontFamily=Verdana;fontSize=12;edgeStyle=elbowEdgeStyle;elbow=vertical;endFill=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="iUAJESamd2Wkv9F0l4Ig-5" edge="1">
+        <mxCell id="iUAJESamd2Wkv9F0l4Ig-10" value="Remove staff from cafe&lt;br&gt;in database" style="html=1;verticalAlign=bottom;endArrow=block;labelBackgroundColor=none;fontFamily=Verdana;fontSize=12;edgeStyle=elbowEdgeStyle;elbow=vertical;endFill=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="iUAJESamd2Wkv9F0l4Ig-5" edge="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="-106" y="642.9099999999999" as="sourcePoint" />
-            <mxPoint x="45" y="642.9099999999999" as="targetPoint" />
+            <mxPoint x="-106" y="305.90999999999985" as="sourcePoint" />
+            <mxPoint x="45" y="305.90999999999985" as="targetPoint" />
             <Array as="points" />
           </mxGeometry>
         </mxCell>
@@ -497,55 +488,11 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="iUAJESamd2Wkv9F0l4Ig-16" value="" style="group;fillColor=none;strokeColor=#6c8ebf;container=0;" parent="1" vertex="1" connectable="0">
-          <mxGeometry x="10.400000000000006" y="343" width="522.6" height="317.6" as="geometry" />
-        </mxCell>
         <mxCell id="iUAJESamd2Wkv9F0l4Ig-30" value="" style="line;strokeWidth=1;fillColor=#dae8fc;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;dashed=1;strokeColor=#6c8ebf;" parent="1" vertex="1">
-          <mxGeometry x="12" y="770" width="521" height="15.39" as="geometry" />
+          <mxGeometry x="12" y="433" width="521" height="15.39" as="geometry" />
         </mxCell>
         <mxCell id="iUAJESamd2Wkv9F0l4Ig-31" value="Not remove staff" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;dashed=1;" parent="1" vertex="1">
-          <mxGeometry x="12" y="774.19" width="299" height="40.81" as="geometry" />
-        </mxCell>
-        <mxCell id="iUAJESamd2Wkv9F0l4Ig-17" value="" style="line;strokeWidth=1;fillColor=#dae8fc;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;dashed=1;strokeColor=#6c8ebf;" parent="1" vertex="1">
-          <mxGeometry x="12" y="601" width="521" height="15.39" as="geometry" />
-        </mxCell>
-        <mxCell id="iUAJESamd2Wkv9F0l4Ig-18" value="Not reset &#xa;password" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;dashed=1;" parent="1" vertex="1">
-          <mxGeometry x="12" y="614" width="299" height="40.81" as="geometry" />
-        </mxCell>
-        <mxCell id="iUAJESamd2Wkv9F0l4Ig-19" value="Reset password&#xa;for staff" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;dashed=1;" parent="1" vertex="1">
-          <mxGeometry x="12" y="355.99837438423646" width="254.28681078353026" height="40.80788177339902" as="geometry" />
-        </mxCell>
-        <mxCell id="iUAJESamd2Wkv9F0l4Ig-20" value="Send new password" style="html=1;verticalAlign=bottom;endArrow=open;labelBackgroundColor=none;fontFamily=Verdana;fontSize=12;edgeStyle=elbowEdgeStyle;elbow=vertical;endFill=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" edge="1">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="167.00460351987363" y="411.9995833333335" as="sourcePoint" />
-            <mxPoint x="294" y="412" as="targetPoint" />
-            <Array as="points" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="iUAJESamd2Wkv9F0l4Ig-21" value="Save new password&amp;nbsp;&lt;br&gt;to database" style="html=1;verticalAlign=bottom;endArrow=open;labelBackgroundColor=none;fontFamily=Verdana;fontSize=12;edgeStyle=elbowEdgeStyle;elbow=vertical;endFill=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" edge="1">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="305.0046035198736" y="463.37958333333347" as="sourcePoint" />
-            <mxPoint x="456" y="463" as="targetPoint" />
-            <Array as="points" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="iUAJESamd2Wkv9F0l4Ig-22" value="Reject password" style="html=1;verticalAlign=bottom;endArrow=open;endSize=8;rounded=0;entryX=1.028;entryY=0.712;entryDx=0;entryDy=0;entryPerimeter=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" edge="1">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="294" y="565" as="sourcePoint" />
-            <mxPoint x="165.27999999999997" y="564.824" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="iUAJESamd2Wkv9F0l4Ig-23" value="" style="line;strokeWidth=1;fillColor=#dae8fc;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;dashed=1;strokeColor=#6c8ebf;" parent="1" vertex="1">
-          <mxGeometry x="48.6" y="537.6430661929365" width="429.36036624709396" height="6.150077512224179" as="geometry" />
-        </mxCell>
-        <mxCell id="iUAJESamd2Wkv9F0l4Ig-24" value="[Pasword has less&#xa;than 6 characters]" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;dashed=1;" parent="1" vertex="1">
-          <mxGeometry x="48.6" y="537.6430661929365" width="428.1122256475386" height="32.45874242562761" as="geometry" />
-        </mxCell>
-        <mxCell id="iUAJESamd2Wkv9F0l4Ig-25" value="[Password has at&#xa;least 6 characters]" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;dashed=1;" parent="1" vertex="1">
-          <mxGeometry x="48.6" y="439.4126614838004" width="440.6896424584439" height="32.45874242562761" as="geometry" />
-        </mxCell>
-        <mxCell id="iUAJESamd2Wkv9F0l4Ig-28" value="[Password is &#xa;invalid]" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="1" vertex="1">
-          <mxGeometry x="59.75890376436081" y="386.99657181707704" width="397.42709163346603" height="37.00046633370645" as="geometry" />
+          <mxGeometry x="12" y="437.19000000000005" width="299" height="40.81" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
