@@ -215,6 +215,7 @@ namespace CSWBManagementApplication.ViewModels
         public CafeStatisticViewModel(Cafe cafe)
         {
             this.cafe = cafe;
+            cafe.OnCafeManagerChanged += Cafe_OnCafeManagerChanged;
             FilterType = 0;
             Address = cafe.Address;
             initiallized = false;
@@ -246,7 +247,30 @@ namespace CSWBManagementApplication.ViewModels
         {
             staffs = (await Database.GetAllStaffsAsync()).ToList();
             products = (await Database.GetAllProductsAsync()).ToList();
-            initiallized = true;          
+            Staff manager = await Database.GetStaff(await Database.FindManagerAsync(cafe.CafeID));
+            if (manager != null)
+            {
+                ManagerName = manager.Name;
+            }
+            else
+            {
+                ManagerName = "No manager";
+            }
+            initiallized = true;
+            
+        }
+
+        private async void Cafe_OnCafeManagerChanged(object sender, System.EventArgs e)
+        {
+            Staff manager = await Database.GetStaff(await Database.FindManagerAsync(cafe.CafeID));
+            if (manager != null)
+            {
+                ManagerName = manager.Name;
+            }
+            else
+            {
+                ManagerName = "No manager";
+            }
         }
 
         #region Datetime
@@ -476,6 +500,17 @@ namespace CSWBManagementApplication.ViewModels
             get => IsMonthEnabled && IsToEnabled;
         }
         #endregion
+
+        private string managerName;
+        public string ManagerName
+        {
+            get => managerName;
+            set
+            {
+                managerName = value;
+                OnPropertyChanged();
+            }
+        }
 
         #region Address
 

@@ -491,7 +491,7 @@
                                     VerticalAlignment="Center"
                                     FontSize="17"
                                     Foreground="{DynamicResource TextColorDarkerGray}"
-                                    Text="Huynh Duy Khang " />
+                                    Text="{Binding ManagerName,Mode=OneWay}" />
 
                             </StackPanel>
                         </Grid>

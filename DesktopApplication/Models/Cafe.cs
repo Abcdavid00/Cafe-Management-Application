@@ -387,6 +387,7 @@ namespace CSWBManagementApplication.Models
                 {
                     await GetCafeStaffsInfo();
                 }
+                OnCafeManagerChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 
