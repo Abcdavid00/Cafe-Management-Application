@@ -3,6 +3,7 @@ using CSWBManagementApplication.Services;
 using Firebase.Auth;
 using MaterialDesignThemes.Wpf;
 using System;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -20,7 +21,7 @@ namespace CSWBManagementApplication.ViewModels
 
         public ICommand LoginCommand
         {
-            get => new RelayCommand<PasswordBox>(Login);
+            get => new RelayCommand<PasswordBox>(OnLoginButtonClicked);
         }
 
         public ICommand CreateAccountCommand
@@ -115,7 +116,13 @@ namespace CSWBManagementApplication.ViewModels
             LoginViewSnackbarMessageQueue.Enqueue("Password reset email has just been sent");
         }
 
-        public async void Login(PasswordBox passwordBox)
+        private async void OnLoginButtonClicked(PasswordBox passwordBox)
+        {
+            string result = await Login(passwordBox);
+            Console.WriteLine(result);
+        }
+
+        public async Task<string> Login(PasswordBox passwordBox)
         {
             if (userLink == null)
             {
@@ -125,8 +132,9 @@ namespace CSWBManagementApplication.ViewModels
                 }
                 catch (Exception e)
                 {
-                    LoginViewSnackbarMessageQueue.Enqueue("Email or password is incorrect");
-                    return;
+                    string error = "Email or password is incorrect";
+                    LoginViewSnackbarMessageQueue.Enqueue(error);
+                    return error;
                 }
             }
             if (!userLink.User.IsEmailVerified)
@@ -135,11 +143,12 @@ namespace CSWBManagementApplication.ViewModels
                 WaitForVerification();
                 LoginViewSnackbarMessageQueue.Enqueue("This account email has been verified");
                 LoginViewSnackbarMessageQueue.Enqueue("A verification mail has been sent to your email");
-                return;
+                return "This account email has been verified";
             }
             mainViewModel.UserLink = userLink;
             Email = "";
             passwordBox.Password = "";
+            return "User with email \"" + userLink.User.Email + "\" has just logged in!";
         }
 
         public async void WaitForVerification()

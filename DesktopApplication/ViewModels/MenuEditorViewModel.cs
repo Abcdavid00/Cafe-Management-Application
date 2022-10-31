@@ -145,7 +145,7 @@ namespace CSWBManagementApplication.ViewModels
             
         }
 
-        private void OnCategoryClick(CategoryViewModel category)
+        private string OnCategoryClick(CategoryViewModel category)
         {
             if (CurrentCategory != null)
             {
@@ -153,6 +153,7 @@ namespace CSWBManagementApplication.ViewModels
             }
             CurrentCategory = category;
             CurrentCategory.Activated = true;
+            return category.Name;
         }
 
         private void OnProductEditClick(ProductViewModel product)
