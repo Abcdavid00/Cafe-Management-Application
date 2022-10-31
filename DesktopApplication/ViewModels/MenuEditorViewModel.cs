@@ -4,9 +4,12 @@ using CSWBManagementApplication.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Drawing;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media.Animation;
 
 namespace CSWBManagementApplication.ViewModels
 {
@@ -205,24 +208,39 @@ namespace CSWBManagementApplication.ViewModels
 
         public ICommand AddProductCommand
         {
-            get => new CommandBase(CreateNewProduct);
+            get => new CommandBase(AddProduct);
         }
 
-        private async void CreateNewProduct()
+        private async void AddProduct()
         {
-            await Database.CreateProductAsync("New Product");
+            string result = await CreateNewProduct();
+            Console.WriteLine(result);
             RefreshUnassignedProducts();
         }
 
-        public ICommand AddCategoryCommand
+        private async Task<string> CreateNewProduct()
         {
-            get => new CommandBase(CreateNewCategory);
+            await Database.CreateProductAsync("New Product");
+            return "New Product has just been created";
         }
 
-        private async void CreateNewCategory()
+
+        public ICommand AddCategoryCommand
+        {
+            get => new CommandBase(AddCategory);
+        }
+
+        private async void AddCategory()
+        {
+            string r = await CreateNewCategory();
+            Console.WriteLine(r);
+            RefreshCategories();
+        }
+
+        private async Task<string> CreateNewCategory()
         {
             await Database.CreateCategoryAsync("New Category");
-            RefreshCategories();
+            return "New Category has just been created";
         }
 
         public Visibility RemoveCategoryButtonVisibility
@@ -296,11 +314,18 @@ namespace CSWBManagementApplication.ViewModels
         {
             get => new CommandBase(() =>
             {
-                if (Initiallized && CurrentCategory != null && CurrentCategoryName != CurrentCategory.Category.Name)
-                {
-                    CurrentCategory.Category.UpdateCategoryName(CurrentCategoryName);
-                }
+                Console.WriteLine(SaveCategoryName());
             });
+        }
+
+        public string SaveCategoryName()
+        {
+            if (Initiallized && CurrentCategory != null && CurrentCategoryName != CurrentCategory.Category.Name)
+            {
+                CurrentCategory.Category.UpdateCategoryName(CurrentCategoryName);
+                return "Category name has been changed to: " + CurrentCategoryName;
+            }
+            return "Category name is failed to save";
         }
 
         
@@ -320,20 +345,26 @@ namespace CSWBManagementApplication.ViewModels
         {
             get => new CommandBase(() =>
             {
-                if (!int.TryParse(CurrentProductSPrice, out int sprice))
-                {
-                    return;
-                }
-                if (!int.TryParse(CurrentProductMPrice, out int mprice))
-                {
-                    return;
-                }
-                if (!int.TryParse(CurrentProductLPrice, out int lprice))
-                {
-                    return;
-                }
-                CurrentProduct.Product.UpdateProductInfo(CurrentProductName, sprice, mprice, lprice);
+                Console.WriteLine(SaveProductDetails());
             });
+        }
+
+        public string SaveProductDetails()
+        {
+            if (!int.TryParse(CurrentProductSPrice, out int sprice))
+            {
+                return "Small size price is invalid";
+            }
+            if (!int.TryParse(CurrentProductMPrice, out int mprice))
+            {
+                return "Medium size price is invalid";
+            }
+            if (!int.TryParse(CurrentProductLPrice, out int lprice))
+            {
+                return "Large size price is invalid";
+            }
+            CurrentProduct.Product.UpdateProductInfo(CurrentProductName, sprice, mprice, lprice);
+            return "Product details save successfully";
         }
 
         private string currentProductName;
