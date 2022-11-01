@@ -141,7 +141,7 @@ namespace CSWBManagementApplication.ViewModels
             {
                 await Database.SendVerifyMail(userLink);
                 WaitForVerification();
-                LoginViewSnackbarMessageQueue.Enqueue("This account email has been verified");
+                LoginViewSnackbarMessageQueue.Enqueue("This account email hasn't been verified");
                 LoginViewSnackbarMessageQueue.Enqueue("A verification mail has been sent to your email");
                 return "This account email has been verified";
             }
