@@ -345,26 +345,45 @@ namespace CSWBManagementApplication.ViewModels
         {
             get => new CommandBase(() =>
             {
-                Console.WriteLine(SaveProductDetails());
+                if (IsProductPricesValid())
+                {
+                    int sprice = int.Parse(CurrentProductSPrice);
+                    int mprice = int.Parse(CurrentProductMPrice);
+                    int lprice = int.Parse(CurrentProductLPrice);
+                    CurrentProduct.Product.UpdateProductInfo(CurrentProductName, sprice, mprice, lprice);
+                }
             });
         }
 
-        public string SaveProductDetails()
+        public bool IsProductPricesValid()
         {
             if (!int.TryParse(CurrentProductSPrice, out int sprice))
             {
-                return "Small size price is invalid";
+                return false;
             }
+            if (sprice < 0)
+            {
+                return false;
+            }
+
             if (!int.TryParse(CurrentProductMPrice, out int mprice))
             {
-                return "Medium size price is invalid";
+                return false;
             }
+            if (mprice < 0)
+            {
+                return false;
+            }
+            
             if (!int.TryParse(CurrentProductLPrice, out int lprice))
             {
-                return "Large size price is invalid";
+                return false;
             }
-            CurrentProduct.Product.UpdateProductInfo(CurrentProductName, sprice, mprice, lprice);
-            return "Product details save successfully";
+            if (lprice < 0)
+            {
+                return false;
+            }
+            return true;
         }
 
         private string currentProductName;

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using System.Text.RegularExpressions;
+using System.Collections.Generic;
 
 namespace CSWBManagementApplication.Service
 {
@@ -100,6 +102,72 @@ namespace CSWBManagementApplication.Service
         public static long MaxYear(DateTime dateTime)
         {
             return new DateTime(dateTime.Year, 12, 31, 23, 59, 59).ToBinary();
+        }
+
+        public static bool CheckPhoneNumber(string phoneNumber)
+        {
+            foreach (char c in phoneNumber)
+            {
+                if (c < '0' || c > '9') return false;
+            }
+            if (phoneNumber.Length != 10)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public static bool IsEmailValid(string email)
+        {
+            int firstAtIndex = email.IndexOf('@');
+            if (firstAtIndex < 1) return false;
+
+            string name = email.Substring(0, firstAtIndex);
+            string domain = email.Substring(firstAtIndex + 1);
+
+            foreach (char c in name)
+            {
+                if (!char.IsLetterOrDigit(c) && c != '.' && c != '_') return false;
+            }
+
+            int firstDomainDotIndex = domain.IndexOf('.');
+            if (firstDomainDotIndex < 1) return false;
+
+            string domainName = domain.Substring(0, firstDomainDotIndex);
+            string domainExtension = domain.Substring(firstDomainDotIndex + 1);
+
+            foreach (char c in domainName)
+            {
+                if (!char.IsLetterOrDigit(c)) return false;
+            }
+
+            if (domainExtension.Length < 2 || domainExtension.Length > 4) return false;
+
+            foreach (char c in domainExtension)
+            {
+                if (!char.IsLetter(c)) return false;
+            }
+
+            return true;
+
+        }
+
+        public static bool IsPhoneNumberValid(string phoneNumber)
+        {
+            if (phoneNumber.Length != 10) return false;
+
+            foreach (char c in phoneNumber)
+            {
+                if (!char.IsDigit(c)) return false;
+            }
+
+            string areaCode = phoneNumber.Substring(0, 2);
+
+            List<string> validAreaCode = new List<string> { "03", "05", "07", "08", "09" };
+
+            if (!validAreaCode.Contains(areaCode)) return false;
+
+            return true;
         }
 
         public class SolidColorPulsar

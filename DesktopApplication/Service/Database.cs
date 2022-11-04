@@ -973,7 +973,14 @@ namespace CSWBManagementApplication.Services
 
         public static async Task SendResetPasswordMail(string mail)
         {
-            await AuthProvider.SendPasswordResetEmailAsync(mail);
+            try
+            {
+                await AuthProvider.SendPasswordResetEmailAsync(mail);
+            } catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+            
         }
 
         public static async Task DeleteUserByMail(string mail)

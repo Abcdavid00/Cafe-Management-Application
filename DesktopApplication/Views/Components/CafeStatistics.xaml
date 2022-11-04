@@ -370,7 +370,7 @@
                             Foreground="White"
                             IsEnabled="{Binding IsToEnabled, Mode=OneWay}"
                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                            Text="{Binding FYearString, UpdateSourceTrigger=PropertyChanged}" />
+                            Text="{Binding TYearString, UpdateSourceTrigger=PropertyChanged}" />
 
                         <Button
                             Grid.Row="7"
