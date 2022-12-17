@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace CSWBManagementApplication.Service
 {
-    internal sealed class MiscFunctions
+    public sealed class MiscFunctions
     {
         /// <summary>
         /// This function cap the value to min and max
@@ -102,6 +102,37 @@ namespace CSWBManagementApplication.Service
         public static long MaxYear(DateTime dateTime)
         {
             return new DateTime(dateTime.Year, 12, 31, 23, 59, 59).ToBinary();
+        }
+
+        public static bool IsProductPricesValid(string sPrice, string mPrice, string lPrice)
+        {
+            if (!int.TryParse(sPrice, out int sprice))
+            {
+                return false;
+            }
+            if (sprice < 0)
+            {
+                return false;
+            }
+
+            if (!int.TryParse(mPrice, out int mprice))
+            {
+                return false;
+            }
+            if (mprice < 0)
+            {
+                return false;
+            }
+
+            if (!int.TryParse(lPrice, out int lprice))
+            {
+                return false;
+            }
+            if (lprice < 0)
+            {
+                return false;
+            }
+            return true;
         }
 
         public static bool CheckPhoneNumber(string phoneNumber)

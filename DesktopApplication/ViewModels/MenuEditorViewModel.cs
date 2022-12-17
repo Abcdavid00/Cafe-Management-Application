@@ -1,5 +1,6 @@
 ﻿using CSWBManagementApplication.Commands;
 using CSWBManagementApplication.Models;
+using CSWBManagementApplication.Service;
 using CSWBManagementApplication.Services;
 using System;
 using System.Collections.Generic;
@@ -345,7 +346,7 @@ namespace CSWBManagementApplication.ViewModels
         {
             get => new CommandBase(() =>
             {
-                if (IsProductPricesValid())
+                if (MiscFunctions.IsProductPricesValid(CurrentProductSPrice, CurrentProductMPrice, CurrentProductLPrice))
                 {
                     int sprice = int.Parse(CurrentProductSPrice);
                     int mprice = int.Parse(CurrentProductMPrice);
@@ -353,37 +354,6 @@ namespace CSWBManagementApplication.ViewModels
                     CurrentProduct.Product.UpdateProductInfo(CurrentProductName, sprice, mprice, lprice);
                 }
             });
-        }
-
-        public bool IsProductPricesValid()
-        {
-            if (!int.TryParse(CurrentProductSPrice, out int sprice))
-            {
-                return false;
-            }
-            if (sprice < 0)
-            {
-                return false;
-            }
-
-            if (!int.TryParse(CurrentProductMPrice, out int mprice))
-            {
-                return false;
-            }
-            if (mprice < 0)
-            {
-                return false;
-            }
-            
-            if (!int.TryParse(CurrentProductLPrice, out int lprice))
-            {
-                return false;
-            }
-            if (lprice < 0)
-            {
-                return false;
-            }
-            return true;
         }
 
         private string currentProductName;
