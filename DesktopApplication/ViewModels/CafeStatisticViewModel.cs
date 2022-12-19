@@ -527,8 +527,13 @@ namespace CSWBManagementApplication.ViewModels
 
         public ICommand SaveAddressCommand => new CommandBase(() =>
         {
-            cafe.ChangeAddress(Address);
+            SaveAddress();
         });
+
+        private void SaveAddress()
+        {
+            cafe.ChangeAddress(Address);
+        }
 
         public ICommand DiscardAddressCommand => new CommandBase(() =>
         {
@@ -610,10 +615,13 @@ namespace CSWBManagementApplication.ViewModels
             TotalOrders = orders.Count;
             HistoryOrders?.Clear();
 
-            HistoryOrders = new ObservableCollection<HistoryOrderViewModel>(orders.Select(o => new HistoryOrderViewModel(o, GetStaffName(o.StaffID), new CommandBase(() => { OrderDetails.Update(o,GetStaffName(o.StaffID)); }))));
+            HistoryOrders = new ObservableCollection<HistoryOrderViewModel>(orders.Select(o => new HistoryOrderViewModel(o, GetStaffName(o.StaffID), new CommandBase(() => DisplayOrderDetails(o)))));
         }
         
-        
+        private void DisplayOrderDetails(Order order)
+        {
+            OrderDetails.Update(order, GetStaffName(order.StaffID));
+        }
         
         #endregion
 

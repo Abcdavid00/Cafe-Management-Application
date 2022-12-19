@@ -43,13 +43,15 @@ namespace CSWBManagementApplication.ViewModels
 
         public ICommand AddCommand
         {
-            get => new CommandBase(() =>
+            get => new CommandBase(AddStaffToDestinationCafe);
+        }
+
+        private void AddStaffToDestinationCafe()
+        {
+            if (string.IsNullOrEmpty(staff.CafeID))
             {
-                if (string.IsNullOrEmpty(staff.CafeID))
-                {
-                    destinationCafe.AddStaff(staff);
-                }
-            });
+                destinationCafe.AddStaff(staff);
+            }
         }
 
         private Cafe destinationCafe;

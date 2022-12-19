@@ -98,12 +98,17 @@ namespace CSWBManagementApplication.ViewModels
 
         public ICommand SaveCommand => new CommandBase(()=> 
         {
+            SaveChanges();
+        });
+
+        public void SaveChanges()
+        {
             staff.Name = Name;
             staff.Birthdate = Birthdate;
             staff.IsMale = IsMale;
             staff.Phone = Phone;
             staff.UpdateInfo();
-        });
+        }
 
         public ICommand DiscardCommand => new CommandBase(()=>
         {

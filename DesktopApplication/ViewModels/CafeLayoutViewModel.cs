@@ -13,7 +13,6 @@ namespace CSWBManagementApplication.ViewModels
     internal class CafeLayoutViewModel : ViewModelBase
     {
 
-
         private bool editted;
 
         public event EventHandler<bool> OnEdittedChange;
@@ -203,38 +202,42 @@ namespace CSWBManagementApplication.ViewModels
 
         private void ClipboardFloor_OnClick(object sender, List<Position> e)
         {
-            Paste(e);
+            PasteLayout(e);
         }
 
         #region Command
 
         public ICommand AddFloorCommand
         {
-            get => new CommandBase(() =>
-            {
-                Floors.Add(new Floor(Floors.Count + 1, ""));
-                Editted = true;
-                Floors.Sort((f1, f2) => (f2.FloorNumber.CompareTo(f1.FloorNumber)));
-                UpdateFloorLayoutsList();
-            });
+            get => new CommandBase(AddFloor);
+        }
+
+        private void AddFloor()
+        {
+            Floors.Add(new Floor(Floors.Count + 1, ""));
+            Editted = true;
+            Floors.Sort((f1, f2) => (f2.FloorNumber.CompareTo(f1.FloorNumber)));
+            UpdateFloorLayoutsList();
         }
 
         public ICommand RemoveFloorCommand
         {
-            get => new CommandBase(() =>
+            get => new CommandBase(RemoveFloor);
+        }
+
+        private void RemoveFloor()
+        {
+            if (CurrentFloor > 0 && CurrentFloor <= Floors.Count)
             {
-                if (CurrentFloor > 0 && CurrentFloor <= Floors.Count)
+                int index = Floors.Count - CurrentFloor;
+                Floors.RemoveAt(index);
+                for (int i = index - 1; i >= 0; i--)
                 {
-                    int index = Floors.Count - CurrentFloor;
-                    Floors.RemoveAt(index);
-                    for (int i = index - 1; i >= 0; i--)
-                    {
-                        Floors[i].FloorNumber--;
-                    }
-                    Editted = true;
-                    UpdateFloorLayoutsList();
+                    Floors[i].FloorNumber--;
                 }
-            });
+                Editted = true;
+                UpdateFloorLayoutsList();
+            }
         }
 
         public ICommand ClearTableCommand
@@ -248,15 +251,17 @@ namespace CSWBManagementApplication.ViewModels
 
         public ICommand CopyCommand
         {
-            get => new CommandBase(() =>
+            get => new CommandBase(CopyLayout);
+        }
+
+        private void CopyLayout()
+        {
+            if (CurrentFloor > 0 && CurrentFloor <= Floors.Count)
             {
-                if (CurrentFloor > 0 && CurrentFloor <= Floors.Count)
-                {
-                    FloorsClipboard.Add(new ViewOnlyFloorLayoutViewModel(Floors[CurrentFloorIndex].Tables));
-                    FloorsClipboard.Last().OnClick += ClipboardFloor_OnClick;
-                    OnPropertyChanged(nameof(FloorsClipboard));
-                }
-            });
+                FloorsClipboard.Add(new ViewOnlyFloorLayoutViewModel(Floors[CurrentFloorIndex].Tables));
+                FloorsClipboard.Last().OnClick += ClipboardFloor_OnClick;
+                OnPropertyChanged(nameof(FloorsClipboard));
+            }
         }
 
         public ICommand ClearClipboardCommand
@@ -267,7 +272,7 @@ namespace CSWBManagementApplication.ViewModels
             });
         }
 
-        public void Paste(List<Position> tables)
+        public void PasteLayout(List<Position> tables)
         {
             if (CurrentFloor > 0 && CurrentFloor <= Floors.Count)
             {
@@ -286,11 +291,11 @@ namespace CSWBManagementApplication.ViewModels
         {
             get => new CommandBase(() =>
             {
-                Save();
+                SaveLayout();
             });
         }
 
-        public void Save()
+        public void SaveLayout()
         {
             if (!Editted)
             {
@@ -303,11 +308,13 @@ namespace CSWBManagementApplication.ViewModels
 
         public ICommand DiscardCommand
         {
-            get => new CommandBase(() =>
-            {
-                UpdateFloorsList();
-                Editted = false;
-            });
+            get => new CommandBase(DiscardChanges);
+        }
+
+        private void DiscardChanges()
+        {
+            UpdateFloorsList();
+            Editted = false;
         }
 
         #endregion Command

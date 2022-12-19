@@ -346,14 +346,16 @@ namespace CSWBManagementApplication.ViewModels
 
         public ICommand RemoveStaffCommand
         {
-            get => new CommandBase(() =>
+            get => new CommandBase(RemoveStaffFromCafe);
+        }
+
+        private void RemoveStaffFromCafe()
+        {
+            if (IsViewingStaffDetails && !StaffDetailsViewModel.IsPlaceholder && !StaffDetailsViewModel.IsEmpty)
             {
-                if (IsViewingStaffDetails && !StaffDetailsViewModel.IsPlaceholder && !StaffDetailsViewModel.IsEmpty)
-                {
-                    cafe.RemoveStaff(StaffDetailsViewModel.Staff);
-                    this.StaffDetailsViewModel.Clear();
-                }
-            });
+                cafe.RemoveStaff(StaffDetailsViewModel.Staff);
+                this.StaffDetailsViewModel.Clear();
+            }
         }
 
         public ICommand RemoveStaffPlaceholderCommand
@@ -370,15 +372,16 @@ namespace CSWBManagementApplication.ViewModels
 
         public ICommand MakeManagerCommand
         {
-            get => new CommandBase(() =>
-            {
-                if (IsViewingStaffDetails && !StaffDetailsViewModel.IsPlaceholder && !StaffDetailsViewModel.IsManager && privilege is Privilege.Owner)
-                {
-                    cafe.SetManager(StaffDetailsViewModel.Staff);
-                }
-            });
+            get => new CommandBase(MakeManager);
         }
 
+        private void MakeManager()
+        {
+            if (IsViewingStaffDetails && !StaffDetailsViewModel.IsPlaceholder && !StaffDetailsViewModel.IsManager && privilege is Privilege.Owner)
+            {
+                cafe.SetManager(StaffDetailsViewModel.Staff);
+            }
+        }
 
     }
 }
